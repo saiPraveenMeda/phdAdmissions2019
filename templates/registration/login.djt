@@ -1,0 +1,144 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Portal</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- <div id="title" align="center"> -->
+	
+		<!-- <div style="float:left;" align="center"> -->
+	
+		<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:#003A6A;" height="110px" width="100%px" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Andhra Pradesh"/></a></center>
+		<!-- </div> -->
+	<!-- </div> -->
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Faculty Recruitment Portal</h2></center>
+	<br>
+</div>
+
+<div class="container">
+	<div class="row" style="margin-top:3%;">
+		<div class="col-sm-8">
+			<div class="well well-lg">
+				<center><h2 style="margin-top:0px;"><span class="label label-primary">NIT Andhra Pradesh</span></h2></center>
+				<br>
+
+				<b>
+				<p>
+					National Institute of Technology Andhra Pradesh (NIT-AP), an institute of national importance, is a new NIT established by the Government of India during the academic year 2015-16. The Institute is presently functioning from a temporary campus at Sri Vasavi Engineering College, Tadepalligudem.  A full-fledged permanent campus will come up in the 172 acres of land allotted to the NIT near Tadepaliigudem , West Godavari District, Andhra Pradesh. Construction of the permanent campus will start soon.
+				</p>
+				<p>
+					NIT-AP is advantageously located in the new State of Andhra Pradesh, with various infrastructural developmental activities going on such as construction of the new Capital City, Irrigation Projects,  Industrial corridors and other infrastructural projects, which will  provide a number of opportunities for the students and faculty to grow professionally. Added to this, the Institute, being in the initial stages, will provide significant challenges during its establishment that will give life-long satisfaction for those who take part in its development.
+				</p>
+				<p>
+					The Institute is looking for motivated and dynamic personnel with passion for "Teaching and Research" and zeal to "excel in professional career", for filling up faculty positions in the various departments at different levels.
+				</p>
+				<p style="color:red;">
+					<u><b>Note</b> : Please use Google Chrome for filling the application.</u> 
+				</p>
+				</b>
+				<br>
+				<hr>
+				<center><b><h4 style="color:red;">Important Links</h4></b></center>
+				<hr>
+				<ul>
+					<li>
+						<a href="{% static 'main/General_Instructions_NIT__AP.pdf' %}"><b>General Instructions</b></a>
+					</li>
+					<br>
+					<li>
+						<a href="{% static 'main/Gazette_Notification_MHRD_NIT2017_28836.pdf' %}"><b>Gazette of India Dated July 24,2017</b></a>
+					</li>
+                                        <br>
+					<li>
+						<a href="{% static 'main/Qualification_Criteria_and_Credir_Rules.pdf' %}"><b>Qualification and Credit Rules</b></a>
+					</li>
+					<br>
+					<li>
+						<a href="{% static 'main/Essential_Qualification_v2.pdf' %}"><b>Essential Qualification</b></a>
+					</li>
+                                        <br>
+					<li>
+						<a href="{% static 'main/Faculty Recruitment-Proposed Distribution-Sept-2017.pdf' %}"><b>Proposed Distribution of Faculty Positions</b></a>
+					</li>
+                                        
+				</ul>
+			</div>
+			
+		</div>
+		<div class="col-sm-4">
+			<div class="row" style="margin-top:3%;">
+				<div class="col-sm-12">
+					<div class="alert alert-info">
+					<center><b>Your ApplicationID is your Username.</b></center>
+					</div>
+				</div>
+			</div>
+			<div class="well well-lg">
+				<form method="POST" action="/register/signin/">
+				{% csrf_token %}
+					<div class="form-group">
+						<label for="firstName">Username</label>
+						<input for="firstName" class="form-control" name="username">
+					</div>
+					<div class="form-group">
+						<label for="lastName">Password</label>
+						<input for="lastName" class="form-control" name="password" type="password">
+					</div>
+
+					<center><button type="submit" class="btn btn-success btn-lg">Login</button></center>
+				</form>
+				<br>
+				<center><a href="/register/signup">New User Registration</a></center>
+				<br>
+				<center><a href="/register/forgotPassword">Forgot Password</a></center>
+			</div>
+			<div class="well well-lg">
+				<center>
+				<b><h4 style="color:red;">Contact : </h4></b>
+			 9 AM to 5 PM <br><br>	
+				<b style="color:blue;">Technical Queries :</b><br> 
+				<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+				&nbsp +91-8702462291<br><br>
+				<b style="color:blue;">Technical Support </b><br> 
+				<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp support_recruit17@nitw.ac.in
+				</center>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+	
+</body>
+
+<style type="text/css">
+	.copyright {
+	  background-color: #003A6A;
+	  color: white;
+	}
+</style>
+
+</html>

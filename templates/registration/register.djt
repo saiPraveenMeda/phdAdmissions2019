@@ -1,0 +1,137 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+	<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:#003A6A;" height="110px" width="100%px" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Andhra Pradesh"/></a></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Registration</h2></center>
+	<br>
+</div>
+
+<div class="container">
+	{% if error %}
+	<div class="row" style="margin-top:2%">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div class="alert alert-danger alert-dismissable">
+			  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			  <strong>{{error}}</strong>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+
+	<div class="row" style="margin-top:3%;">
+		<div class="col-sm-4">
+			<div class="well well-lg">
+				<center><h3><b>Important</b></h3>
+				Payment needs to be done before Registration, as Transaction ID of payment is needed for registration.<br><br>
+
+				<b style="color:blue;">Bank Details :</b><br>
+					Institute Bank Account No.52109375198<br>
+					State Bank of India<br>
+					NIT Warangal Branch​<br>
+					IFSC code:SBIN0020149​<br>
+					Swift Code:​ ​SBHYINBB018<br>​
+					MICR​ ​Code:​ ​506002030
+
+				<br>
+				<br>
+				<b>Fee Amount :</b><br>
+				General/OBC : Rs.1000<br>
+				SC/ST/PWD : Rs.500<br>
+				Candidates applying from abroad : $25  
+
+				<br><br>
+				<b style="color:red;">Note :</b> Keep Transaction Receipt ready for uploading. Once you login after registration, you will have to upload it.
+				</center>
+			</div>
+		</div>
+
+		<div class="col-sm-6 col-sm-offset-1">
+			<div class="well well-lg">
+				<form method="POST" action="/register/createApp/">
+				{% csrf_token %}
+					<div class="form-group">
+						<label for="firstName">First Name</label>
+						<input for="firstName" class="form-control" name="firstName" required>
+					</div>
+					<div class="form-group">
+						<label for="lastName">Last Name (Surname)</label>
+						<input for="lastName" class="form-control" name="lastName" required>
+					</div>
+					<div class="form-group">
+						<label for="email">Email-ID</label>
+						<input for="email" class="form-control" name="email" type="email" required>
+					</div>
+					<div class="form-group">
+						<label for="contact">Phone Number</label>
+						<input for="contact" class="form-control" name="contact" required>
+					</div>
+					<div class="form-group">
+						<label for="password1">Password</label>
+						<input for="password1" class="form-control" name="password1" type="password" required>
+					</div>
+					<div class="form-group">
+						<label for="password2">Confirm Password</label>
+						<input for="password2" class="form-control" name="password2" type="password" required>
+					</div>
+					<div class="form-group">
+					  <label for="post">Applying for the POST of</label>
+					  <select class="form-control" name="post">
+					  	<option>----</option>
+					    {% for post in posts %}
+					    <option value="{{post.postID}}">{{post.name}}</option>
+					    {% endfor %}
+					  </select>
+					</div>
+					<div class="form-group">
+					  <label for="dept">Applying in the Department</label>
+					  <select class="form-control" name="dept">
+					  	<option>----</option>
+					    {% for dept in depts %}
+					    <option value="{{dept.deptID}}">{{dept.name}}</option>
+					    {% endfor %}
+					  </select>
+					</div>
+					<div class="form-group">
+						<label for="transID">Payment Transcation Number</label>
+						<input for="transID" class="form-control" name="transID" type="text" required>
+					</div>
+
+					<center><button type="submit" class="btn btn-success btn-lg">Submit</button></center>
+				</form>
+					<center><a href="/register/">Or login</a></center>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+	
+</body>
+
+<style type="text/css">
+	.copyright {
+	  background-color: #003A6A;
+	  color: white;
+	}
+</style>
+
+</html>

@@ -1,0 +1,998 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Faculty Recruitment Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:#003A6A;" height="110px" width="100%px" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Andhra Pradesh"/></a></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Faculty Recruitment Form</h2></center>	
+	<br>
+</div>
+<div class="row" style="margin-top:2%;">
+	<div class="col-sm-1 col-sm-offset-10">
+		<a href="/register/signout"><button class="btn btn-primary">Logout</button></a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-offset-2 col-sm-8">
+		<div class="alert alert-info">
+		<b>
+			<ol>
+			<h3><u>Instructions to fill the form</u><br> (Kindly follow these for avoiding any inconvenience)</h3>
+				<li>Upload your picture first before proceeding to fill the form.  <span class="label label-danger">Important</span></li>
+				<li>After uploading the picture, you can proceed to fill the form.</li>
+				<li>
+					Keep these points in mind while filling the form :
+					<ol>
+						<li>Fill all the details (required) at once on a page and save it using the save button given at the bottom of the page, else filled data will not be saved and get lost on coming back. <span class="label label-danger">Important</span></li>
+						<li>You can modify the data after saving</li>
+						<li>Go to next part of the form using next button at the bottom of page.</li>
+						<li>On Second page of the form, First fill the Annexures (whichever applicable) attached to parts of form and then proceed to fill details on the page and save.
+						 on second page and submit them.
+							<ol>
+								<li>When submitting the annexures, it is mandatory to upload the pdf of supporting documents (like certificates,etc.)</li>
+								<li>All the documents related to a annexure should be merged into single pdf and then you should upload it as a single file.  <span class="label label-danger">Important</span></li>
+								<li>
+									In case of Journal papers, only first pages of each journal should be scanned and merged.  <span class="label label-danger">Important</span>
+								</li>
+							</ol>
+						</li>
+						<br>
+						<li>After filling and saving all the three pages of the form, your application details will be completed.</li>
+						<li>Upload Your Resume using link given in the end.</li>
+						<li>You can print your Application form and Annexures from Summary Page.</li>
+					</ol>
+					<br>
+					<b style="color:red;">Annexures once filled get freezed on Submit and can't be edited. You will have to refresh it and fill that again in case of any changes. Data to be filled carefully.</b>
+				</li>
+			</ol>
+		</b>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+		<form style="margin-top:3%;" method="post" action="/">
+		{% csrf_token %}
+		<div class="row">
+			<center>
+			<h3><u> Application Form for Faculty Position</u></h3>
+			<h3><u>Application ID : {{profile.applicationID}}</u></h3>
+			</center><br>
+		</div>
+
+		<!-- ////////////////// Part1 ///////////////// -->
+		<div id="part1">
+
+			<div class="well well-lg">
+
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="row">
+						<div class="col-sm-4"> <b>Application for the Post of</b> </div>
+						<div class="col-sm-6">
+							<div class="form-group" style="font-size:18px;">
+								<b><u>{{profile.postApplied}}</u></b>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4"> <b>In the Department of </b> </div>
+						<div class="col-sm-6">
+							<div class="form-group" style="font-size:18px;">
+								<b><u>{{profile.departmentApplied}}</u></b>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4"> <b>AGP </b> </div>
+						<div class="col-sm-6">
+							<div class="form-group">
+							{% ifequal postID 1 %}
+								<div class="checkbox-inline">
+								  <label><input type="checkbox" name="agp1" {% ifequal agp1 1 %} checked {% endifequal %} >6000</label>
+								</div>
+								<div class="checkbox-inline">
+								  <label><input type="checkbox" name="agp2" {% ifequal agp2 1 %} checked {% endifequal %}>7000</label>
+								</div>
+								<div class="checkbox-inline">
+								  <label><input type="checkbox" name="agp3" {% ifequal agp3 1 %} checked {% endifequal %}>8000</label>
+								</div>
+							{% endifequal %}
+							</div>
+							{% ifequal postID 2 %}
+								<b>9500</b>
+							{% endifequal %}
+							{% ifequal postID 3 %}
+								<b>10500</b>
+							{% endifequal %}
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4"> <b>Specialization</b> </div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input class="form-control" type="text" name="specialization" value="{{specialization}}" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4"> <b>Name in Full (In Block Letters)</b> </div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input class="form-control" type="text" name="Name" value="{{generalData.full_name}}" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4"> <b>Gender</b> </div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="radio-inline"><input type="radio" value="Male" name="gender" {% ifequal generalData.gender 'Male' %} checked {% endifequal %}>Male</label>
+								<label class="radio-inline"><input type="radio" value="Female" name="gender" {% ifequal generalData.gender 'Female' %} checked {% endifequal %}>Female</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+				<center>
+					{% if profile.profilePic %}
+					<img src="{{profile.profilePic.url}}" class="img-rounded" style="height:150px; max-width:90%;">
+					{% else %}
+					<img src="{% static 'img/default_profile.jpg' %}" class="img-rounded" style="height:150px; max-width:90%;">
+					{% endif %}
+					<br><br>
+					<a href="/register/uploadpic">
+						<button class="btn btn-info" type="button">Upload Picture</button>
+					</a>
+				</center>
+				</div>
+
+			</div>
+			<!-- -->
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Father's Name</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="text" name="fatherName" value="{{generalData.father_name}}" required>
+					</div>
+				</div>
+				<div class="col-sm-2"> <b>Father's Occupation</b> </div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<input class="form-control" type="text" name="fatherOccupation" value="{{generalData.father_occ}}">
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Mother's Name</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="text" name="motherName" value="{{generalData.mother_name}}" required>
+					</div>
+				</div>
+				<div class="col-sm-2"> <b>Mother's Occupation</b> </div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<input class="form-control" type="text" name="motherOccupation" value="{{generalData.mother_occ}}">
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Nationality</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="text" name="nationality" value="{{generalData.nation}}" required>
+					</div>
+				</div>
+				<div class="col-sm-2"> <b>Place of Birth</b> </div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<input class="form-control" type="text" name="birthplace" value="{{generalData.pob}}" required>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Date of Birth</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="date" name="dateOfBirth" value="{{generalData.dob | date:'Y-m-d'}}" required>
+					</div>
+				</div>
+				{% if generalData.age %}
+				<div class="col-sm-1"> <b>Age</b> </div>
+				<div class="col-sm-1">
+					<div class="form-group">
+						<input class="form-control" type="text" name="age" value="{{generalData.age}}" required>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"><b>Aadhaar Number (optional)</b></div>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" name="aadhaar" value="{{generalData.aadhaarNo}}" maxlength="12">
+				</div>
+			</div><br>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Contact</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group" style="font-size:15px;">
+						<b><u>{{profile.contact}}</u></b>
+					</div>
+				</div>
+				<div class="col-sm-1"> <b>Email : </b> </div>
+				<div class="col-sm-3">
+					<div class="form-group" style="font-size:15px;">
+						<b><u>{{request.user.email}}</u></b>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Address of Correspondence</b> </div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<input class="form-control" type="text" name="corresAddress" value="{{generalData.correspond_addr}}" required>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Permanent Address</b> </div>
+				<div class="col-sm-8">
+					<div class="form-group">
+						<input class="form-control" type="text" name="permanentAddress" value="{{generalData.permanent_addr}}" required>
+					</div>
+				</div>				
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Category</b> </div>
+				<div class="col-sm-6">
+				<div class="form-group">
+				<label class="radio-inline"><input type="radio" value="SC" name="category" {% ifequal generalData.category 'SC' %} checked {% endifequal %}>SC</label>
+				<label class="radio-inline"><input type="radio" value="ST" name="category" {% ifequal generalData.category 'ST' %} checked {% endifequal %}>ST</label>
+				<label class="radio-inline"><input type="radio" value="OBC" name="category" {% ifequal generalData.category 'OBC' %} checked {% endifequal %}>OBC</label>
+				<label class="radio-inline"><input type="radio" value="UR" name="category" {% ifequal generalData.category 'UR' %} checked {% endifequal %}>UR</label>
+				</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b> PWD :  </b> </div>
+				<div class="col-sm-3">
+				<div class="form-group">
+					<label class="radio-inline"><input type="radio" value="yes" name="pwd" {% ifequal generalData.pwd 'yes' %} checked {% endifequal %}>Yes</label>
+					<label class="radio-inline"><input type="radio" value="no" name="pwd" {% ifequal generalData.pwd 'no' %} checked {% endifequal %}>No</label>
+				</div>
+				</div>
+			</div>
+			</div>
+
+			<hr>
+
+			<div class="row">
+				<div class="col-sm-10">
+					<b><h3>Particulars of Educational Qualifications</h3></b>
+				</div>
+			</div>
+			<br>
+
+			<div class="well well-lg">
+				<div class="row">
+					<div class="col-sm-2"><b>Degree Obtained & Specializations</b></div>
+					<div class="col-sm-2"><b>Degree</b></div>
+					<div class="col-sm-2"><b>Name of University/Institute</b></div>
+					<div class="col-sm-2"><b>Year of Passing</b></div>
+					<div class="col-sm-2"><b>% of Marks / CGPA</b></div>
+					<div class="col-sm-2"><b>Class/Division</b></div>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="col-sm-2">Bachelor's Degree</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Bdegree" class="form-control" value="{{Bqual.degreeName}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Buniv" class="form-control" value="{{Bqual.university}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="number" name="Bpassingyear" class="form-control" value="{{Bqual.passingYear}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Bmarks" class="form-control" value="{{Bqual.marks}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Bdivision" class="form-control" value="{{Bqual.division}}" required>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-2">Master's Degree</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Mdegree" class="form-control" value="{{Mqual.degreeName}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Muniv" class="form-control" value="{{Mqual.university}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="number" name="Mpassingyear" class="form-control" value="{{Mqual.passingYear}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Mmarks" class="form-control" value="{{Mqual.marks}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Mdivision" class="form-control" value="{{Mqual.division}}" required>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-2">Ph.D. Degree</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Phddegree" class="form-control" value="{{Phdqual.degreeName}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Phduniv" class="form-control" value="{{Phdqual.university}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="number" name="Phdpassingyear" class="form-control" value="{{Phdqual.passingYear}}" required>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Phdmarks" class="form-control" value="{{Phdqual.marks}}">
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Phddivision" class="form-control" value="{{Phdqual.division}}">
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-2">Other's (If any)</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Odegree" class="form-control" value="{{Oqual.degreeName}}">
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Ouniv" class="form-control" value="{{Oqual.university}}">
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="number" name="Opassingyear" class="form-control" value="{{Oqual.passingYear}}">
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Omarks" class="form-control" value="{{Oqual.marks}}">
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<input type="text" name="Odivision" class="form-control" value="{{Oqual.division}}">
+						</div>
+					</div>
+				</div>
+
+				<input type="text" name="educationData" id="education" hidden>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-9">
+					<b>In case of More Qualification Details, Please add in the Annexure-A</b>
+					<br>
+					<b>Required documents regarding qualifications to be uploaded as a pdf in Annexure A</b>
+					&nbsp&nbsp&nbsp&nbsp
+					<br>
+					<b style="color:red;">Save the data on page before proceeding to fill annexure, else it will be lost.</b>
+				</div>
+				<div class="col-sm-3">
+					<a href="/academic/annexure_a" class="btn {% if acad_annex_a %} btn-success {% else %} btn-danger {% endif %}">Annexure-A</a><br>
+				</div>
+			</div>
+			<hr>
+
+		</div>
+
+		<!-- ////////////////// Part2 ///////////////// -->
+		<div id="part2">
+
+			<hr>
+			<!-- <div class="row">
+				<div class="col-sm-2">
+					<h4 style="font-weight:900;">Title of Ph.D.</h4>
+				</div>
+				<div class="col-sm-9">
+					<b>Thesis with name and address of Ph.D. Guide (Enclose Abstract of Thesis).</b>
+				</div>
+			</div>
+			<br>
+
+			<div class="row">
+				<div class="col-sm-2"><b>Degree</b></div>
+				<div class="col-sm-2"><b>Title of Thesis</b></div>
+				<div class="col-sm-3"><b>Guide</b></div>
+				<div class="col-sm-3"><b>University</b></div>
+				<div class="col-sm-2"><b>Yesr of Award</b></div>
+			</div>
+			<br>
+
+			<div class="row">
+				<div class="col-sm-2">Ph.D.</div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<input type="text" name="titleThesis" class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input type="text" name="guideThesis" class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input type="text" name="universityThesis" class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<input type="text" name="awardYearThesis" class="form-control">
+					</div>
+				</div>
+			</div>
+
+			<hr> -->
+
+			<br>
+			<div class="row">
+				<div class="col-sm-6">
+					<h4 style="font-weight:900;">Details of Experience</h4>
+				</div>
+			</div>
+			<br>
+
+			<!-- Teaching Experience Code -->
+			<div class="row">
+				<div class="col-sm-12">
+					<b>Note : In case of No Experience, keep 0 as the value.</b>
+				</div>
+			</div><br>
+			<div class="row">
+				<div class="col-sm-3"> <b>1. Teaching Experience (years)</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="number" min="0" name="teachingExperience" value="{{Experience.teaching_exp}}" required>
+					</div>
+				</div>
+				<div class="col-sm-3"> <b>Post Ph.D. Experience (years) </b> </div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<input class="form-control" type="number" min="0" name="phdExperience" value="{{Experience.postPhd_exp}}" required>
+					</div>
+				</div>
+			</div>
+
+			<table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th>S.No.</th>
+			        <th>Name of Organization</th>
+			        <th>Designation</th>
+			        <th>Date of Joining</th>
+			        <th>Date of Leaving</th>
+			        <th>Last pay Band and Grade Pay</th>
+			        <th>Service (Regular/Contract)</th>
+			      </tr>
+			    </thead>
+			    <tbody id="teachingExpTbody">
+			    	{% for texp in teachingData %}
+			    	<tr>
+			    		<td>{{forloop.counter}}.</td>
+			    		<td>{{texp.organization}}</td>
+			    		<td>{{texp.designation}}</td>
+			    		<td>{{texp.joiningDate}}</td>
+			    		<td>{{texp.leavingDate}}</td>
+			    		<td>{{texp.pay}}</td>
+			    		<td>{{texp.service}}</td>
+			    	</tr>
+			    	{% endfor %}
+			    </tbody>
+			</table>
+
+			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="organization">Name of Organization</label>
+						<input for="organization" class="form-control" id="organization1">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="designation">Designation</label>
+						<input for="designation" class="form-control" id="designation1">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Date of Joining">Date of Joining</label>
+						<input type="date" for="Date of Joining" class="form-control" id="joiningDate1">
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Date of Leaving">Date of Leaving(dd/mm/yyyy) or Continuing</label>
+						<input type="text" for="Date of Leaving" class="form-control" id="leavingDate1">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Pay">Pay</label>
+						<input for="Pay" class="form-control" id="pay1">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Service">Service (Regular/Contract)</label>
+						<!-- <input for="Service" class="form-control" id="service1"> -->
+						<select for="Service" class="form-control" id="service1">
+							<option>----</option>
+							<option value="Regular">Regular</option>
+							<option value="Contract">Contract</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<center><button type="button" id="Add1">Add</button><br></center>
+
+			</div>
+			<br>
+
+			<input type="text" name="teachingExpData" id="teachingExp" hidden>
+
+			<!-- Research Experience Code -->
+
+			<div class="row">
+				<div class="col-sm-3"> <b>2. Research Experience (years)</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="number" min="0" name="researchExperience" value="{{Experience.research_exp}}" required>
+					</div>
+				</div>
+			</div>
+
+			<table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th>S.No.</th>
+			        <th>Name of Organization where employed</th>
+			        <th>Designation</th>
+			        <th>Date of Joining</th>
+			        <th>Date of Leaving</th>
+			        <th>Last pay Band and Grade Pay</th>
+			        <th>Service (Regular/Contract)</th>
+			      </tr>
+			    </thead>
+			    <tbody id="researchExpTbody">
+			    	{% for rexp in researchData %}
+			    	<tr>
+		    			<td>{{forloop.counter}}.</td>
+			    		<td>{{rexp.organization}}</td>
+			    		<td>{{rexp.designation}}</td>
+			    		<td>{{rexp.joiningDate}}</td>
+			    		<td>{{rexp.leavingDate}}</td>
+			    		<td>{{rexp.pay}}</td>
+			    		<td>{{rexp.service}}</td>
+			    	</tr>
+			    	{% endfor %}
+			    </tbody>
+			</table>
+
+			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="organization">Name of Organization</label>
+						<input for="organization" class="form-control" id="organization2">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="designation">Designation</label>
+						<input for="designation" class="form-control" id="designation2">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Date of Joining">Date of Joining</label>
+						<input type="date" for="Date of Joining" class="form-control" id="joiningDate2">
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Date of Leaving">Date of Leaving(dd/mm/yyyy) or Continuing</label>
+						<input type="text" for="Date of Leaving" class="form-control" id="leavingDate2">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Pay">Pay</label>
+						<input for="Pay" class="form-control" id="pay2">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Service">Service (Regular/Contract)</label>
+						<!-- <input for="Service" class="form-control" id="service2"> -->
+						<select for="Service" class="form-control" id="service2">
+							<option>----</option>
+							<option value="Regular">Regular</option>
+							<option value="Contract">Contract</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<center><button type="button" id="Add2">Add</button><br></center>
+
+			</div>
+			<br>
+
+			<input type="text" name="researchExpData" id="researchExp" hidden>
+
+			<!-- Industrial Experience Code -->
+
+			<div class="row">
+				<div class="col-sm-3"> <b>3. Industrial Experience (years)</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="number" min="0" name="industryExperience" value="{{Experience.industrial_exp}}" required>
+					</div>
+				</div>
+			</div>
+
+			<table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th>S.No.</th>
+			        <th>Name of Industry</th>
+			        <th>Designation</th>
+			        <th>Date of Joining</th>
+			        <th>Date of Leaving</th>
+			        <th>Salary Drawn</th>
+			        <th>Service (Regular/Contract)</th>
+			      </tr>
+			    </thead>
+			    <tbody id="industryExpTbody">
+			    	{% for iexp in industryData %}
+			    	<tr>
+			    		<td>{{forloop.counter}}</td>
+			    		<td>{{iexp.organization}}</td>
+			    		<td>{{iexp.designation}}</td>
+			    		<td>{{iexp.joiningDate}}</td>
+			    		<td>{{iexp.leavingDate}}</td>
+			    		<td>{{iexp.pay}}</td>
+			    		<td>{{iexp.service}}</td>
+			    	</tr>
+			    	{% endfor %}
+			    </tbody>
+			</table>
+
+			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="organization">Name of Organization</label>
+						<input for="organization" class="form-control" id="organization3">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="designation">Designation</label>
+						<input for="designation" class="form-control" id="designation3">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Date of Joining">Date of Joining</label>
+						<input type="date" for="Date of Joining" class="form-control" id="joiningDate3">
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Date of Leaving">Date of Leaving(dd/mm/yyyy) or Continuing</label>
+						<input type="text" for="Date of Leaving" class="form-control" id="leavingDate3">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Pay">Salary Drawn</label>
+						<input for="Pay" class="form-control" id="pay3">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Service">Service (Regular/Contract)</label>
+						<!-- <input for="Service" class="form-control" id="service3"> -->
+						<select for="Service" class="form-control" id="service3">
+							<option>----</option>
+							<option value="Regular">Regular</option>
+							<option value="Contract">Contract</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<center><button type="button" id="Add3">Add</button><br></center>
+
+			</div>
+			<br>
+
+			<input type="text" name="industryExpData" id="industryExp" hidden>
+
+			<div class="row">
+				<div class="col-sm-12">
+					<b>Upload Documents supporting the Experience Data you have filled, using this button</b>
+					&nbsp&nbsp&nbsp&nbsp
+					<a href="/uploadExpDoc" class="btn {% if paperobj.paper1 %} btn-success {% else %} btn-danger {% endif %}">Upload Supporting Documents</a>
+					<br>
+					<b style="color:red;">Save the data on page before proceeding to upload, else it will be lost.</b>
+				</div>
+			</div>
+
+			<hr>			
+
+		</div>
+
+			<center><button type="submit" style="float:left;" class="btn btn-success" id="finalSubmitBtn">Save</button></center>
+
+			<center><a href="/academic"><button type="button" style="float:right;" class="btn btn-info">Next</button></a></center>
+
+		</form>
+		<br><br>
+		<br><br>
+	</div>
+</div>
+
+
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+
+
+</body>
+
+<style type="text/css">
+	.copyright {
+	  background-color: #003A6A;
+	  color: white;
+	}
+</style>
+
+<script type="text/javascript">
+	var teachingExpDataArray = [];
+	var researchExpDataArray = [];
+	var industryExpDataArray = [];
+	var education = [];
+
+	$(document).ready(function() {
+		$('#finalData').val("");
+		var dataString = JSON.stringify(teachingExpDataArray);
+		$('#teachingExp').val(dataString);
+		dataString = JSON.stringify(researchExpDataArray);
+		$('#researchExp').val(dataString);
+		dataString = JSON.stringify(industryExpDataArray);
+		$('#industryExp').val(dataString);
+	});
+
+	$('#Add1').click(function(){
+		var designation = $('#designation1').val(); $('#designation1').val("");
+		var organization = $('#organization1').val(); $('#organization1').val("");
+		var joiningDate = $('#joiningDate1').val(); $('#joiningDate1').val("");
+		var leavingDate = $('#leavingDate1').val(); $('#leavingDate1').val("");
+		var pay = $('#pay1').val(); $('#pay1').val("");
+		var service = $('#service1').val(); $('#service1').val("");
+
+		if(!designation || !organization || !joiningDate || !leavingDate || !pay|| !service)
+		{
+			alert("Please fill all fields or fill NA");
+			return false;
+		}
+
+		var data = {
+			'organization' : organization,
+			'designation' : designation,
+			'joiningDate' : joiningDate,
+			'leavingDate' : leavingDate,
+			'pay' : pay,
+			'service' : service
+		};
+
+		var rowCount = $('#teachingExpTbody tr').length;
+		var i = teachingExpDataArray.length+rowCount;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + organization + '</td>';
+		rowHtml = rowHtml + '<td>' + designation + '</td>';
+		rowHtml = rowHtml + '<td>' + joiningDate + '</td>';
+		rowHtml = rowHtml + '<td>' + leavingDate + '</td>';
+		rowHtml = rowHtml + '<td>' + pay + '</td>';
+		rowHtml = rowHtml + '<td>' + service + '</td></tr>';
+
+		$('#teachingExpTbody').append(rowHtml);
+
+		teachingExpDataArray.push(data);
+
+		var dataString = JSON.stringify(teachingExpDataArray);
+		console.log(dataString);
+		$('#teachingExp').val(dataString);
+	});
+
+	$('#Add2').click(function(){
+		var designation = $('#designation2').val(); $('#designation2').val("");
+		var organization = $('#organization2').val(); $('#organization2').val("");
+		var joiningDate = $('#joiningDate2').val(); $('#joiningDate2').val("");
+		var leavingDate = $('#leavingDate2').val(); $('#leavingDate2').val("");
+		var pay = $('#pay2').val(); $('#pay2').val("");
+		var service = $('#service2').val(); $('#service2').val("");
+
+		if(!designation || !organization || !joiningDate || !leavingDate || !pay|| !service)
+		{
+			alert("Please fill all fields or fill NA");
+			return false;
+		}
+
+		var data = {
+			'organization' : organization,
+			'designation' : designation,
+			'joiningDate' : joiningDate,
+			'leavingDate' : leavingDate,
+			'pay' : pay,
+			'service' : service
+		};
+
+		var rowCount = $('#researchExpTbody tr').length;
+		var i = researchExpDataArray.length+rowCount;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + organization + '</td>';
+		rowHtml = rowHtml + '<td>' + designation + '</td>';
+		rowHtml = rowHtml + '<td>' + joiningDate + '</td>';
+		rowHtml = rowHtml + '<td>' + leavingDate + '</td>';
+		rowHtml = rowHtml + '<td>' + pay + '</td>';
+		rowHtml = rowHtml + '<td>' + service + '</td></tr>';
+
+		$('#researchExpTbody').append(rowHtml);
+
+		researchExpDataArray.push(data);
+
+		var dataString = JSON.stringify(researchExpDataArray);
+		console.log(dataString);
+		$('#researchExp').val(dataString);
+	});
+
+	$('#Add3').click(function(){
+		var designation = $('#designation3').val(); $('#designation3').val("");
+		var organization = $('#organization3').val(); $('#organization3').val("");
+		var joiningDate = $('#joiningDate3').val(); $('#joiningDate3').val("");
+		var leavingDate = $('#leavingDate3').val(); $('#leavingDate3').val("");
+		var pay = $('#pay3').val(); $('#pay3').val("");
+		var service = $('#service3').val(); $('#service3').val("");
+
+		if(!designation || !organization || !joiningDate || !leavingDate || !pay|| !service)
+		{
+			alert("Please fill all fields or fill NA");
+			return false;
+		}
+
+		var data = {
+			'organization' : organization,
+			'designation' : designation,
+			'joiningDate' : joiningDate,
+			'leavingDate' : leavingDate,
+			'pay' : pay,
+			'service' : service
+		};
+
+		var rowCount = $('#industryExpTbody tr').length;
+		var i = industryExpDataArray.length+rowCount;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + organization + '</td>';
+		rowHtml = rowHtml + '<td>' + designation + '</td>';
+		rowHtml = rowHtml + '<td>' + joiningDate + '</td>';
+		rowHtml = rowHtml + '<td>' + leavingDate + '</td>';
+		rowHtml = rowHtml + '<td>' + pay + '</td>';
+		rowHtml = rowHtml + '<td>' + service + '</td></tr>';
+
+		$('#industryExpTbody').append(rowHtml);
+
+		industryExpDataArray.push(data);
+
+		var dataString = JSON.stringify(industryExpDataArray);
+		console.log(dataString);
+		$('#industryExp').val(dataString);
+	});
+
+</script>
+
+</html>
