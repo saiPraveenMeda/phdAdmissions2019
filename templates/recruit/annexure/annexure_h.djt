@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -24,7 +23,7 @@
 </head>
 
 <body>
-<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:#003A6A;" height="110px" width="100%px" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Andhra Pradesh"/></a></center>
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 <div class="row">
 	<div class="col-sm-10 col-sm-offset-1">
 		<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
@@ -188,7 +187,7 @@ and rest will be divided among others.
 	});
 
 	$('#Add').click(function(){
-		var title = unescape($('#title').val()); $('#title').val("");
+		var title = $('#title').val(); $('#title').val("");
 		var journal = $('#journal').val(); $('#journal').val("");
 		var paid = $('#paid').val(); $('#paid').val("");
 		var indexed = $('#indexed').val(); $('#indexed').val("");
@@ -229,7 +228,7 @@ and rest will be divided among others.
 
 		annexure_h.push(data);
 
-		var dataString = (JSON.stringify(annexure_h));
+		var dataString = JSON.stringify(annexure_h);
 		console.log(dataString);
 		$('input[name="annexure_h"]').val(dataString);
 		$('input[name="total"]').val(total);

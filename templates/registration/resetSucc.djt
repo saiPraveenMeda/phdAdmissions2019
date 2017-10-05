@@ -15,7 +15,7 @@
 </head>
 
 <body>
-	<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:#003A6A;" height="110px" width="100%px" alt="National Institute of Technology Andhra Pradesh" title="National Institute of Technology Andhra Pradesh"/></a></center>
+	<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 
 <div class="row" style="background-color:#003A6A; color: white;">
 	<center><h2>Password reset successful!</h2></center>
