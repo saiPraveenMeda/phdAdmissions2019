@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Faculty Recruitment Portal</title>
+	<title>PhD Recruitment Portal</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -31,7 +31,7 @@
 	<!-- </div> -->
 
 <div class="row" style="background-color:#003A6A; color: white;">
-	<center><h2>Faculty Recruitment Portal</h2></center>
+	<center><h2>PhD Recruitment Portal</h2></center>
 	<br>
 </div>
 
@@ -88,7 +88,7 @@
 					</li>
                                         <br>
 					<li>
-						<a href="{% static 'main/Faculty Recruitment-Proposed Distribution-Sept-2017.pdf' %}"><b>Proposed Distribution of Faculty Positions</b></a>
+						<a href="{% static 'main/PhD Recruitment-Proposed Distribution-Sept-2017.pdf' %}"><b>Proposed Distribution of Faculty Positions</b></a>
 					</li>
                                         
 				</ul>

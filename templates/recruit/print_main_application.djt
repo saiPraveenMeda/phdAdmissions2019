@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Faculty Recruitment Form</title>
+	<title>PhD Recruitment Form</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -27,7 +27,7 @@
 
 <body>
 <div class="row" style="background-color:#003A6A; color: white;">
-	<center><h2>Faculty Recruitment Form</h2></center>
+	<center><h2>PhD Recruitment Form</h2></center>
 </div>
 
 <div class="row">
