@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2pesar&-wu2x128%f*g0ztbdhd5kfzj4-ell&$w0xof0-5$w#b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -87,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'nitap_faculty',
         'USER': 'root',
-        'PASSWORD': '9290697013',
+        'PASSWORD': 'wsdc_test_2016',
     }
 }
 
