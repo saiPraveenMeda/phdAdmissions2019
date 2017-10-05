@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PhD Recruitment Form</title>
+	<title>PhD Admission Form</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -24,7 +24,7 @@
 <body>
 <center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 <div class="row" style="background-color:#003A6A; color: white;">
-	<center><h2>PhD Recruitment Form</h2></center>
+	<center><h2>PhD Admission Form</h2></center>
 </div>
 
 <div class="row">
