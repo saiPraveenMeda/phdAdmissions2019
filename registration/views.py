@@ -4,7 +4,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, Http404,JsonResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required,user_passes_test
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from recruit.models import Appdata
 import random
 from .models import *
@@ -104,6 +104,7 @@ def createApp(request) :
 
 			user.username = applicationID
 			user.set_password(pass1)
+			user.groups.add(Group.objects.get(name="Applicant"))
 			user.save()
 
 			userprofile = UserProfile()
