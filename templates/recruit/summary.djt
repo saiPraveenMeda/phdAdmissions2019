@@ -1,0 +1,77 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PhD Admission Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+	<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+
+	<div class="row" style="background-color:#003A6A; color: white;">
+		<center><h2>PhD Admission Form</h2></center>
+		<br>
+	</div>
+
+	<div class="row" style="margin-top:2%;">
+		<div class="col-sm-1 col-sm-offset-10">
+			<a href="/register/signout"><button class="btn btn-primary">Logout</button></a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<div class="alert alert-info">
+			<center>
+			<b><h3>Your Application form has been submitted.</h3></b>
+			<b>You can print your application form and Annexures using the buttons given below.</b>
+			</center>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top:5%;">
+		<div class="col-sm-4 col-sm-offset-4">
+			<center>
+				<a href="/all_annexures"><button class="btn btn-success" type="button">All Annexures</button></a>
+			</center>
+			<br>
+			<center>
+				<a href="/print_main_application"><button class="btn btn-success" type="button">Print Application</button></a>
+			</center>
+			<br>
+			<center>
+				<a href="/print_annexures"><button class="btn btn-success" type="button">Print Annexures</button></a>
+			</center>
+			<br>
+			<center>
+				<a href="/printAck"><button class="btn btn-success" type="button">Print Acknowledgement Receipt</button></a>
+			</center>
+			
+		</div>
+	</div>
+	<br><br><br>
+	<!-- <div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<a href="/subject_ref"><button class="btn btn-primary" type="button" style="float: left;">Back</button></a>
+		</div>
+	</div> -->
+</body>
+</html>
