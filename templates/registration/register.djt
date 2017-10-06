@@ -90,7 +90,7 @@
 						<input for="password2" class="form-control" name="password2" type="password" required>
 					</div>
 					<div class="form-group">
-					  <label for="post">Applying for the POST of</label>
+					  <label for="post">Full Time/ Part Time</label>
 					  <select class="form-control" name="post">
 					  	<option>----</option>
 					    {% for post in posts %}
