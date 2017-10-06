@@ -1,0 +1,3 @@
+{% for appln in profiles%}
+{{appln}}<br>
+{%endfor%}
