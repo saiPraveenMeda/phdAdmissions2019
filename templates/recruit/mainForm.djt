@@ -21,7 +21,6 @@
 	</style>
 
 </head>
-
 <body>
 
 <center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
@@ -73,22 +72,20 @@
 		</div>
 	</div>
 </div>
-
 <div class="row">
 	<div class="col-sm-10 col-sm-offset-1">
 		<form style="margin-top:3%;" method="post" action="/">
 		{% csrf_token %}
 		<div class="row">
 			<center>
-			<h3><u> Application Form for Faculty Position</u></h3>
+			<h3><u> Application Form for PhD Admission</u></h3>
 			<h3><u>Application ID : {{profile.applicationID}}</u></h3>
 			</center><br>
 		</div>
 
 		<!-- ////////////////// Part1 ///////////////// -->
 		<div id="part1">
-
-			<div class="well well-lg">
+		<div class="well well-lg">
 
 			<div class="row">
 				<div class="col-sm-9">
@@ -316,8 +313,9 @@
 			<br>
 
 			<div class="well well-lg">
+
 				<div class="row">
-					<div class="col-sm-2"><b>Degree Obtained & Specializations</b></div>
+				<div class="col-sm-2"><b>Degree Obtained & Specializations</b></div>
 					<div class="col-sm-2"><b>Degree</b></div>
 					<div class="col-sm-2"><b>Name of University/Institute</b></div>
 					<div class="col-sm-2"><b>Year of Passing</b></div>
@@ -383,132 +381,28 @@
 						</div>
 					</div>
 				</div>
+				<hr>
 
-				<div class="row">
-					<div class="col-sm-2">Ph.D. Degree</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Phddegree" class="form-control" value="{{Phdqual.degreeName}}" required>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Phduniv" class="form-control" value="{{Phdqual.university}}" required>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="number" name="Phdpassingyear" class="form-control" value="{{Phdqual.passingYear}}" required>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Phdmarks" class="form-control" value="{{Phdqual.marks}}">
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Phddivision" class="form-control" value="{{Phdqual.division}}">
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-sm-2">Other's (If any)</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Odegree" class="form-control" value="{{Oqual.degreeName}}">
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Ouniv" class="form-control" value="{{Oqual.university}}">
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="number" name="Opassingyear" class="form-control" value="{{Oqual.passingYear}}">
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Omarks" class="form-control" value="{{Oqual.marks}}">
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Odivision" class="form-control" value="{{Oqual.division}}">
-						</div>
-					</div>
-				</div>
-
-				<input type="text" name="educationData" id="education" hidden>
 			</div>
-
+		<br>
 			<div class="row">
-				<div class="col-sm-9">
-					<b>In case of More Qualification Details, Please add in the Annexure-A</b>
-					<br>
-					<b>Required documents regarding qualifications to be uploaded as a pdf in Annexure A</b>
-					&nbsp&nbsp&nbsp&nbsp
-					<br>
-					<b style="color:red;">Save the data on page before proceeding to fill annexure, else it will be lost.</b>
-				</div>
-				<div class="col-sm-3">
-					<a href="/academic/annexure_a" class="btn {% if acad_annex_a %} btn-success {% else %} btn-danger {% endif %}">Annexure-A</a><br>
-				</div>
-			</div>
-			<hr>
-
-		</div>
-
-		<!-- ////////////////// Part2 ///////////////// -->
-		<div id="part2">
-
-			<hr>
-			<!-- <div class="row">
-				<div class="col-sm-2">
-					<h4 style="font-weight:900;">Title of Ph.D.</h4>
-				</div>
-				<div class="col-sm-9">
-					<b>Thesis with name and address of Ph.D. Guide (Enclose Abstract of Thesis).</b>
+				<div class="col-sm-6">
+					<h4 style="font-weight:900;">Qualifying Examination Details : </h4>
 				</div>
 			</div>
 			<br>
-
-			<div class="row">
-				<div class="col-sm-2"><b>Degree</b></div>
-				<div class="col-sm-2"><b>Title of Thesis</b></div>
-				<div class="col-sm-3"><b>Guide</b></div>
-				<div class="col-sm-3"><b>University</b></div>
-				<div class="col-sm-2"><b>Yesr of Award</b></div>
-			</div>
-			<br>
-
-			<div class="row">
-				<div class="col-sm-2">Ph.D.</div>
-				<div class="col-sm-2">
-					<div class="form-group">
-						<input type="text" name="titleThesis" class="form-control">
-					</div>
-				</div>
+			<div class="col-sm-3"> <b>Examination Qualified : </b> </div>
 				<div class="col-sm-3">
 					<div class="form-group">
-						<input type="text" name="guideThesis" class="form-control">
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="form-group">
-						<input type="text" name="universityThesis" class="form-control">
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<div class="form-group">
-						<input type="text" name="awardYearThesis" class="form-control">
+						<select for="Examination" class="form-group" id="exam1">
+							<option>----</option>
+							<option value="GATE">GATE</option>
+							<option value="GATE">GATE</option>
+							<option value="CAT/MAT/GMAT">CAT/MAT/GMAT</option>
+						</select>
 					</div>
 				</div>
 			</div>
-
 			<hr> -->
 
 			<br>
@@ -832,12 +726,10 @@
 	</div>
 </div>
 
-
 <div class="copyright">
   <div style="text-align: center">Copyright &copy; NIT Warangal</div>
   <div style="text-align:center">Designed and Developed by WSDC</div>
 </div>
-
 
 </body>
 
@@ -847,7 +739,6 @@
 	  color: white;
 	}
 </style>
-
 <script type="text/javascript">
 	var teachingExpDataArray = [];
 	var researchExpDataArray = [];
@@ -994,5 +885,4 @@
 	});
 
 </script>
-
 </html>
