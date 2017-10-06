@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^secureadmin/', admin.site.urls),
     url(r'^', include('recruit.urls', namespace = 'recruit')),
     url(r'^register/', include('registration.urls', namespace = 'register')),
     url(r'^scrutiny/', include('scrutiny.urls', namespace = 'scrutiny')),
