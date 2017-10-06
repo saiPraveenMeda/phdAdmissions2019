@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from contrib.auth.decorators import user_passes_test
-from .models import UserProfile as ScrutinizerProfile
+from django.contrib.auth.decorators import login_required
+from .models import ScrutinyUserProfile as ScrutinizerProfile
 from registration.models import UserProfile as ApplicantProfile
 
 def is_dean(user):
