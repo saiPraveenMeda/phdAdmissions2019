@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import ScrutinyUserProfile as ScrutinizerProfile
 from registration.models import UserProfile as ApplicantProfile
+from recruit.models import Appdata
 
 def is_dean(user):
     return user.groups.filter(name="Dean").exists()
@@ -18,6 +19,7 @@ def is_scrutinizer(login_url=None):
 @login_required(login_url='/register')
 @is_scrutinizer(login_url='/register')
 def index(request):
+	response ={}
 	userprofile = ScrutinizerProfile.objects.get(user=request.user)
 	if is_dean(request.user):
 		profiles = ApplicantProfile.objects.all()
