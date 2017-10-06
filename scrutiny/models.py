@@ -7,7 +7,7 @@ from registration.models import Department
 
 class ScrutinyUserProfile(models.Model):
 	user = models.ForeignKey(User)
-	department = models.ForeignKey(Department)
+	department = models.CharField(max_length=50)
 
 	def __str__(self):
 		return (self.department+" - "+self.user.first_name+" "+self.user.last_name)
