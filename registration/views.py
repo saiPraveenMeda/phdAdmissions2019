@@ -104,6 +104,7 @@ def createApp(request) :
 
 			user.username = applicationID
 			user.set_password(pass1)
+			user.save()
 			user.groups.add(Group.objects.get(name="Applicant"))
 			user.save()
 
