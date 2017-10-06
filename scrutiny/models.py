@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
-class UserProfile(models.Model):
+class ScrutinyUserProfile(models.Model):
 	user = models.ForeignKey(User)
 	department = models.CharField(max_length=50)
 
