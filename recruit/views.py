@@ -15,7 +15,11 @@ import unicodedata
 from django.core.mail import send_mail
 import smtplib
 
+def is_applicant(login_url=None):
+    return user_passes_test(lambda u: u.groups.filter(name='Applicant').exists(), login_url=login_url)
+
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def index(request) :
     response = {}
     app = Appdata.objects.get(user=request.user)
@@ -24,7 +28,6 @@ def index(request) :
     if app.submitted :
         return redirect('/printSummary')
     profile = UserProfile.objects.get(user=request.user)
-    print(profile)
     response['profile'] = profile
     if request.method == "POST" :
         #app_data object creation too.
@@ -209,6 +212,7 @@ def index(request) :
     return render(request,'recruit/mainForm.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def academic(request):
 
     response = {}
@@ -662,6 +666,7 @@ def academic(request):
     return render(request, 'recruit/acad_other_req.djt', response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_a(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -702,6 +707,7 @@ def annexure_a(request):
     return render(request,'recruit/annexure/annexure_a.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_b(request) :
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -732,6 +738,7 @@ def annexure_b(request) :
     return render(request,'recruit/annexure/annexure-b.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_c(request) :
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -763,6 +770,7 @@ def annexure_c(request) :
 
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_d(request) :
     response= {}
     app_data = Appdata.objects.get(user = request.user)
@@ -810,6 +818,7 @@ def annexure_d(request) :
     return render(request,'recruit/annexure/annexure_d.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_e_1(request) :
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -849,6 +858,7 @@ def annexure_e_1(request) :
     return render(request,'recruit/annexure/annexure-e-1.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_e2(request):
     app_data = Appdata.objects.get(user = request.user)
     response = {}
@@ -888,6 +898,7 @@ def annexure_e2(request):
     return render(request,'recruit/annexure/annexure_e2.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_f(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -922,6 +933,7 @@ def annexure_f(request):
     return render(request,'recruit/annexure/annexure_f.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_g(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -953,6 +965,7 @@ def annexure_g(request):
     return render(request,'recruit/annexure/annexure_g.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_h(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -990,6 +1003,7 @@ def annexure_h(request):
     return render(request,'recruit/annexure/annexure_h.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_i(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1023,6 +1037,7 @@ def annexure_i(request):
     return render(request,'recruit/annexure/annexure_i.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_j(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1062,6 +1077,7 @@ def annexure_j(request):
     return render(request,'recruit/annexure/annexure_j.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_k(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1100,6 +1116,7 @@ def annexure_k(request):
     return render(request,'recruit/annexure/annexure_k.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_l(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1138,6 +1155,7 @@ def annexure_l(request):
     return render(request,'recruit/annexure/annexure_l.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_m(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1177,6 +1195,7 @@ def annexure_m(request):
     return render(request,'recruit/annexure/annexure_m.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_n(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1211,6 +1230,7 @@ def annexure_n(request):
     return render(request,'recruit/annexure/annexure_n.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_o(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1247,6 +1267,7 @@ def annexure_o(request):
     return render(request,'recruit/annexure/annexure_o.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_p(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1283,6 +1304,7 @@ def annexure_p(request):
     return render(request,'recruit/annexure/annexure_p.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_q(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1334,6 +1356,7 @@ def annexure_q(request):
     return render(request,'recruit/annexure/annexure_q.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_r(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1369,6 +1392,7 @@ def annexure_r(request):
     return render(request,'recruit/annexure/annexure_r.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_s(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1432,6 +1456,7 @@ def getJsonStringVal(oldstr,newstr):
         return newstr
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_t(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1467,6 +1492,7 @@ def annexure_t(request):
     return render(request,'recruit/annexure/annexure_t.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_u(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1502,6 +1528,7 @@ def annexure_u(request):
     return render(request,'recruit/annexure/annexure_u.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_v(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1537,6 +1564,7 @@ def annexure_v(request):
     return render(request,'recruit/annexure/annexure_v.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_w1(request) :
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1579,6 +1607,7 @@ def annexure_w1(request) :
     return render(request,'recruit/annexure/annexure_w1.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_w2(request):
     app_data = Appdata.objects.get(user = request.user)
     response = {}
@@ -1620,6 +1649,7 @@ def annexure_w2(request):
     return render(request,'recruit/annexure/annexure_w2.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_x(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1656,6 +1686,7 @@ def annexure_x(request):
     return render(request,'recruit/annexure/annexure_x.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_y(request):
     app_data = Appdata.objects.get(user = request.user)
     result = {}
@@ -1709,6 +1740,7 @@ def annexure_y(request):
     return render(request,'recruit/annexure/annexure_y.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def annexure_z(request):
     response = {}
     app_data = Appdata.objects.get(user = request.user)
@@ -1744,6 +1776,7 @@ def annexure_z(request):
     return render(request,'recruit/annexure/annexure_z.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def subject_ref(request):
     response = {}
     app_id = Appdata.objects.get(user=request.user)
@@ -1840,11 +1873,13 @@ def subject_ref(request):
     return render(request,'recruit/subject_ref.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def printSummary(request):
     response = {}
     return render(request,'recruit/summary.djt',response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def print_main_application(request):
     response = {}
     response['profile'] = UserProfile.objects.get(user = request.user)
@@ -2029,6 +2064,7 @@ def print_main_application(request):
     return render(request, 'recruit/print_main_application.djt', response)
 
 @login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def print_annexures(request):
     response = {}
     response['profile'] = UserProfile.objects.get(user = request.user)
