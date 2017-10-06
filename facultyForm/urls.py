@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('recruit.urls', namespace = 'recruit')),
     url(r'^register/', include('registration.urls', namespace = 'register')),
+    url(r'^scrutiny/', include('scrutiny.urls', namespace = 'scrutiny')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
