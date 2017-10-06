@@ -21,7 +21,7 @@ def index(request) :
 def send_to_register(request,errorNo='0') :
 	response = {}
 	if errorNo=='1' :
-		msg = 'Registration for selected post in selected department has already been done using this'
+		msg = 'Registration for selected position in selected department has already been done using this'
 		msg = msg + ' Email-id'
 		response['error'] = msg
 	if errorNo=='2' :
@@ -90,14 +90,14 @@ def createApp(request) :
 			user.email = request.POST['email']
 
 			#Application ID generation Logic
+			p1 = 'PH'
 			year = datetime.datetime.now().year
 			yy = str(year)
-			p1 = yy[2:]
-			p2 = str(dept.deptID).zfill(2)
-			p3 = str(appPost.postID)
+			p2 = yy[2:]
+			p3 = str(dept.deptID).zfill(2)
 			dept.appCount = dept.appCount + 1
 			dept.save()
-			p4 = str(dept.appCount).zfill(4)
+			p4 = str(dept.appCount).zfill(2)
 
 			applicationID = p1+p2+p3+p4
 			#####
@@ -131,11 +131,11 @@ def createApp(request) :
 			#Mail application ID to applicant
 			receiver = user.email
 			sender = 'nitap_recruitment17@nitw.ac.in'
-			content = 'Your Application ID is : '+applicationID+"\n Thanks for Registering."
+			content = 'Your Application ID is : '+applicationID+"\nYour username is same as your Application ID. Thanks for Registering."
 			rlist = []
 			rlist.append(receiver)
 			try:
-				send_mail('Application Id for Faculty Registration',content,sender,rlist,fail_silently=False,)
+				send_mail('NIT WARANGAL - Application Id for PhD Admission portal registration',content,sender,rlist,fail_silently=False,)
 			except BadHeaderError:
 				return HttpResponse('Invalid header found.')
 
@@ -175,7 +175,7 @@ def forgotPassword(request):
 			rlist = []
 			rlist.append(receiver)
 			try:
-				send_mail('New Password',content,sender,rlist,fail_silently=False,)
+				send_mail('NIT WARANGAL - Forgot Password request for PhD Admission portal',content,sender,rlist,fail_silently=False,)
 			except BadHeaderError:
 				return HttpResponse('Invalid header found.')
 
