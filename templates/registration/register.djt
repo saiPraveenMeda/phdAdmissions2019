@@ -94,7 +94,7 @@
 					  <select class="form-control" name="post">
 					  	<option>----</option>
 					    {% for post in posts %}
-					    <option value="{{post.postID}}">{{post.name}}</option>
+					    <option value="{{post.id}}">{{post.name}}</option>
 					    {% endfor %}
 					  </select>
 					</div>
