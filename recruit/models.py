@@ -277,258 +277,258 @@ class Acad_Annex_I(models.Model):
 	def __unicode__(self):
 		return str(self.app_id) + "_i";
 
-class Acad_Annex_J(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	credit_score = models.FloatField(default=0)
-	last_prom = models.CharField(default="",max_length=100)
-	tot_sem = models.IntegerField(default=0)
-	store = models.BooleanField(default = False)
-	credit_val = models.FloatField(default = 0)
-	total = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_J(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_sem = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	credit_score = models.FloatField(default=0)
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	tot_sem = models.IntegerField(default=0)
+# 	store = models.BooleanField(default = False)
+# 	credit_val = models.FloatField(default = 0)
+# 	total = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_j";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_j";
 
-class Acad_Annex_K(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	credit_score = models.FloatField(default=0)
-	last_prom = models.CharField(default="",max_length=100)
-	tot_sem = models.IntegerField(default=0)
-	store = models.BooleanField(default = False)
-	credit_val = models.FloatField(default = 0)
-	total = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_K(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_sem = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	credit_score = models.FloatField(default=0)
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	tot_sem = models.IntegerField(default=0)
+# 	store = models.BooleanField(default = False)
+# 	credit_val = models.FloatField(default = 0)
+# 	total = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_k";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_k";
 
-class Acad_Annex_L(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	credit_score = models.FloatField(default=0)
-	last_prom = models.CharField(default="",max_length=100)
-	tot_sem = models.IntegerField(default=0)
-	store = models.BooleanField(default = False)
-	credit_val = models.FloatField(default = 0)
-	total = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_L(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_sem = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	credit_score = models.FloatField(default=0)
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	tot_sem = models.IntegerField(default=0)
+# 	store = models.BooleanField(default = False)
+# 	credit_val = models.FloatField(default = 0)
+# 	total = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_l";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_l";
 
-class Acad_Annex_M(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	credit_score = models.FloatField(default=0)
-	last_prom = models.CharField(default="",max_length=100)
-	store = models.BooleanField(default = False)
-	credit_val = models.FloatField(default = 0)
-	total = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_M(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_sem = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	credit_score = models.FloatField(default=0)
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	store = models.BooleanField(default = False)
+# 	credit_val = models.FloatField(default = 0)
+# 	total = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_m";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_m";
 
-class Acad_Annex_N(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_number = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	last_prom = models.CharField(default="",max_length=100)
-	credit_val = models.FloatField(default = 0)
-	store = models.BooleanField(default = False)
-	total = models.FloatField(default=0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_N(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_number = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	credit_val = models.FloatField(default = 0)
+# 	store = models.BooleanField(default = False)
+# 	total = models.FloatField(default=0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_n";
-
-
-class Acad_Annex_O(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	app_id = models.ForeignKey(Appdata)
-	prog_2_week_duration = models.IntegerField(default=0)
-	prog_1_week_duration = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	last_prom = models.CharField(default="",max_length=100)
-	store = models.BooleanField(default = False)
-	total = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-
-	def __unicode__(self):
-		return str(self.app_id) + "_o";
-
-class Acad_Annex_P(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_number = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	last_prom = models.CharField(default="",max_length=100)
-	store = models.BooleanField(default = False)
-	total = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-
-	def __unicode__(self):
-		return str(self.app_id) + "_p";
-
-class Acad_Annex_Q(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_years = models.IntegerField(default=0)
-	total_months = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	total_exp_after_phd = models.IntegerField(default=0)
-	total_exp_cur = models.IntegerField(default=0)
-	total_exp = models.IntegerField(default=0) 
-	credit_score = models.FloatField(default=0)
-	last_prom = models.CharField(default="",max_length=100)
-	store = models.BooleanField(default = False)
-	total_yr = models.IntegerField(default = 0)
-	total_mnth = models.IntegerField(default = 0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-
-	def __unicode__(self):
-		return str(self.app_id) + "_q";
-
-class Acad_Annex_R(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_number = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	last_prom = models.CharField(default="",max_length=100)
-	store = models.BooleanField(default = False)
-	total = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-
-	def __unicode__(self):
-		return str(self.app_id) + "_r";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_n";
 
 
-class Acad_Annex_S(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_credit = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	extra_load = models.IntegerField(default=0)
-	credit_score = models.FloatField(default=0)
-	last_prom = models.CharField(default="",max_length=100)
-	avg_load = models.FloatField(default = 0)
-	store = models.BooleanField(default = False)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_O(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	app_id = models.ForeignKey(Appdata)
+# 	prog_2_week_duration = models.IntegerField(default=0)
+# 	prog_1_week_duration = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	store = models.BooleanField(default = False)
+# 	total = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_s";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_o";
+
+# class Acad_Annex_P(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_number = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	store = models.BooleanField(default = False)
+# 	total = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_p";
+
+# class Acad_Annex_Q(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_years = models.IntegerField(default=0)
+# 	total_months = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	total_exp_after_phd = models.IntegerField(default=0)
+# 	total_exp_cur = models.IntegerField(default=0)
+# 	total_exp = models.IntegerField(default=0) 
+# 	credit_score = models.FloatField(default=0)
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	store = models.BooleanField(default = False)
+# 	total_yr = models.IntegerField(default = 0)
+# 	total_mnth = models.IntegerField(default = 0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_q";
+
+# class Acad_Annex_R(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_number = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	store = models.BooleanField(default = False)
+# 	total = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_r";
 
 
-class Acad_Annex_T(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_number = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	last_prom = models.CharField(default="",max_length=100)
-	store = models.BooleanField(default = False)
-	total = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_S(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_credit = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	extra_load = models.IntegerField(default=0)
+# 	credit_score = models.FloatField(default=0)
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	avg_load = models.FloatField(default = 0)
+# 	store = models.BooleanField(default = False)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_t";
-
-
-class Acad_Annex_U(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_number = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	last_prom = models.CharField(default="",max_length=100)
-	store = models.BooleanField(default = False)
-	total = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-
-	def __unicode__(self):
-		return str(self.app_id) + "_u";
-
-class Acad_Annex_V(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_number = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	last_prom = models.CharField(default="",max_length=100)
-	store = models.BooleanField(default = False)
-	total = models.FloatField(default = 0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-
-	def __unicode__(self):
-		return str(self.app_id) + "_v";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_s";
 
 
-class Acad_Annex_W1_W2(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_number = models.IntegerField(default=0)
-	annexure_data1 = models.TextField(default="[]")
-	annexure_data2 = models.TextField(default="[]")
-	last_prom_w1 = models.CharField(default="",max_length=100)
-	last_prom_w2 = models.CharField(default="",max_length=100)
-	store_w1 = models.BooleanField(default = False)
-	store_w2 = models.BooleanField(default = False)
-	total_w1 = models.FloatField(default=0)
-	total_w2 = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file_w1 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-	annexure_file_w2 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_T(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_number = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	store = models.BooleanField(default = False)
+# 	total = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_w12";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_t";
 
-class Acad_Annex_X(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_number = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	last_prom = models.CharField(default="",max_length=100)
-	store = models.BooleanField(default = False)
-	credit_val = models.FloatField(default = 0)
-	total = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_x";
+# class Acad_Annex_U(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_number = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	store = models.BooleanField(default = False)
+# 	total = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-class Acad_Annex_Y(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_number = models.IntegerField(default=0)
-	ieee = models.BooleanField(default=False)
-	fna = models.BooleanField(default=False)
-	fnae = models.BooleanField(default=False)
-	fnasc = models.BooleanField(default=False)
-	store = models.BooleanField(default = False)
-	credit_score = models.FloatField(default=0)
-	value = models.CharField(max_length=10, default="no")
-	store = models.BooleanField(default = False)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_u";
 
-	def __unicode__(self):
-		return str(self.app_id) + "_y"
+# class Acad_Annex_V(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_number = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	store = models.BooleanField(default = False)
+# 	total = models.FloatField(default = 0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-class Acad_Annex_Z(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_number = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	last_prom = models.CharField(default="",max_length=100)
-	percentage = models.FloatField(default=0)
-	store = models.BooleanField(default = False)
-	credit_val = models.FloatField(default = 0)
-	total = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_v";
 
-	def __unicode__(self):
-		return str(self.app_id) + "_z";
+
+# class Acad_Annex_W1_W2(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_number = models.IntegerField(default=0)
+# 	annexure_data1 = models.TextField(default="[]")
+# 	annexure_data2 = models.TextField(default="[]")
+# 	last_prom_w1 = models.CharField(default="",max_length=100)
+# 	last_prom_w2 = models.CharField(default="",max_length=100)
+# 	store_w1 = models.BooleanField(default = False)
+# 	store_w2 = models.BooleanField(default = False)
+# 	total_w1 = models.FloatField(default=0)
+# 	total_w2 = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file_w1 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# 	annexure_file_w2 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_w12";
+
+# class Acad_Annex_X(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_number = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	store = models.BooleanField(default = False)
+# 	credit_val = models.FloatField(default = 0)
+# 	total = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_x";
+
+# class Acad_Annex_Y(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_number = models.IntegerField(default=0)
+# 	ieee = models.BooleanField(default=False)
+# 	fna = models.BooleanField(default=False)
+# 	fnae = models.BooleanField(default=False)
+# 	fnasc = models.BooleanField(default=False)
+# 	store = models.BooleanField(default = False)
+# 	credit_score = models.FloatField(default=0)
+# 	value = models.CharField(max_length=10, default="no")
+# 	store = models.BooleanField(default = False)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_y"
+
+# class Acad_Annex_Z(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_number = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	percentage = models.FloatField(default=0)
+# 	store = models.BooleanField(default = False)
+# 	credit_val = models.FloatField(default = 0)
+# 	total = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_z";
 
 class SubjectTaught(models.Model):
 	app_id = models.ForeignKey(Appdata)

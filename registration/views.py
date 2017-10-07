@@ -14,6 +14,12 @@ import smtplib
 import os
 import unicodedata
 
+def is_dean(user):
+    return user.groups.filter(name="Dean").exists()
+def is_hod(user):
+    return user.groups.filter(name="HOD").exists()
+
+
 def index(request) :
 	response = {}
 	return render(request,'registration/login.djt',response)
@@ -38,6 +44,10 @@ def signin(request) :
 		user = authenticate(username=username,password=password)
 		if user is None :
 			return render(request, 'registration/login.djt', response)
+		elif (is_hod(user) or is_dean(user)):
+			login(request,user)
+			user = request.user
+			return redirect('/scrutiny')
 		else :
 			login(request,user)
 			user = request.user
@@ -72,7 +82,8 @@ def createApp(request) :
 
 		emailid = request.POST['email']
 		dept = Department.objects.get(deptID=request.POST['dept'])
-		appPost = Post.objects.get(name=request.POST['post'])
+		#appPost = Post.objects.get(name=request.POST['post'])
+		appPost = Post.objects.get(id=request.POST['post'])
 		if User.objects.filter(email=emailid).exists() :
 			existingUsers = User.objects.filter(email=emailid)
 			for existingUser in existingUsers :
@@ -104,6 +115,7 @@ def createApp(request) :
 
 			user.username = applicationID
 			user.set_password(pass1)
+			user.save()
 			user.groups.add(Group.objects.get(name="Applicant"))
 			user.save()
 
