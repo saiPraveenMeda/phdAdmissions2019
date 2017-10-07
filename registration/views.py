@@ -14,6 +14,12 @@ import smtplib
 import os
 import unicodedata
 
+def is_dean(user):
+    return user.groups.filter(name="Dean").exists()
+def is_hod(user):
+    return user.groups.filter(name="HOD").exists()
+
+
 def index(request) :
 	response = {}
 	return render(request,'registration/login.djt',response)
@@ -38,6 +44,10 @@ def signin(request) :
 		user = authenticate(username=username,password=password)
 		if user is None :
 			return render(request, 'registration/login.djt', response)
+		elif (is_hod(user) or is_dean(user)):
+			login(request,user)
+			user = request.user
+			return redirect('/scrutiny')
 		else :
 			login(request,user)
 			user = request.user
