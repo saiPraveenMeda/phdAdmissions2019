@@ -18,6 +18,10 @@
     		height: 1px;
     		background-color: black;
 		}
+		p{
+		    font-size: 18px;
+		    text-align: center;
+		}
 	</style>
 </head>
 
@@ -39,6 +43,7 @@
 	<div class="row" style="margin-top:3%;">
 		<div class="col-sm-8">
 			<div class="well well-lg">
+			<br><br>
 				<center><h2 style="margin-top:0px;"><span class="label label-primary">NIT Warangal</span></h2></center>
 				<br>
 
@@ -47,7 +52,7 @@
 					National Institute of Technology, Warangal, formerly known as Regional Engineering College, was established in 1959.
 				</p>
 				<p>
-					Pandit Jawaharlal Nehru laid the foundation stone for this institute on October 10, 1959, the first in the chain of 30 NITs (formerly known as RECs) in the country.
+					Pandit Jawaharlal Nehru laid the foundation stone for this institute on<br> October 10, 1959, the first in the chain of 30 NITs (formerly known as RECs) in the country.
 				</p>
 				<p>
 					Alumni of the institute are spaced both length and breadth wise across the world and occupied noble positions in the industry as well as academia.
@@ -56,42 +61,13 @@
 					The Institute is well known for its dedicated faculty, staff and the state-of-the art infrastructure conducive to a healthy academic environment. The Institute is constantly striving to achieve higher levels of technical excellence. Faculty of the institute are actively participating the development activities of the country in particular and the academic community all over the world in general.
 				</p>
 				<p>
-					The Institute is looking for motivated and dynamic persons with passion for "Teaching and Research" and zeal to "excel in professional career", for filling up faculty positions in the various departments at different levels.
+					The Institute is looking for motivated and dynamic persons with passion for "Research" and zeal to "excel in academic career", inviting applications for various departments.
 				</p>
 				<p style="color:red;">
 					<u><b>Note</b> : Please use Google Chrome for filling the application.</u> 
 				</p>
 				</b>
 				<br>
-				<hr>
-				<center><b><h4 style="color:red;">Important Links</h4></b></center>
-				<hr>
-				<ul>
-					<li>
-						<a href="{% static 'main/Advt-facultyNITW-210917.pdf' %}"><b>Recruitment for Faculty Positions</b></a>
-					</li>
-					<br>
-					<li>
-						<a href="{% static 'main/General_Instructions_NIT__Warangal.pdf' %}"><b>General Instructions</b></a>
-					</li>
-					<br>
-					<li>
-						<a href="{% static 'main/Gazette_of_India_Dated_July_24_2017.pdf' %}"><b>Gazette of India Dated July 24,2017</b></a>
-					</li>
-                                        <br>
-					<li>
-						<a href="{% static 'main/Qualification_and_Credit_Rules.pdf' %}"><b>Qualification and Credit Rules</b></a>
-					</li>
-					<br>
-					<li>
-						<a href="{% static 'main/Essential_Qualification.pdf' %}"><b>Essential Qualification</b></a>
-					</li>
-                                        <br>
-					<li>
-						<a href="{% static 'main/PhD Admission-Proposed Distribution-Sept-2017.pdf' %}"><b>Proposed Distribution of Faculty Positions</b></a>
-					</li>
-                                        
-				</ul>
 			</div>
 			
 		</div>

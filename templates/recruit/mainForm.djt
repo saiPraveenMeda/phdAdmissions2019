@@ -94,7 +94,7 @@
 						<div class="col-sm-6">
 							<div class="form-group" style="font-size:18px;">
 								<b><u>{{profile.postApplied}}</u></b>
-								{% if profile.postApplied == 'Full Time' %}
+								{% if profile.postApplied == 'Part Time' %}
 								<button type="submit" style="visibility: visible;" class="btn btn-success" id="annexure">Annexure - III</button>					
 								{% endif %}
 							</div>
@@ -518,7 +518,7 @@
 				</div>
 			</div>
 			
-			<center><button type="button" id="Add1">Add</button><br></center>
+			<center><button type="button" class="btn" id="Add1">Add</button><br></center>
 
 			</div>
 			<br>
@@ -611,7 +611,7 @@
 				</div>
 			</div>
 			
-			<center><button type="button" id="Add2">Add</button><br></center>
+			<center><button type="button" class="btn" id="Add2">Add</button><br></center>
 
 			</div>
 			<br>
@@ -704,7 +704,7 @@
 				</div>
 			</div>
 			
-			<center><button type="button" id="Add3">Add</button><br></center>
+			<center><button type="button" class="btn" id="Add3">Add</button><br></center>
 
 			</div>
 			<br>
@@ -723,7 +723,33 @@
 
 			<hr>		
 
-			<!-- Research Paper -->
+			<!-- Research Papers published -->
+			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="title">Title of paper</label>
+						<input for="title" class="form-control" id="title">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="conference">Conference / Workshop</label>
+						<input for="conference" class="form-control" id="conference">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Date of Publication">Date of Publication</label>
+						<input type="date" for="Date of Publication" class="form-control" id="publicationdate">
+					</div>
+				</div>
+			</div>
+			
+			<center><button type="button" class="btn" id="Add4">Add</button><br></center>
+
+			</div>
+			<hr>
 			
 			<div class="well well-lg">
 				<div class="row">
@@ -756,73 +782,15 @@
 					</div>
 				</div>
 			</div>
+        <hr>
+        <div class="row well well-sm">
+			<div class="col-sm-12">
+				<center><button type="submit" style="float:left;" class="btn btn-success" id="finalSubmitBtn">Save</button></center>
 
-			<!--Reasearch Papers Published -->
-
-			<div class="well well-lg">
-				<div class="row">
-					<div class="col-sm-5">
-						<b><h3><u>Research Papers Published : </u></h3></b><br>
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col-sm-4">
-					<div class="row">
-					<div class="col-sm-2"><b>Title</b></div>
-					<div class="col-sm-2"><b>Conference/Workshop</b></div>
-					<div class="col-sm-2"><b>Year</b></div>
-				</div>
-				<br>
-
-				<div class="row">
-					<div class="col-sm-2">Title</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Bdegree" class="form-control" value="{{Bqual.degreeName}}" required>
-						</div>
-					</div>
-					<div class="col-sm-2">Conference/Workshop</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Buniv" class="form-control" value="{{Bqual.university}}" required>
-						</div>
-					</div>
-					<div class="col-sm-2">Year</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Buniv" class="form-control" value="{{Bqual.university}}" required>
-						</div>
-					</div>
-				</div>
-						<div class="form-group">
-							<input class="form-control" type="text" id="course1">
-						</div>
-						<center><button type="button" id="Add1">Add</button><br></center>
-					</div>
-					<div class="col-sm-6 col-sm-offset-1">
-						<table class="table table-bordered">
-							<thead style="background-color:#e3e3e3;">
-								<tr><th>Subjects</th></tr>
-							</thead>
-							<tbody id="courseTable1">
-								{% for sub in coreUGobj %}
-									<tr><td>{{sub}}</td></tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<input type="text" name="coreUGdata" id="coreUG" hidden>
-			</div>	
-
+				<center><a href="/academic"><button type="button" style="float:right;" class="btn btn-info">Next</button></a></center>
+			</div>
 		</div>
-        <div class="row">
-					<div class="col-sm-5">
-						<center><button type="submit" style="float:left;" class="btn btn-success" id="finalSubmitBtn">Save</button></center>
-
-						<center><a href="/academic"><button type="button" style="float:right;" class="btn btn-info">Next</button></a></center>
-					</div>
+		<br>
 		</div>
 
 		</form>
