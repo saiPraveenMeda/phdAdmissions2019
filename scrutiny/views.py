@@ -6,7 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import ScrutinyUserProfile as ScrutinizerProfile
-from registration.models import UserProfile as ApplicantProfile, Department
+from recruit.models import Appdata
+from registration.models import UserProfile
 # from recruit.models import Appdata
 
 def is_dean(user):
@@ -22,10 +23,16 @@ def index(request):
 	response ={}
 	userprofile = ScrutinizerProfile.objects.get(user=request.user)
 	if is_dean(request.user):
-		profiles = ApplicantProfile.objects.all()
+		isDean = True
+		applns = Appdata.objects.all()
+		
 	elif is_hod(request.user):
-		profiles = ApplicantProfile.objects.filter(departmentApplied=userprofile.department.name)
-		# profiles = ApplicantProfile.objects.all()
+		isDean = False
+		applns = Appdata.objects.filter(post_in=userprofile.department.name)
+    
+    # users = UserProfile.objects.filter(user__in=applns.values_list(user, flat=True))
 
-	response['profiles'] = profiles
+	# response['applns'] = zip(applns, users)
+	response['applns'] = applns
+	response['is_dean'] = isDean
 	return render(request,'scrutiny/applications.djt',response)

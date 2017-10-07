@@ -9,4 +9,4 @@ class ScrutinyUserProfile(models.Model):
 	user = models.ForeignKey(User)
 	department = models.ForeignKey(Department)
 	def __str__(self):
-		return (self.department+" - "+self.user.first_name+" "+self.user.last_name)
+		return (str(self.department)+" - "+self.user.first_name+" "+self.user.last_name)

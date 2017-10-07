@@ -29,6 +29,7 @@ class Appdata(models.Model):
 	# agp2 = models.BooleanField(default=False)
 	# agp3 = models.BooleanField(default=False)
 	submitted = models.BooleanField(default=False)
+	verified = models.BooleanField(default=False)
 	paymentUploaded = models.BooleanField(default=False)
 	submitDate = models.DateTimeField(blank=True,default=datetime.datetime.now,auto_now=False, auto_now_add=False)
 
