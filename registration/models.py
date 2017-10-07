@@ -10,18 +10,6 @@ def get_profilepic_path(instance,filename):
 def get_pay_path(instance,filename):
 	return 'users/{0}/payment/{1}'.format(instance.appID,filename)
 
-class UserProfile(models.Model):
-	user = models.ForeignKey(User)
-	applicationID = models.CharField(max_length=10)
-	contact = models.CharField(max_length=14)
-	departmentApplied = models.CharField(max_length=50)
-	postApplied = models.CharField(max_length=100)
-	termsRead = models.BooleanField(default=False)
-	profilePic = models.ImageField(upload_to=get_profilepic_path,null=True,blank=True)
-
-	def __str__(self):
-		return (self.applicationID+"-"+self.user.first_name+" "+self.user.last_name)
-
 class Department(models.Model):
 	name = models.CharField(max_length=100)
 	deptID = models.IntegerField()
@@ -36,6 +24,19 @@ class Post(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class UserProfile(models.Model):
+	user = models.ForeignKey(User)
+	applicationID = models.CharField(max_length=10)
+	contact = models.CharField(max_length=14)
+	departmentApplied = models.ForeignKey(Department)
+	postApplied = models.ForeignKey(Post)
+	termsRead = models.BooleanField(default=False)
+	profilePic = models.ImageField(upload_to=get_profilepic_path,null=True,blank=True)
+
+	def __str__(self):
+		return (self.applicationID+"-"+self.user.first_name+" "+self.user.last_name)
+
 
 class PaymentDetails(models.Model) :
 	appID = models.CharField(max_length=10)

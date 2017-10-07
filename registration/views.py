@@ -82,12 +82,11 @@ def createApp(request) :
 
 		emailid = request.POST['email']
 		dept = Department.objects.get(deptID=request.POST['dept'])
-		#appPost = Post.objects.get(name=request.POST['post'])
 		appPost = Post.objects.get(id=request.POST['post'])
 		if User.objects.filter(email=emailid).exists() :
 			existingUsers = User.objects.filter(email=emailid)
 			for existingUser in existingUsers :
-				if UserProfile.objects.filter(user=existingUser,postApplied=appPost.name,departmentApplied=dept.name).exists():
+				if UserProfile.objects.filter(user=existingUser,postApplied=appPost,departmentApplied=dept).exists():
 					return redirect('/register/signup/1')
 
 		pass1 = request.POST['password1']
@@ -121,8 +120,8 @@ def createApp(request) :
 
 			userprofile = UserProfile()
 			userprofile.user = user
-			userprofile.postApplied = appPost.name
-			userprofile.departmentApplied = dept.name
+			userprofile.postApplied = appPost
+			userprofile.departmentApplied = dept
 			userprofile.applicationID = applicationID
 			userprofile.contact = request.POST['contact']
 			userprofile.termsRead = False
@@ -131,8 +130,8 @@ def createApp(request) :
 			app_data = Appdata()
 			app_data.user = user
 			app_data.app_id = userprofile.applicationID
-			app_data.post_for = userprofile.postApplied
-			app_data.post_in = userprofile.departmentApplied
+			app_data.post_for = userprofile.postApplied.name
+			app_data.post_in = userprofile.departmentApplied.name
 			app_data.save()
 
 			pay_data = PaymentDetails()

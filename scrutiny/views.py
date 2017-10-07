@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import ScrutinyUserProfile as ScrutinizerProfile
 from registration.models import UserProfile as ApplicantProfile, Department
-from recruit.models import Appdata
+# from recruit.models import Appdata
 
 def is_dean(user):
     return user.groups.filter(name="Dean").exists()
@@ -24,7 +24,8 @@ def index(request):
 	if is_dean(request.user):
 		profiles = ApplicantProfile.objects.all()
 	elif is_hod(request.user):
-		profiles = ApplicantProfile.objects.filter(departmentApplied=Department(name=userprofile.department).id)
+		profiles = ApplicantProfile.objects.filter(departmentApplied=userprofile.department.name)
+		# profiles = ApplicantProfile.objects.all()
 
 	response['profiles'] = profiles
 	return render(request,'scrutiny/applications.djt',response)
