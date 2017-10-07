@@ -1,0 +1,145 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+	<title>Annexures</title>
+
+</head>
+
+<body>
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+	<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
+		{% csrf_token %}
+		<div class="row">
+			<center><h3><u> Annexure - II </u></h3></center><br>
+			<center><h4><b>FOR PART-TIME CANDIDATES:</b></h4></center><br>
+		</div>
+		<div class="well well-lg">
+		This is to certify that Mr./Ms. <input name = "name" type = "text"> Designation <input name = "desig" type = "text"> an applicant for admission into Ph.D. program of the National Institute of Technology, Warangal, for the <input type = "date" name = "date"> has been in continuous employment in our organization named <input type = "name" name = "company"> (give complete address),for the last <input type = "number" name = "yrs" > years and that he/she has been sponsored by us for undergoing the program. Certified further that his/her services with the organization will be retained during the period carrying out the studies/ research work at the National Institute of Technology, Warangal, and on completion there of he/she will continue in service in our organization.
+		<br>
+		Station:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Signature of the Competent Authority with seal)<br>Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name in full : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Designation :<br><right>(seal)</right>
+		<br><br>
+		NOTE: Application will not be considered without the above sponsorship certificate duly printed on the letterhead of the organization.
+		</div>
+	</form>
+	</div>
+</div>
+</body>
+
+<script type="text/javascript">
+	$('#alert').hide();
+	var annexure_e1 = [];
+	var total= $("#total_e1").html();
+	if(!total)
+		total = 0;;
+	var rowCount = $('#annexure_e1 tr').length;
+
+	$(document).ready(function() {
+		$('#finalData').val("");
+	});
+
+	$('#Add_a').click(function(){
+		var title = $('#title').val(); $('#title').val("");
+		var progress = $('#progress').val(); $('#progress').val("");
+		var funding_agency = $('#funding_agency').val(); $('#funding_agency').val("");
+		var from = $('#from').val(); $('#from').val("");
+		var to = $('#to').val(); $('#to').val("");
+		var amount = $('#amount').val(); $('#amount').val("");
+		var pi_co = $('#pi_co').val(); $('#pi_co').val("");
+		var total_co_pi = $('#total_co_pi').val(); $('#total_co_pi').val("");
+		var credit = $('#credit').val(); $('#credit').val("");
+
+		if(!title || !progress || !funding_agency ||!from || !to || !amount || !pi_co || !total_co_pi || !credit)
+		{
+			$('#alert').show();
+			return false;
+		}
+		var data = {
+			'title' : title,
+			'progress' : progress,
+			'funding_agency' : funding_agency,
+			'from' : from,
+			'to' : to,
+			'amount' : amount,
+			'pi_co' : pi_co,
+			'total_co_pi' : total_co_pi,
+			'credit' : credit
+		};
+		total = parseFloat(total) + parseFloat(credit);
+		var i = rowCount+annexure_e1.length;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + title + '</td>';
+		rowHtml = rowHtml + '<td>' + progress + '</td>';
+		rowHtml = rowHtml + '<td>' + from + '</td>';
+		rowHtml = rowHtml + '<td>' + to + '</td>';
+		rowHtml = rowHtml + '<td>' + funding_agency + '</td>';
+		rowHtml = rowHtml + '<td>' + amount + '</td>';
+		rowHtml = rowHtml + '<td>' + pi_co + '</td>';
+		rowHtml = rowHtml + '<td>' + total_co_pi + '</td>';
+		rowHtml = rowHtml + '<td>' + credit + '</td></tr>';
+
+		$('#annexure_e1').append(rowHtml);
+		$('#total_e1').html(total);
+		annexure_e1.push(data);
+
+		var dataString = JSON.stringify(annexure_e1);
+		console.log(dataString);
+		$('input[name="annexure_e1"]').val(dataString);
+		$('input[name="total_e1"]').val(total);
+	});
+	 $('#annexure').submit(function() {
+	 		if(annexure_e1.length ==0)
+	 		{
+	 			alert("Fill some data");
+	 			return false;
+	 		}
+	 		var formData = new FormData();
+		    var fileName = $("#annexure_file").val();
+		    var extension = fileName.split('.').pop();
+		    if(fileName) {
+		    	if(extension != 'pdf')
+		    	{
+		    		alert("PDF format not uploaded");
+		    		return false;
+		    	}
+		    } else {
+		    	file = $('input[name="file"]').val();
+		    	if(file.length<=0)
+		    	{
+		    		alert("No file selected");
+		        	return false;
+		    	}
+		    }
+	 		formData.append($(this));
+	        $.ajax({ 
+	            data: formData, 
+	            type: $(this).attr('method'),
+	            url: $(this).attr('action'),
+	            success: function() {
+	            	window.location.href = "/academic";
+	            }
+	        });
+	        return false; 
+	    });
+</script>
+
+</html>

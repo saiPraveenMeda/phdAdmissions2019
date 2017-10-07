@@ -94,6 +94,9 @@
 						<div class="col-sm-6">
 							<div class="form-group" style="font-size:18px;">
 								<b><u>{{profile.postApplied}}</u></b>
+								{% if profile.postApplied == 'Full Time' %}
+								<button type="submit" style="visibility: visible;" class="btn btn-success" id="annexure">Annexure - III</button>					
+								{% endif %}
 							</div>
 						</div>
 					</div>
@@ -284,16 +287,18 @@
 				<div class="col-sm-3"> <b>Category</b> </div>
 				<div class="col-sm-6">
 				<div class="form-group">
-				<label class="radio-inline"><input type="radio" value="SC" name="category" {% ifequal generalData.category 'SC' %} checked {% endifequal %}>SC</label>
-				<label class="radio-inline"><input type="radio" value="ST" name="category" {% ifequal generalData.category 'ST' %} checked {% endifequal %}>ST</label>
-				<label class="radio-inline"><input type="radio" value="OBC" name="category" {% ifequal generalData.category 'OBC' %} checked {% endifequal %}>OBC</label>
-				<label class="radio-inline"><input type="radio" value="UR" name="category" {% ifequal generalData.category 'UR' %} checked {% endifequal %}>UR</label>
+				<label class="radio-inline"><input type="radio" value="SC" name="category" {% ifequal generalData.category 'SC' %} checked {% endifequal %} id="SC">SC</label>
+				<label class="radio-inline"><input type="radio" value="ST" name="category" {% ifequal generalData.category 'ST' %} checked {% endifequal %} id="ST">ST</label>
+				<label class="radio-inline"><input type="radio" value="OBC" name="category" {% ifequal generalData.category 'OBC' %} checked {% endifequal %} id="OBC">OBC</label>
+				<label class="radio-inline"><input type="radio" value="UR" name="category" {% ifequal generalData.category 'UR' %} checked {% endifequal %} id="UR">UR</label>
+				<button type="submit" style="visibility: hidden;" class="btn btn-success" id="isOBC">Annexure - II</button>
 				</div>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-sm-3"> <b> PWD :  </b> </div>
+
 				<div class="col-sm-3">
 				<div class="form-group">
 					<label class="radio-inline"><input type="radio" value="yes" name="pwd" {% ifequal generalData.pwd 'yes' %} checked {% endifequal %}>Yes</label>
@@ -381,31 +386,35 @@
 						</div>
 					</div>
 				</div>
+				</div>
+				</div>
 				<hr>
 
-			</div>
-		<br>
 			<div class="row">
-				<div class="col-sm-6">
-					<h4 style="font-weight:900;">Qualifying Examination Details : </h4>
+				<div class="col-sm-10">
+					<b><h3>Qualifying Examination Details</h3></b>
 				</div>
 			</div>
 			<br>
+
+			<div class="well well-lg">
+			<div class="row">
 			<div class="col-sm-3"> <b>Examination Qualified : </b> </div>
 				<div class="col-sm-3">
 					<div class="form-group">
-						<select for="Examination" class="form-group" id="exam1">
-							<option>----</option>
+						<select for="Examination" class="form-control" id="exam1">
+							<option>-------------</option>
 							<option value="GATE">GATE</option>
-							<option value="GATE">GATE</option>
+							<option value="GATE">NET</option>
 							<option value="CAT/MAT/GMAT">CAT/MAT/GMAT</option>
 						</select>
 					</div>
 				</div>
+				</div>
 			</div>
-			<hr> -->
+            <br>
+			<hr>
 
-			<br>
 			<div class="row">
 				<div class="col-sm-6">
 					<h4 style="font-weight:900;">Details of Experience</h4>
@@ -712,19 +721,14 @@
 				</div>
 			</div>
 
-			<hr>			
+			<hr>		
 
-		</div>
-
-			<center><button type="submit" style="float:left;" class="btn btn-success" id="finalSubmitBtn">Save</button></center>
-
-			<center><a href="/academic"><button type="button" style="float:right;" class="btn btn-info">Next</button></a></center>
 			<!-- Research Paper -->
 			
 			<div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-5">
-						<b><h3><u>Field of propsed Area of Research : </u></h3></b><br>
+						<b><h4>Field of propsed Area of Research : </h4></b><br>
 					</div>
 				</div>
 				<div class = "row">
@@ -741,7 +745,7 @@
 			<div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-5">
-						<b><h3><u>Field of Interest : </u></h3></b><br>
+						<b><h4>Field of Interest : </h4></b><br>
 					</div>
 				</div>
 				<div class = "row">
@@ -810,7 +814,16 @@
 					</div>
 				</div>
 				<input type="text" name="coreUGdata" id="coreUG" hidden>
-			</div>
+			</div>	
+
+		</div>
+        <div class="row">
+					<div class="col-sm-5">
+						<center><button type="submit" style="float:left;" class="btn btn-success" id="finalSubmitBtn">Save</button></center>
+
+						<center><a href="/academic"><button type="button" style="float:right;" class="btn btn-info">Next</button></a></center>
+					</div>
+		</div>
 
 		</form>
 		<br><br>
@@ -975,6 +988,18 @@
 		console.log(dataString);
 		$('#industryExp').val(dataString);
 	});
+
+</script>
+<script>
+
+	$('input[name=category]').change(
+		function(){
+			if($('input[name=category]:checked').val() == 'OBC'){
+				document.getElementById('isOBC').style.visibility = 'visible';
+			}
+			else document.getElementById('isOBC').style.visibility = 'hidden';
+		}
+		);
 
 </script>
 </html>

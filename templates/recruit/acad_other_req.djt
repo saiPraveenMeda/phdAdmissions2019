@@ -47,7 +47,7 @@
 		<form style="margin-top:3%;" method = "POST">{% csrf_token %}
 
 		<div class="row">
-			<center><h3><u> Application Form for faculty Position </u></h3></center>
+			<center><h3><u> Application Form for PhD </u></h3></center>
 			<div style="float:right; margin-right:40px; font-size:18px;"> Credits </div>
 		</div>
 
@@ -363,15 +363,15 @@
 					</div>
 				</div>
 				<br>
-				<!-- <div class="row">
+				<div class="row">
 					<div class="col-sm-12"> <b>Please give details of number of Co-Authors in Journal papers where you are NOT the first Author/Main supervisors :</b><br><br> </div>
 				</div>
 
 				<div class="row">
 					<div class="col-sm-8"> <b>Papers. :</b><br><br> </div>
-				</div> -->
+				</div>
 
-				<!-- <table class="table table-bordered">
+				<table class="table table-bordered">
 					<thead>
 				      <tr style="background-color:#e3e3e3;">
 				        <th>S.No.</th>
@@ -386,7 +386,7 @@
 				    	</tr>
 				    {% endfor %}			    	
 				    </tbody>
-				</table> -->
+				</table>
 
 				<div class="row hidden">
 					<div class="col-sm-1">
@@ -441,7 +441,7 @@
 					</div>
 				</div>
 				<br>
-				<!-- <div class="row">
+				<div class="row">
 					<div class="col-sm-12"> <b>Please give the number of Co-Authors in which you are NOT the first Author/Main supervisors :</b><br><br> </div>
 				</div>
 
@@ -464,7 +464,7 @@
 				    	</tr>
 				    {% endfor %}
 				    </tbody>
-				</table> -->
+				</table>
 
 				<div class="row hidden">
 					<div class="col-sm-1">
@@ -481,7 +481,7 @@
 			<hr>
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(vi) HoD, Dean, Chief Warden, Professor Incharge (Training and Placement Section), Advisor (Estate), CVO, PI (Exam), TEQIP (Coordinator), <u>since the last promotion :</u></b><br><br> 
@@ -508,10 +508,10 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(vii) Warden, Assistant Wardens, Associate Dean, Chairman / Convener Institute academic committees, faculty incharge computer center, IT Services / library / Admission / student activites and other institutional activities, <u>since the last promotion :</u></b><br><br> 
@@ -538,11 +538,11 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(viii) Chairman and convener of different standing committees and special committee (Ex officio status will not be considered) Faculty incharges. (Each for one year duration) of different units or equivalent, <u>since the last promotion :</u></b><br><br> 
@@ -569,11 +569,11 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+<!-- 			<div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(ix) Department activities identified by HoD like lab incharges, or department level committee for a min. period of one year, <u>since the last promotion :</u></b><br><br> 
@@ -600,11 +600,11 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+<!-- 			<div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(x) Workshop / FDP / short term courses of min 05 working days duration offered as coordinator or convener, <u>since the last promotion :</u></b><br><br> 
@@ -629,11 +629,11 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xi) For conducting national programs like GIAN etc. as course coordinator, <u>since the last promotion :</u></b><br><br> 
@@ -670,11 +670,11 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xii) National / International conference oganized as Chairman / Secretary, <u>since the last promotion :</u></b><br><br> 
@@ -700,10 +700,10 @@
 				</div>
 			</div>
 			<hr>
-
+ -->
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xiii) Length of service over and above the relevant minimum teaching experience required for a given cadre, <u>since the last promotion :</u></b><br><br> 
@@ -733,10 +733,10 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 						<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xiv) Establishment of new Lab(s), <u>since the last promotion :</u></b><br><br> 
@@ -761,10 +761,10 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xv) Theory teaching of over and above 6 credit hrs. course, <u>since the last promotion :</u></b><br><br> 
@@ -789,10 +789,10 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xvi) PG Dissertation guided, <u>since the last promotion :</u></b><br><br> 
@@ -817,10 +817,10 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 			<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xvii) UG Projects, <u>since the last promotion :</u></b><br><br> 
@@ -845,10 +845,10 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 						<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xviii) Text / Reference book published on relevant subjects from reputed International publishers, <u>since the last promotion :</u></b><br><br> 
@@ -875,10 +875,10 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 						<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-6" style="font-size:18px;"> 
 						<b>(xix) Text / Reference book published on relevant subjects from reputed national publishers or book chapters in the books published by reputed international publishers, <u>since the last promotion :</u></b><br><br> 
@@ -907,9 +907,9 @@
 				</div>
 			</div>
 			<hr>
-
+ -->
 						<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xx) Significant outreach Institute out Activities, <u>since the last promotion :</u></b><br><br> 
@@ -934,11 +934,11 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 
 						<!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xxi) Fellow IEEE, FNA, FNAE, FNASc. </u></b><br><br> 
@@ -963,10 +963,10 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 <!-- ////////////////// Part1 ///////////////// -->
-			<div class="well well-lg">
+			<!-- <div class="well well-lg">
 				<div class="row">
 					<div class="col-sm-8" style="font-size:18px;"> 
 						<b>(xxii) Placement percentage (only for thre placement cell offers / faculty incharge of placement), since the last promotion : </u></b><br><br> 
@@ -991,7 +991,7 @@
 					</div>
 				</div>
 			</div>
-			<hr>
+			<hr> -->
 
 			<div class="well well-lg">
 				<div class="row">
