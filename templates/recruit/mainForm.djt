@@ -108,31 +108,6 @@
 					</div>
 
 					<div class="row">
-						<div class="col-sm-4"> <b>AGP </b> </div>
-						<div class="col-sm-6">
-							<div class="form-group">
-							{% ifequal postID 1 %}
-								<div class="checkbox-inline">
-								  <label><input type="checkbox" name="agp1" {% ifequal agp1 1 %} checked {% endifequal %} >6000</label>
-								</div>
-								<div class="checkbox-inline">
-								  <label><input type="checkbox" name="agp2" {% ifequal agp2 1 %} checked {% endifequal %}>7000</label>
-								</div>
-								<div class="checkbox-inline">
-								  <label><input type="checkbox" name="agp3" {% ifequal agp3 1 %} checked {% endifequal %}>8000</label>
-								</div>
-							{% endifequal %}
-							</div>
-							{% ifequal postID 2 %}
-								<b>9500</b>
-							{% endifequal %}
-							{% ifequal postID 3 %}
-								<b>10500</b>
-							{% endifequal %}
-						</div>
-					</div>
-
-					<div class="row">
 						<div class="col-sm-4"> <b>Specialization</b> </div>
 						<div class="col-sm-6">
 							<div class="form-group">
@@ -397,7 +372,7 @@
 						<select for="Examination" class="form-group" id="exam1">
 							<option>----</option>
 							<option value="GATE">GATE</option>
-							<option value="GATE">GATE</option>
+							<option value="NET">NET</option>
 							<option value="CAT/MAT/GMAT">CAT/MAT/GMAT</option>
 						</select>
 					</div>
@@ -753,64 +728,67 @@
 				</div>
 			</div>
 
-			<!--Reasearch Papers Published -->
+			<!--Research Papers Published -->
+
+		<div class="row">
+				<div class="col-sm-3"> <b>Research Papers Published</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" type="number" min="0" name="researchPaper" value="{{Experience.research_exp}}" required>
+					</div>
+				</div>
+			</div>
+
+			<table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th>S.No.</th>
+			        <th>Title</th>
+			        <th>Conference</th>
+			        <th>Date of Completion</th>
+			    </thead>
+			    <tbody id="researchExpTbody">
+			    	{% for rexp in researchData %}
+			    	<tr>
+		    			<td>{{forloop.counter}}.</td>
+			    		<td>{{rexp.title}}</td>
+			    		<td>{{rexp.conference}}</td>
+			    		<td>{{rexp.completionDate}}</td>
+			    	</tr>
+			    	{% endfor %}
+			    </tbody>
+			</table>
 
 			<div class="well well-lg">
-				<div class="row">
-					<div class="col-sm-5">
-						<b><h3><u>Research Papers Published : </u></h3></b><br>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="title">Title</label>
+						<input for="title" class="form-control" id="title">
 					</div>
 				</div>
-				
-				<div class="row">
-					<div class="col-sm-4">
-					<div class="row">
-					<div class="col-sm-2"><b>Title</b></div>
-					<div class="col-sm-2"><b>Conference/Workshop</b></div>
-					<div class="col-sm-2"><b>Year</b></div>
-				</div>
-				<br>
-
-				<div class="row">
-					<div class="col-sm-2">Title</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Bdegree" class="form-control" value="{{Bqual.degreeName}}" required>
-						</div>
-					</div>
-					<div class="col-sm-2">Conference/Workshop</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Buniv" class="form-control" value="{{Bqual.university}}" required>
-						</div>
-					</div>
-					<div class="col-sm-2">Year</div>
-					<div class="col-sm-2">
-						<div class="form-group">
-							<input type="text" name="Buniv" class="form-control" value="{{Bqual.university}}" required>
-						</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="conference">Conference</label>
+						<input for="conference" class="form-control" id="conference">
 					</div>
 				</div>
-						<div class="form-group">
-							<input class="form-control" type="text" id="course1">
-						</div>
-						<center><button type="button" id="Add1">Add</button><br></center>
-					</div>
-					<div class="col-sm-6 col-sm-offset-1">
-						<table class="table table-bordered">
-							<thead style="background-color:#e3e3e3;">
-								<tr><th>Subjects</th></tr>
-							</thead>
-							<tbody id="courseTable1">
-								{% for sub in coreUGobj %}
-									<tr><td>{{sub}}</td></tr>
-								{% endfor %}
-							</tbody>
-						</table>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="Date of Completion">Date of Completion</label>
+						<input type="date" for="Date of Completion" class="form-control" id="completionDate2">
 					</div>
 				</div>
-				<input type="text" name="coreUGdata" id="coreUG" hidden>
 			</div>
+			<center><button type="button" id="Add4">Add</button><br></center>
+
+			</div>
+			<br>
+
+			<input type="text" name="researchExpData" id="researchExp" hidden>
+			<center><a href="/uploadPaper/0"><button type="button" class="btn btn-lg btn-primary">Upload CV</button></a></center><br>
+			<center><a href="/printSummary"><button type="button" class="btn btn-lg btn-primary">Submit</button></a></center>
+			<br><br>
 
 		</form>
 		<br><br>
@@ -974,6 +952,38 @@
 		var dataString = JSON.stringify(industryExpDataArray);
 		console.log(dataString);
 		$('#industryExp').val(dataString);
+	});
+	$('#Add4').click(function(){
+		var title = $('#title').val(); $('#title').val("");
+		var conference = $('#conference').val(); $('#conference').val("");
+		var Date_of_Completion = $('#completionDate').val(); $('#completionDate').val("");
+
+		if(!title || !conference || !Date_of_Completion)
+		{
+			alert("Please fill all fields or fill NA");
+			return false;
+		}
+
+		var data = {
+			'title' : title,
+			'conference' : conference,
+			'Date_of_Completion' : completionDate,
+		};
+
+		var rowCount = $('#researchExpTbody tr').length;
+		var i = researchExpDataArray.length+rowCount;
+
+		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+		rowHtml = rowHtml + '<td>' + title + '</td>';
+		rowHtml = rowHtml + '<td>' + conference + '</td>';
+		rowHtml = rowHtml + '<td>' + completionDate + '</td>';
+		$('#researchExpTbody').append(rowHtml);
+
+		researchExpDataArray.push(data);
+
+		var dataString = JSON.stringify(researchExpDataArray);
+		console.log(dataString);
+		$('#researchPaper').val(dataString);
 	});
 
 </script>

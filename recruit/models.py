@@ -25,9 +25,9 @@ class Appdata(models.Model):
 	post_for = models.CharField(max_length=200)
 	post_in = models.CharField(max_length=200)
 	specialize = models.CharField(max_length=200)
-	agp1 = models.BooleanField(default=True)
-	agp2 = models.BooleanField(default=False)
-	agp3 = models.BooleanField(default=False)
+	# agp1 = models.BooleanField(default=True)
+	# agp2 = models.BooleanField(default=False)
+	# agp3 = models.BooleanField(default=False)
 	submitted = models.BooleanField(default=False)
 	paymentUploaded = models.BooleanField(default=False)
 	submitDate = models.DateTimeField(blank=True,default=datetime.datetime.now,auto_now=False, auto_now_add=False)
@@ -124,45 +124,45 @@ class Referral(models.Model):
 	def __unicode__(self):
 		return str(self.app_id.app_id)
 
-class External_Sponsored_RnD(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_projects = models.IntegerField(default=0)
-	project_as_PI = models.IntegerField(default=0)
-	projects_not_pi = models.TextField(default = " ")
-	total_patents = models.IntegerField(default=0)
-	patents_as_pi = models.IntegerField(default=0)
-	patents_not_pi = models.TextField(default = " ")
-	credit_val = models.FloatField(default = 0)
+# class External_Sponsored_RnD(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_projects = models.IntegerField(default=0)
+# 	project_as_PI = models.IntegerField(default=0)
+# 	projects_not_pi = models.TextField(default = " ")
+# 	total_patents = models.IntegerField(default=0)
+# 	patents_as_pi = models.IntegerField(default=0)
+# 	patents_not_pi = models.TextField(default = " ")
+# 	credit_val = models.FloatField(default = 0)
 
-class Consultancy_Projects(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	consultancy_projects_completed = models.IntegerField()
-	amount = models.IntegerField(default=0)
-	credit_val = models.FloatField(default = 0)
+# class Consultancy_Projects(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	consultancy_projects_completed = models.IntegerField()
+# 	amount = models.IntegerField(default=0)
+# 	credit_val = models.FloatField(default = 0)
 
-class PhD_Completed(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_phd = models.IntegerField(default=0)
-	as_first_supervisor = models.IntegerField(default=0)
-	phds = models.TextField(default = " ")
-	credit_val = models.FloatField(default = 0)
+# class PhD_Completed(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_phd = models.IntegerField(default=0)
+# 	as_first_supervisor = models.IntegerField(default=0)
+# 	phds = models.TextField(default = " ")
+# 	credit_val = models.FloatField(default = 0)
 
-	def __unicode__(self):
-		return str(self.app_id.app_id)
+# 	def __unicode__(self):
+# 		return str(self.app_id.app_id)
 
-class Journal_Papers(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_journal_papers = models.IntegerField(default=0)
-	as_first_supervisor = models.IntegerField(default=0)
-	papers = models.TextField(default = " ")
-	credit_val = models.FloatField(default = 0)
+# class Journal_Papers(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_journal_papers = models.IntegerField(default=0)
+# 	as_first_supervisor = models.IntegerField(default=0)
+# 	papers = models.TextField(default = " ")
+# 	credit_val = models.FloatField(default = 0)
 
-class Conference_Paper_SCI(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_confernce_papers = models.IntegerField(default=0)
-	as_first_supervisor = models.IntegerField(default=0)
-	papers = models.TextField(default = " ")
-	credit_val = models.FloatField(default = 0)
+# class Conference_Paper_SCI(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_confernce_papers = models.IntegerField(default=0)
+# 	as_first_supervisor = models.IntegerField(default=0)
+# 	papers = models.TextField(default = " ")
+# credit_val = models.FloatField(default = 0)
 
 class Acad_Annex_A(models.Model):
 	app_id = models.ForeignKey(Appdata)
@@ -210,72 +210,72 @@ class Acad_Annex_D(models.Model):
 	def __unicode__(self):
 		return str(self.app_id) + "_d";
 
-class Acad_Annex_E12(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data_e1 = models.TextField(default="[]")
-	annexure_data_e2 = models.TextField(default="[]")
-	store_e1 = models.BooleanField(default = False)
-	store_e2 = models.BooleanField(default = False)
-	total_e1 = models.FloatField(default=0)
-	total_e2 = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file_e1 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-	annexure_file_e2 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_E12(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_sem = models.IntegerField(default=0)
+# 	annexure_data_e1 = models.TextField(default="[]")
+# 	annexure_data_e2 = models.TextField(default="[]")
+# 	store_e1 = models.BooleanField(default = False)
+# 	store_e2 = models.BooleanField(default = False)
+# 	total_e1 = models.FloatField(default=0)
+# 	total_e2 = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file_e1 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# 	annexure_file_e2 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_e12";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_e12";
 
-class Acad_Annex_F(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	store = models.BooleanField(default = False)
-	credit_score = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	total = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_F(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_sem = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	store = models.BooleanField(default = False)
+# 	credit_score = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	total = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_f";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_f";
 
-class Acad_Annex_G(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	store = models.BooleanField(default = False)
-	total = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_G(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_sem = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	store = models.BooleanField(default = False)
+# 	total = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_g";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_g";
 
-class Acad_Annex_H(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	last_prom = models.CharField(default="",max_length=100)
-	store = models.BooleanField(default = False)
-	total = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_H(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_sem = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	last_prom = models.CharField(default="",max_length=100)
+# 	store = models.BooleanField(default = False)
+# 	total = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-	def __unicode__(self):
-		return str(self.app_id) + "_h";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_h";
 
-class Acad_Annex_I(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	store = models.BooleanField(default = False)
-	total = models.FloatField(default=0)
-	credit_val = models.FloatField(default = 0)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+# class Acad_Annex_I(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	total_sem = models.IntegerField(default=0)
+# 	annexure_data = models.TextField(default="[]")
+# 	store = models.BooleanField(default = False)
+# 	total = models.FloatField(default=0)
+# 	credit_val = models.FloatField(default = 0)
+# 	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
 
-	def __unicode__(self):
-		return str(self.app_id) + "_i";
+# 	def __unicode__(self):
+# 		return str(self.app_id) + "_i";
 
 # class Acad_Annex_J(models.Model):
 # 	app_id = models.ForeignKey(Appdata)
@@ -530,13 +530,13 @@ class Acad_Annex_I(models.Model):
 # 	def __unicode__(self):
 # 		return str(self.app_id) + "_z";
 
-class SubjectTaught(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	level = models.CharField(max_length=10)
-	courseType = models.CharField(max_length=30)
-	data = models.TextField()
-	credit_val = models.FloatField(default = 0)
+# class SubjectTaught(models.Model):
+# 	app_id = models.ForeignKey(Appdata)
+# 	level = models.CharField(max_length=10)
+# 	courseType = models.CharField(max_length=30)
+# 	data = models.TextField()
+# 	credit_val = models.FloatField(default = 0)
 
 
-	def __unicode__(self):
-		return str(self.app_id.app_id+"-"+self.level+"-"+self.courseType)
+# 	def __unicode__(self):
+# 		return str(self.app_id.app_id+"-"+self.level+"-"+self.courseType)
