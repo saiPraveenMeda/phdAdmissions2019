@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name = 'index'),
-    url(r'academic/$', views.academic, name = 'academic'),
-    url(r'^subject_ref/$',views.subject_ref,name='subject_ref'),
+    # url(r'academic/$', views.academic, name = 'academic'),
+    # url(r'^subject_ref/$',views.subject_ref,name='subject_ref'),
     url(r'^academic/annexure_a', views.annexure_a, name = 'annexure_a'),
     url(r'^academic/annexure_b', views.annexure_b, name = 'annexure_b'),
     url(r'^academic/annexure_c', views.annexure_c, name = 'annexure_c'),
@@ -42,5 +42,4 @@ urlpatterns = [
     url(r'^refresh/(?P<annexName>[a-z0-9_]+)/$',views.refresh),
     url(r'^uploadExpDoc/$',views.uploadExpDoc),
     url(r'^all_annexures/$',views.all_annexures),
-    
 ]

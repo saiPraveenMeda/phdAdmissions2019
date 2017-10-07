@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'nitap_faculty',
         'USER': 'root',
-        'PASSWORD': '9290697013',
+        'PASSWORD': '1997',
     }
 }
 

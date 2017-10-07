@@ -82,6 +82,7 @@ def createApp(request) :
 
 		emailid = request.POST['email']
 		dept = Department.objects.get(deptID=request.POST['dept'])
+		#appPost = Post.objects.get(name=request.POST['post'])
 		appPost = Post.objects.get(id=request.POST['post'])
 		if User.objects.filter(email=emailid).exists() :
 			existingUsers = User.objects.filter(email=emailid)

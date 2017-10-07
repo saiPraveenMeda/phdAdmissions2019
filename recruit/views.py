@@ -41,7 +41,7 @@ def index(request) :
 
         appD = Appdata.objects.get(user=request.user)
         app_id = Appdata.objects.get(user=request.user)
-        postID = Post.objects.get(name=appD.post_for).postID
+        postID = Post.objects.get(name=appD.post_for).name
         if postID==1 :
             print request.POST.get('agp1')
             if request.POST.get('agp1')=='on' :
@@ -143,47 +143,13 @@ def index(request) :
         pgdegree.division = request.POST['Mdivision']
         pgdegree.save()
 
-        if not Qualification.objects.filter(app_id=app_id,degreeType='PHD').exists():
-            phdDegree = Qualification()
-        else :
-            phdDegree = Qualification.objects.get(app_id=app_id,degreeType='PHD')
-        phdDegree.app_id = app_id
-        phdDegree.degreeType = 'PHD'
-        phdDegree.degreeName = request.POST['Phddegree']
-        phdDegree.university = request.POST['Phduniv']
-        phdDegree.passingYear = request.POST['Phdpassingyear']
-        phdDegree.marks = request.POST.get('Phdmarks')
-        phdDegree.division = request.POST.get('Phddivision')
-        phdDegree.save()
-
-        if not Qualification.objects.filter(app_id=app_id,degreeType='other').exists():
-            if request.POST.get('Odegree') :
-                ODegree = Qualification()
-                ODegree.app_id = app_id
-                ODegree.degreeType = 'other'
-                ODegree.degreeName = request.POST.get('Odegree')
-                ODegree.university = request.POST.get('Ouniv')
-                ODegree.passingYear = request.POST.get('Opassingyear')
-                ODegree.marks = request.POST.get('Omarks')
-                ODegree.division = request.POST.get('Odivision')
-                ODegree.save()
-        else :
-            ODegree = Qualification.objects.get(app_id=app_id,degreeType='other')
-            ODegree.app_id = app_id
-            ODegree.degreeType = 'other'
-            ODegree.degreeName = request.POST.get('Odegree')
-            ODegree.university = request.POST.get('Ouniv')
-            ODegree.passingYear = request.POST.get('Opassingyear')
-            ODegree.marks = request.POST.get('Omarks')
-            ODegree.division = request.POST.get('Odivision')
-            ODegree.save()
 
     if Appdata.objects.filter(user=request.user).exists() :
         app_id = Appdata.objects.get(user=request.user)
-        response['agp1'] = app_id.agp1
-        response['agp2'] = app_id.agp2
-        response['agp3'] = app_id.agp3
-        response['postID'] = Post.objects.get(name=app_id.post_for).postID
+        # response['agp1'] = app_id.agp1
+        # response['agp2'] = app_id.agp2
+        # response['agp3'] = app_id.agp3
+        response['postID'] = Post.objects.get(name=app_id.post_for).name
         response['specialization'] = app_id.specialize
         if FacUser.objects.filter(app_id=app_id).exists():
             response['generalData'] = FacUser.objects.get(app_id=app_id)
@@ -198,10 +164,6 @@ def index(request) :
             response['Bqual'] = Qualification.objects.get(app_id=app_id,degreeType='UG')
         if Qualification.objects.filter(app_id=app_id,degreeType='PG').exists():
             response['Mqual'] = Qualification.objects.get(app_id=app_id,degreeType='PG')
-        if Qualification.objects.filter(app_id=app_id,degreeType='PHD').exists():
-            response['Phdqual'] = Qualification.objects.get(app_id=app_id,degreeType='PHD')
-        if Qualification.objects.filter(app_id=app_id,degreeType='other').exists():
-            response['Oqual'] = Qualification.objects.get(app_id=app_id,degreeType='other')
         acad_annex_a = Acad_Annex_A.objects.filter(app_id=app_id)
         if acad_annex_a.count() > 0:
             response['acad_annex_a'] = acad_annex_a[0].store
@@ -211,459 +173,464 @@ def index(request) :
 
     return render(request,'recruit/mainForm.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def academic(request):
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def academic(request):
 
-    response = {}
-    app_id = Appdata.objects.get(user=request.user)
-    if app_id.submitted :
-        return redirect('/printSummary')
+    # response = {}
+    # app_id = Appdata.objects.get(user=request.user)
+    # if app_id.submitted :
+    #     return redirect('/printSummary')
     # app_id = Appdata.objects.get(post_for='123')
-    external_sponsored_rnd = External_Sponsored_RnD.objects.filter(app_id=app_id)
-    consultancy_projects = Consultancy_Projects.objects.filter(app_id=app_id)
-    phd_completed = PhD_Completed.objects.filter(app_id=app_id)
-    journal_papers = Journal_Papers.objects.filter(app_id = app_id)
-    conference_paper_sci = Conference_Paper_SCI.objects.filter(app_id = app_id)
+    # external_sponsored_rnd = External_Sponsored_RnD.objects.filter(app_id=app_id)
+    # consultancy_projects = Consultancy_Projects.objects.filter(app_id=app_id)
+    # phd_completed = PhD_Completed.objects.filter(app_id=app_id)
+    # journal_papers = Journal_Papers.objects.filter(app_id = app_id)
+    # conference_paper_sci = Conference_Paper_SCI.objects.filter(app_id = app_id)
 
 
-    acad_annex_a = Acad_Annex_A.objects.filter(app_id=app_id)
-    acad_annex_b = Acad_Annex_B.objects.filter(app_id=app_id)
-    acad_annex_c = Acad_Annex_C.objects.filter(app_id=app_id)
-    acad_annex_d = Acad_Annex_D.objects.filter(app_id=app_id)
-    acad_annex_e12 = Acad_Annex_E12.objects.filter(app_id=app_id)
-    acad_annex_f = Acad_Annex_F.objects.filter(app_id=app_id)
-    acad_annex_g = Acad_Annex_G.objects.filter(app_id=app_id)
-    acad_annex_h = Acad_Annex_H.objects.filter(app_id=app_id)
-    acad_annex_i = Acad_Annex_I.objects.filter(app_id=app_id)
-    acad_annex_j = Acad_Annex_J.objects.filter(app_id=app_id)
-    acad_annex_k = Acad_Annex_K.objects.filter(app_id=app_id)
-    acad_annex_l = Acad_Annex_L.objects.filter(app_id=app_id)
-    acad_annex_m = Acad_Annex_M.objects.filter(app_id=app_id)
-    acad_annex_n = Acad_Annex_N.objects.filter(app_id=app_id)
-    acad_annex_o = Acad_Annex_O.objects.filter(app_id=app_id)
-    acad_annex_p = Acad_Annex_P.objects.filter(app_id=app_id)
-    acad_annex_q = Acad_Annex_Q.objects.filter(app_id=app_id)
-    acad_annex_r = Acad_Annex_R.objects.filter(app_id=app_id)
-    acad_annex_s = Acad_Annex_S.objects.filter(app_id=app_id)
-    acad_annex_t = Acad_Annex_T.objects.filter(app_id=app_id)
-    acad_annex_u = Acad_Annex_U.objects.filter(app_id=app_id)
-    acad_annex_v = Acad_Annex_V.objects.filter(app_id=app_id)
-    acad_annex_w1_w2 = Acad_Annex_W1_W2.objects.filter(app_id=app_id)
-    acad_annex_x = Acad_Annex_X.objects.filter(app_id=app_id)
-    acad_annex_y = Acad_Annex_Y.objects.filter(app_id=app_id)
-    acad_annex_z = Acad_Annex_Z.objects.filter(app_id=app_id)
+    # acad_annex_a = Acad_Annex_A.objects.filter(app_id=app_id)
+    # acad_annex_b = Acad_Annex_B.objects.filter(app_id=app_id)
+    # acad_annex_c = Acad_Annex_C.objects.filter(app_id=app_id)
+    # acad_annex_d = Acad_Annex_D.objects.filter(app_id=app_id)
+    # acad_annex_e12 = Acad_Annex_E12.objects.filter(app_id=app_id)
+    # acad_annex_f = Acad_Annex_F.objects.filter(app_id=app_id)
+    # acad_annex_g = Acad_Annex_G.objects.filter(app_id=app_id)
+    # acad_annex_h = Acad_Annex_H.objects.filter(app_id=app_id)
+    # acad_annex_i = Acad_Annex_I.objects.filter(app_id=app_id)
+    # acad_annex_j = Acad_Annex_J.objects.filter(app_id=app_id)
+    # acad_annex_k = Acad_Annex_K.objects.filter(app_id=app_id)
+    # acad_annex_l = Acad_Annex_L.objects.filter(app_id=app_id)
+    # acad_annex_m = Acad_Annex_M.objects.filter(app_id=app_id)
+    # acad_annex_n = Acad_Annex_N.objects.filter(app_id=app_id)
+    # acad_annex_o = Acad_Annex_O.objects.filter(app_id=app_id)
+    # acad_annex_p = Acad_Annex_P.objects.filter(app_id=app_id)
+    # acad_annex_q = Acad_Annex_Q.objects.filter(app_id=app_id)
+    # acad_annex_r = Acad_Annex_R.objects.filter(app_id=app_id)
+    # acad_annex_s = Acad_Annex_S.objects.filter(app_id=app_id)
+    # acad_annex_t = Acad_Annex_T.objects.filter(app_id=app_id)
+    # acad_annex_u = Acad_Annex_U.objects.filter(app_id=app_id)
+    # acad_annex_v = Acad_Annex_V.objects.filter(app_id=app_id)
+    # acad_annex_w1_w2 = Acad_Annex_W1_W2.objects.filter(app_id=app_id)
+    # acad_annex_x = Acad_Annex_X.objects.filter(app_id=app_id)
+    # acad_annex_y = Acad_Annex_Y.objects.filter(app_id=app_id)
+    # acad_annex_z = Acad_Annex_Z.objects.filter(app_id=app_id)
 
-    if request.method == "POST":
-        if external_sponsored_rnd.count() == 0:
-            external_sponsored_rnd = External_Sponsored_RnD()
-            external_sponsored_rnd.app_id = app_id
-            external_sponsored_rnd.projects_not_pi = request.POST['projects_not_pi']
-            external_sponsored_rnd.patents_not_pi = request.POST['patents_not_pi']
-            external_sponsored_rnd.save()
-        else:
-            external_sponsored_rnd = external_sponsored_rnd[0]
-        external_sponsored_rnd.total_projects = request.POST['total_projects']
-        external_sponsored_rnd.project_as_PI = request.POST['projects_as_PI']
-        external_sponsored_rnd.total_patents = request.POST['total_patents']
-        external_sponsored_rnd.patents_as_pi = request.POST['patents_as_pi']
-        external_sponsored_rnd.credit_val = request.POST['credits_1']
+    # if request.method == "POST":
+        #FIRST ONE
+        # if external_sponsored_rnd.count() == 0:
+        #     external_sponsored_rnd = External_Sponsored_RnD()
+        #     external_sponsored_rnd.app_id = app_id
+        #     external_sponsored_rnd.projects_not_pi = request.POST['projects_not_pi']
+        #     external_sponsored_rnd.patents_not_pi = request.POST['patents_not_pi']
+        #     external_sponsored_rnd.save()
+        # else:
+        #     external_sponsored_rnd = external_sponsored_rnd[0]
+        # external_sponsored_rnd.total_projects = request.POST['total_projects']
+        # external_sponsored_rnd.project_as_PI = request.POST['projects_as_PI']
+        # external_sponsored_rnd.total_patents = request.POST['total_patents']
+        # external_sponsored_rnd.patents_as_pi = request.POST['patents_as_pi']
+        # external_sponsored_rnd.credit_val = request.POST['credits_1']
         # external_sponsored_rnd.patents_not_pi = request.POST['patents_not_pi']
         # if len(request.POST['projects_not_pi'])>2:
         #     oldstr = external_sponsored_rnd.projects_not_pi
         #     newstr = request.POST['projects_not_pi']
         #     external_sponsored_rnd.projects_not_pi = oldstr[:-1] + "," + newstr[1:]
 
-        if len(request.POST['projects_not_pi'])>2:
-            oldstr = external_sponsored_rnd.projects_not_pi
-            newstr = request.POST['projects_not_pi']
-            if oldstr == '[]':
-                external_sponsored_rnd.projects_not_pi = "[" + newstr[1:]
-            else:
-                external_sponsored_rnd.projects_not_pi = oldstr[:-1] + "," + newstr[1:]
+        # if len(request.POST['projects_not_pi'])>2:
+        #     oldstr = external_sponsored_rnd.projects_not_pi
+        #     newstr = request.POST['projects_not_pi']
+        #     if oldstr == '[]':
+        #         external_sponsored_rnd.projects_not_pi = "[" + newstr[1:]
+        #     else:
+        #         external_sponsored_rnd.projects_not_pi = oldstr[:-1] + "," + newstr[1:]
         
         # if len(request.POST['patents_not_pi'])>2:
         #     oldstr = external_sponsored_rnd.patents_not_pi
         #     newstr = request.POST['patents_not_pi']
         #     external_sponsored_rnd.patents_not_pi = oldstr[:-1] + "," + newstr[1:]
-        if len(request.POST['patents_not_pi'])>2:
-            oldstr = external_sponsored_rnd.patents_not_pi
-            newstr = request.POST['patents_not_pi']
-            if oldstr == '[]':
-                external_sponsored_rnd.patents_not_pi = "[" + newstr[1:]
-            else:
-                external_sponsored_rnd.patents_not_pi = oldstr[:-1] + "," + newstr[1:]
+        # if len(request.POST['patents_not_pi'])>2:
+        #     oldstr = external_sponsored_rnd.patents_not_pi
+        #     newstr = request.POST['patents_not_pi']
+        #     if oldstr == '[]':
+        #         external_sponsored_rnd.patents_not_pi = "[" + newstr[1:]
+        #     else:
+        #         external_sponsored_rnd.patents_not_pi = oldstr[:-1] + "," + newstr[1:]
 
-        external_sponsored_rnd.save()
+        # external_sponsored_rnd.save()
 
-        response['external_sponsored_rnd'] = external_sponsored_rnd
+        # response['external_sponsored_rnd'] = external_sponsored_rnd
 
-        if external_sponsored_rnd.projects_not_pi:
-            response['projects_not_pi'] = json.loads(external_sponsored_rnd.projects_not_pi)
-        if external_sponsored_rnd.patents_not_pi:
-            response['patents_not_pi'] = json.loads(external_sponsored_rnd.patents_not_pi)
+        # if external_sponsored_rnd.projects_not_pi:
+        #     response['projects_not_pi'] = json.loads(external_sponsored_rnd.projects_not_pi)
+        # if external_sponsored_rnd.patents_not_pi:
+        #     response['patents_not_pi'] = json.loads(external_sponsored_rnd.patents_not_pi)
 
-        if consultancy_projects.count() == 0:
-            consultancy_projects = Consultancy_Projects()
-            consultancy_projects.app_id = app_id
-        else:
-            consultancy_projects = consultancy_projects[0]
-        consultancy_projects.consultancy_projects_completed = request.POST['consultancy_projects_completed']
-        consultancy_projects.amount = request.POST['amount']
-        consultancy_projects.credit_val = request.POST['credits_2']
-        consultancy_projects.save()
-        response['consultancy_projects'] = consultancy_projects
+        #SECOND ONE
+        # if consultancy_projects.count() == 0:
+        #     consultancy_projects = Consultancy_Projects()
+        #     consultancy_projects.app_id = app_id
+        # else:
+        #     consultancy_projects = consultancy_projects[0]
+        # consultancy_projects.consultancy_projects_completed = request.POST['consultancy_projects_completed']
+        # consultancy_projects.amount = request.POST['amount']
+        # consultancy_projects.credit_val = request.POST['credits_2']
+        # consultancy_projects.save()
+        # response['consultancy_projects'] = consultancy_projects
 
-        if phd_completed.count() == 0:
-            phd_completed = PhD_Completed()
-            phd_completed.app_id = app_id
-            phd_completed.phds = request.POST['phds']
-            phd_completed.save()
-        else:
-            phd_completed = phd_completed[0]
-        phd_completed.total_phd = request.POST['total_phd']
-        phd_completed.credit_val = request.POST['credits_3']
-        phd_completed.as_first_supervisor = request.POST['as_first_supervisor_phd']
-        if len(request.POST['phds'])>2:
-            oldstr = phd_completed.phds
-            newstr = request.POST['phds']
-            if oldstr == "[]":
-                phd_completed.phds = "[" + newstr[1:]
-            else:
-                phd_completed.phds = oldstr[:-1] + "," + newstr[1:]
-        phd_completed.save()
-        response['phd_completed'] = phd_completed
-        if phd_completed.phds:
-            response['phds'] = json.loads(phd_completed.phds)
+        #THIRD ONE
+        # if phd_completed.count() == 0:
+        #     phd_completed = PhD_Completed()
+        #     phd_completed.app_id = app_id
+        #     phd_completed.phds = request.POST['phds']
+        #     phd_completed.save()
+        # else:
+        #     phd_completed = phd_completed[0]
+        # phd_completed.total_phd = request.POST['total_phd']
+        # phd_completed.credit_val = request.POST['credits_3']
+        # phd_completed.as_first_supervisor = request.POST['as_first_supervisor_phd']
+        # if len(request.POST['phds'])>2:
+        #     oldstr = phd_completed.phds
+        #     newstr = request.POST['phds']
+        #     if oldstr == "[]":
+        #         phd_completed.phds = "[" + newstr[1:]
+        #     else:
+        #         phd_completed.phds = oldstr[:-1] + "," + newstr[1:]
+        # phd_completed.save()
+        # response['phd_completed'] = phd_completed
+        # if phd_completed.phds:
+        #     response['phds'] = json.loads(phd_completed.phds)
 
-        if journal_papers.count() == 0:
-            journal_papers = Journal_Papers()
-            journal_papers.app_id = app_id
-            journal_papers.papers = request.POST['papers']
-            journal_papers.save()
-        else:
-            journal_papers = journal_papers[0]
-        journal_papers.total_journal_papers = request.POST['total_journal_papers']
-        journal_papers.as_first_supervisor = request.POST['as_first_supervisor_journal']
-        journal_papers.credit_val = request.POST['credits_4']
-        if len(request.POST['papers'])>2:
-            oldstr = journal_papers.papers
-            newstr = request.POST['papers']
-            if oldstr == "[]":
-                journal_papers.papers = "[" + newstr[1:]
-            else:
-                journal_papers.papers = oldstr[:-1] + "," + newstr[1:]
 
-        journal_papers.save()
-        response['journal_papers'] = journal_papers
-        if journal_papers.papers:
-            response['papers'] = json.loads(journal_papers.papers)
+        #FOURTH ONE
+        # if journal_papers.count() == 0:
+        #     journal_papers = Journal_Papers()
+        #     journal_papers.app_id = app_id
+        #     journal_papers.papers = request.POST['papers']
+        #     journal_papers.save()
+        # else:
+        #     journal_papers = journal_papers[0]
+        # journal_papers.total_journal_papers = request.POST['total_journal_papers']
+        # journal_papers.as_first_supervisor = request.POST['as_first_supervisor_journal']
+        # journal_papers.credit_val = request.POST['credits_4']
+        # if len(request.POST['papers'])>2:
+        #     oldstr = journal_papers.papers
+        #     newstr = request.POST['papers']
+        #     if oldstr == "[]":
+        #         journal_papers.papers = "[" + newstr[1:]
+        #     else:
+        #         journal_papers.papers = oldstr[:-1] + "," + newstr[1:]
 
-        if conference_paper_sci.count() == 0:
-            conference_paper_sci = Conference_Paper_SCI()
-            conference_paper_sci.app_id = app_id
-            conference_paper_sci.papers = request.POST['papers1']
-            conference_paper_sci.save()
-        else:
-            conference_paper_sci = conference_paper_sci[0]
-        conference_paper_sci.total_confernce_papers = request.POST['total_confernce_papers']
-        conference_paper_sci.as_first_supervisor = request.POST['as_first_supervisor_conference']
-        conference_paper_sci.credit_val = request.POST['credits_5']
-        if len(request.POST['papers1'])>2:
-            oldstr = journal_papers.papers
-            newstr = request.POST['papers1']
-            if oldstr == "[]":
-                conference_paper_sci.papers = "[" + newstr[1:]
-            else:
-                conference_paper_sci.papers = oldstr[:-1] + "," + newstr[1:]
+        # journal_papers.save()
+        # response['journal_papers'] = journal_papers
+        # if journal_papers.papers:
+        #     response['papers'] = json.loads(journal_papers.papers)
 
-        conference_paper_sci.save()
-        response['conference_paper_sci'] = conference_paper_sci
-        if conference_paper_sci.papers:
-            response['papers1'] = json.loads(conference_paper_sci.papers)
+        # if conference_paper_sci.count() == 0:
+        #     conference_paper_sci = Conference_Paper_SCI()
+        #     conference_paper_sci.app_id = app_id
+        #     conference_paper_sci.papers = request.POST['papers1']
+        #     conference_paper_sci.save()
+        # else:
+        #     conference_paper_sci = conference_paper_sci[0]
+        # conference_paper_sci.total_confernce_papers = request.POST['total_confernce_papers']
+        # conference_paper_sci.as_first_supervisor = request.POST['as_first_supervisor_conference']
+        # conference_paper_sci.credit_val = request.POST['credits_5']
+        # if len(request.POST['papers1'])>2:
+        #     oldstr = journal_papers.papers
+        #     newstr = request.POST['papers1']
+        #     if oldstr == "[]":
+        #         conference_paper_sci.papers = "[" + newstr[1:]
+        #     else:
+        #         conference_paper_sci.papers = oldstr[:-1] + "," + newstr[1:]
 
-        if acad_annex_j.count() == 0:
-            acad_annex_j = Acad_Annex_J()
-            acad_annex_j.app_id = app_id
-        else:
-            acad_annex_j = acad_annex_j[0]
-        acad_annex_j.total_sem = request.POST['total_semj']
-        acad_annex_j.credit_val = request.POST['credits_6']
-        acad_annex_j.save()
-        response['acad_annex_j'] = acad_annex_j
+        # conference_paper_sci.save()
+        # response['conference_paper_sci'] = conference_paper_sci
+        # if conference_paper_sci.papers:
+        #     response['papers1'] = json.loads(conference_paper_sci.papers)
 
-        if acad_annex_k.count() == 0:
-            acad_annex_k = Acad_Annex_K()
-            acad_annex_k.app_id = app_id
-        else:
-            acad_annex_k = acad_annex_k[0]
-        acad_annex_k.total_sem = request.POST['total_semk']
-        acad_annex_k.credit_val = request.POST['credits_7']
-        acad_annex_k.save()
-        response['acad_annex_k'] = acad_annex_k
+        # if acad_annex_j.count() == 0:
+        #     acad_annex_j = Acad_Annex_J()
+        #     acad_annex_j.app_id = app_id
+        # else:
+        #     acad_annex_j = acad_annex_j[0]
+        # acad_annex_j.total_sem = request.POST['total_semj']
+        # acad_annex_j.credit_val = request.POST['credits_6']
+        # acad_annex_j.save()
+        # response['acad_annex_j'] = acad_annex_j
 
-        if acad_annex_l.count() == 0:
-            acad_annex_l = Acad_Annex_L()
-            acad_annex_l.app_id = app_id
-        else:
-            acad_annex_l = acad_annex_l[0]
-        acad_annex_l.total_sem = request.POST['total_seml']
-        acad_annex_l.credit_val = request.POST['credits_8']
-        acad_annex_l.save()
-        response['acad_annex_l'] = acad_annex_l
+        # if acad_annex_k.count() == 0:
+        #     acad_annex_k = Acad_Annex_K()
+        #     acad_annex_k.app_id = app_id
+        # else:
+        #     acad_annex_k = acad_annex_k[0]
+        # acad_annex_k.total_sem = request.POST['total_semk']
+        # acad_annex_k.credit_val = request.POST['credits_7']
+        # acad_annex_k.save()
+        # response['acad_annex_k'] = acad_annex_k
 
-        if acad_annex_m.count() == 0:
-            acad_annex_m = Acad_Annex_M()
-            acad_annex_m.app_id = app_id
-        else:
-            acad_annex_m = acad_annex_m[0]
-        acad_annex_m.total_sem = request.POST['total_semm']
-        acad_annex_m.credit_val = request.POST['credits_9']
-        acad_annex_m.save()
-        response['acad_annex_m'] = acad_annex_m
+        # if acad_annex_l.count() == 0:
+        #     acad_annex_l = Acad_Annex_L()
+        #     acad_annex_l.app_id = app_id
+        # else:
+        #     acad_annex_l = acad_annex_l[0]
+        # acad_annex_l.total_sem = request.POST['total_seml']
+        # acad_annex_l.credit_val = request.POST['credits_8']
+        # acad_annex_l.save()
+        # response['acad_annex_l'] = acad_annex_l
 
-        if acad_annex_n.count() == 0:
-            acad_annex_n = Acad_Annex_N()
-            acad_annex_n.app_id = app_id
-        else:
-            acad_annex_n = acad_annex_n[0]
-        acad_annex_n.total_number = request.POST['total_numbern']
-        acad_annex_n.credit_val = request.POST['credits_10']
-        acad_annex_n.save()
-        response['acad_annex_n'] = acad_annex_n
+        # if acad_annex_m.count() == 0:
+        #     acad_annex_m = Acad_Annex_M()
+        #     acad_annex_m.app_id = app_id
+        # else:
+        #     acad_annex_m = acad_annex_m[0]
+        # acad_annex_m.total_sem = request.POST['total_semm']
+        # acad_annex_m.credit_val = request.POST['credits_9']
+        # acad_annex_m.save()
+        # response['acad_annex_m'] = acad_annex_m
 
-        if acad_annex_o.count() == 0:
-            acad_annex_o = Acad_Annex_O()
-            acad_annex_o.app_id = app_id
-        else:
-            acad_annex_o = acad_annex_o[0]
-        acad_annex_o.prog_2_week_duration = request.POST['prog_2_week_duration']
-        acad_annex_o.prog_1_week_duration = request.POST['prog_1_week_duration']
-        acad_annex_o.credit_val = request.POST['credits_11']
-        acad_annex_o.save()
-        response['acad_annex_o'] = acad_annex_o
+        # if acad_annex_n.count() == 0:
+        #     acad_annex_n = Acad_Annex_N()
+        #     acad_annex_n.app_id = app_id
+        # else:
+        #     acad_annex_n = acad_annex_n[0]
+        # acad_annex_n.total_number = request.POST['total_numbern']
+        # acad_annex_n.credit_val = request.POST['credits_10']
+        # acad_annex_n.save()
+        # response['acad_annex_n'] = acad_annex_n
 
-        if acad_annex_p.count() == 0:
-            acad_annex_p = Acad_Annex_P()
-            acad_annex_p.app_id = app_id
-        else:
-            acad_annex_p = acad_annex_p[0]
-        acad_annex_p.total_number = request.POST['total_numberp']
-        acad_annex_p.credit_val = request.POST['credits_12']
-        acad_annex_p.save()
-        response['acad_annex_p'] = acad_annex_p
+        # if acad_annex_o.count() == 0:
+        #     acad_annex_o = Acad_Annex_O()
+        #     acad_annex_o.app_id = app_id
+        # else:
+        #     acad_annex_o = acad_annex_o[0]
+        # acad_annex_o.prog_2_week_duration = request.POST['prog_2_week_duration']
+        # acad_annex_o.prog_1_week_duration = request.POST['prog_1_week_duration']
+        # acad_annex_o.credit_val = request.POST['credits_11']
+        # acad_annex_o.save()
+        # response['acad_annex_o'] = acad_annex_o
 
-        if acad_annex_q.count() == 0:
-            acad_annex_q = Acad_Annex_Q()
-            acad_annex_q.app_id = app_id
-        else:
-            acad_annex_q = acad_annex_q[0]
-        acad_annex_q.total_years = request.POST['total_years']
-        acad_annex_q.total_months = request.POST['total_months']
-        acad_annex_q.credit_val = request.POST['credits_13']
-        acad_annex_q.save()
-        response['acad_annex_q'] = acad_annex_q
+        # if acad_annex_p.count() == 0:
+        #     acad_annex_p = Acad_Annex_P()
+        #     acad_annex_p.app_id = app_id
+        # else:
+        #     acad_annex_p = acad_annex_p[0]
+        # acad_annex_p.total_number = request.POST['total_numberp']
+        # acad_annex_p.credit_val = request.POST['credits_12']
+        # acad_annex_p.save()
+        # response['acad_annex_p'] = acad_annex_p
 
-        if acad_annex_r.count() == 0:
-            acad_annex_r = Acad_Annex_R()
-            acad_annex_r.app_id = app_id
-        else:
-            acad_annex_r = acad_annex_r[0]
-        acad_annex_r.total_number = request.POST['total_numberr']
-        acad_annex_r.credit_val = request.POST['credits_14']
-        acad_annex_r.save()
-        response['acad_annex_r'] = acad_annex_r
+        # if acad_annex_q.count() == 0:
+        #     acad_annex_q = Acad_Annex_Q()
+        #     acad_annex_q.app_id = app_id
+        # else:
+        #     acad_annex_q = acad_annex_q[0]
+        # acad_annex_q.total_years = request.POST['total_years']
+        # acad_annex_q.total_months = request.POST['total_months']
+        # acad_annex_q.credit_val = request.POST['credits_13']
+        # acad_annex_q.save()
+        # response['acad_annex_q'] = acad_annex_q
 
-        if acad_annex_s.count() == 0:
-            acad_annex_s = Acad_Annex_S()
-            acad_annex_s.app_id = app_id
-        else:
-            acad_annex_s = acad_annex_s[0]
-        acad_annex_s.total_credit = request.POST['total_creditss']
-        acad_annex_s.credit_val = request.POST['credits_15']
-        acad_annex_s.save()
-        response['acad_annex_s'] = acad_annex_s
+        # if acad_annex_r.count() == 0:
+        #     acad_annex_r = Acad_Annex_R()
+        #     acad_annex_r.app_id = app_id
+        # else:
+        #     acad_annex_r = acad_annex_r[0]
+        # acad_annex_r.total_number = request.POST['total_numberr']
+        # acad_annex_r.credit_val = request.POST['credits_14']
+        # acad_annex_r.save()
+        # response['acad_annex_r'] = acad_annex_r
 
-        if acad_annex_t.count() == 0:
-            acad_annex_t = Acad_Annex_T()
-            acad_annex_t.app_id = app_id
-        else:
-            acad_annex_t = acad_annex_t[0]
-        acad_annex_t.total_number = request.POST['total_numbert']
-        acad_annex_t.credit_val = request.POST['credits_16']
-        acad_annex_t.save()
-        response['acad_annex_t'] = acad_annex_t
+        # if acad_annex_s.count() == 0:
+        #     acad_annex_s = Acad_Annex_S()
+        #     acad_annex_s.app_id = app_id
+        # else:
+        #     acad_annex_s = acad_annex_s[0]
+        # acad_annex_s.total_credit = request.POST['total_creditss']
+        # acad_annex_s.credit_val = request.POST['credits_15']
+        # acad_annex_s.save()
+        # response['acad_annex_s'] = acad_annex_s
 
-        if acad_annex_u.count() == 0:
-            acad_annex_u = Acad_Annex_U()
-            acad_annex_u.app_id = app_id
-        else:
-            acad_annex_u = acad_annex_u[0]
-        acad_annex_u.total_number = request.POST['total_numberu']
-        acad_annex_u.credit_val = request.POST['credits_17']
-        acad_annex_u.save()
-        response['acad_annex_u'] = acad_annex_u
+        # if acad_annex_t.count() == 0:
+        #     acad_annex_t = Acad_Annex_T()
+        #     acad_annex_t.app_id = app_id
+        # else:
+        #     acad_annex_t = acad_annex_t[0]
+        # acad_annex_t.total_number = request.POST['total_numbert']
+        # acad_annex_t.credit_val = request.POST['credits_16']
+        # acad_annex_t.save()
+        # response['acad_annex_t'] = acad_annex_t
 
-        if acad_annex_v.count() == 0:
-            acad_annex_v = Acad_Annex_V()
-            acad_annex_v.app_id = app_id
-        else:
-            acad_annex_v = acad_annex_v[0]
-        acad_annex_v.total_number = request.POST['total_numberv']
-        acad_annex_v.credit_val = request.POST['credits_18']
-        acad_annex_v.save()
-        response['acad_annex_v'] = acad_annex_v
+        # if acad_annex_u.count() == 0:
+        #     acad_annex_u = Acad_Annex_U()
+        #     acad_annex_u.app_id = app_id
+        # else:
+        #     acad_annex_u = acad_annex_u[0]
+        # acad_annex_u.total_number = request.POST['total_numberu']
+        # acad_annex_u.credit_val = request.POST['credits_17']
+        # acad_annex_u.save()
+        # response['acad_annex_u'] = acad_annex_u
 
-        if acad_annex_w1_w2.count() == 0:
-            acad_annex_w1_w2 = Acad_Annex_W1_W2()
-            acad_annex_w1_w2.app_id = app_id
-        else:
-            acad_annex_w1_w2 = acad_annex_w1_w2[0]
-        acad_annex_w1_w2.total_number = request.POST['total_numberw1_w2']
-        acad_annex_w1_w2.credit_val = request.POST['credits_19']
-        acad_annex_w1_w2.save()
-        response['acad_annex_w1_w2'] = acad_annex_w1_w2
+        # if acad_annex_v.count() == 0:
+        #     acad_annex_v = Acad_Annex_V()
+        #     acad_annex_v.app_id = app_id
+        # else:
+        #     acad_annex_v = acad_annex_v[0]
+        # acad_annex_v.total_number = request.POST['total_numberv']
+        # acad_annex_v.credit_val = request.POST['credits_18']
+        # acad_annex_v.save()
+        # response['acad_annex_v'] = acad_annex_v
 
-        if acad_annex_x.count() == 0:
-            acad_annex_x = Acad_Annex_X()
-            acad_annex_x.app_id = app_id
-        else:
-            acad_annex_x = acad_annex_x[0]
-        acad_annex_x.total_number = request.POST['total_numberx']
-        acad_annex_x.credit_val = request.POST['credits_20']
-        acad_annex_x.save()
-        response['acad_annex_x'] = acad_annex_x
+        # if acad_annex_w1_w2.count() == 0:
+        #     acad_annex_w1_w2 = Acad_Annex_W1_W2()
+        #     acad_annex_w1_w2.app_id = app_id
+        # else:
+        #     acad_annex_w1_w2 = acad_annex_w1_w2[0]
+        # acad_annex_w1_w2.total_number = request.POST['total_numberw1_w2']
+        # acad_annex_w1_w2.credit_val = request.POST['credits_19']
+        # acad_annex_w1_w2.save()
+        # response['acad_annex_w1_w2'] = acad_annex_w1_w2
 
-        if acad_annex_y.count() == 0:
-            acad_annex_y = Acad_Annex_Y()
-            acad_annex_y.app_id = app_id
-        else:
-            acad_annex_y = acad_annex_y[0]
-        acad_annex_y.value = request.POST['valueyon']
-        acad_annex_y.credit_val = request.POST['credits_21']
-        acad_annex_y.save()
-        response['acad_annex_y'] = acad_annex_y
+        # if acad_annex_x.count() == 0:
+        #     acad_annex_x = Acad_Annex_X()
+        #     acad_annex_x.app_id = app_id
+        # else:
+        #     acad_annex_x = acad_annex_x[0]
+        # acad_annex_x.total_number = request.POST['total_numberx']
+        # acad_annex_x.credit_val = request.POST['credits_20']
+        # acad_annex_x.save()
+        # response['acad_annex_x'] = acad_annex_x
 
-        if acad_annex_z.count() == 0:
-            acad_annex_z = Acad_Annex_Z()
-            acad_annex_z.app_id = app_id
-        else:
-            acad_annex_z = acad_annex_z[0]
-        acad_annex_z.percentage = request.POST['percentagez']
-        acad_annex_z.credit_val = request.POST['credits_22']
-        acad_annex_z.save()
-        response['acad_annex_z'] = acad_annex_z
+        # if acad_annex_y.count() == 0:
+        #     acad_annex_y = Acad_Annex_Y()
+        #     acad_annex_y.app_id = app_id
+        # else:
+        #     acad_annex_y = acad_annex_y[0]
+        # acad_annex_y.value = request.POST['valueyon']
+        # acad_annex_y.credit_val = request.POST['credits_21']
+        # acad_annex_y.save()
+        # response['acad_annex_y'] = acad_annex_y
+
+        # if acad_annex_z.count() == 0:
+        #     acad_annex_z = Acad_Annex_Z()
+        #     acad_annex_z.app_id = app_id
+        # else:
+        #     acad_annex_z = acad_annex_z[0]
+        # acad_annex_z.percentage = request.POST['percentagez']
+        # acad_annex_z.credit_val = request.POST['credits_22']
+        # acad_annex_z.save()
+        # response['acad_annex_z'] = acad_annex_z
 	
-	return redirect('/academic')	
+	# return redirect('/academic')	
 
-        return redirect('/academic')
+ #        return redirect('/academic')
 
-    else:
-        if external_sponsored_rnd.count() > 0:
-            response['external_sponsored_rnd'] = external_sponsored_rnd[0]
-            if external_sponsored_rnd[0].projects_not_pi:
-                response['projects_not_pi'] = json.loads(external_sponsored_rnd[0].projects_not_pi)
-            if external_sponsored_rnd[0].patents_not_pi:
-                response['patents_not_pi'] = json.loads(external_sponsored_rnd[0].patents_not_pi)
+ #    else:
+ #        if external_sponsored_rnd.count() > 0:
+ #            response['external_sponsored_rnd'] = external_sponsored_rnd[0]
+ #            if external_sponsored_rnd[0].projects_not_pi:
+ #                response['projects_not_pi'] = json.loads(external_sponsored_rnd[0].projects_not_pi)
+ #            if external_sponsored_rnd[0].patents_not_pi:
+ #                response['patents_not_pi'] = json.loads(external_sponsored_rnd[0].patents_not_pi)
 
-        if consultancy_projects.count() > 0:
-            response['consultancy_projects'] = consultancy_projects[0]
+ #        if consultancy_projects.count() > 0:
+ #            response['consultancy_projects'] = consultancy_projects[0]
 
-        if phd_completed.count() > 0:
-            response['phd_completed'] = phd_completed[0]
-            if phd_completed[0].phds:
-                response['phds'] = json.loads(phd_completed[0].phds)
+ #        if phd_completed.count() > 0:
+ #            response['phd_completed'] = phd_completed[0]
+ #            if phd_completed[0].phds:
+ #                response['phds'] = json.loads(phd_completed[0].phds)
             
-        if journal_papers.count() > 0:
-            response['journal_papers'] = journal_papers[0]
-            if journal_papers[0].papers:
-                response['papers'] = json.loads(journal_papers[0].papers)
+ #        if journal_papers.count() > 0:
+ #            response['journal_papers'] = journal_papers[0]
+ #            if journal_papers[0].papers:
+ #                response['papers'] = json.loads(journal_papers[0].papers)
             
-        if conference_paper_sci.count() > 0:
-            response['conference_paper_sci'] = conference_paper_sci[0]
-            if conference_paper_sci[0].papers:
-                response['papers1'] = json.loads(conference_paper_sci[0].papers)
+ #        if conference_paper_sci.count() > 0:
+ #            response['conference_paper_sci'] = conference_paper_sci[0]
+ #            if conference_paper_sci[0].papers:
+ #                response['papers1'] = json.loads(conference_paper_sci[0].papers)
             
-        if acad_annex_a.count() > 0:
-            response['acad_annex_a'] = acad_annex_a[0]
+ #        if acad_annex_a.count() > 0:
+ #            response['acad_annex_a'] = acad_annex_a[0]
 
-        if acad_annex_b.count() > 0:
-            response['acad_annex_b'] = acad_annex_b[0]
-        if acad_annex_c.count() > 0:
-            response['acad_annex_c'] = acad_annex_c[0]
+ #        if acad_annex_b.count() > 0:
+ #            response['acad_annex_b'] = acad_annex_b[0]
+ #        if acad_annex_c.count() > 0:
+ #            response['acad_annex_c'] = acad_annex_c[0]
 
-        if acad_annex_d.count() > 0:
-            response['acad_annex_d'] = acad_annex_d[0]
+ #        if acad_annex_d.count() > 0:
+ #            response['acad_annex_d'] = acad_annex_d[0]
 
-        if acad_annex_e12.count() > 0:
-            response['acad_annex_e12'] = acad_annex_e12[0]
-            response['total_e'] = float(acad_annex_e12[0].total_e1 + acad_annex_e12[0].total_e2)
+ #        if acad_annex_e12.count() > 0:
+ #            response['acad_annex_e12'] = acad_annex_e12[0]
+ #            response['total_e'] = float(acad_annex_e12[0].total_e1 + acad_annex_e12[0].total_e2)
 
-        if acad_annex_f.count() > 0:
-            response['acad_annex_f'] = acad_annex_f[0]
+ #        if acad_annex_f.count() > 0:
+ #            response['acad_annex_f'] = acad_annex_f[0]
 
-        if acad_annex_g.count() > 0:
-            response['acad_annex_g'] = acad_annex_g[0]
+ #        if acad_annex_g.count() > 0:
+ #            response['acad_annex_g'] = acad_annex_g[0]
 
-        if acad_annex_h.count() > 0:
-            response['acad_annex_h'] = acad_annex_h[0]
+ #        if acad_annex_h.count() > 0:
+ #            response['acad_annex_h'] = acad_annex_h[0]
 
-        if acad_annex_i.count() > 0:
-            response['acad_annex_i'] = acad_annex_i[0]
+ #        if acad_annex_i.count() > 0:
+ #            response['acad_annex_i'] = acad_annex_i[0]
 
-        if acad_annex_j.count() > 0:
-            response['acad_annex_j'] = acad_annex_j[0]
+        # if acad_annex_j.count() > 0:
+        #     response['acad_annex_j'] = acad_annex_j[0]
 
-        if acad_annex_k.count() > 0:
-            response['acad_annex_k'] = acad_annex_k[0]
+        # if acad_annex_k.count() > 0:
+        #     response['acad_annex_k'] = acad_annex_k[0]
 
-        if acad_annex_l.count() > 0:
-            response['acad_annex_l'] = acad_annex_l[0]
+        # if acad_annex_l.count() > 0:
+        #     response['acad_annex_l'] = acad_annex_l[0]
 
-        if acad_annex_m.count() > 0:
-            response['acad_annex_m'] = acad_annex_m[0]
+        # if acad_annex_m.count() > 0:
+        #     response['acad_annex_m'] = acad_annex_m[0]
 
-        if acad_annex_n.count() > 0:
-            response['acad_annex_n'] = acad_annex_n[0]
+        # if acad_annex_n.count() > 0:
+        #     response['acad_annex_n'] = acad_annex_n[0]
 
-        if acad_annex_o.count() > 0:
-            response['acad_annex_o'] = acad_annex_o[0]
+        # if acad_annex_o.count() > 0:
+        #     response['acad_annex_o'] = acad_annex_o[0]
 
-        if acad_annex_p.count() > 0:
-            response['acad_annex_p'] = acad_annex_p[0]
+        # if acad_annex_p.count() > 0:
+        #     response['acad_annex_p'] = acad_annex_p[0]
 
-        if acad_annex_q.count() > 0:
-            response['acad_annex_q'] = acad_annex_q[0]  
+        # if acad_annex_q.count() > 0:
+        #     response['acad_annex_q'] = acad_annex_q[0]  
 
-        if acad_annex_r.count() > 0:
-            response['acad_annex_r'] = acad_annex_r[0]
+        # if acad_annex_r.count() > 0:
+        #     response['acad_annex_r'] = acad_annex_r[0]
 
-        if acad_annex_s.count() > 0:
-            response['acad_annex_s'] = acad_annex_s[0]
+        # if acad_annex_s.count() > 0:
+        #     response['acad_annex_s'] = acad_annex_s[0]
 
-        if acad_annex_t.count() > 0:
-            response['acad_annex_t'] = acad_annex_t[0]
+        # if acad_annex_t.count() > 0:
+        #     response['acad_annex_t'] = acad_annex_t[0]
 
-        if acad_annex_u.count() > 0:
-            response['acad_annex_u'] = acad_annex_u[0]
+        # if acad_annex_u.count() > 0:
+        #     response['acad_annex_u'] = acad_annex_u[0]
 
-        if acad_annex_v.count() > 0:
-            response['acad_annex_v'] = acad_annex_v[0]
+        # if acad_annex_v.count() > 0:
+        #     response['acad_annex_v'] = acad_annex_v[0]
 
-        if acad_annex_w1_w2.count() > 0:
-            response['acad_annex_w1_w2'] = acad_annex_w1_w2[0]
-            response['total_w'] = float(acad_annex_w1_w2[0].total_w1 + acad_annex_w1_w2[0].total_w2)
+        # if acad_annex_w1_w2.count() > 0:
+        #     response['acad_annex_w1_w2'] = acad_annex_w1_w2[0]
+        #     response['total_w'] = float(acad_annex_w1_w2[0].total_w1 + acad_annex_w1_w2[0].total_w2)
 
-        if acad_annex_x.count() > 0:
-            response['acad_annex_x'] = acad_annex_x[0]
+        # if acad_annex_x.count() > 0:
+        #     response['acad_annex_x'] = acad_annex_x[0]
 
-        if acad_annex_y.count() > 0:
-            response['acad_annex_y'] = acad_annex_y[0]
+        # if acad_annex_y.count() > 0:
+        #     response['acad_annex_y'] = acad_annex_y[0]
 
-        if acad_annex_z.count() > 0:
-            response['acad_annex_z'] = acad_annex_z[0]
+        # if acad_annex_z.count() > 0:
+        #     response['acad_annex_z'] = acad_annex_z[0]
 
-    return render(request, 'recruit/acad_other_req.djt', response)
+    # return render(request, 'recruit/acad_other_req.djt', response)
 
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
