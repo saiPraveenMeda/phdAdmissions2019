@@ -632,1212 +632,1212 @@ def index(request) :
 
     # return render(request, 'recruit/acad_other_req.djt', response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_a(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_A.objects.get(app_id=app_data)
-            if len(request.POST['annexure_a'])>2:
-                oldstr = annexure.annexure_data
-                newstr = request.POST['annexure_a']
-                if oldstr == " " or oldstr=="[]":
-                    annexure.annexure_data = "[" + newstr[1:]
-                else:
-                    annexure.annexure_data = oldstr[:-1] + "," + newstr[1:]
-            annexure.total = 0
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-            print "puranaA"
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_A()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_a']
-            annexure.total = 0
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-            print annexure
-        return redirect('/')
-    annex_a = Acad_Annex_A.objects.filter(app_id=app_data)
-    if annex_a.count() > 0:
-        if len(unicodedata.normalize("NFKD",annex_a[0].annexure_data)) > 1:
-            response['annex_a'] = json.loads(annex_a[0].annexure_data)
-        response['annexure_file'] = annex_a[0].annexure_file
-    return render(request,'recruit/annexure/annexure_a.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_a(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_A.objects.get(app_id=app_data)
+#             if len(request.POST['annexure_a'])>2:
+#                 oldstr = annexure.annexure_data
+#                 newstr = request.POST['annexure_a']
+#                 if oldstr == " " or oldstr=="[]":
+#                     annexure.annexure_data = "[" + newstr[1:]
+#                 else:
+#                     annexure.annexure_data = oldstr[:-1] + "," + newstr[1:]
+#             annexure.total = 0
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#             print "puranaA"
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_A()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_a']
+#             annexure.total = 0
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#             print annexure
+#         return redirect('/')
+#     annex_a = Acad_Annex_A.objects.filter(app_id=app_data)
+#     if annex_a.count() > 0:
+#         if len(unicodedata.normalize("NFKD",annex_a[0].annexure_data)) > 1:
+#             response['annex_a'] = json.loads(annex_a[0].annexure_data)
+#         response['annexure_file'] = annex_a[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_a.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_b(request) :
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_B.objects.get(app_id=app_data)
-            annexure.annexure_data = request.POST['annexure_b']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_B()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_b']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-        annex_b = Acad_Annex_B.objects.filter(app_id=app_data)
-        response= {}
-        response['annexure_file'] = annex_b[0].annexure_file
-    return render(request,'recruit/annexure/annexure-b.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_b(request) :
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_B.objects.get(app_id=app_data)
+#             annexure.annexure_data = request.POST['annexure_b']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_B()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_b']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#         annex_b = Acad_Annex_B.objects.filter(app_id=app_data)
+#         response= {}
+#         response['annexure_file'] = annex_b[0].annexure_file
+#     return render(request,'recruit/annexure/annexure-b.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_c(request) :
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_C.objects.get(app_id=app_data)
-            annexure.annexure_data = request.POST['annexure_c']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_C()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_c']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-        annex_c = Acad_Annex_C.objects.filter(app_id=app_data)
-        response= {}
-        response['annexure_file'] = annex_c[0].annexure_file
-    return render(request,'recruit/annexure/annexure-c.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_c(request) :
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_C.objects.get(app_id=app_data)
+#             annexure.annexure_data = request.POST['annexure_c']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_C()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_c']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#         annex_c = Acad_Annex_C.objects.filter(app_id=app_data)
+#         response= {}
+#         response['annexure_file'] = annex_c[0].annexure_file
+#     return render(request,'recruit/annexure/annexure-c.djt',response)
 
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_d(request) :
-    response= {}
-    app_data = Appdata.objects.get(user = request.user)
-    if(request.POST):
-        try:
-            annexure = Acad_Annex_D.objects.get(app_id=app_data)
-            if(request.POST['basic_pay']):
-                annexure.basic_pay_r = request.POST['basic_pay']
-                annexure.payband_r = request.POST['payband']
-                annexure.payband_end_r = request.POST['payband_b']
-                annexure.total_r = request.POST['total_a']
-            annexure.store = True
-            if(request.POST['basic_pay_d']):
-                annexure.basic_pay_d = request.POST['basic_pay_d']
-                annexure.payband_d = request.POST['payband_d']
-                annexure.payband_end_d = request.POST['payband_b_d']
-                annexure.total_d = request.POST['total_ad']
-            annexure.total = (request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_D()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            if(request.POST['basic_pay']):
-                annexure.basic_pay_r = request.POST['basic_pay']
-                annexure.payband_r = request.POST['payband']
-                annexure.payband_end_r = request.POST['payband_b']
-                annexure.total_r = request.POST['total_a']
-                annexure.store = True
-            elif(request.POST['basic_pay_d']):
-                annexure.basic_pay_d = request.POST['basic_pay_d']
-                annexure.payband_d = request.POST['payband_d']
-                annexure.payband_end_d = request.POST['payband_b_d']
-                annexure.total_d = request.POST['total_ad']
-            annexure.total = (request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-        annex_d = Acad_Annex_D.objects.filter(app_id=app_data)
-        response['annexure_file'] = annex_d[0].annexure_file
-    return render(request,'recruit/annexure/annexure_d.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_d(request) :
+#     response= {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     if(request.POST):
+#         try:
+#             annexure = Acad_Annex_D.objects.get(app_id=app_data)
+#             if(request.POST['basic_pay']):
+#                 annexure.basic_pay_r = request.POST['basic_pay']
+#                 annexure.payband_r = request.POST['payband']
+#                 annexure.payband_end_r = request.POST['payband_b']
+#                 annexure.total_r = request.POST['total_a']
+#             annexure.store = True
+#             if(request.POST['basic_pay_d']):
+#                 annexure.basic_pay_d = request.POST['basic_pay_d']
+#                 annexure.payband_d = request.POST['payband_d']
+#                 annexure.payband_end_d = request.POST['payband_b_d']
+#                 annexure.total_d = request.POST['total_ad']
+#             annexure.total = (request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_D()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             if(request.POST['basic_pay']):
+#                 annexure.basic_pay_r = request.POST['basic_pay']
+#                 annexure.payband_r = request.POST['payband']
+#                 annexure.payband_end_r = request.POST['payband_b']
+#                 annexure.total_r = request.POST['total_a']
+#                 annexure.store = True
+#             elif(request.POST['basic_pay_d']):
+#                 annexure.basic_pay_d = request.POST['basic_pay_d']
+#                 annexure.payband_d = request.POST['payband_d']
+#                 annexure.payband_end_d = request.POST['payband_b_d']
+#                 annexure.total_d = request.POST['total_ad']
+#             annexure.total = (request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#         annex_d = Acad_Annex_D.objects.filter(app_id=app_data)
+#         response['annexure_file'] = annex_d[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_d.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_e_1(request) :
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    if(request.POST):
-        try:
-            annexure = Acad_Annex_E12.objects.get(app_id=app_data)
-            if len(request.POST['annexure_e1'])>2:
-                oldstr = annexure.annexure_data_e1
-                newstr = request.POST['annexure_e1']
-                if oldstr == " " or oldstr=="[]":
-                    annexure.annexure_data_e1 = "[" + newstr[1:]
-                else:
-                    annexure.annexure_data_e1 = oldstr[:-1] + "," + newstr[1:]
-            annexure.store_e1 = True
-            annexure.total_e1 = float(request.POST.get('total_e1',0));
-            # annexure.total_e1 = request.POST['total_e1']
-            if request.FILES:
-                annexure.annexure_file_e1 = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_E12()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data_e1 = request.POST['annexure_e1']
-            annexure.total_e1 = float(request.POST.get('total_e1',0))
-            annexure.store_e1 = True
-            if request.FILES:
-                annexure.annexure_file_e1 = request.FILES['annexure_file']
-            annexure.save()
-            annexure.total_e1 = annexure.total_e1+float(request.POST.get('total_e1',0));
-        return redirect('academic/')
-    annex_e1 = Acad_Annex_E12.objects.filter(app_id=app_data)
-    if annex_e1.count() > 0:
-        if len(unicodedata.normalize("NFKD",annex_e1[0].annexure_data_e1)) > 1:
-            response['annex_e1'] = json.loads(annex_e1[0].annexure_data_e1)
-            response['total_e1'] = annex_e1[0].total_e1;
-            response['annexure_file'] = annex_e1[0].annexure_file_e1
-    return render(request,'recruit/annexure/annexure-e-1.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_e_1(request) :
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     if(request.POST):
+#         try:
+#             annexure = Acad_Annex_E12.objects.get(app_id=app_data)
+#             if len(request.POST['annexure_e1'])>2:
+#                 oldstr = annexure.annexure_data_e1
+#                 newstr = request.POST['annexure_e1']
+#                 if oldstr == " " or oldstr=="[]":
+#                     annexure.annexure_data_e1 = "[" + newstr[1:]
+#                 else:
+#                     annexure.annexure_data_e1 = oldstr[:-1] + "," + newstr[1:]
+#             annexure.store_e1 = True
+#             annexure.total_e1 = float(request.POST.get('total_e1',0));
+#             # annexure.total_e1 = request.POST['total_e1']
+#             if request.FILES:
+#                 annexure.annexure_file_e1 = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_E12()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data_e1 = request.POST['annexure_e1']
+#             annexure.total_e1 = float(request.POST.get('total_e1',0))
+#             annexure.store_e1 = True
+#             if request.FILES:
+#                 annexure.annexure_file_e1 = request.FILES['annexure_file']
+#             annexure.save()
+#             annexure.total_e1 = annexure.total_e1+float(request.POST.get('total_e1',0));
+#         return redirect('academic/')
+#     annex_e1 = Acad_Annex_E12.objects.filter(app_id=app_data)
+#     if annex_e1.count() > 0:
+#         if len(unicodedata.normalize("NFKD",annex_e1[0].annexure_data_e1)) > 1:
+#             response['annex_e1'] = json.loads(annex_e1[0].annexure_data_e1)
+#             response['total_e1'] = annex_e1[0].total_e1;
+#             response['annexure_file'] = annex_e1[0].annexure_file_e1
+#     return render(request,'recruit/annexure/annexure-e-1.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_e2(request):
-    app_data = Appdata.objects.get(user = request.user)
-    response = {}
-    if(request.POST):
-        try:
-            annexure = Acad_Annex_E12.objects.get(app_id=app_data)
-            if len(request.POST['annexure_e2'])>2:
-                oldstr = annexure.annexure_data_e2
-                newstr = request.POST['annexure_e2']
-                if oldstr == " " or oldstr == "[]":
-                    annexure.annexure_data_e2 = "[" + newstr[1:]
-                else:
-                    annexure.annexure_data_e2 = oldstr[:-1] + "," + newstr[1:]
-            # annexure.total_e2 = request.POST['total_e2']
-            annexure.store_e2 = True
-            annexure.total_e2 = float(request.POST.get('total_e2',0));
-            if request.FILES:
-                annexure.annexure_file_e2 = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_E12()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data_e2 = request.POST['annexure_e2']
-            annexure.total_e2 = request.POST['total_e2']
-            annexure.store_e2 = True
-            #annexure.total_e2 = annexure.total_e2+float(request.POST.get('total_e2',0));
-            if request.FILES:
-                annexure.annexure_file_e2 = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_e2 = Acad_Annex_E12.objects.filter(app_id=app_data)
-    if annex_e2.count() > 0:
-        if len(str((annex_e2[0].annexure_data_e2).encode("utf-8"))) > 1:
-            response['annex_e2'] = json.loads(annex_e2[0].annexure_data_e2)
-            response['total_e2'] = annex_e2[0].total_e2;
-            response['annexure_file'] = annex_e2[0].annexure_file_e2
-    return render(request,'recruit/annexure/annexure_e2.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_e2(request):
+#     app_data = Appdata.objects.get(user = request.user)
+#     response = {}
+#     if(request.POST):
+#         try:
+#             annexure = Acad_Annex_E12.objects.get(app_id=app_data)
+#             if len(request.POST['annexure_e2'])>2:
+#                 oldstr = annexure.annexure_data_e2
+#                 newstr = request.POST['annexure_e2']
+#                 if oldstr == " " or oldstr == "[]":
+#                     annexure.annexure_data_e2 = "[" + newstr[1:]
+#                 else:
+#                     annexure.annexure_data_e2 = oldstr[:-1] + "," + newstr[1:]
+#             # annexure.total_e2 = request.POST['total_e2']
+#             annexure.store_e2 = True
+#             annexure.total_e2 = float(request.POST.get('total_e2',0));
+#             if request.FILES:
+#                 annexure.annexure_file_e2 = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_E12()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data_e2 = request.POST['annexure_e2']
+#             annexure.total_e2 = request.POST['total_e2']
+#             annexure.store_e2 = True
+#             #annexure.total_e2 = annexure.total_e2+float(request.POST.get('total_e2',0));
+#             if request.FILES:
+#                 annexure.annexure_file_e2 = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_e2 = Acad_Annex_E12.objects.filter(app_id=app_data)
+#     if annex_e2.count() > 0:
+#         if len(str((annex_e2[0].annexure_data_e2).encode("utf-8"))) > 1:
+#             response['annex_e2'] = json.loads(annex_e2[0].annexure_data_e2)
+#             response['total_e2'] = annex_e2[0].total_e2;
+#             response['annexure_file'] = annex_e2[0].annexure_file_e2
+#     return render(request,'recruit/annexure/annexure_e2.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_f(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    if(request.POST):
-        try:
-            annexure = Acad_Annex_F.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_f')
-            annexure.store = True
-            annexure.credit_score = float(request.POST['credit'])
-            annexure.total = float(request.POST.get('total',0));
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_F()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_f']
-            annexure.store = True
-            annexure.credit_score = float(request.POST['credit'])
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_f = Acad_Annex_F.objects.filter(app_id=app_data)
-    if annex_f.count() > 0:
-        if annex_f[0].annexure_data:
-            response['annex_f'] = json.loads(annex_f[0].annexure_data)
-            response['credit'] = annex_f[0].credit_score
-            response['total'] = annex_f[0].total
-            response['annexure_file'] = annex_f[0].annexure_file
-    return render(request,'recruit/annexure/annexure_f.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_f(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     if(request.POST):
+#         try:
+#             annexure = Acad_Annex_F.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_f')
+#             annexure.store = True
+#             annexure.credit_score = float(request.POST['credit'])
+#             annexure.total = float(request.POST.get('total',0));
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_F()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_f']
+#             annexure.store = True
+#             annexure.credit_score = float(request.POST['credit'])
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_f = Acad_Annex_F.objects.filter(app_id=app_data)
+#     if annex_f.count() > 0:
+#         if annex_f[0].annexure_data:
+#             response['annex_f'] = json.loads(annex_f[0].annexure_data)
+#             response['credit'] = annex_f[0].credit_score
+#             response['total'] = annex_f[0].total
+#             response['annexure_file'] = annex_f[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_f.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_g(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    if(request.POST):
-        try:
-            annexure = Acad_Annex_G.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_g')
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_G()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_g']
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_g = Acad_Annex_G.objects.filter(app_id=app_data)
-    if annex_g.count() > 0:
-        if annex_g[0].annexure_data:
-            response['annex_g'] = json.loads(annex_g[0].annexure_data)
-            response['total'] = annex_g[0].total
-            response['annexure_file'] = annex_g[0].annexure_file
-    return render(request,'recruit/annexure/annexure_g.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_g(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     if(request.POST):
+#         try:
+#             annexure = Acad_Annex_G.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_g')
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_G()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_g']
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_g = Acad_Annex_G.objects.filter(app_id=app_data)
+#     if annex_g.count() > 0:
+#         if annex_g[0].annexure_data:
+#             response['annex_g'] = json.loads(annex_g[0].annexure_data)
+#             response['total'] = annex_g[0].total
+#             response['annexure_file'] = annex_g[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_g.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_h(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_H.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_h')
-	    val = annexure.annexure_data
-	    annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_H()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_h']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_h = Acad_Annex_H.objects.filter(app_id=app_data)
-    if annex_h.count() > 0:
-        if annex_h[0].annexure_data:
-            response['annex_h'] = json.loads(annex_h[0].annexure_data)
-            response['last_prom'] = annex_h[0].last_prom
-            response['total'] = annex_h[0].total
-            response['annexure_file'] = annex_h[0].annexure_file
-    return render(request,'recruit/annexure/annexure_h.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_h(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_H.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_h')
+# 	    val = annexure.annexure_data
+# 	    annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_H()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_h']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_h = Acad_Annex_H.objects.filter(app_id=app_data)
+#     if annex_h.count() > 0:
+#         if annex_h[0].annexure_data:
+#             response['annex_h'] = json.loads(annex_h[0].annexure_data)
+#             response['last_prom'] = annex_h[0].last_prom
+#             response['total'] = annex_h[0].total
+#             response['annexure_file'] = annex_h[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_h.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_i(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_I.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_i')
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_I()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_i']
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_i = Acad_Annex_I.objects.filter(app_id=app_data)
-    if annex_i.count() > 0:
-        if annex_i[0].annexure_data:
-            response['annex_i'] = json.loads(annex_i[0].annexure_data)
-            response['total'] = annex_i[0].total
-            response['annexure_file'] = annex_i[0].annexure_file
-    return render(request,'recruit/annexure/annexure_i.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_i(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_I.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_i')
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_I()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_i']
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_i = Acad_Annex_I.objects.filter(app_id=app_data)
+#     if annex_i.count() > 0:
+#         if annex_i[0].annexure_data:
+#             response['annex_i'] = json.loads(annex_i[0].annexure_data)
+#             response['total'] = annex_i[0].total
+#             response['annexure_file'] = annex_i[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_i.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_j(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_J.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_j')
-            annexure.store = True
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.total = float(request.POST.get('total',0));
-            annexure.last_prom = request.POST['last_prom']
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_J()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_j']
-            annexure.store = True
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.last_prom = request.POST['last_prom']
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_j = Acad_Annex_J.objects.filter(app_id=app_data)
-    if annex_j.count() > 0:
-        if annex_j[0].annexure_data:
-            response['annex_j'] = json.loads(annex_j[0].annexure_data)
-            response['credit'] = annex_j[0].credit_score
-            response['last_prom'] = annex_j[0].last_prom
-            response['total'] = annex_j[0].total
-            response['annexure_file'] = annex_j[0].annexure_file
-    return render(request,'recruit/annexure/annexure_j.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_j(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_J.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_j')
+#             annexure.store = True
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.last_prom = request.POST['last_prom']
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_J()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_j']
+#             annexure.store = True
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.last_prom = request.POST['last_prom']
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_j = Acad_Annex_J.objects.filter(app_id=app_data)
+#     if annex_j.count() > 0:
+#         if annex_j[0].annexure_data:
+#             response['annex_j'] = json.loads(annex_j[0].annexure_data)
+#             response['credit'] = annex_j[0].credit_score
+#             response['last_prom'] = annex_j[0].last_prom
+#             response['total'] = annex_j[0].total
+#             response['annexure_file'] = annex_j[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_j.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_k(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        try:
-            annexure = Acad_Annex_K.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_k')
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_K()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_k']
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_k = Acad_Annex_K.objects.filter(app_id=app_data)
-    if annex_k.count() > 0:
-        if annex_k[0].annexure_data:
-            response['annex_k'] = json.loads(annex_k[0].annexure_data)
-            response['credit'] = annex_k[0].credit_score
-            response['last_prom'] = annex_k[0].last_prom
-            response['total'] = annex_k[0].total
-            response['annexure_file'] = annex_k[0].annexure_file
-    return render(request,'recruit/annexure/annexure_k.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_k(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         try:
+#             annexure = Acad_Annex_K.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_k')
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_K()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_k']
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_k = Acad_Annex_K.objects.filter(app_id=app_data)
+#     if annex_k.count() > 0:
+#         if annex_k[0].annexure_data:
+#             response['annex_k'] = json.loads(annex_k[0].annexure_data)
+#             response['credit'] = annex_k[0].credit_score
+#             response['last_prom'] = annex_k[0].last_prom
+#             response['total'] = annex_k[0].total
+#             response['annexure_file'] = annex_k[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_k.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_l(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        try:
-            annexure = Acad_Annex_L.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_l')
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_L()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_l']
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_l = Acad_Annex_L.objects.filter(app_id=app_data)
-    if annex_l.count() > 0:
-        if annex_l[0].annexure_data:
-            response['annex_l'] = json.loads(annex_l[0].annexure_data)
-            response['last_prom'] = annex_l[0].last_prom
-            response['credit'] = annex_l[0].credit_score
-            response['total'] = annex_l[0].total
-            response['annexure_file'] = annex_l[0].annexure_file
-    return render(request,'recruit/annexure/annexure_l.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_l(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         try:
+#             annexure = Acad_Annex_L.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_l')
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_L()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_l']
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_l = Acad_Annex_L.objects.filter(app_id=app_data)
+#     if annex_l.count() > 0:
+#         if annex_l[0].annexure_data:
+#             response['annex_l'] = json.loads(annex_l[0].annexure_data)
+#             response['last_prom'] = annex_l[0].last_prom
+#             response['credit'] = annex_l[0].credit_score
+#             response['total'] = annex_l[0].total
+#             response['annexure_file'] = annex_l[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_l.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_m(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_M.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_m')
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_M()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_m']
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_m = Acad_Annex_M.objects.filter(app_id=app_data)
-    if annex_m.count() > 0:
-        if annex_m[0].annexure_data:
-            response['annex_m'] = json.loads(annex_m[0].annexure_data)
-            response['credit'] = annex_m[0].credit_score
-            response['last_prom'] = annex_m[0].last_prom
-            response['total'] = annex_m[0].total
-            response['annexure_file'] = annex_m[0].annexure_file
-    return render(request,'recruit/annexure/annexure_m.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_m(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_M.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_m')
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_M()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_m']
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_m = Acad_Annex_M.objects.filter(app_id=app_data)
+#     if annex_m.count() > 0:
+#         if annex_m[0].annexure_data:
+#             response['annex_m'] = json.loads(annex_m[0].annexure_data)
+#             response['credit'] = annex_m[0].credit_score
+#             response['last_prom'] = annex_m[0].last_prom
+#             response['total'] = annex_m[0].total
+#             response['annexure_file'] = annex_m[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_m.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_n(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    if(request.POST):
-        try:
-            annexure = Acad_Annex_N.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_n')
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_N()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_n']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_n = Acad_Annex_N.objects.filter(app_id=app_data)
-    if annex_n.count() > 0:
-        if annex_n[0].annexure_data:
-            response['annex_n'] = json.loads(annex_n[0].annexure_data)
-            response['last_prom'] = annex_n[0].last_prom
-            response['total'] = annex_n[0].total
-            response['annexure_file'] = annex_n[0].annexure_file
-    return render(request,'recruit/annexure/annexure_n.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_n(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     if(request.POST):
+#         try:
+#             annexure = Acad_Annex_N.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_n')
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_N()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_n']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_n = Acad_Annex_N.objects.filter(app_id=app_data)
+#     if annex_n.count() > 0:
+#         if annex_n[0].annexure_data:
+#             response['annex_n'] = json.loads(annex_n[0].annexure_data)
+#             response['last_prom'] = annex_n[0].last_prom
+#             response['total'] = annex_n[0].total
+#             response['annexure_file'] = annex_n[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_n.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_o(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_O.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_o')
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_O()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_o']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_o = Acad_Annex_O.objects.filter(app_id=app_data)
-    if annex_o.count() > 0:
-        if annex_o[0].annexure_data:
-            response['annex_o'] = json.loads(annex_o[0].annexure_data)
-            response['last_prom'] = annex_o[0].last_prom
-            response['total'] = annex_o[0].total
-            response['annexure_file'] = annex_o[0].annexure_file
-    return render(request,'recruit/annexure/annexure_o.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_o(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_O.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_o')
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_O()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_o']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_o = Acad_Annex_O.objects.filter(app_id=app_data)
+#     if annex_o.count() > 0:
+#         if annex_o[0].annexure_data:
+#             response['annex_o'] = json.loads(annex_o[0].annexure_data)
+#             response['last_prom'] = annex_o[0].last_prom
+#             response['total'] = annex_o[0].total
+#             response['annexure_file'] = annex_o[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_o.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_p(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_P.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_p')
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_P()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_p']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_p = Acad_Annex_P.objects.filter(app_id=app_data)
-    if annex_p.count() > 0:
-        if annex_p[0].annexure_data:
-            response['annex_p'] = json.loads(annex_p[0].annexure_data)
-            response['last_prom'] = annex_p[0].last_prom
-            response['total'] = annex_p[0].total
-            response['annexure_file'] = annex_p[0].annexure_file
-    return render(request,'recruit/annexure/annexure_p.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_p(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_P.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_p')
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_P()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_p']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_p = Acad_Annex_P.objects.filter(app_id=app_data)
+#     if annex_p.count() > 0:
+#         if annex_p[0].annexure_data:
+#             response['annex_p'] = json.loads(annex_p[0].annexure_data)
+#             response['last_prom'] = annex_p[0].last_prom
+#             response['total'] = annex_p[0].total
+#             response['annexure_file'] = annex_p[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_p.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_q(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_Q.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_q')
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total_exp_after_phd = request.POST.get('exp_phd',0);
-            annexure.total_exp_cur = request.POST.get('exp_cad',0);
-            annexure.total_exp = float(request.POST.get('total',0));
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.total_yr = int(request.POST.get('total_yr',0));
-            annexure.total_mnth = int(request.POST.get('total_mnth',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_Q()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_q']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total_exp_after_phd = request.POST.get('exp_phd',0);
-            annexure.total_exp_cur = request.POST.get('exp_cad',0);
-            annexure.total_exp = float(request.POST.get('total',0));
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.total_yr = annexure.total_yr+int(request.POST.get('total_yr',0));
-            annexure.total_mnth = annexure.total_mnth+int(request.POST.get('total_mnth',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_q = Acad_Annex_Q.objects.filter(app_id=app_data)
-    if annex_q.count() > 0:
-        if annex_q[0].annexure_data:
-            response['annex_q'] = json.loads(annex_q[0].annexure_data)
-            response['last_prom'] = annex_q[0].last_prom
-            response['exp_phd'] = annex_q[0].total_exp_after_phd
-            response['exp_cur'] = annex_q[0].total_exp_cur
-            response['tot_exp'] = annex_q[0].total_exp
-            response['credit'] = annex_q[0].credit_score
-            response['total_yr'] = annex_q[0].total_yr
-            response['total_mnth'] = annex_q[0].total_mnth
-            response['annexure_file'] = annex_q[0].annexure_file
-    return render(request,'recruit/annexure/annexure_q.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_q(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_Q.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_q')
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total_exp_after_phd = request.POST.get('exp_phd',0);
+#             annexure.total_exp_cur = request.POST.get('exp_cad',0);
+#             annexure.total_exp = float(request.POST.get('total',0));
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.total_yr = int(request.POST.get('total_yr',0));
+#             annexure.total_mnth = int(request.POST.get('total_mnth',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_Q()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_q']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total_exp_after_phd = request.POST.get('exp_phd',0);
+#             annexure.total_exp_cur = request.POST.get('exp_cad',0);
+#             annexure.total_exp = float(request.POST.get('total',0));
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.total_yr = annexure.total_yr+int(request.POST.get('total_yr',0));
+#             annexure.total_mnth = annexure.total_mnth+int(request.POST.get('total_mnth',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_q = Acad_Annex_Q.objects.filter(app_id=app_data)
+#     if annex_q.count() > 0:
+#         if annex_q[0].annexure_data:
+#             response['annex_q'] = json.loads(annex_q[0].annexure_data)
+#             response['last_prom'] = annex_q[0].last_prom
+#             response['exp_phd'] = annex_q[0].total_exp_after_phd
+#             response['exp_cur'] = annex_q[0].total_exp_cur
+#             response['tot_exp'] = annex_q[0].total_exp
+#             response['credit'] = annex_q[0].credit_score
+#             response['total_yr'] = annex_q[0].total_yr
+#             response['total_mnth'] = annex_q[0].total_mnth
+#             response['annexure_file'] = annex_q[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_q.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_r(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_R.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_r')
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_R()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_r']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_r = Acad_Annex_R.objects.filter(app_id=app_data)
-    if annex_r.count() > 0:
-        if annex_r[0].annexure_data:
-            response['annex_r'] = json.loads(annex_r[0].annexure_data)
-            response['last_prom'] = annex_r[0].last_prom
-            response['total'] = annex_r[0].total
-            response['annexure_file'] = annex_r[0].annexure_file
-    return render(request,'recruit/annexure/annexure_r.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_r(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_R.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_r')
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_R()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_r']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_r = Acad_Annex_R.objects.filter(app_id=app_data)
+#     if annex_r.count() > 0:
+#         if annex_r[0].annexure_data:
+#             response['annex_r'] = json.loads(annex_r[0].annexure_data)
+#             response['last_prom'] = annex_r[0].last_prom
+#             response['total'] = annex_r[0].total
+#             response['annexure_file'] = annex_r[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_r.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_s(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_S.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_s')
-            annexure.last_prom = request.POST['last_prom']
-            annexure.store = True
-            annexure.extra_load = float(request.POST.get('extra_load',0));
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.avg_load = float(request.POST.get('avg_load',0));
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_S()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_s']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.extra_load = float(request.POST.get('extra_load',0));
-            annexure.credit_score = float(request.POST.get('credit',0));
-            annexure.avg_load = float(request.POST.get('avg_load',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_s = Acad_Annex_S.objects.filter(app_id=app_data)
-    if annex_s.count() > 0:
-        if annex_s[0].annexure_data:
-            response['annex_s'] = json.loads(annex_s[0].annexure_data)
-            response['last_prom'] = annex_s[0].last_prom
-            response['extra_load'] = annex_s[0].extra_load
-            response['credit'] = annex_s[0].credit_score
-            response['avg_load'] = annex_s[0].avg_load
-            response['annexure_file'] = annex_s[0].annexure_file
-    return render(request,'recruit/annexure/annexure_s.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_s(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_S.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_s')
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.store = True
+#             annexure.extra_load = float(request.POST.get('extra_load',0));
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.avg_load = float(request.POST.get('avg_load',0));
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_S()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_s']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.extra_load = float(request.POST.get('extra_load',0));
+#             annexure.credit_score = float(request.POST.get('credit',0));
+#             annexure.avg_load = float(request.POST.get('avg_load',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_s = Acad_Annex_S.objects.filter(app_id=app_data)
+#     if annex_s.count() > 0:
+#         if annex_s[0].annexure_data:
+#             response['annex_s'] = json.loads(annex_s[0].annexure_data)
+#             response['last_prom'] = annex_s[0].last_prom
+#             response['extra_load'] = annex_s[0].extra_load
+#             response['credit'] = annex_s[0].credit_score
+#             response['avg_load'] = annex_s[0].avg_load
+#             response['annexure_file'] = annex_s[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_s.djt',response)
 
-def getValue(request, annexure, str):
-    if(len(request.POST[str])>2):
-        oldstr = (annexure.annexure_data)
-	#oldstr = unicodedata.normalize("NFKD",oldstr)
-        #print(oldstr)
-        newstr = (request.POST[str])
-	#newstr = unicodedata.normalize("NFKD",newstr)
-	#print(newstr)
-        if oldstr == " " or oldstr == "[]" or oldstr == '[]':
-            return ("[" + newstr[1:])
-        else:
-            return (oldstr[:-1] + "," + newstr[1:])
-        return (oldstr[:-1] + "," + newstr[1:])
-    return " "
+# def getValue(request, annexure, str):
+#     if(len(request.POST[str])>2):
+#         oldstr = (annexure.annexure_data)
+# 	#oldstr = unicodedata.normalize("NFKD",oldstr)
+#         #print(oldstr)
+#         newstr = (request.POST[str])
+# 	#newstr = unicodedata.normalize("NFKD",newstr)
+# 	#print(newstr)
+#         if oldstr == " " or oldstr == "[]" or oldstr == '[]':
+#             return ("[" + newstr[1:])
+#         else:
+#             return (oldstr[:-1] + "," + newstr[1:])
+#         return (oldstr[:-1] + "," + newstr[1:])
+#     return " "
 
-def getJsonStringVal(oldstr,newstr):
-    if(len(oldstr)>2) :
-        return oldstr[:-1] + "," + newstr[1:]
-    else :
-        return newstr
+# def getJsonStringVal(oldstr,newstr):
+#     if(len(oldstr)>2) :
+#         return oldstr[:-1] + "," + newstr[1:]
+#     else :
+#         return newstr
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_t(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        try:
-            annexure = Acad_Annex_T.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_t')
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_T()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_t']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_t = Acad_Annex_T.objects.filter(app_id=app_data)
-    if annex_t.count() > 0:
-        if annex_t[0].annexure_data:
-            response['annex_t'] = json.loads(annex_t[0].annexure_data)
-            response['last_prom'] = annex_t[0].last_prom
-            response['total'] = annex_t[0].total
-            response['annexure_file'] = annex_t[0].annexure_file
-    return render(request,'recruit/annexure/annexure_t.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_t(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         try:
+#             annexure = Acad_Annex_T.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_t')
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_T()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_t']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_t = Acad_Annex_T.objects.filter(app_id=app_data)
+#     if annex_t.count() > 0:
+#         if annex_t[0].annexure_data:
+#             response['annex_t'] = json.loads(annex_t[0].annexure_data)
+#             response['last_prom'] = annex_t[0].last_prom
+#             response['total'] = annex_t[0].total
+#             response['annexure_file'] = annex_t[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_t.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_u(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_U.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_u')
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_U()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_u']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_u = Acad_Annex_U.objects.filter(app_id=app_data)
-    if annex_u.count() > 0:
-        if annex_u[0].annexure_data:
-            response['annex_u'] = json.loads(annex_u[0].annexure_data)
-            response['last_prom'] = annex_u[0].last_prom
-            response['total'] = annex_u[0].total
-            response['annexure_file'] = annex_u[0].annexure_file
-    return render(request,'recruit/annexure/annexure_u.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_u(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_U.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_u')
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_U()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_u']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_u = Acad_Annex_U.objects.filter(app_id=app_data)
+#     if annex_u.count() > 0:
+#         if annex_u[0].annexure_data:
+#             response['annex_u'] = json.loads(annex_u[0].annexure_data)
+#             response['last_prom'] = annex_u[0].last_prom
+#             response['total'] = annex_u[0].total
+#             response['annexure_file'] = annex_u[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_u.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_v(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_V.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_v')
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_V()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_v']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_v = Acad_Annex_V.objects.filter(app_id=app_data)
-    if annex_v.count() > 0:
-        if annex_v[0].annexure_data:
-            response['annex_v'] = json.loads(annex_v[0].annexure_data)
-            response['last_prom'] = annex_v[0].last_prom
-            response['total'] = annex_v[0].total
-            response['annexure_file'] = annex_v[0].annexure_file
-    return render(request,'recruit/annexure/annexure_v.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_v(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_V.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_v')
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_V()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_v']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_v = Acad_Annex_V.objects.filter(app_id=app_data)
+#     if annex_v.count() > 0:
+#         if annex_v[0].annexure_data:
+#             response['annex_v'] = json.loads(annex_v[0].annexure_data)
+#             response['last_prom'] = annex_v[0].last_prom
+#             response['total'] = annex_v[0].total
+#             response['annexure_file'] = annex_v[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_v.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_w1(request) :
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_W1_W2.objects.get(app_id=app_data)
-            if len(request.POST['annexure_w1'])>2:
-                oldstr = annexure.annexure_data1
-                newstr = request.POST['annexure_w1']
-                if oldstr == " " or oldstr == "[]":
-                    annexure.annexure_data1 = "[" + newstr[1:]
-                else:
-                    annexure.annexure_data1 = oldstr[:-1] + "," + newstr[1:]
-            annexure.last_prom_w1 = request.POST['last_prom']
-            annexure.total_w1 = float(request.POST.get('total_w1',0));
-            annexure.store_w1 = True
-            if request.FILES:
-                annexure.annexure_file_w1 = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_W1_W2()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data1 = request.POST['annexure_w1']
-            annexure.last_prom_w1 = request.POST['last_prom']
-            annexure.total_w1 = annexure.total_w1+float(request.POST.get('total_w1',0));
-            annexure.store_w1 = True
-            if request.FILES:
-                annexure.annexure_file_w1 = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_w1 = Acad_Annex_W1_W2.objects.filter(app_id=app_data)
-    if annex_w1.count() > 0:
-        if len(str((annex_w1[0].annexure_data1).encode("utf-8"))) > 1:
-            response['annex_w1'] = json.loads(annex_w1[0].annexure_data1)
-            response['last_prom'] = annex_w1[0].last_prom_w1
-            response['total_w1'] = annex_w1[0].total_w1
-            response['annexure_file'] = annex_w1[0].annexure_file_w1
-    return render(request,'recruit/annexure/annexure_w1.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_w1(request) :
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_W1_W2.objects.get(app_id=app_data)
+#             if len(request.POST['annexure_w1'])>2:
+#                 oldstr = annexure.annexure_data1
+#                 newstr = request.POST['annexure_w1']
+#                 if oldstr == " " or oldstr == "[]":
+#                     annexure.annexure_data1 = "[" + newstr[1:]
+#                 else:
+#                     annexure.annexure_data1 = oldstr[:-1] + "," + newstr[1:]
+#             annexure.last_prom_w1 = request.POST['last_prom']
+#             annexure.total_w1 = float(request.POST.get('total_w1',0));
+#             annexure.store_w1 = True
+#             if request.FILES:
+#                 annexure.annexure_file_w1 = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_W1_W2()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data1 = request.POST['annexure_w1']
+#             annexure.last_prom_w1 = request.POST['last_prom']
+#             annexure.total_w1 = annexure.total_w1+float(request.POST.get('total_w1',0));
+#             annexure.store_w1 = True
+#             if request.FILES:
+#                 annexure.annexure_file_w1 = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_w1 = Acad_Annex_W1_W2.objects.filter(app_id=app_data)
+#     if annex_w1.count() > 0:
+#         if len(str((annex_w1[0].annexure_data1).encode("utf-8"))) > 1:
+#             response['annex_w1'] = json.loads(annex_w1[0].annexure_data1)
+#             response['last_prom'] = annex_w1[0].last_prom_w1
+#             response['total_w1'] = annex_w1[0].total_w1
+#             response['annexure_file'] = annex_w1[0].annexure_file_w1
+#     return render(request,'recruit/annexure/annexure_w1.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_w2(request):
-    app_data = Appdata.objects.get(user = request.user)
-    response = {}
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_W1_W2.objects.get(app_id=app_data)
-            if len(request.POST['annexure_w2'])>2:
-                oldstr = annexure.annexure_data2
-                newstr = request.POST['annexure_w2']
-                if oldstr == " " or oldstr == "[]":
-                    annexure.annexure_data2 = "[" + newstr[1:]
-                else:
-                    annexure.annexure_data2 = oldstr[:-1] + "," + newstr[1:]
-            annexure.last_prom_w2 = request.POST['last_prom']
-            annexure.total_w2 = float(request.POST.get('total_w2',0));
-            annexure.store_w2 = True
-            if request.FILES:
-                annexure.annexure_file_w2 = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_W1_W2()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data2 = request.POST['annexure_w2']
-            annexure.last_prom_w2 = request.POST['last_prom']
-            annexure.total_w2 = annexure.total_w2+float(request.POST.get('total_w2',0));
-            annexure.store_w2 = True
-            if request.FILES:
-                annexure.annexure_file_w2 = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_w2 = Acad_Annex_W1_W2.objects.filter(app_id=app_data)
-    if annex_w2.count() > 0:
-        if len(str((annex_w2[0].annexure_data2).encode("utf-8"))) > 1:
-            response['annex_w2'] = json.loads(annex_w2[0].annexure_data2)
-            response['last_prom'] = annex_w2[0].last_prom_w2
-            response['total_w2'] = annex_w2[0].total_w2
-            response['annexure_file'] = annex_w2[0].annexure_file_w2
-    return render(request,'recruit/annexure/annexure_w2.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_w2(request):
+#     app_data = Appdata.objects.get(user = request.user)
+#     response = {}
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_W1_W2.objects.get(app_id=app_data)
+#             if len(request.POST['annexure_w2'])>2:
+#                 oldstr = annexure.annexure_data2
+#                 newstr = request.POST['annexure_w2']
+#                 if oldstr == " " or oldstr == "[]":
+#                     annexure.annexure_data2 = "[" + newstr[1:]
+#                 else:
+#                     annexure.annexure_data2 = oldstr[:-1] + "," + newstr[1:]
+#             annexure.last_prom_w2 = request.POST['last_prom']
+#             annexure.total_w2 = float(request.POST.get('total_w2',0));
+#             annexure.store_w2 = True
+#             if request.FILES:
+#                 annexure.annexure_file_w2 = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_W1_W2()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data2 = request.POST['annexure_w2']
+#             annexure.last_prom_w2 = request.POST['last_prom']
+#             annexure.total_w2 = annexure.total_w2+float(request.POST.get('total_w2',0));
+#             annexure.store_w2 = True
+#             if request.FILES:
+#                 annexure.annexure_file_w2 = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_w2 = Acad_Annex_W1_W2.objects.filter(app_id=app_data)
+#     if annex_w2.count() > 0:
+#         if len(str((annex_w2[0].annexure_data2).encode("utf-8"))) > 1:
+#             response['annex_w2'] = json.loads(annex_w2[0].annexure_data2)
+#             response['last_prom'] = annex_w2[0].last_prom_w2
+#             response['total_w2'] = annex_w2[0].total_w2
+#             response['annexure_file'] = annex_w2[0].annexure_file_w2
+#     return render(request,'recruit/annexure/annexure_w2.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_x(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    print app_data
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_X.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_x')
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_X()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_x']
-            annexure.last_prom = request.POST['last_prom']
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_x = Acad_Annex_X.objects.filter(app_id=app_data)
-    if annex_x.count() > 0:
-        if len(str((annex_x[0].annexure_data).encode("utf-8"))) > 1:
-            response['annex_x'] = json.loads(annex_x[0].annexure_data)
-            response['last_prom'] = annex_x[0].last_prom
-            response['annexure_file'] = annex_x[0].annexure_file
-            response['total'] = annex_x[0].total
-    return render(request,'recruit/annexure/annexure_x.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_x(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     print app_data
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_X.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_x')
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_X()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_x']
+#             annexure.last_prom = request.POST['last_prom']
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_x = Acad_Annex_X.objects.filter(app_id=app_data)
+#     if annex_x.count() > 0:
+#         if len(str((annex_x[0].annexure_data).encode("utf-8"))) > 1:
+#             response['annex_x'] = json.loads(annex_x[0].annexure_data)
+#             response['last_prom'] = annex_x[0].last_prom
+#             response['annexure_file'] = annex_x[0].annexure_file
+#             response['total'] = annex_x[0].total
+#     return render(request,'recruit/annexure/annexure_x.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_y(request):
-    app_data = Appdata.objects.get(user = request.user)
-    result = {}
-    if request.POST:
-        print request.POST
-        result['ieee'] = False
-        result['fna'] = False
-        result['fnae']=False
-        result['fnasc'] = False
-        for key in request.POST:
-            if(key == 'csrfmiddlewaretoken' or key == 'credit'):
-                continue
-            value = request.POST[key]
-            if(len(value)>0):
-                result[str(value)] = True
-                print value
-        try:
-            annexure = Acad_Annex_Y.objects.get(app_id=app_data)
-            annexure.annexure_data = result
-            annexure.store = True
-            annexure.credit_score = float(request.POST.get('credit',0))
-            annexure.ieee = result['ieee']
-            annexure.fna = result['fna']
-            annexure.fnae = result['fnae']
-            annexure.fnasc = result['fnasc']
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_Y()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.ieee = result['ieee']
-            annexure.fna = result['fna']
-            annexure.fnae = result['fnae']
-            annexure.fnasc = result['fnasc']
-            annexure.credit_score = float(request.POST.get('credit',0))
-            annexure.store = True
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_y = Acad_Annex_Y.objects.filter(app_id=app_data)
-    response = {}
-    if annex_y.count() > 0:
-        response['credit'] = annex_y[0].credit_score
-        response['ieee'] = annex_y[0].ieee 
-        response['fna'] = annex_y[0].fna 
-        response['fnae'] = annex_y[0].fnae 
-        response['fnasc'] = annex_y[0].fnasc 
-        response['annexure_file'] = annex_y[0].annexure_file
-    return render(request,'recruit/annexure/annexure_y.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_y(request):
+#     app_data = Appdata.objects.get(user = request.user)
+#     result = {}
+#     if request.POST:
+#         print request.POST
+#         result['ieee'] = False
+#         result['fna'] = False
+#         result['fnae']=False
+#         result['fnasc'] = False
+#         for key in request.POST:
+#             if(key == 'csrfmiddlewaretoken' or key == 'credit'):
+#                 continue
+#             value = request.POST[key]
+#             if(len(value)>0):
+#                 result[str(value)] = True
+#                 print value
+#         try:
+#             annexure = Acad_Annex_Y.objects.get(app_id=app_data)
+#             annexure.annexure_data = result
+#             annexure.store = True
+#             annexure.credit_score = float(request.POST.get('credit',0))
+#             annexure.ieee = result['ieee']
+#             annexure.fna = result['fna']
+#             annexure.fnae = result['fnae']
+#             annexure.fnasc = result['fnasc']
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_Y()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.ieee = result['ieee']
+#             annexure.fna = result['fna']
+#             annexure.fnae = result['fnae']
+#             annexure.fnasc = result['fnasc']
+#             annexure.credit_score = float(request.POST.get('credit',0))
+#             annexure.store = True
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_y = Acad_Annex_Y.objects.filter(app_id=app_data)
+#     response = {}
+#     if annex_y.count() > 0:
+#         response['credit'] = annex_y[0].credit_score
+#         response['ieee'] = annex_y[0].ieee 
+#         response['fna'] = annex_y[0].fna 
+#         response['fnae'] = annex_y[0].fnae 
+#         response['fnasc'] = annex_y[0].fnasc 
+#         response['annexure_file'] = annex_y[0].annexure_file
+#     return render(request,'recruit/annexure/annexure_y.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def annexure_z(request):
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    if(request.POST):
-        print request.POST
-        try:
-            annexure = Acad_Annex_Z.objects.get(app_id=app_data)
-            annexure.annexure_data = getValue(request, annexure, 'annexure_z')
-            annexure.store = True
-            annexure.total = float(request.POST.get('total',0));
-            annexure.last_prom=request.POST['last_prom']
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        except ObjectDoesNotExist:
-            annexure = Acad_Annex_Z()
-            annexure.app_id = Appdata.objects.get(app_id = app_data)
-            annexure.annexure_data = request.POST['annexure_z']
-            annexure.store = True
-            annexure.total = annexure.total+float(request.POST.get('total',0));
-            annexure.last_prom=request.POST['last_prom']
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-        return redirect('academic/')
-    annex_z = Acad_Annex_Z.objects.filter(app_id=app_data)
-    if annex_z.count() > 0:
-        if len(str((annex_z[0].annexure_data).encode("utf-8"))) > 1:
-            response['annex_z'] = json.loads(annex_z[0].annexure_data)
-            response['last_prom'] = annex_z[0].last_prom
-            response['annexure_file'] = annex_z[0].annexure_file
-            response['total'] = annex_z[0].total
-    return render(request,'recruit/annexure/annexure_z.djt',response)
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def annexure_z(request):
+#     response = {}
+#     app_data = Appdata.objects.get(user = request.user)
+#     if(request.POST):
+#         print request.POST
+#         try:
+#             annexure = Acad_Annex_Z.objects.get(app_id=app_data)
+#             annexure.annexure_data = getValue(request, annexure, 'annexure_z')
+#             annexure.store = True
+#             annexure.total = float(request.POST.get('total',0));
+#             annexure.last_prom=request.POST['last_prom']
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         except ObjectDoesNotExist:
+#             annexure = Acad_Annex_Z()
+#             annexure.app_id = Appdata.objects.get(app_id = app_data)
+#             annexure.annexure_data = request.POST['annexure_z']
+#             annexure.store = True
+#             annexure.total = annexure.total+float(request.POST.get('total',0));
+#             annexure.last_prom=request.POST['last_prom']
+#             if request.FILES:
+#                 annexure.annexure_file = request.FILES['annexure_file']
+#             annexure.save()
+#         return redirect('academic/')
+#     annex_z = Acad_Annex_Z.objects.filter(app_id=app_data)
+#     if annex_z.count() > 0:
+#         if len(str((annex_z[0].annexure_data).encode("utf-8"))) > 1:
+#             response['annex_z'] = json.loads(annex_z[0].annexure_data)
+#             response['last_prom'] = annex_z[0].last_prom
+#             response['annexure_file'] = annex_z[0].annexure_file
+#             response['total'] = annex_z[0].total
+#     return render(request,'recruit/annexure/annexure_z.djt',response)
 
-@login_required(login_url='/register')
-@is_applicant(login_url='/register')
-def subject_ref(request):
-    response = {}
-    app_id = Appdata.objects.get(user=request.user)
-    if app_id.submitted :
-        return redirect('/printSummary')
-    response['app'] = app_id
+# @login_required(login_url='/register')
+# @is_applicant(login_url='/register')
+# def subject_ref(request):
+#     response = {}
+#     app_id = Appdata.objects.get(user=request.user)
+#     if app_id.submitted :
+#         return redirect('/printSummary')
+#     response['app'] = app_id
 
-    if request.method == 'POST' :
+#     if request.method == 'POST' :
 
-        if not SubjectTaught.objects.filter(app_id=app_id,level='UG',courseType='core').exists() :
-            coreUG = SubjectTaught()
-            coreUG.app_id = app_id
-            coreUG.level = 'UG'
-            coreUG.courseType = 'core'
-            coreUG.data = request.POST['coreUGdata']
-        else :
-            coreUG = SubjectTaught.objects.get(app_id=app_id,level='UG',courseType='core')
-            if len(request.POST.get('coreUGdata'))>2 :
-                oldstr = coreUG.data
-                newstr = request.POST['coreUGdata']
-                coreUG.data = getJsonStringVal(oldstr,newstr)
-        coreUG.save()
+#         if not SubjectTaught.objects.filter(app_id=app_id,level='UG',courseType='core').exists() :
+#             coreUG = SubjectTaught()
+#             coreUG.app_id = app_id
+#             coreUG.level = 'UG'
+#             coreUG.courseType = 'core'
+#             coreUG.data = request.POST['coreUGdata']
+#         else :
+#             coreUG = SubjectTaught.objects.get(app_id=app_id,level='UG',courseType='core')
+#             if len(request.POST.get('coreUGdata'))>2 :
+#                 oldstr = coreUG.data
+#                 newstr = request.POST['coreUGdata']
+#                 coreUG.data = getJsonStringVal(oldstr,newstr)
+#         coreUG.save()
 
-        if not SubjectTaught.objects.filter(app_id=app_id,level='UG',courseType='elective').exists() :
-            electiveUG = SubjectTaught()
-            electiveUG.app_id = app_id
-            electiveUG.level = 'UG'
-            electiveUG.courseType = 'elective'
-            electiveUG.data = request.POST['electiveUGdata']
-        else :
-            electiveUG = SubjectTaught.objects.get(app_id=app_id,level='UG',courseType='elective')
-            if len(request.POST.get('electiveUGdata'))>2:
-                oldstr2 = electiveUG.data
-                newstr2 = request.POST['electiveUGdata']
-                electiveUG.data = getJsonStringVal(oldstr2,newstr2)
-        electiveUG.save()
+#         if not SubjectTaught.objects.filter(app_id=app_id,level='UG',courseType='elective').exists() :
+#             electiveUG = SubjectTaught()
+#             electiveUG.app_id = app_id
+#             electiveUG.level = 'UG'
+#             electiveUG.courseType = 'elective'
+#             electiveUG.data = request.POST['electiveUGdata']
+#         else :
+#             electiveUG = SubjectTaught.objects.get(app_id=app_id,level='UG',courseType='elective')
+#             if len(request.POST.get('electiveUGdata'))>2:
+#                 oldstr2 = electiveUG.data
+#                 newstr2 = request.POST['electiveUGdata']
+#                 electiveUG.data = getJsonStringVal(oldstr2,newstr2)
+#         electiveUG.save()
 
-        if not SubjectTaught.objects.filter(app_id=app_id,level='PG',courseType='core').exists() :
-            corePG = SubjectTaught()
-            corePG.app_id = app_id
-            corePG.level = 'PG'
-            corePG.courseType = 'core'
-            corePG.data = request.POST['corePGdata']
-        else :
-            corePG = SubjectTaught.objects.get(app_id=app_id,level='PG',courseType='core')
-            if len(request.POST['corePGdata'])>2 :
-                oldstr3 = corePG.data
-                newstr3 = request.POST['corePGdata']
-                corePG.data = getJsonStringVal(oldstr3,newstr3)
-        corePG.save()
+#         if not SubjectTaught.objects.filter(app_id=app_id,level='PG',courseType='core').exists() :
+#             corePG = SubjectTaught()
+#             corePG.app_id = app_id
+#             corePG.level = 'PG'
+#             corePG.courseType = 'core'
+#             corePG.data = request.POST['corePGdata']
+#         else :
+#             corePG = SubjectTaught.objects.get(app_id=app_id,level='PG',courseType='core')
+#             if len(request.POST['corePGdata'])>2 :
+#                 oldstr3 = corePG.data
+#                 newstr3 = request.POST['corePGdata']
+#                 corePG.data = getJsonStringVal(oldstr3,newstr3)
+#         corePG.save()
 
-        if not SubjectTaught.objects.filter(app_id=app_id,level='PG',courseType='elective').exists() :
-            electivePG = SubjectTaught()
-            electivePG.app_id = app_id
-            electivePG.level = 'PG'
-            electivePG.courseType = 'elective'
-            electivePG.data = request.POST['electivePGdata']
-        else :
-            electivePG = SubjectTaught.objects.get(app_id=app_id,level='PG',courseType='elective')
-            if len(request.POST['electivePGdata'])>2 :
-                oldstr4 = electivePG.data
-                newstr4 = request.POST['electivePGdata']
-                electivePG.data = getJsonStringVal(oldstr4,newstr4)
-        electivePG.save()
+#         if not SubjectTaught.objects.filter(app_id=app_id,level='PG',courseType='elective').exists() :
+#             electivePG = SubjectTaught()
+#             electivePG.app_id = app_id
+#             electivePG.level = 'PG'
+#             electivePG.courseType = 'elective'
+#             electivePG.data = request.POST['electivePGdata']
+#         else :
+#             electivePG = SubjectTaught.objects.get(app_id=app_id,level='PG',courseType='elective')
+#             if len(request.POST['electivePGdata'])>2 :
+#                 oldstr4 = electivePG.data
+#                 newstr4 = request.POST['electivePGdata']
+#                 electivePG.data = getJsonStringVal(oldstr4,newstr4)
+#         electivePG.save()
 
-        if not Referral.objects.filter(app_id=app_id).exists() :
-            refobj = Referral()
-            refobj.app_id = app_id
-            refobj.ref_data = request.POST['refFinaldata']
-        else :
-            refobj = Referral.objects.get(app_id=app_id)
-            if len(request.POST['refFinaldata'])>2 :
-                oldstr = refobj.ref_data
-                newstr = request.POST['refFinaldata']
-                refobj.ref_data = getJsonStringVal(oldstr,newstr)
-        refobj.save()
+#         if not Referral.objects.filter(app_id=app_id).exists() :
+#             refobj = Referral()
+#             refobj.app_id = app_id
+#             refobj.ref_data = request.POST['refFinaldata']
+#         else :
+#             refobj = Referral.objects.get(app_id=app_id)
+#             if len(request.POST['refFinaldata'])>2 :
+#                 oldstr = refobj.ref_data
+#                 newstr = request.POST['refFinaldata']
+#                 refobj.ref_data = getJsonStringVal(oldstr,newstr)
+#         refobj.save()
 
-    if SubjectTaught.objects.filter(app_id=app_id,level='UG',courseType='core').exists() :
-        obj1 = SubjectTaught.objects.get(app_id=app_id,level='UG',courseType='core')
-        response['coreUGobj'] = json.loads(obj1.data)
-    if SubjectTaught.objects.filter(app_id=app_id,level='UG',courseType='elective').exists() :
-        obj2 = SubjectTaught.objects.get(app_id=app_id,level='UG',courseType='elective')
-        response['electiveUGobj'] = json.loads(obj2.data)
-    if SubjectTaught.objects.filter(app_id=app_id,level='PG',courseType='core').exists() :
-        obj3 = SubjectTaught.objects.get(app_id=app_id,level='PG',courseType='core')
-        response['corePGobj'] = json.loads(obj3.data)
-    if SubjectTaught.objects.filter(app_id=app_id,level='PG',courseType='elective').exists() :
-        obj4 = SubjectTaught.objects.get(app_id=app_id,level='PG',courseType='elective')
-        response['electivePGobj'] = json.loads(obj4.data)
-    if Referral.objects.filter(app_id=app_id).exists() :
-        obj5 = Referral.objects.get(app_id=app_id)
-        response['refobjs'] = json.loads(obj5.ref_data)
+#     if SubjectTaught.objects.filter(app_id=app_id,level='UG',courseType='core').exists() :
+#         obj1 = SubjectTaught.objects.get(app_id=app_id,level='UG',courseType='core')
+#         response['coreUGobj'] = json.loads(obj1.data)
+#     if SubjectTaught.objects.filter(app_id=app_id,level='UG',courseType='elective').exists() :
+#         obj2 = SubjectTaught.objects.get(app_id=app_id,level='UG',courseType='elective')
+#         response['electiveUGobj'] = json.loads(obj2.data)
+#     if SubjectTaught.objects.filter(app_id=app_id,level='PG',courseType='core').exists() :
+#         obj3 = SubjectTaught.objects.get(app_id=app_id,level='PG',courseType='core')
+#         response['corePGobj'] = json.loads(obj3.data)
+#     if SubjectTaught.objects.filter(app_id=app_id,level='PG',courseType='elective').exists() :
+#         obj4 = SubjectTaught.objects.get(app_id=app_id,level='PG',courseType='elective')
+#         response['electivePGobj'] = json.loads(obj4.data)
+#     if Referral.objects.filter(app_id=app_id).exists() :
+#         obj5 = Referral.objects.get(app_id=app_id)
+#         response['refobjs'] = json.loads(obj5.ref_data)
 
-    return render(request,'recruit/subject_ref.djt',response)
+#     return render(request,'recruit/subject_ref.djt',response)
 
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
