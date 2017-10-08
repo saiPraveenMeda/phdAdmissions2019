@@ -30,20 +30,8 @@ def index(request) :
     profile = Appdata.objects.get(user=request.user)
     response['profile'] = profile
     if request.method == "POST" :
-        #app_data object creation too.
-        if not Appdata.objects.filter(user=request.user).exists() :
-            app_data = Appdata()
-            app_data.user = request.user
-            app_data.app_id = profile.applicationID
-            app_data.post_for = profile.postApplied
-            app_data.post_in = profile.departmentApplied
-            app_data.save()
-
-        appD = Appdata.objects.get(user=request.user)
         app_id = Appdata.objects.get(user=request.user)
 
-        #generalInfo part  :
-        app_id.specialize = request.POST['specialization']
         app_id.save()
 
         if not FacUser.objects.filter(app_id=app_id).exists() :
@@ -127,7 +115,6 @@ def index(request) :
     if Appdata.objects.filter(user=request.user).exists() :
         app_id = Appdata.objects.get(user=request.user)
         response['postID'] = Post.objects.get(name=app_id.post_for).name
-        response['specialization'] = app_id.specialize
         if FacUser.objects.filter(app_id=app_id).exists():
             response['generalData'] = FacUser.objects.get(app_id=app_id)
         if Experience.objects.filter(app_id=app_id).exists():
@@ -157,26 +144,25 @@ def annexure_obc(request):
             Annexure = Annexure_OBC.objects.filter(app_id=Appdata.objects.filter(user=request.user))
         else:
             Annexure = Annexure_OBC(app_id=Appdata.objects.filter(user=request.user))
-        response['name'] = Annexure.name = request.POST['name']
-        response['gender'] = Annexure.gender = request.POST['gender']
-        response['parent_name'] = Annexure.parent_name = request.POST['parent_name']
-        response['village'] = Annexure.village = request.POST['village']
-        response['district'] = Annexure.district = request.POST['disctrict']
-        response['state'] = Annexure.state = request.POST['state']
-        response['community'] = Annexure.community = request.POST['community']
+        Annexure.name = request.POST['name']
+        Annexure.gender = request.POST['gender']
+        Annexure.parent_name = request.POST['parent_name']
+        Annexure.village = request.POST['village']
+        Annexure.district = request.POST['disctrict']
+        Annexure.state = request.POST['state']
+        Annexure.community = request.POST['community']
 
         Annexure.save()
 
-    else:
-        if Annexure_OBC.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
-            Annexure = Annexure_OBC.objects.filter(app_id=Appdata.objects.filter(user=request.user))
-            response['name'] = Annexure.name
-            response['gender'] = Annexure.gender
-            response['parent_name'] = Annexure.parent_name
-            response['village'] = Annexure.village
-            response['district'] = Annexure.district
-            response['state'] = Annexure.state
-            response['community'] = Annexure.community
+    if Annexure_OBC.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
+        Annexure = Annexure_OBC.objects.filter(app_id=Appdata.objects.filter(user=request.user))
+        response['name'] = Annexure.name
+        response['gender'] = Annexure.gender
+        response['parent_name'] = Annexure.parent_name
+        response['village'] = Annexure.village
+        response['district'] = Annexure.district
+        response['state'] = Annexure.state
+        response['community'] = Annexure.community
 
     return render(request, 'recruit/annexure/annexure_obc.djt', response)
 
@@ -222,7 +208,6 @@ def print_main_application(request):
     response = {}
     response['profile'] = Appdata.objects.get(user = request.user)
     app_id = Appdata.objects.get(user=request.user)
-    response['specialization'] = app_id.specialize
     if FacUser.objects.filter(app_id=app_id).exists():
         response['generalData'] = FacUser.objects.get(app_id=app_id)
     if Experience.objects.filter(app_id=app_id).exists():
@@ -385,7 +370,6 @@ def print_annexures(request):
     response = {}
     response['profile'] = Appdata.objects.get(user = request.user)
     app_id = Appdata.objects.get(user=request.user)
-    response['specialization'] = app_id.specialize
 
     annex_e1 = Acad_Annex_E12.objects.filter(app_id=app_id)
     if annex_e1.count() > 0:
@@ -610,12 +594,12 @@ def lockApplication(request) :
 
     receiver = mailid
     sender = 'support_admissions_2017@nitw.ac.in'
-    content = 'Your Application for the post of '+app.post_for
+    content = 'Your Application for the position of '+app.post_for+' PHD student'
     content = content + ' in '+app.post_in+' has been submitted on '
     content = content + app.submitDate.strftime('%Y-%m-%d %H:%M')
     rlist = []
     rlist.append(receiver)
-    subject = 'Acknowlegement for Submission of Application'
+    subject = 'NIT WARANGAL - Acknowlegement for Submission of PhD Admission Application'
     print (mailid+" : "+content)
     try:
         send_mail(subject,content,sender,rlist,fail_silently=False,)
@@ -643,286 +627,13 @@ def calculate_age(dob):
     today = datetime.date.today()
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
-def refresh(request,annexName) :
-    response = {}
-    app_data = Appdata.objects.get(user = request.user)
-    if annexName == 'e_1' :
-        if Acad_Annex_E12.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_E12.objects.get(app_id=app_data)
-            annexure.store_e1 = False
-            annexure.total_e1 = 0
-            annexure.annexure_data_e1 = '[]'
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-
-    if annexName == 'e2' :
-        if Acad_Annex_E12.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_E12.objects.get(app_id=app_data)
-            annexure.store_e2 = False
-            annexure.total_e2 = 0
-            annexure.annexure_data_e2 = '[]'
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-
-    if annexName == 'f' :
-        if Acad_Annex_F.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_F.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'g' :
-        if Acad_Annex_G.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_G.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'h' :
-        if Acad_Annex_H.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_H.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'i' :
-        if Acad_Annex_I.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_I.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'j' :
-        if Acad_Annex_J.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_J.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'k' :
-        if Acad_Annex_K.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_K.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'l' :
-        if Acad_Annex_L.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_L.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'm' :
-        if Acad_Annex_M.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_M.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'n' :
-        if Acad_Annex_N.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_N.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'o' :
-        if Acad_Annex_O.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_O.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'p' :
-        if Acad_Annex_P.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_P.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'q' :
-        if Acad_Annex_Q.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_Q.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'r' :
-        if Acad_Annex_R.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_R.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 's' :
-        if Acad_Annex_S.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_S.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 't' :
-        if Acad_Annex_T.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_T.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'u' :
-        if Acad_Annex_U.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_U.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'v' :
-        if Acad_Annex_V.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_V.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'w1' :
-        if Acad_Annex_W1_W2.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_W1_W2.objects.objects.get(app_id=app_data)
-            annexure.annexure_data1 = '[]'
-            annexure.last_prom_w1 = ''
-            annexure.total_w1 = 0
-            annexure.store_w1 = False
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-
-    if annexName == 'w2' :
-        if Acad_Annex_W1_W2.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_W1_W2.objects.objects.get(app_id=app_data)
-            annexure.annexure_data2 = '[]'
-            annexure.last_prom_w2 = ''
-            annexure.total_w2 = 0
-            annexure.store_w2 = False
-            if request.FILES:
-                annexure.annexure_file = request.FILES['annexure_file']
-            annexure.save()
-
-    if annexName == 'x' :
-        if Acad_Annex_X.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_X.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'y' :
-        if Acad_Annex_Y.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_Y.objects.get(app_id=app_data)
-            annexure.delete()
-
-    if annexName == 'z' :
-        if Acad_Annex_Z.objects.filter(app_id=app_data).exists() :
-            annexure = Acad_Annex_Z.objects.get(app_id=app_data)
-            annexure.delete()
-
-    return redirect('/academic/annexure_'+annexName)
-
-def uploadExpDoc(request) :
-    response = {}
-    app_id = Appdata.objects.get(user=request.user)
-
-    if Paper.objects.filter(app_id=app_id).exists() :
-        obj = Paper.objects.get(app_id=app_id)
-    else :
-        obj = Paper()
-        obj.app_id = app_id
-        obj.save()
-
-    if request.method == 'POST' :
-        obj.paper1 = request.FILES['paper1']
-        if validateFormat(obj.paper1) :
-            obj.save()
-        else : 
-            return HttpResponse('Only Pdf format is allowed')
-        return redirect('/uploadExpDoc')
-
-    response['obj'] = obj
-    return render(request,'recruit/uploadExpDocs.djt',response)
 
 def all_annexures(request) :
     response = {}
     app_id = Appdata.objects.get(user=request.user)
     response['profile'] = Appdata.objects.get(user = request.user)
-    acad_annex_a = Acad_Annex_A.objects.filter(app_id=app_id)
-    acad_annex_b = Acad_Annex_B.objects.filter(app_id=app_id)
-    acad_annex_c = Acad_Annex_C.objects.filter(app_id=app_id)
-    acad_annex_d = Acad_Annex_D.objects.filter(app_id=app_id)
-    acad_annex_e12 = Acad_Annex_E12.objects.filter(app_id=app_id)
-    acad_annex_f = Acad_Annex_F.objects.filter(app_id=app_id)
-    acad_annex_g = Acad_Annex_G.objects.filter(app_id=app_id)
-    acad_annex_h = Acad_Annex_H.objects.filter(app_id=app_id)
-    acad_annex_i = Acad_Annex_I.objects.filter(app_id=app_id)
-    acad_annex_j = Acad_Annex_J.objects.filter(app_id=app_id)
-    acad_annex_k = Acad_Annex_K.objects.filter(app_id=app_id)
-    acad_annex_l = Acad_Annex_L.objects.filter(app_id=app_id)
-    acad_annex_m = Acad_Annex_M.objects.filter(app_id=app_id)
-    acad_annex_n = Acad_Annex_N.objects.filter(app_id=app_id)
-    acad_annex_o = Acad_Annex_O.objects.filter(app_id=app_id)
-    acad_annex_p = Acad_Annex_P.objects.filter(app_id=app_id)
-    acad_annex_q = Acad_Annex_Q.objects.filter(app_id=app_id)
-    acad_annex_r = Acad_Annex_R.objects.filter(app_id=app_id)
-    acad_annex_s = Acad_Annex_S.objects.filter(app_id=app_id)
-    acad_annex_t = Acad_Annex_T.objects.filter(app_id=app_id)
-    acad_annex_u = Acad_Annex_U.objects.filter(app_id=app_id)
-    acad_annex_v = Acad_Annex_V.objects.filter(app_id=app_id)
-    acad_annex_w1_w2 = Acad_Annex_W1_W2.objects.filter(app_id=app_id)
-    acad_annex_x = Acad_Annex_X.objects.filter(app_id=app_id)
-    acad_annex_y = Acad_Annex_Y.objects.filter(app_id=app_id)
-    acad_annex_z = Acad_Annex_Z.objects.filter(app_id=app_id)
-
-    if acad_annex_a.count() > 0:
-        response['acad_annex_a'] = acad_annex_a[0].annexure_file
-
-    if acad_annex_b.count() > 0:
-        response['acad_annex_b'] = acad_annex_b[0].annexure_file
-    if acad_annex_c.count() > 0:
-        response['acad_annex_c'] = acad_annex_c[0].annexure_file
-
-    if acad_annex_d.count() > 0:
-        response['acad_annex_d'] = acad_annex_d[0].annexure_file
-
-    if acad_annex_e12.count() > 0:
-        response['acad_annex_e1'] = acad_annex_e12[0].annexure_file_e1
-        response['acad_annex_e2'] = acad_annex_e12[0].annexure_file_e2
-        # response['total_e'] = float(acad_annex_e12[0].total_e1 + acad_annex_e12[0].total_e2)
-
-    if acad_annex_f.count() > 0:
-        response['acad_annex_f'] = acad_annex_f[0].annexure_file
-
-    if acad_annex_g.count() > 0:
-        response['acad_annex_g'] = acad_annex_g[0].annexure_file
-
-    if acad_annex_h.count() > 0:
-        response['acad_annex_h'] = acad_annex_h[0].annexure_file
-
-    if acad_annex_i.count() > 0:
-        response['acad_annex_i'] = acad_annex_i[0].annexure_file
-
-    if acad_annex_j.count() > 0:
-        response['acad_annex_j'] = acad_annex_j[0].annexure_file
-
-    if acad_annex_k.count() > 0:
-        response['acad_annex_k'] = acad_annex_k[0].annexure_file
-
-    if acad_annex_l.count() > 0:
-        response['acad_annex_l'] = acad_annex_l[0].annexure_file
-
-    if acad_annex_m.count() > 0:
-        response['acad_annex_m'] = acad_annex_m[0].annexure_file
-
-    if acad_annex_n.count() > 0:
-        response['acad_annex_n'] = acad_annex_n[0].annexure_file
-
-    if acad_annex_o.count() > 0:
-        response['acad_annex_o'] = acad_annex_o[0].annexure_file
-
-    if acad_annex_p.count() > 0:
-        response['acad_annex_p'] = acad_annex_p[0].annexure_file
-
-    if acad_annex_q.count() > 0:
-        response['acad_annex_q'] = acad_annex_q[0].annexure_file  
-
-    if acad_annex_r.count() > 0:
-        response['acad_annex_r'] = acad_annex_r[0].annexure_file
-
-    if acad_annex_s.count() > 0:
-        response['acad_annex_s'] = acad_annex_s[0].annexure_file
-
-    if acad_annex_t.count() > 0:
-        response['acad_annex_t'] = acad_annex_t[0].annexure_file
-
-    if acad_annex_u.count() > 0:
-        response['acad_annex_u'] = acad_annex_u[0].annexure_file
-
-    if acad_annex_v.count() > 0:
-        response['acad_annex_v'] = acad_annex_v[0].annexure_file
-
-    if acad_annex_w1_w2.count() > 0:
-        response['acad_annex_w1'] = acad_annex_w1_w2[0].annexure_file_w1
-        response['acad_annex_w2'] = acad_annex_w1_w2[0].annexure_file_w2
-        # response['total_w'] = float(acad_annex_w1_w2[0].total_w1 + acad_annex_w1_w2[0].total_w2)
-
-    if acad_annex_x.count() > 0:
-        response['acad_annex_x'] = acad_annex_x[0].annexure_file
-
-    if acad_annex_y.count() > 0:
-        response['acad_annex_y'] = acad_annex_y[0].annexure_file
-
-    if acad_annex_z.count() > 0:
-        response['acad_annex_z'] = acad_annex_z[0].annexure_file
+    obc = Annexure_OBC.objects.filter(app_id=app_id)
+    parttime = Annexure_PartTime.objects.filter(app_id=app_id)
 
     return render(request, 'recruit/all_annexures.djt', response)
 

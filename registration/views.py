@@ -51,7 +51,7 @@ def signin(request) :
 		else :
 			login(request,user)
 			user = request.user
-			profile = UserProfile.objects.get(user=request.user)
+			profile = Appdata.objects.get(user=request.user)
 			if profile.termsRead :
 				return redirect('/')
 			else :
@@ -64,7 +64,7 @@ def signout(request):
 
 def termsandconditions(request) :
 	response = {}
-	profile = UserProfile.objects.get(user=request.user)
+	profile = Appdata.objects.get(user=request.user)
 	response['profile'] = profile
 
 	if request.method == 'POST' :
@@ -102,7 +102,7 @@ def createApp(request) :
 
 			#Application ID generation Logic
 			p1 = 'PH'
-			from datetimeyear = datetime.datetime.now().year
+			year = datetime.datetime.now().year
 			yy = str(year)
 			p2 = yy[2:]
 			p3 = '1'
@@ -151,7 +151,7 @@ def createApp(request) :
 
 def uploadpic(request):
 	response = {}
-	profile = UserProfile.objects.get(user=request.user)
+	profile = Appdata.objects.get(user=request.user)
 	response['profile'] = profile
 	if request.method == 'POST' :
 		file = request.FILES['profilepic']
@@ -191,8 +191,8 @@ def forgotPassword(request):
 
 def paymentDetails(request):
 	response = {}
-	profile = UserProfile.objects.get(user=request.user)
-	pay_data = PaymentDetails.objects.get(appID=profile.applicationID)
+	profile = Appdata.objects.get(user=request.user)
+	pay_data = PaymentDetails.objects.get(appID=profile.app_id)
 	response['paydata'] = pay_data
 	if request.method == 'POST' :
 		pay_data.bankName = request.POST['bank']

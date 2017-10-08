@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'facultyForm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'nitap_faculty',
+        'NAME': 'nitw_phd',
         'USER': 'root',
         'PASSWORD': 'wsdc_test_2016',
     }
