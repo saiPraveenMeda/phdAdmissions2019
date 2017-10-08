@@ -126,9 +126,6 @@ def index(request) :
 
     if Appdata.objects.filter(user=request.user).exists() :
         app_id = Appdata.objects.get(user=request.user)
-        # response['agp1'] = app_id.agp1
-        # response['agp2'] = app_id.agp2
-        # response['agp3'] = app_id.agp3
         response['postID'] = Post.objects.get(name=app_id.post_for).name
         response['specialization'] = app_id.specialize
         if FacUser.objects.filter(app_id=app_id).exists():
@@ -159,13 +156,30 @@ def index(request) :
 def annexures(request, name):
     response = {}
     if request.method == 'POST':
-        response['name'] = request.POST['name']
-        response['gender'] = request.POST['gender']
-        response['parent_name'] = request.POST['parent_name']
-        response['village'] = request.POST['village']
-        response['district'] = request.POST['disctrict']
-        response['state'] = request.POST['state']
-        response['community'] = request.POST['community']
+        if Annexure_OBC.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
+            Annexure = Annexure_OBC.objects.filter(app_id=Appdata.objects.filter(user=request.user))
+        else:
+            Annexure = Annexure_OBC(app_id=Appdata.objects.filter(user=request.user))
+        response['name'] = Annexure.name = request.POST['name']
+        response['gender'] = Annexure.gender = request.POST['gender']
+        response['parent_name'] = Annexure.parent_name = request.POST['parent_name']
+        response['village'] = Annexure.village = request.POST['village']
+        response['district'] = Annexure.district = request.POST['disctrict']
+        response['state'] = Annexure.state = request.POST['state']
+        response['community'] = Annexure.community = request.POST['community']
+
+        Annexure.save()
+
+    else:
+        if Annexure_OBC.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
+            Annexure = Annexure_OBC.objects.filter(app_id=Appdata.objects.filter(user=request.user))
+            response['name'] = Annexure.name
+            response['gender'] = Annexure.gender
+            response['parent_name'] = Annexure.parent_name
+            response['village'] = Annexure.village
+            response['district'] = Annexure.district
+            response['state'] = Annexure.state
+            response['community'] = Annexure.community
 
     return render(request, 'recruit/annexure/'+name+'.djt', response)
 
