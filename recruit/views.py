@@ -41,27 +41,7 @@ def index(request) :
 
         appD = Appdata.objects.get(user=request.user)
         app_id = Appdata.objects.get(user=request.user)
-        postID = Post.objects.get(name=appD.post_for).name
-        if postID==1 :
-            print request.POST.get('agp1')
-            if request.POST.get('agp1')=='on' :
-                app_id.agp1 = True
-                app_id.save()
-            else :
-                app_id.agp1 = False
-                app_id.save()
-            if request.POST.get('agp2') :
-                app_id.agp2 = True
-                app_id.save()
-            else :
-                app_id.agp2 = False
-                app_id.save()
-            if request.POST.get('agp3') :
-                app_id.agp3 = True
-                app_id.save()
-            else :
-                app_id.agp3 = False
-                app_id.save()
+
         #generalInfo part  :
         app_id.specialize = request.POST['specialization']
         app_id.save()
@@ -172,6 +152,24 @@ def index(request) :
             response['paperobj'] = paperobj
 
     return render(request,'recruit/mainForm.djt',response)
+
+
+@login_required(login_url='/register')
+@is_applicant(login_url='/register')
+def annexures(request, name):
+    response = {}
+    if request.method == 'POST':
+        response['name'] = request.POST['name']
+        response['gender'] = request.POST['gender']
+        response['parent_name'] = request.POST['parent_name']
+        response['village'] = request.POST['village']
+        response['district'] = request.POST['disctrict']
+        response['state'] = request.POST['state']
+        response['community'] = request.POST['community']
+
+    return render(request, 'recruit/annexure/'+name+'.djt', response)
+
+
 
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')

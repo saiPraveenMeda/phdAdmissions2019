@@ -125,48 +125,20 @@ class Referral(models.Model):
 	def __unicode__(self):
 		return str(self.app_id.app_id)
 
-class Acad_Annex_A(models.Model):
+class Annexure_OBC(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	store = models.BooleanField(default = False)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	name = models.CharField(max_length=30)
+	gender = models.CharField(max_length=10)
+	parent_name = models.CharField(max_length=30)
+	village = models.CharField(max_length=30)
+	district = models.CharField(max_length=30)
+	state = models.CharField(max_length=30)
+	community = models.CharField(max_length=30)
 
 	def __unicode__(self):
-		return str(self.app_id) + "_a"
+		return str(self.app_id) + "_obc"
 
-class Acad_Annex_B(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	store = models.BooleanField(default = False)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-
+class Annexure_PartTime(object):
 	def __unicode__(self):
-		return str(self.app_id) + "_b"
+		return str(self.app_id) + "_parttime"
 
-class Acad_Annex_C(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	total_sem = models.IntegerField(default=0)
-	annexure_data = models.TextField(default="[]")
-	store = models.BooleanField(default = False)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-
-	def __unicode__(self):
-		return str(self.app_id) + "_c"
-
-class Acad_Annex_D(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	basic_pay_r = models.IntegerField(default=0)
-	payband_r = models.IntegerField(default=0)
-	payband_end_r =models.IntegerField(default=0)
-	total_r = models.IntegerField(default=0)
-	basic_pay_d = models.IntegerField(default=0)
-	payband_d = models.IntegerField(default=0)
-	payband_end_d =models.IntegerField(default=0)
-	total_d = models.IntegerField(default=0)
-	store = models.BooleanField(default = False)
-	annexure_file = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-
-	def __unicode__(self):
-		return str(self.app_id) + "_d"

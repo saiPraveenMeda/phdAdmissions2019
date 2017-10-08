@@ -24,11 +24,11 @@ def index(request):
 	userprofile = ScrutinizerProfile.objects.get(user=request.user)
 	if is_dean(request.user):
 		isDean = True
-		applns = Appdata.objects.all()
+		applns = Appdata.objects.filter(submitted=True)
 		
 	elif is_hod(request.user):
 		isDean = False
-		applns = Appdata.objects.filter(post_in=userprofile.department.name)
+		applns = Appdata.objects.filter(submitted=True, post_in=userprofile.department.name)
     
     # users = UserProfile.objects.filter(user__in=applns.values_list(user, flat=True))
 
@@ -36,3 +36,13 @@ def index(request):
 	response['applns'] = applns
 	response['is_dean'] = isDean
 	return render(request,'scrutiny/applications.djt',response)
+
+@login_required(login_url='/register')
+@is_scrutinizer(login_url='/register')
+def verifyApplication(request):
+	if is_dean(request.user):
+		applnID = request.GET['verify']
+		appln = Appdata.objects.get(id=applnID)
+		appln.verified = True
+		appln.save()
+	return HttpResponseRedirect('/scrutiny')
