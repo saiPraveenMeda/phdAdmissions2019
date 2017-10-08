@@ -36,13 +36,13 @@
 						<br>
 						<p> <b>(CERTIFICATE TO BE PRODUCED BY CANDIDATES FROM OTHER BACKWARD CLASSES APPLYING FOR ADMISSION TO CENTRAL EDUCATIONAL INSTITUTIONS (CEls), UNDER GOVERNMENT OF INDIA)</b>
 						<br>
-						This is to certify that Shri/Smt./Kum. <input name = "name" type = "text" value = user.first_name user.last_name disabled> 
-						<select for = "child" id = "child"> 
+						This is to certify that Shri/Smt./Kum. <input name = "name" type = "text" value = name> 
+						<select for = "gender" id = "gender" value = gender> 
 							<option>----</option>
 							<option value="Daughter">Daughter</option>
 							<option value="Son">Son</option>
 						</select> 
-						of Shri/Smt <input name = "pname" type = "text"> of Village/Town/City <input name = "village" type = "text"> district/division <input name = "district" type = "text"> in the <input name = "state" type = "text"> State belongs to the <input name = "community" type = "text"> Community which is recognized as a backward class under : <br>
+						of Shri/Smt <input name = "parent_name" type = "text" value = parent_name> of Village/Town/City <input name = "village" type = "text" value = village> district/division <input name = "district" type = "text" value = district> in the <input name = "state" type = "text" value = state> State belongs to the <input name = "community" type = "text" value = community> Community which is recognized as a backward class under : <br>
 						<br>
 						<ol>
 							<li>Resolution No. 12011/68/93- BCC(C) dated 10/09/93 published in the Gazette of India Extraordinary Part I Section I No.186 dated 13/09/93.</li>
@@ -62,7 +62,7 @@
 							<li>Resolution No. 12011/9/2004-BCC dated 16/01/2006 published in the Gazette of India Extraordinary Part I Section I No.210 dated 16/01/2006.</li>
 						</ol>
 						<br>
-						Shri/Smt./Kum. <input name = "name" type = "text" disabled> and/or his family ordinarily reside(s) in the <input name = "district" type = "text" disabled> District/Division of <input name = "state" type = "text" disabled> State. This is also to certify that he/she does not belong to the Persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the Govrnment of India, Department of Personnel & Training O.M. No. 36012/22/93- Estt.(SCT) dated 08/09/93 which is modified vide OM No. 36033/3/2004 Estt. (Res.) dated 09/03/2004 or the latest notification of the Government of India.
+						Shri/Smt./Kum. <input name = "name" type = "text" disabled value = name disabled> and/or his family ordinarily reside(s) in the <input name = "district" type = "text" value = district disabled> District/Division of <input name = "state" type = "text" value = state disabled> State. This is also to certify that he/she does not belong to the Persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the Govrnment of India, Department of Personnel & Training O.M. No. 36012/22/93- Estt.(SCT) dated 08/09/93 which is modified vide OM No. 36033/3/2004 Estt. (Res.) dated 09/03/2004 or the latest notification of the Government of India.
 						</p>
 						<br><br>
 						<b>Dated</b>&nbsp;&nbsp;&nbsp;&nbsp;<b>District Magistrate/Competent Authority:</b>
@@ -85,13 +85,13 @@
 						</ol><br>
 						<center> <b>Declaration /undertaking - for OBC Candidates only</b></center>
 						<br>
-						I, <input name = "name2" type = "text" disabled> 
-						<select for = "child2" id = "child" disabled> 
+						I, <input name = "name" type = "text" value = name disabled> 
+						<select for = "child2" id = "gender" value = gender disabled> 
 							<option>----</option>
 							<option value="Daughter">Daughter</option>
 							<option value="Son">Son</option>
 						</select> 
-						of Shri/Smt <input name = "pname" type = "text" disabled> of Village/Town/City <input name = "village" type = "text" disabled> district/division <input name = "district" type = "text" disabled> in the <input name = "state" type = "text" disabled> State hereby declare that I belong to the<input name = "community" type = "text" disabled> Community which is recognized as a backward class by the Government of India for the purpose of reservation in services admission in Central Government Institutions as per orders contained in Department of Personnel and Training Office Memorandum No. 36012/22/93 – Estt. (SCT), dated 8/9/1993. It is also declared that I do not belong to persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the above referred Office Memorandum, dated 8/9/1993, which is modified vide Department of Personnel and Training Office Memorandum No. 36033/3/2004 Estt. (Res.) dated 9/3/2004 or the latest notification of the Government of India. I also declare that the condition of status/annual income for creamy layer of my parents/guardian is within prescribed limits as on financial year ending on March 31, 2017.
+						of Shri/Smt <input name = "pname" type = "text" value = parent_name disabled> of Village/Town/City <input name = "village" type = "text" value = village disabled> district/division <input name = "district" type = "text" value = district disabled> in the <input name = "state" type = "text" value = state disabled> State hereby declare that I belong to the<input name = "community" type = "text" value = community disabled> Community which is recognized as a backward class by the Government of India for the purpose of reservation in services admission in Central Government Institutions as per orders contained in Department of Personnel and Training Office Memorandum No. 36012/22/93 – Estt. (SCT), dated 8/9/1993. It is also declared that I do not belong to persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the above referred Office Memorandum, dated 8/9/1993, which is modified vide Department of Personnel and Training Office Memorandum No. 36033/3/2004 Estt. (Res.) dated 9/3/2004 or the latest notification of the Government of India. I also declare that the condition of status/annual income for creamy layer of my parents/guardian is within prescribed limits as on financial year ending on March 31, 2017.
 						<br>
 						<br>
 						<br>
@@ -112,4 +112,7 @@
 	</div>
 </div>
 </body>
+<script>
+
+</script>
 </html>
