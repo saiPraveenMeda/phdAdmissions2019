@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User, Group
 from recruit.models import Appdata
-import random
+import random, string
 from .models import *
 import datetime
 from django.core.mail import send_mail
@@ -56,6 +56,7 @@ def signin(request) :
 				return redirect('/')
 			else :
 				return redirect('/register/termsandconditions')
+	return redirect('/')
 
 def signout(request):
 	logout(request)
@@ -86,7 +87,7 @@ def createApp(request) :
 		if User.objects.filter(email=emailid).exists() :
 			existingUsers = User.objects.filter(email=emailid)
 			for existingUser in existingUsers :
-				if UserProfile.objects.filter(user=existingUser,postApplied=appPost,departmentApplied=dept).exists():
+				if Appdata.objects.filter(user=existingUser,post_for=appPost,post_in=dept).exists():
 					return redirect('/register/signup/1')
 
 		pass1 = request.POST['password1']
@@ -101,15 +102,16 @@ def createApp(request) :
 
 			#Application ID generation Logic
 			p1 = 'PH'
-			year = datetime.datetime.now().year
+			from datetimeyear = datetime.datetime.now().year
 			yy = str(year)
 			p2 = yy[2:]
-			p3 = str(dept.deptID).zfill(2)
+			p3 = '1'
+			p4 = str(dept.deptID).zfill(2)
 			dept.appCount = dept.appCount + 1
 			dept.save()
-			p4 = str(dept.appCount).zfill(2)
+			p5 = str(dept.appCount).zfill(3)
 
-			applicationID = p1+p2+p3+p4
+			applicationID = p1+p2+p3+p4+p5
 			#####
 
 			user.username = applicationID
@@ -118,20 +120,13 @@ def createApp(request) :
 			user.groups.add(Group.objects.get(name="Applicant"))
 			user.save()
 
-			userprofile = UserProfile()
-			userprofile.user = user
-			userprofile.postApplied = appPost
-			userprofile.departmentApplied = dept
-			userprofile.applicationID = applicationID
-			userprofile.contact = request.POST['contact']
-			userprofile.termsRead = False
-			userprofile.save()
-
 			app_data = Appdata()
 			app_data.user = user
-			app_data.app_id = userprofile.applicationID
-			app_data.post_for = userprofile.postApplied.name
-			app_data.post_in = userprofile.departmentApplied.name
+			app_data.app_id = applicationID
+			app_data.post_for = appPost
+			app_data.post_in = dept
+			app_data.contact = request.POST['contact']
+			app_data.termsRead = False
 			app_data.save()
 
 			pay_data = PaymentDetails()
@@ -141,7 +136,7 @@ def createApp(request) :
 			
 			#Mail application ID to applicant
 			receiver = user.email
-			sender = 'nitap_recruitment17@nitw.ac.in'
+			sender = 'support_admissions_2017@nitw.ac.in'
 			content = 'Your Application ID is : '+applicationID+"\nYour username is same as your Application ID. Thanks for Registering."
 			rlist = []
 			rlist.append(receiver)
@@ -150,7 +145,7 @@ def createApp(request) :
 			except BadHeaderError:
 				return HttpResponse('Invalid header found.')
 
-			return redirect('/register/success')
+			return render(request,'registration/regDone.djt', {'email' : user.email})
 
 	return redirect('/register/signup')
 
@@ -165,23 +160,20 @@ def uploadpic(request):
 		return redirect('/')
 	return render(request,'registration/uploadpic.djt',response)
 
-def regDone(request):
-	response = {}
-	return render(request,'registration/regDone.djt',response)
 
 def forgotPassword(request):
 	response = {}
 	if request.method == 'POST':
 		appID = request.POST['appID']
-		if UserProfile.objects.filter(applicationID=appID).exists():
-			userprofile = UserProfile.objects.get(applicationID=appID)
-			mailid = userprofile.user.email
-			newpass = mailid[:5] + appID[:5]
-			userprofile.user.set_password(newpass)
-			userprofile.user.save()
+		if Appdata.objects.filter(app_id=appID).exists():
+			appdata = Appdata.objects.filter(app_id=appID)
+			mailid = appdata.user.email
+			newpass = ''.join(random.choice(string.ascii_uppercase + string.digits) for char in xrange(12))
+			appdata.user.set_password(newpass)
+			appdata.user.save()
 
 			receiver = mailid
-			sender = 'nitap_recruitment17@nitw.ac.in'
+			sender = 'support_admissions_2017@nitw.ac.in'
 			content = 'Your new Password is : '+newpass
 			rlist = []
 			rlist.append(receiver)
@@ -212,8 +204,6 @@ def paymentDetails(request):
 			pay_data.amount = 'Rs.500'
 		elif pay_data.payType == 'GEN/OBC':
 			pay_data.amount = 'Rs.1000'
-		elif pay_data.payType == 'abroad':
-			pay_data.amount = '$25'
 		
 		if validateFormat(pay_data.receipt) :
 			pay_data.save()

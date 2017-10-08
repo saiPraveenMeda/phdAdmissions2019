@@ -20,22 +20,9 @@ class Department(models.Model):
 
 class Post(models.Model):
 	name = models.CharField(max_length=50)
-	# postID = models.IntegerField()
 
 	def __str__(self):
 		return self.name
-
-class UserProfile(models.Model):
-	user = models.ForeignKey(User)
-	applicationID = models.CharField(max_length=10)
-	contact = models.CharField(max_length=14)
-	departmentApplied = models.ForeignKey(Department)
-	postApplied = models.ForeignKey(Post)
-	termsRead = models.BooleanField(default=False)
-	profilePic = models.ImageField(upload_to=get_profilepic_path,null=True,blank=True)
-
-	def __str__(self):
-		return (self.applicationID+"-"+self.user.first_name+" "+self.user.last_name)
 
 
 class PaymentDetails(models.Model) :

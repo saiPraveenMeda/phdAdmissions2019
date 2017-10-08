@@ -10,7 +10,6 @@ urlpatterns = [
     url(r'^signout/$',views.signout,name='signout'),
     url(r'^termsandconditions/$',views.termsandconditions,name='termsandconditions'),
     url(r'^uploadpic/$',views.uploadpic,name='uploadpic'),
-    url(r'^success/$',views.regDone,name='regDone'),
     url(r'^forgotPassword/$',views.forgotPassword,name='forgotPassword'),
     url(r'^paymentDetails/$',views.paymentDetails,name='paymentDetails'),
 ]
