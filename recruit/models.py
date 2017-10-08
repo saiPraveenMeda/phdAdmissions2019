@@ -9,6 +9,9 @@ from django.core.files.base import ContentFile
 from django.core.validators import FileExtensionValidator
 from registration.models import *
 
+def get_profilepic_path(instance,filename):
+	return 'users/{0}/profilepic/{1}'.format(instance.applicationID,filename)
+
 def get_path(instance,filename):
 	return 'users/{0}/papers/{1}'.format(instance.app_id.app_id,filename)
 
@@ -26,6 +29,7 @@ class Appdata(models.Model):
 	post_for = models.ForeignKey(Post)
 	post_in = models.ForeignKey(Department)
 	contact = models.CharField(max_length=14)
+	profilePic = models.ImageField(upload_to=get_profilepic_path,null=True,blank=True)
 	termsRead = models.BooleanField(default=False)
 	submitted = models.BooleanField(default=False)
 	verified = models.BooleanField(default=False)
@@ -56,18 +60,6 @@ class FacUser(models.Model):
 	def __unicode__(self):
 		return self.full_name
 
-class Experience(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	teaching_exp = models.IntegerField()
-	postPhd_exp = models.IntegerField(default=0)
-	teaching_data = models.TextField()
-	research_exp = models.IntegerField()
-	research_data = models.TextField()
-	industrial_exp = models.IntegerField()
-	industrial_data = models.TextField()
-
-	def __unicode__(self):
-		return str(self.app_id)
 
 class Education(models.Model):
 	app_id = models.ForeignKey(Appdata)
@@ -89,40 +81,19 @@ class Qualification(models.Model):
 	def __unicode__(self):
 		return str(self.app_id.app_id+"-"+self.degreeType)
 
-class Research(models.Model):
+class Experience(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	research_publ = models.TextField()
-	research_proj = models.TextField()
-	pg = models.IntegerField()
-	phd = models.IntegerField()
-
-class Other(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	patent = models.TextField()
-	consultancy = models.TextField()
-	admin_resp_held = models.TextField()
-	minimum_pay_exp = models.IntegerField()
-	time_req = models.IntegerField()
-	honor = models.TextField()
-
-class Paper(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	paper1 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-	paper2 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-	paper3 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-	paper4 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-	paper5 = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
-	cvpaper = models.FileField(upload_to=get_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	teaching_exp = models.IntegerField()
+	postPhd_exp = models.IntegerField(default=0)
+	teaching_data = models.TextField()
+	research_exp = models.IntegerField()
+	research_data = models.TextField()
+	industrial_exp = models.IntegerField()
+	industrial_data = models.TextField()
 
 	def __unicode__(self):
-		return self.app_id.app_id
+		return str(self.app_id)
 
-class Referral(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	ref_data = models.TextField()
-
-	def __unicode__(self):
-		return str(self.app_id.app_id)
 
 class Annexure_OBC(models.Model):
 	app_id = models.ForeignKey(Appdata)
@@ -148,3 +119,11 @@ class Annexure_PartTime(models.Model):
 	def __unicode__(self):
 		return str(self.app_id) + "_parttime"
 
+class Flags(models.Model):
+	bacheoler_degree = models.BooleanField(default=False)
+	bacheoler_memo = models.BooleanField(default=False)
+	masters_degree = models.BooleanField(default=False)
+	masters_memo = models.BooleanField(default=False)
+	caste = models.BooleanField(default=False)
+	qualifying_scorecard = models.BooleanField(default=False)
+	application = models.BooleanField(default=False)

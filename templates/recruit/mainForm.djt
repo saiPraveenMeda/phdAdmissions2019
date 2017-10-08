@@ -79,7 +79,7 @@
 		<div class="row">
 			<center>
 			<h3><u> Application Form for PhD Admission</u></h3>
-			<h3><u>Application ID : {{profile.applicationID}}</u></h3>
+			<h3><u>Application ID : {{profile.app_id}}</u></h3>
 			</center><br>
 		</div>
 
@@ -93,8 +93,8 @@
 						<div class="col-sm-4"> <b>Application for the Post of</b> </div>
 						<div class="col-sm-6">
 							<div class="form-group" style="font-size:18px;">
-								<b><u>{{profile.postApplied}}</u></b>
-								{% if profile.postApplied.name == 'Part Time' %}
+								<b><u>{{profile.post_for}}</u></b>
+								{% if profile.post_for == 'Part Time' %}
 								<a href="/annexure_parttime"><button type="button" style="visibility: visible;" class="btn btn-success" id="annexure">Annexure - III</button></a>			
 								{% endif %}
 							</div>
@@ -105,41 +105,7 @@
 						<div class="col-sm-4"> <b>In the Department of </b> </div>
 						<div class="col-sm-6">
 							<div class="form-group" style="font-size:18px;">
-								<b><u>{{profile.departmentApplied}}</u></b>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-sm-4"> <b>AGP </b> </div>
-						<div class="col-sm-6">
-							<div class="form-group">
-							{% ifequal postID 1 %}
-								<div class="checkbox-inline">
-								  <label><input type="checkbox" name="agp1" {% ifequal agp1 1 %} checked {% endifequal %} >6000</label>
-								</div>
-								<div class="checkbox-inline">
-								  <label><input type="checkbox" name="agp2" {% ifequal agp2 1 %} checked {% endifequal %}>7000</label>
-								</div>
-								<div class="checkbox-inline">
-								  <label><input type="checkbox" name="agp3" {% ifequal agp3 1 %} checked {% endifequal %}>8000</label>
-								</div>
-							{% endifequal %}
-							</div>
-							{% ifequal postID 2 %}
-								<b>9500</b>
-							{% endifequal %}
-							{% ifequal postID 3 %}
-								<b>10500</b>
-							{% endifequal %}
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-sm-4"> <b>Specialization</b> </div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<input class="form-control" type="text" name="specialization" value="{{specialization}}" required>
+								<b><u>{{profile.post_in}}</u></b>
 							</div>
 						</div>
 					</div>
@@ -447,6 +413,7 @@
 					</div>
 				</div>
 			</div>
+
 			<hr>
 
 			<div class="row">

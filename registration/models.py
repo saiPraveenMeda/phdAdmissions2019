@@ -4,9 +4,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
 
-def get_profilepic_path(instance,filename):
-	return 'users/{0}/profilepic/{1}'.format(instance.applicationID,filename)
-
 def get_pay_path(instance,filename):
 	return 'users/{0}/payment/{1}'.format(instance.appID,filename)
 

@@ -11,7 +11,5 @@ urlpatterns = [
     url(r'^uploadPaper/(?P<papernum>[0-9]{1})/$',views.uploadPaper),
     url(r'^lockApplication/$',views.lockApplication,name='lockApplication'),
     url(r'^printAck/$',views.printAck,name='printAck'),
-    url(r'^refresh/(?P<annexName>[a-z0-9_]+)/$',views.refresh),
-    url(r'^uploadExpDoc/$',views.uploadExpDoc),
     url(r'^all_annexures/$',views.all_annexures),
 ]

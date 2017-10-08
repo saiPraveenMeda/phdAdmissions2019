@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import ScrutinyUserProfile as ScrutinizerProfile
 from recruit.models import Appdata
-from registration.models import UserProfile
 # from recruit.models import Appdata
 
 def is_dean(user):
@@ -30,8 +29,6 @@ def index(request):
 		isDean = False
 		applns = Appdata.objects.filter(submitted=True, post_in=userprofile.department.name)
     
-    # users = UserProfile.objects.filter(user__in=applns.values_list(user, flat=True))
-
 	# response['applns'] = zip(applns, users)
 	response['applns'] = applns
 	response['is_dean'] = isDean
