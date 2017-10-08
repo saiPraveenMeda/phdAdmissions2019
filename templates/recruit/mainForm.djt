@@ -83,7 +83,6 @@
 			</center><br>
 		</div>
 
-		<!-- ////////////////// Part1 ///////////////// -->
 		<div id="part1">
 		<div class="well well-lg">
 
@@ -372,8 +371,8 @@
 						<select for="Examination" class="form-control" id="exam1">
 							<option>-------------</option>
 							{% for exam in qualifying_exams %}
-					    <option value="{{exam.name}}">{{exam.name}}</option>
-					    {% endfor %}
+					        <option value="{{exam.name}}">{{exam.name}}</option>
+					        {% endfor %}
 						</select>
 					</div>
 				</div>
@@ -385,7 +384,7 @@
 				<div class="col-sm-4">
 					<div class="form-group">
 						<label for="qualifying_year">Qualifying year</label>
-						<input for="qualifying_year" class="form-control" id="qualifying_year">
+						<input for="qualifying_year" class="form-control" name="qualifyingYear">
 					</div>
 				</div>
 				<div class="col-sm-2">
@@ -403,13 +402,13 @@
 				<div class="col-sm-2">
 					<div class="form-group">
 						<label for="category">Category</label>
-						<input for="category" class="form-control" id="category">
+						<input for="category" class="form-control" name="category" id="category" disabled="disabled">
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="form-group">
 						<label for="cutoffscore">Cut off score</label>
-						<input for="cutoffscore" class="form-control" id="cutoffscore">
+						<input for="cutoffscore" class="form-control" name="cutoffScore">
 					</div>
 				</div>
 			</div>
@@ -494,18 +493,6 @@
 				</div>
 			</div>
 
-			
-
-			<div class="row">
-				<div class="col-sm-12">
-					<b>Upload Documents supporting the Experience Data you have filled, using this button</b>
-					&nbsp&nbsp&nbsp&nbsp
-					<a href="/uploadExpDoc" class="btn {% if paperobj.paper1 %} btn-success {% else %} btn-danger {% endif %}">Upload Supporting Documents</a>
-					<br>
-					<b style="color:red;">Save the data on page before proceeding to upload, else it will be lost.</b>
-				</div>
-			</div>
-
 			<hr>		
 
 			<!-- Research Papers published -->
@@ -513,34 +500,50 @@
 			<div class="row">
 				<div class="col-sm-3"> <h4><b>Research papers published</b> </h4></div>
 			</div>
+			<table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th>S.No.</th>
+			        <th>Title of paper</th>
+			        <th>Conference / Workshop</th>
+			        <th>Link to the paper</th>
+			        <th>Delete</th>
+			    </thead>
+			    <tbody id="papersTbody">
+			    	{% for paper in papers %}
+			    	<tr>
+			    		<td>{{forloop.counter}}.</td>
+			    		<td>{{paper.title}}</td>
+			    		<td>{{paper.conference}}</td>
+			    		<td><a href="{{paper.link}}">{{paper.link}}<a></td>
+			    		<td><button id="{{forloop.counter}}" onclick="deletepaper(this.id)" class="btn btn-danger" type="button">Delete</button></td>
+			    	</tr>
+			    	{% endfor %}
+			    </tbody>
+			</table>
 			<div class="row">
 				<div class="col-sm-3">
 					<div class="form-group">
 						<label for="title">Title of paper</label>
-						<input for="title" class="form-control" id="title">
+						<input for="title" class="form-control" name ="title">
 					</div>
 				</div>
 				<div class="col-sm-3">
 					<div class="form-group">
 						<label for="conference">Conference / Workshop</label>
-						<input for="conference" class="form-control" id="conference">
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="form-group">
-						<label for="Date of Publication">Date of Publication</label>
-						<input type="date" for="Date of Publication" class="form-control" id="publicationdate">
+						<input for="conference" class="form-control" name="conference">
 					</div>
 				</div>
 				<div class="col-sm-3">
 					<div class="form-group">
 						<label for="Link to the paper">Link to the paper</label>
-						<input for="Link to the paper" class="form-control" id="linktopaper">
+						<input for="Link to the paper" class="form-control" name="link">
 					</div>
 				</div>
 			</div>
 			
-			<center><button type="button" class="btn" id="Add4">Add</button><br></center>
+			<center><button type="button" class="btn" id="AddPaper">Add</button><br></center>
+			<input type="text" name="papers" id="papersObj" hidden>
 
 			</div>
 			<hr>
@@ -589,53 +592,45 @@
 	}
 </style>
 <script type="text/javascript">
-	var teachingExpDataArray = [];
-	var researchExpDataArray = [];
-	var industryExpDataArray = [];
-	var education = [];
-
+    var papersArray = [];
 	$(document).ready(function() {
-		$('#finalData').val("");
-		var dataString = JSON.stringify(teachingExpDataArray);
-		$('#teachingExp').val(dataString);
-		dataString = JSON.stringify(researchExpDataArray);
-		$('#researchExp').val(dataString);
-		dataString = JSON.stringify(industryExpDataArray);
-		$('#industryExp').val(dataString);
+		papersArray = "{{papers}}";
+		var dataString = JSON.stringify(papers);
+		$('#papersObj').val(dataString);
 	});
 
 
-	$('#Add4').click(function(){
+	$('#AddPaper').click(function(){
  		var title = $('#title').val(); $('#title').val("");
  		var conference = $('#conference').val(); $('#conference').val("");
- 		var Date_of_Completion = $('#completionDate').val(); $('#completionDate').val("");
+ 		var link = $('#link').val(); $('#link').val("");
  
- 		if(!title || !conference || !Date_of_Completion)
+ 		if(!title || !conference || !link)
  		{
- 			alert("Please fill all fields or fill NA");
+ 			alert("Please fill all fields");
  			return false;
  		}
 
  		var data = {
  			'title' : title,
 			'conference' : conference,
- 			'Date_of_Completion' : completionDate,
+ 			'link' : link,
  		};
  
- 		var rowCount = $('#researchExpTbody tr').length;
- 		var i = researchExpDataArray.length+rowCount;
+ 		var rowCount = $('#papersTbody tr').length;
+ 		var i = papersArray.length+rowCount;
  
  		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
  		rowHtml = rowHtml + '<td>' + title + '</td>';
  		rowHtml = rowHtml + '<td>' + conference + '</td>';
- 		rowHtml = rowHtml + '<td>' + completionDate + '</td>';
- 		$('#researchExpTbody').append(rowHtml);
+ 		rowHtml = rowHtml + '<td>' + link + '</td>';
+ 		$('#papersTbody').append(rowHtml);
  
- 		researchExpDataArray.push(data);
+ 		papersArray.push(data);
  
- 		var dataString = JSON.stringify(researchExpDataArray);
+ 		var dataString = JSON.stringify(papersArray);
  		console.log(dataString);
- 		$('#researchPaper').val(dataString);
+ 		$('#papersObj').val(dataString);
  	});
 
 </script>

@@ -29,6 +29,7 @@ def index(request) :
         return redirect('/printSummary')
     profile = Appdata.objects.get(user=request.user)
     response['profile'] = profile
+    response['qualifying_exams'] = QualifyingExam.objects.all()
 
     if request.method == "POST" :
         app_id = Appdata.objects.get(user=request.user)
@@ -107,6 +108,23 @@ def index(request) :
         exp.industrial_exp = request.POST['industrialExp']
         exp.save()
 
+        #Research
+        if Research.objects.filter(app_id=app_id).exists():
+            Research.objects.filter(app_id=app_id).delete()
+        for paper in request.POST['papers']:
+            research = Research(app_id=app_id, title=paper.title, conference=paper.conference, link = paper.link)
+            research.save()
+
+        #Others
+        if not Others.objects.filter(app_id=app_id).exists():
+            oth = Others()
+        else :
+            oth = Others.objects.get(app_id=app_id)
+        oth.app_id = app_id
+        exp.proposedFieldOfResearch = request.POST['proposedFieldOfResearch']
+        oth.save()
+
+
 
     if Appdata.objects.filter(user=request.user).exists() :
         app_id = Appdata.objects.get(user=request.user)
@@ -119,6 +137,15 @@ def index(request) :
             response['Bqual'] = Qualification.objects.get(app_id=app_id,degreeType='UG')
         if Education.objects.filter(app_id=app_id,degreeType='PG').exists():
             response['Mqual'] = Qualification.objects.get(app_id=app_id,degreeType='PG')
+
+        if QualifyingExamDetails.objects.filter(app_id=app_id).exists():
+            response['QExamDetails'] = QualifyingExamDetails.objects.get(app_id=app_id)
+
+        if Research.objects.filter(app_id=app_id).exists():
+            response['papers'] = Research.objects.filter(app_id=app_id).values()
+
+        if Others.objects.filter(app_id=app_id).exists():
+            response['Others'] = Others.objects.get(app_id=app_id)
 
     return render(request,'recruit/mainForm.djt',response)
 
