@@ -57,8 +57,8 @@ ROOT_URLCONF = 'facultyForm.urls'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'nitap_recruitment17@nitw.ac.in'
-EMAIL_HOST_PASSWORD = 'nitw12345'
+EMAIL_HOST_USER = 'support_admissions_2017@nitw.ac.in'
+EMAIL_HOST_PASSWORD = 'wsdc_test_2016'
 EMAIL_PORT = 587
 
 TEMPLATES = [

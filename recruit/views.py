@@ -27,7 +27,7 @@ def index(request) :
         return redirect('/register/paymentDetails')
     if app.submitted :
         return redirect('/printSummary')
-    profile = UserProfile.objects.get(user=request.user)
+    profile = Appdata.objects.get(user=request.user)
     response['profile'] = profile
     if request.method == "POST" :
         #app_data object creation too.
@@ -220,7 +220,7 @@ def printSummary(request):
 @is_applicant(login_url='/register')
 def print_main_application(request):
     response = {}
-    response['profile'] = UserProfile.objects.get(user = request.user)
+    response['profile'] = Appdata.objects.get(user = request.user)
     app_id = Appdata.objects.get(user=request.user)
     response['specialization'] = app_id.specialize
     if FacUser.objects.filter(app_id=app_id).exists():
@@ -383,7 +383,7 @@ def print_main_application(request):
 @is_applicant(login_url='/register')
 def print_annexures(request):
     response = {}
-    response['profile'] = UserProfile.objects.get(user = request.user)
+    response['profile'] = Appdata.objects.get(user = request.user)
     app_id = Appdata.objects.get(user=request.user)
     response['specialization'] = app_id.specialize
 
@@ -609,7 +609,7 @@ def lockApplication(request) :
     mailid = request.user.email
 
     receiver = mailid
-    sender = 'nitap_recruitment17@nitw.ac.in'
+    sender = 'support_admissions_2017@nitw.ac.in'
     content = 'Your Application for the post of '+app.post_for
     content = content + ' in '+app.post_in+' has been submitted on '
     content = content + app.submitDate.strftime('%Y-%m-%d %H:%M')
@@ -815,7 +815,7 @@ def uploadExpDoc(request) :
 def all_annexures(request) :
     response = {}
     app_id = Appdata.objects.get(user=request.user)
-    response['profile'] = UserProfile.objects.get(user = request.user)
+    response['profile'] = Appdata.objects.get(user = request.user)
     acad_annex_a = Acad_Annex_A.objects.filter(app_id=app_id)
     acad_annex_b = Acad_Annex_B.objects.filter(app_id=app_id)
     acad_annex_c = Acad_Annex_C.objects.filter(app_id=app_id)

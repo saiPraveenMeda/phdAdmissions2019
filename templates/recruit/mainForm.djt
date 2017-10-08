@@ -95,7 +95,7 @@
 							<div class="form-group" style="font-size:18px;">
 								<b><u>{{profile.postApplied}}</u></b>
 								{% if profile.postApplied.name == 'Part Time' %}
-								<a href="/annexures/annexure_parttime"><button type="button" style="visibility: visible;" class="btn btn-success" id="annexure">Annexure - III</button></a>			
+								<a href="/annexure_parttime"><button type="button" style="visibility: visible;" class="btn btn-success" id="annexure">Annexure - III</button></a>			
 								{% endif %}
 							</div>
 						</div>

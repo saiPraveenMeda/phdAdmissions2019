@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.core.validators import FileExtensionValidator
+from registration.models import *
 
 def get_path(instance,filename):
 	return 'users/{0}/papers/{1}'.format(instance.app_id.app_id,filename)
@@ -22,12 +23,10 @@ def validate(value):
 class Appdata(models.Model):
 	app_id = models.CharField(max_length=10,primary_key=True)
 	user = models.ForeignKey(User, default=None)
-	post_for = models.CharField(max_length=200)
-	post_in = models.CharField(max_length=200)
-	specialize = models.CharField(max_length=200)
-	# agp1 = models.BooleanField(default=True)
-	# agp2 = models.BooleanField(default=False)
-	# agp3 = models.BooleanField(default=False)
+	post_for = models.ForeignKey(Post)
+	post_in = models.ForeignKey(Department)
+	contact = models.CharField(max_length=14)
+	termsRead = models.BooleanField(default=False)
 	submitted = models.BooleanField(default=False)
 	verified = models.BooleanField(default=False)
 	paymentUploaded = models.BooleanField(default=False)
@@ -138,7 +137,7 @@ class Annexure_OBC(models.Model):
 	def __unicode__(self):
 		return str(self.app_id) + "_obc"
 
-class Annexure_PartTime(object):
+class Annexure_PartTime(models.Model):
 	app_id = models.ForeignKey(Appdata)
 	name = models.CharField(max_length=30)
 	designation = models.CharField(max_length=30)
