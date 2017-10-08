@@ -258,6 +258,7 @@
 				<label class="radio-inline"><input type="radio" value="OBC" name="category" {% ifequal generalData.category 'OBC' %} checked {% endifequal %} id="OBC">OBC</label>
 				<label class="radio-inline"><input type="radio" value="UR" name="category" {% ifequal generalData.category 'UR' %} checked {% endifequal %} id="UR">UR</label>
 				<a href='/annexure_obc'><button type="button" style="visibility: hidden;" class="btn btn-success" id="isOBC">Annexure - II</button></a>
+				<a href='/annexure_caste_certi'><button type="button" style="visibility: hidden;" class="btn btn-success" id="isCASTE">Annexure - IV</button></a>
 				</div>
 				</div>
 			</div>
@@ -379,27 +380,40 @@
 				</div>
 			</div>
             <br>
-            <table class="table table-bordered">
-				<thead>
-			      <tr style="background-color:#e3e3e3;">
-			        <th>Qualifying Year</th>
-			        <th>Score</th>
-			        <th>Rank</th>
-			        <th>Category</th>
-			        <th>Cut off Score</th>
-			      </tr>
-			    </thead>
-			    <tbody id="QualifyingExamDetails">
-			    	<tr>
-			    		<td>{{p}}</td>
-			    		<td>{{p}}</td>
-			    		<td>{{p}}</td>
-			    		<td>{{p}}</td>
-			    		<td>{{p}}</td>
-			    	</tr>
-			    </tbody>
-			</table>
-			<br>
+            
+            <div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label for="qualifying_year">Qualifying year</label>
+						<input for="qualifying_year" class="form-control" id="qualifying_year">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<label for="score">Score</label>
+						<input for="score" class="form-control" id="score">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<label for="rank">Rank</label>
+						<input for="rank" class="form-control" id="rank">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<label for="category">Category</label>
+						<input for="category" class="form-control" id="category">
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="form-group">
+						<label for="cutoffscore">Cut off score</label>
+						<input for="cutoffscore" class="form-control" id="cutoffscore">
+					</div>
+				</div>
+			</div>
+
 			<hr>
 
 			<div class="row">
@@ -419,7 +433,12 @@
 				<div class="col-sm-3"> <b>1. Teaching Experience (years)</b> </div>
 				<div class="col-sm-3">
 					<div class="form-group">
-						<input class="form-control" type="number" min="0" name="teachingExperience" value="{{Experience.teaching_exp}}" required>
+						<select for = "teachingExperience" class="form-control" value = "{{Experience.teaching_exp}}" align = "center"> 
+							<option>----</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value=">=3">>=3</option>
+						</select> 
 					</div>
 				</div>
 			</div>
@@ -433,7 +452,12 @@
 				<div class="col-sm-3"> <b>2. Research Experience (years)</b> </div>
 				<div class="col-sm-3">
 					<div class="form-group">
-						<input class="form-control" type="number" min="0" name="researchExperience" value="{{Experience.research_exp}}" required>
+						<select for = "researchExperience" class="form-control" value = "{{Experience.research_exp}}" align = "center"> 
+							<option>----</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value=">=3">>=3</option>
+						</select> 
 					</div>
 				</div>
 			</div>
@@ -472,25 +496,31 @@
 			<!-- Research Papers published -->
 			<div class="well well-lg">
 			<div class="row">
-				<div class="col-sm-3"> <b>Research papers published</b> </div>
+				<div class="col-sm-3"> <h4><b>Research papers published</b> </h4></div>
 			</div>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<label for="title">Title of paper</label>
 						<input for="title" class="form-control" id="title">
 					</div>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<label for="conference">Conference / Workshop</label>
 						<input for="conference" class="form-control" id="conference">
 					</div>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<label for="Date of Publication">Date of Publication</label>
 						<input type="date" for="Date of Publication" class="form-control" id="publicationdate">
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label for="Link to the paper">Link to the paper</label>
+						<input for="Link to the paper" class="form-control" id="linktopaper">
 					</div>
 				</div>
 			</div>
@@ -502,7 +532,7 @@
 			
 			<div class="well well-lg">
 				<div class="row">
-				<div class="col-sm-5"> <b>Field of Proposed Area of Research</b> </div>
+				<div class="col-sm-5"><h4> <b>Field of Proposed Area of Research</b></h4> </div>
 			</div>
 				<div class = "row">
 					<div class="col-sm-4">
@@ -559,134 +589,39 @@
 		$('#industryExp').val(dataString);
 	});
 
-	$('#Add1').click(function(){
-		var designation = $('#designation1').val(); $('#designation1').val("");
-		var organization = $('#organization1').val(); $('#organization1').val("");
-		var joiningDate = $('#joiningDate1').val(); $('#joiningDate1').val("");
-		var leavingDate = $('#leavingDate1').val(); $('#leavingDate1').val("");
-		var pay = $('#pay1').val(); $('#pay1').val("");
-		var service = $('#service1').val(); $('#service1').val("");
 
-		if(!designation || !organization || !joiningDate || !leavingDate || !pay|| !service)
-		{
-			alert("Please fill all fields or fill NA");
-			return false;
-		}
+	$('#Add4').click(function(){
+ 		var title = $('#title').val(); $('#title').val("");
+ 		var conference = $('#conference').val(); $('#conference').val("");
+ 		var Date_of_Completion = $('#completionDate').val(); $('#completionDate').val("");
+ 
+ 		if(!title || !conference || !Date_of_Completion)
+ 		{
+ 			alert("Please fill all fields or fill NA");
+ 			return false;
+ 		}
 
-		var data = {
-			'organization' : organization,
-			'designation' : designation,
-			'joiningDate' : joiningDate,
-			'leavingDate' : leavingDate,
-			'pay' : pay,
-			'service' : service
-		};
-
-		var rowCount = $('#teachingExpTbody tr').length;
-		var i = teachingExpDataArray.length+rowCount;
-
-		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
-		rowHtml = rowHtml + '<td>' + organization + '</td>';
-		rowHtml = rowHtml + '<td>' + designation + '</td>';
-		rowHtml = rowHtml + '<td>' + joiningDate + '</td>';
-		rowHtml = rowHtml + '<td>' + leavingDate + '</td>';
-		rowHtml = rowHtml + '<td>' + pay + '</td>';
-		rowHtml = rowHtml + '<td>' + service + '</td></tr>';
-
-		$('#teachingExpTbody').append(rowHtml);
-
-		teachingExpDataArray.push(data);
-
-		var dataString = JSON.stringify(teachingExpDataArray);
-		console.log(dataString);
-		$('#teachingExp').val(dataString);
-	});
-
-	$('#Add2').click(function(){
-		var designation = $('#designation2').val(); $('#designation2').val("");
-		var organization = $('#organization2').val(); $('#organization2').val("");
-		var joiningDate = $('#joiningDate2').val(); $('#joiningDate2').val("");
-		var leavingDate = $('#leavingDate2').val(); $('#leavingDate2').val("");
-		var pay = $('#pay2').val(); $('#pay2').val("");
-		var service = $('#service2').val(); $('#service2').val("");
-
-		if(!designation || !organization || !joiningDate || !leavingDate || !pay|| !service)
-		{
-			alert("Please fill all fields or fill NA");
-			return false;
-		}
-
-		var data = {
-			'organization' : organization,
-			'designation' : designation,
-			'joiningDate' : joiningDate,
-			'leavingDate' : leavingDate,
-			'pay' : pay,
-			'service' : service
-		};
-
-		var rowCount = $('#researchExpTbody tr').length;
-		var i = researchExpDataArray.length+rowCount;
-
-		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
-		rowHtml = rowHtml + '<td>' + organization + '</td>';
-		rowHtml = rowHtml + '<td>' + designation + '</td>';
-		rowHtml = rowHtml + '<td>' + joiningDate + '</td>';
-		rowHtml = rowHtml + '<td>' + leavingDate + '</td>';
-		rowHtml = rowHtml + '<td>' + pay + '</td>';
-		rowHtml = rowHtml + '<td>' + service + '</td></tr>';
-
-		$('#researchExpTbody').append(rowHtml);
-
-		researchExpDataArray.push(data);
-
-		var dataString = JSON.stringify(researchExpDataArray);
-		console.log(dataString);
-		$('#researchExp').val(dataString);
-	});
-
-	$('#Add3').click(function(){
-		var designation = $('#designation3').val(); $('#designation3').val("");
-		var organization = $('#organization3').val(); $('#organization3').val("");
-		var joiningDate = $('#joiningDate3').val(); $('#joiningDate3').val("");
-		var leavingDate = $('#leavingDate3').val(); $('#leavingDate3').val("");
-		var pay = $('#pay3').val(); $('#pay3').val("");
-		var service = $('#service3').val(); $('#service3').val("");
-
-		if(!designation || !organization || !joiningDate || !leavingDate || !pay|| !service)
-		{
-			alert("Please fill all fields or fill NA");
-			return false;
-		}
-
-		var data = {
-			'organization' : organization,
-			'designation' : designation,
-			'joiningDate' : joiningDate,
-			'leavingDate' : leavingDate,
-			'pay' : pay,
-			'service' : service
-		};
-
-		var rowCount = $('#industryExpTbody tr').length;
-		var i = industryExpDataArray.length+rowCount;
-
-		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
-		rowHtml = rowHtml + '<td>' + organization + '</td>';
-		rowHtml = rowHtml + '<td>' + designation + '</td>';
-		rowHtml = rowHtml + '<td>' + joiningDate + '</td>';
-		rowHtml = rowHtml + '<td>' + leavingDate + '</td>';
-		rowHtml = rowHtml + '<td>' + pay + '</td>';
-		rowHtml = rowHtml + '<td>' + service + '</td></tr>';
-
-		$('#industryExpTbody').append(rowHtml);
-
-		industryExpDataArray.push(data);
-
-		var dataString = JSON.stringify(industryExpDataArray);
-		console.log(dataString);
-		$('#industryExp').val(dataString);
-	});
+ 		var data = {
+ 			'title' : title,
+			'conference' : conference,
+ 			'Date_of_Completion' : completionDate,
+ 		};
+ 
+ 		var rowCount = $('#researchExpTbody tr').length;
+ 		var i = researchExpDataArray.length+rowCount;
+ 
+ 		var rowHtml = '<tr>' + '<td>' + (i+1) + '</td>';
+ 		rowHtml = rowHtml + '<td>' + title + '</td>';
+ 		rowHtml = rowHtml + '<td>' + conference + '</td>';
+ 		rowHtml = rowHtml + '<td>' + completionDate + '</td>';
+ 		$('#researchExpTbody').append(rowHtml);
+ 
+ 		researchExpDataArray.push(data);
+ 
+ 		var dataString = JSON.stringify(researchExpDataArray);
+ 		console.log(dataString);
+ 		$('#researchPaper').val(dataString);
+ 	});
 
 </script>
 <script>
