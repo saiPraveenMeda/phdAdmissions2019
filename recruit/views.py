@@ -29,12 +29,11 @@ def index(request) :
         return redirect('/printSummary')
     profile = Appdata.objects.get(user=request.user)
     response['profile'] = profile
+
     if request.method == "POST" :
         app_id = Appdata.objects.get(user=request.user)
 
-        app_id.save()
-
-        if not FacUser.objects.filter(app_id=app_id).exists() :
+        if not FacUser.objects.filter(app_id=app_id).exists():
             facuser = FacUser()
             facuser.app_id = app_id
         else :
@@ -57,8 +56,8 @@ def index(request) :
         facuser.save()
 
 
-        #Qualification Part
-        if not Qualification.objects.filter(app_id=app_id,degreeType='UG').exists():
+        #Education Part
+        if not Education.objects.filter(app_id=app_id,degreeType='UG').exists():
             ugdegree = Qualification()
         else :
             ugdegree = Qualification.objects.get(app_id=app_id,degreeType='UG')
@@ -71,7 +70,7 @@ def index(request) :
         ugdegree.division = request.POST['Bdivision']
         ugdegree.save()
 
-        if not Qualification.objects.filter(app_id=app_id,degreeType='PG').exists():
+        if not Education.objects.filter(app_id=app_id,degreeType='PG').exists():
             pgdegree = Qualification()
         else :
             pgdegree = Qualification.objects.get(app_id=app_id,degreeType='PG')
@@ -84,22 +83,41 @@ def index(request) :
         pgdegree.division = request.POST['Mdivision']
         pgdegree.save()
 
+        #QualifyingExam
+        if not QualifyingExamDetails.objects.filter(app_id=app_id).exists():
+            qualexam = QualifyingExamDetails()
+        else :
+            qualexam = QualifyingExamDetails.objects.get(app_id=app_id)
+        qualexam.app_id = app_id
+        qualexam.exam = request.POST['exam']
+        qualexam.QualifyingYear = request.POST['qualyear']
+        qualexam.score = request.POST['score']
+        qualexam.rank = request.POST['rank']
+        qualexam.cutoffScore = request.POST['cutoff']
+        qualexam.save()
+
+        #Experience
+        if not Experience.objects.filter(app_id=app_id).exists():
+            exp = Experience()
+        else :
+            exp = Experience.objects.get(app_id=app_id)
+        exp.app_id = app_id
+        exp.teaching_exp = request.POST['teachingExp']
+        exp.research_exp = request.POST['researchExp']
+        exp.industrial_exp = request.POST['industrialExp']
+        exp.save()
+
 
     if Appdata.objects.filter(user=request.user).exists() :
         app_id = Appdata.objects.get(user=request.user)
-        response['postID'] = Post.objects.get(name=app_id.post_for).name
         if FacUser.objects.filter(app_id=app_id).exists():
             response['generalData'] = FacUser.objects.get(app_id=app_id)
         if Experience.objects.filter(app_id=app_id).exists():
-            exp = Experience.objects.get(app_id=app_id)
-            response['Experience'] = exp
-            response['teachingData'] = json.loads(exp.teaching_data)
-            response['researchData'] = json.loads(exp.research_data)
-            response['industryData'] = json.loads(exp.industrial_data)
+            response['Experience'] = Experience.objects.get(app_id=app_id)
 
-        if Qualification.objects.filter(app_id=app_id,degreeType='UG').exists():
+        if Education.objects.filter(app_id=app_id,degreeType='UG').exists():
             response['Bqual'] = Qualification.objects.get(app_id=app_id,degreeType='UG')
-        if Qualification.objects.filter(app_id=app_id,degreeType='PG').exists():
+        if Education.objects.filter(app_id=app_id,degreeType='PG').exists():
             response['Mqual'] = Qualification.objects.get(app_id=app_id,degreeType='PG')
 
     return render(request,'recruit/mainForm.djt',response)
