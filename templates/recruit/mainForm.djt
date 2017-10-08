@@ -291,8 +291,8 @@
 				<label class="radio-inline"><input type="radio" value="ST" name="category" {% ifequal generalData.category 'ST' %} checked {% endifequal %} id="ST">ST</label>
 				<label class="radio-inline"><input type="radio" value="OBC" name="category" {% ifequal generalData.category 'OBC' %} checked {% endifequal %} id="OBC">OBC</label>
 				<label class="radio-inline"><input type="radio" value="UR" name="category" {% ifequal generalData.category 'UR' %} checked {% endifequal %} id="UR">UR</label>
-				<a href='/annexure_obc'><button type="button" style="visibility: hidden;" class="btn btn-success" id="isOBC">Annexure - II</button></a>
-				<a href='/annexure_caste_certi'><button type="button" style="visibility: hidden;" class="btn btn-success" id="isCASTE">Annexure - IV</button></a>
+				<a href='/annexure_obc'><button type="button" style="visibility: hidden;" class="btn btn-success" id="isOBC">Annexure - OBC</button></a>
+				<a href='/annexure_caste_certi'><button type="button" style="visibility: hidden;" class="btn btn-success" id="isCASTE">Annexure - Char certificate</button></a>
 				</div>
 				</div>
 			</div>
@@ -665,6 +665,11 @@
 				document.getElementById('isOBC').style.visibility = 'visible';
 			}
 			else document.getElementById('isOBC').style.visibility = 'hidden';
+
+			if($('input[name=category]:checked').val() != 'UR'){
+				document.getElementById('isCASTE').style.visibility = 'visible';
+			}
+			else document.getElementById('isCASTE').style.visibility = 'hidden';
 		}
 		);
 
