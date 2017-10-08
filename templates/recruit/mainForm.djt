@@ -413,6 +413,27 @@
 				</div>
 			</div>
             <br>
+            <table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th>Qualifying Year</th>
+			        <th>Score</th>
+			        <th>Rank</th>
+			        <th>Category</th>
+			        <th>Cut off Score</th>
+			      </tr>
+			    </thead>
+			    <tbody id="QualifyingExamDetails">
+			    	<tr>
+			    		<td>{{}}</td>
+			    		<td>{{}}</td>
+			    		<td>{{}}</td>
+			    		<td>{{}}</td>
+			    		<td>{{}}</td>
+			    	</tr>
+			    </tbody>
+			</table>
+			<br>
 			<hr>
 
 			<div class="row">
@@ -435,95 +456,10 @@
 						<input class="form-control" type="number" min="0" name="teachingExperience" value="{{Experience.teaching_exp}}" required>
 					</div>
 				</div>
-				<div class="col-sm-3"> <b>Post Ph.D. Experience (years) </b> </div>
-				<div class="col-sm-2">
-					<div class="form-group">
-						<input class="form-control" type="number" min="0" name="phdExperience" value="{{Experience.postPhd_exp}}" required>
-					</div>
-				</div>
 			</div>
 
-			<table class="table table-bordered">
-				<thead>
-			      <tr style="background-color:#e3e3e3;">
-			        <th>S.No.</th>
-			        <th>Name of Organization</th>
-			        <th>Designation</th>
-			        <th>Date of Joining</th>
-			        <th>Date of Leaving</th>
-			        <th>Last pay Band and Grade Pay</th>
-			        <th>Service (Regular/Contract)</th>
-			      </tr>
-			    </thead>
-			    <tbody id="teachingExpTbody">
-			    	{% for texp in teachingData %}
-			    	<tr>
-			    		<td>{{forloop.counter}}.</td>
-			    		<td>{{texp.organization}}</td>
-			    		<td>{{texp.designation}}</td>
-			    		<td>{{texp.joiningDate}}</td>
-			    		<td>{{texp.leavingDate}}</td>
-			    		<td>{{texp.pay}}</td>
-			    		<td>{{texp.service}}</td>
-			    	</tr>
-			    	{% endfor %}
-			    </tbody>
-			</table>
 
-			<div class="well well-lg">
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="organization">Name of Organization</label>
-						<input for="organization" class="form-control" id="organization1">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="designation">Designation</label>
-						<input for="designation" class="form-control" id="designation1">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Date of Joining">Date of Joining</label>
-						<input type="date" for="Date of Joining" class="form-control" id="joiningDate1">
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Date of Leaving">Date of Leaving(dd/mm/yyyy) or Continuing</label>
-						<input type="text" for="Date of Leaving" class="form-control" id="leavingDate1">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Pay">Pay</label>
-						<input for="Pay" class="form-control" id="pay1">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Service">Service (Regular/Contract)</label>
-						<!-- <input for="Service" class="form-control" id="service1"> -->
-						<select for="Service" class="form-control" id="service1">
-							<option>----</option>
-							<option value="Regular">Regular</option>
-							<option value="Contract">Contract</option>
-						</select>
-					</div>
-				</div>
-			</div>
 			
-			<center><button type="button" class="btn" id="Add1">Add</button><br></center>
-
-			</div>
-			<br>
-
-			<input type="text" name="teachingExpData" id="teachingExp" hidden>
 
 			<!-- Research Experience Code -->
 
@@ -536,180 +472,24 @@
 				</div>
 			</div>
 
-			<table class="table table-bordered">
-				<thead>
-			      <tr style="background-color:#e3e3e3;">
-			        <th>S.No.</th>
-			        <th>Name of Organization where employed</th>
-			        <th>Designation</th>
-			        <th>Date of Joining</th>
-			        <th>Date of Leaving</th>
-			        <th>Last pay Band and Grade Pay</th>
-			        <th>Service (Regular/Contract)</th>
-			      </tr>
-			    </thead>
-			    <tbody id="researchExpTbody">
-			    	{% for rexp in researchData %}
-			    	<tr>
-		    			<td>{{forloop.counter}}.</td>
-			    		<td>{{rexp.organization}}</td>
-			    		<td>{{rexp.designation}}</td>
-			    		<td>{{rexp.joiningDate}}</td>
-			    		<td>{{rexp.leavingDate}}</td>
-			    		<td>{{rexp.pay}}</td>
-			    		<td>{{rexp.service}}</td>
-			    	</tr>
-			    	{% endfor %}
-			    </tbody>
-			</table>
-
-			<div class="well well-lg">
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="organization">Name of Organization</label>
-						<input for="organization" class="form-control" id="organization2">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="designation">Designation</label>
-						<input for="designation" class="form-control" id="designation2">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Date of Joining">Date of Joining</label>
-						<input type="date" for="Date of Joining" class="form-control" id="joiningDate2">
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Date of Leaving">Date of Leaving(dd/mm/yyyy) or Continuing</label>
-						<input type="text" for="Date of Leaving" class="form-control" id="leavingDate2">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Pay">Pay</label>
-						<input for="Pay" class="form-control" id="pay2">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Service">Service (Regular/Contract)</label>
-						<!-- <input for="Service" class="form-control" id="service2"> -->
-						<select for="Service" class="form-control" id="service2">
-							<option>----</option>
-							<option value="Regular">Regular</option>
-							<option value="Contract">Contract</option>
-						</select>
-					</div>
-				</div>
-			</div>
 			
-			<center><button type="button" class="btn" id="Add2">Add</button><br></center>
-
-			</div>
-			<br>
-
-			<input type="text" name="researchExpData" id="researchExp" hidden>
-
 			<!-- Industrial Experience Code -->
 
 			<div class="row">
 				<div class="col-sm-3"> <b>3. Industrial Experience (years)</b> </div>
 				<div class="col-sm-3">
 					<div class="form-group">
-						<input class="form-control" type="number" min="0" name="industryExperience" value="{{Experience.industrial_exp}}" required>
-					</div>
-				</div>
-			</div>
-
-			<table class="table table-bordered">
-				<thead>
-			      <tr style="background-color:#e3e3e3;">
-			        <th>S.No.</th>
-			        <th>Name of Industry</th>
-			        <th>Designation</th>
-			        <th>Date of Joining</th>
-			        <th>Date of Leaving</th>
-			        <th>Salary Drawn</th>
-			        <th>Service (Regular/Contract)</th>
-			      </tr>
-			    </thead>
-			    <tbody id="industryExpTbody">
-			    	{% for iexp in industryData %}
-			    	<tr>
-			    		<td>{{forloop.counter}}</td>
-			    		<td>{{iexp.organization}}</td>
-			    		<td>{{iexp.designation}}</td>
-			    		<td>{{iexp.joiningDate}}</td>
-			    		<td>{{iexp.leavingDate}}</td>
-			    		<td>{{iexp.pay}}</td>
-			    		<td>{{iexp.service}}</td>
-			    	</tr>
-			    	{% endfor %}
-			    </tbody>
-			</table>
-
-			<div class="well well-lg">
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="organization">Name of Organization</label>
-						<input for="organization" class="form-control" id="organization3">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="designation">Designation</label>
-						<input for="designation" class="form-control" id="designation3">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Date of Joining">Date of Joining</label>
-						<input type="date" for="Date of Joining" class="form-control" id="joiningDate3">
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Date of Leaving">Date of Leaving(dd/mm/yyyy) or Continuing</label>
-						<input type="text" for="Date of Leaving" class="form-control" id="leavingDate3">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Pay">Salary Drawn</label>
-						<input for="Pay" class="form-control" id="pay3">
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<label for="Service">Service (Regular/Contract)</label>
-						<!-- <input for="Service" class="form-control" id="service3"> -->
-						<select for="Service" class="form-control" id="service3">
+						<select for = "industryExperience" class="form-control" value = "{{Experience.industrial_exp}}" align = "center"> 
 							<option>----</option>
-							<option value="Regular">Regular</option>
-							<option value="Contract">Contract</option>
-						</select>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value=">=3">>=3</option>
+						</select> 
 					</div>
 				</div>
 			</div>
+
 			
-			<center><button type="button" class="btn" id="Add3">Add</button><br></center>
-
-			</div>
-			<br>
-
-			<input type="text" name="industryExpData" id="industryExp" hidden>
 
 			<div class="row">
 				<div class="col-sm-12">
@@ -725,6 +505,9 @@
 
 			<!-- Research Papers published -->
 			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-3"> <b>Research papers published</b> </div>
+			</div>
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="form-group">
@@ -753,10 +536,8 @@
 			
 			<div class="well well-lg">
 				<div class="row">
-					<div class="col-sm-5">
-						<b><h4>Field of propsed Area of Research : </h4></b><br>
-					</div>
-				</div>
+				<div class="col-sm-5"> <b>Field of Proposed Area of Research</b> </div>
+			</div>
 				<div class = "row">
 					<div class="col-sm-4">
 						<div class="form-group">
@@ -766,22 +547,6 @@
 				</div>
 			</div>
 
-			<!-- Fields of Interest -->
-			
-			<div class="well well-lg">
-				<div class="row">
-					<div class="col-sm-5">
-						<b><h4>Field of Interest : </h4></b><br>
-					</div>
-				</div>
-				<div class = "row">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<input class="form-control" type="text" id="fieldofinterest">
-						</div>
-					</div>
-				</div>
-			</div>
         <hr>
         <div class="row well well-sm">
 			<div class="col-sm-12">
