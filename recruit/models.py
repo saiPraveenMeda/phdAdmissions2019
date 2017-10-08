@@ -60,18 +60,13 @@ class FacUser(models.Model):
 	def __unicode__(self):
 		return self.full_name
 
+class QualifyingExam(models.Model):
+	name = models.TextField(max_length=10)
+
 
 class Education(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	education = models.TextField()
-	abstract_thesis = models.TextField()
-	any_other_info = models.TextField()
-	sports_extra = models.TextField()
-	lang = models.TextField()
-
-class Qualification(models.Model):
-	app_id = models.ForeignKey(Appdata)
-	degreeType = models.CharField(max_length=10)
+	degreeType = models.CharField(max_length=30)
 	degreeName = models.CharField(max_length=100)
 	university = models.CharField(max_length=200)
 	passingYear = models.IntegerField()
@@ -81,19 +76,35 @@ class Qualification(models.Model):
 	def __unicode__(self):
 		return str(self.app_id.app_id+"-"+self.degreeType)
 
-class Experience(models.Model):
+class QualifyingExamDetails(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	teaching_exp = models.IntegerField()
-	postPhd_exp = models.IntegerField(default=0)
-	teaching_data = models.TextField()
-	research_exp = models.IntegerField()
-	research_data = models.TextField()
-	industrial_exp = models.IntegerField()
-	industrial_data = models.TextField()
+	exam = models.ForeignKey(QualifyingExam)
+	qualifyingYear = models.IntegerField()
+	score = models.FloatField()
+	rank = models.IntegerField()
+	cutoffScore = models.FloatField()
 
 	def __unicode__(self):
 		return str(self.app_id)
 
+class Experience(models.Model):
+	app_id = models.ForeignKey(Appdata)
+	teaching_exp = models.IntegerField()
+	research_exp = models.IntegerField()
+	industrial_exp = models.IntegerField()
+
+	def __unicode__(self):
+		return str(self.app_id)
+
+class Research(models.Model):
+	app_id = models.ForeignKey(Appdata)
+	title = models.TextField(max_length=50)
+	conference = models.TextField(max_length=50)
+	link = models.TextField(max_length=50)
+
+class Others(models.Model):
+	app_id = models.ForeignKey(Appdata)
+	proposedFieldOfResearch = models.TextField(max_length=50)
 
 class Annexure_OBC(models.Model):
 	app_id = models.ForeignKey(Appdata)
@@ -118,6 +129,15 @@ class Annexure_PartTime(models.Model):
 
 	def __unicode__(self):
 		return str(self.app_id) + "_parttime"
+
+class Documents(models.Model):
+	app_id = models.ForeignKey(Appdata)
+	bacheoler_degree = models.BooleanField(default=False)
+	bacheoler_memo = models.BooleanField(default=False)
+	masters_degree = models.BooleanField(default=False)
+	masters_memo = models.BooleanField(default=False)
+	caste = models.BooleanField(default=False)
+	qualifying_scorecard = models.BooleanField(default=False)
 
 class Flags(models.Model):
 	bacheoler_degree = models.BooleanField(default=False)
