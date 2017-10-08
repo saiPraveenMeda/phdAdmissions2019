@@ -371,9 +371,9 @@
 					<div class="form-group">
 						<select for="Examination" class="form-control" id="exam1">
 							<option>-------------</option>
-							<option value="GATE">GATE</option>
-							<option value="GATE">NET</option>
-							<option value="CAT/MAT/GMAT">CAT/MAT/GMAT</option>
+							{% for exam in qualifying_exams %}
+					    <option value="{{exam.name}}">{{exam.name}}</option>
+					    {% endfor %}
 						</select>
 					</div>
 				</div>
@@ -435,9 +435,14 @@
 					<div class="form-group">
 						<select for = "teachingExperience" class="form-control" value = "{{Experience.teaching_exp}}" align = "center"> 
 							<option>----</option>
+							<option value="0">0</option>
+							<option value="0.5">0.5</option>
 							<option value="1">1</option>
+							<option value="1.5">1.5</option>
 							<option value="2">2</option>
-							<option value=">=3">>=3</option>
+							<option value="2.5">2.5</option>
+							<option value="3">3</option>
+							<option value=">3">>3</option>
 						</select> 
 					</div>
 				</div>
@@ -454,9 +459,14 @@
 					<div class="form-group">
 						<select for = "researchExperience" class="form-control" value = "{{Experience.research_exp}}" align = "center"> 
 							<option>----</option>
+							<option value="0">0</option>
+							<option value="0.5">0.5</option>
 							<option value="1">1</option>
+							<option value="1.5">1.5</option>
 							<option value="2">2</option>
-							<option value=">=3">>=3</option>
+							<option value="2.5">2.5</option>
+							<option value="3">3</option>
+							<option value=">3">>3</option>
 						</select> 
 					</div>
 				</div>
@@ -471,9 +481,14 @@
 					<div class="form-group">
 						<select for = "industryExperience" class="form-control" value = "{{Experience.industrial_exp}}" align = "center"> 
 							<option>----</option>
+							<option value="0">0</option>
+							<option value="0.5">0.5</option>
 							<option value="1">1</option>
+							<option value="1.5">1.5</option>
 							<option value="2">2</option>
-							<option value=">=3">>=3</option>
+							<option value="2.5">2.5</option>
+							<option value="3">3</option>
+							<option value=">3">>3</option>
 						</select> 
 					</div>
 				</div>
