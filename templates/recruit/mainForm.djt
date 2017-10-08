@@ -94,8 +94,8 @@
 						<div class="col-sm-6">
 							<div class="form-group" style="font-size:18px;">
 								<b><u>{{profile.postApplied}}</u></b>
-								{% if profile.postApplied == 'Part Time' %}
-								<button type="submit" style="visibility: visible;" class="btn btn-success" id="annexure">Annexure - III</button>					
+								{% if profile.postApplied.name == 'Part Time' %}
+								<a href="/annexures/annexure_parttime"><button type="button" style="visibility: visible;" class="btn btn-success" id="annexure">Annexure - III</button></a>			
 								{% endif %}
 							</div>
 						</div>
@@ -291,7 +291,7 @@
 				<label class="radio-inline"><input type="radio" value="ST" name="category" {% ifequal generalData.category 'ST' %} checked {% endifequal %} id="ST">ST</label>
 				<label class="radio-inline"><input type="radio" value="OBC" name="category" {% ifequal generalData.category 'OBC' %} checked {% endifequal %} id="OBC">OBC</label>
 				<label class="radio-inline"><input type="radio" value="UR" name="category" {% ifequal generalData.category 'UR' %} checked {% endifequal %} id="UR">UR</label>
-				<button type="submit" style="visibility: hidden;" class="btn btn-success" id="isOBC">Annexure - II</button>
+				<a href='/annexure_obc'><button type="button" style="visibility: hidden;" class="btn btn-success" id="isOBC">Annexure - II</button></a>
 				</div>
 				</div>
 			</div>

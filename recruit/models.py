@@ -139,6 +139,13 @@ class Annexure_OBC(models.Model):
 		return str(self.app_id) + "_obc"
 
 class Annexure_PartTime(object):
+	app_id = models.ForeignKey(Appdata)
+	name = models.CharField(max_length=30)
+	designation = models.CharField(max_length=30)
+	date = models.CharField(max_length=20)
+	address = models.CharField(max_length=100)
+	employment_years = models.CharField(max_length=5)
+
 	def __unicode__(self):
 		return str(self.app_id) + "_parttime"
 

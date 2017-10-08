@@ -141,9 +141,6 @@ def index(request) :
             response['Bqual'] = Qualification.objects.get(app_id=app_id,degreeType='UG')
         if Qualification.objects.filter(app_id=app_id,degreeType='PG').exists():
             response['Mqual'] = Qualification.objects.get(app_id=app_id,degreeType='PG')
-        acad_annex_a = Acad_Annex_A.objects.filter(app_id=app_id)
-        if acad_annex_a.count() > 0:
-            response['acad_annex_a'] = acad_annex_a[0].store
         if Paper.objects.filter(app_id=app_id).exists() :
             paperobj = Paper.objects.get(app_id=app_id)
             response['paperobj'] = paperobj
@@ -153,7 +150,7 @@ def index(request) :
 
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
-def annexures(request, name):
+def annexure_obc(request):
     response = {}
     if request.method == 'POST':
         if Annexure_OBC.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
@@ -181,8 +178,36 @@ def annexures(request, name):
             response['state'] = Annexure.state
             response['community'] = Annexure.community
 
-    return render(request, 'recruit/annexure/'+name+'.djt', response)
+    return render(request, 'recruit/annexure/annexure_obc.djt', response)
 
+
+@login_required(login_url='/register')
+@is_applicant(login_url='/register')
+def annexure_parttime(request):
+    response = {}
+    if request.method == 'POST':
+        if Annexure_PartTime.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
+            Annexure = Annexure_PartTime.objects.filter(app_id=Appdata.objects.filter(user=request.user))
+        else:
+            Annexure = Annexure_PartTime(app_id=Appdata.objects.filter(user=request.user))
+        response['name'] = Annexure.name = request.POST['name']
+        response['designation'] = Annexure.designation = request.POST['designation']
+        response['date'] = Annexure.date = request.POST['date']
+        response['address'] = Annexure.address = request.POST['address']
+        response['employment_years'] = Annexure.employment_years = request.POST['employment_years']
+
+        Annexure.save()
+
+    else:
+        if Annexure_PartTime.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
+            Annexure = Annexure_PartTime.objects.filter(app_id=Appdata.objects.filter(user=request.user))
+            response['name'] = Annexure.name
+            response['designation'] = Annexure.designation
+            response['date'] = Annexure.date
+            response['address'] = Annexure.address
+            response['employment_years'] = Annexure.employment_years
+
+    return render(request, 'recruit/annexure/annexure_parttime.djt', response)
 
 
 @login_required(login_url='/register')
