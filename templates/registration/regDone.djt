@@ -28,8 +28,8 @@
 		<div class="col-sm-offset-3 col-sm-6">
 			<div class="alert alert-success">			  
 			  <strong>
-			  You are registered successfully. An Email has been sent to your email-id {{email}}.<br>
-			  The Application Number is in the mail. Your username for login will be your Application ID.
+			  You are registered successfully. An Email has been sent to your email-id {{email}} with your username.<br>
+			  Login using your username to fill application.
 			  <br>Please Follow this link to Login.
 			  </strong>
 			  <br> <a href="/register">Login</a>

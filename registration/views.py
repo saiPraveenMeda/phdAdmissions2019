@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, Http404
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User, Group
-from recruit.models import Appdata
+from recruit.models import Appdata, Flag
 import random, string
 from .models import *
 import datetime
@@ -18,7 +18,6 @@ def is_dean(user):
     return user.groups.filter(name="Dean").exists()
 def is_hod(user):
     return user.groups.filter(name="HOD").exists()
-
 
 def index(request) :
 	response = {}
@@ -126,13 +125,16 @@ def createApp(request) :
 			app_data.post_for = appPost
 			app_data.post_in = dept
 			app_data.contact = request.POST['contact']
-			app_data.termsRead = False
 			app_data.save()
 
 			pay_data = PaymentDetails()
 			pay_data.appID = applicationID
 			pay_data.transID = request.POST['transID']
 			pay_data.save()
+
+			profile = Appdata.objects.get(user=user)
+			flags = Flag(app_id=profile)
+			flags.save()
 			
 			#Mail application ID to applicant
 			receiver = user.email
@@ -148,17 +150,6 @@ def createApp(request) :
 			return render(request,'registration/regDone.djt', {'email' : user.email})
 
 	return redirect('/register/signup')
-
-def uploadpic(request):
-	response = {}
-	profile = Appdata.objects.get(user=request.user)
-	response['profile'] = profile
-	if request.method == 'POST' :
-		file = request.FILES['profilepic']
-		profile.profilePic = file
-		profile.save()
-		return redirect('/')
-	return render(request,'registration/uploadpic.djt',response)
 
 
 def forgotPassword(request):

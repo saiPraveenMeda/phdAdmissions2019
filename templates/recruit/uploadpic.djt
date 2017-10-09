@@ -51,7 +51,7 @@
 		<img src="{% static 'img/default_profile.jpg' %}" class="img-rounded" style="height:150px; max-width:90%;">
 		{% endif %}
 
-		<form method="post" action="/register/uploadpic/" enctype="multipart/form-data" onsubmit="return validate()">
+		<form method="post" action="/uploadpic/" enctype="multipart/form-data" onsubmit="return validate()">
 		{% csrf_token %}
 		<br>
 		<input type="file" name="profilepic">

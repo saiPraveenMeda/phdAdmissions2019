@@ -27,6 +27,7 @@ def index(request) :
         return redirect('/register/paymentDetails')
     if app.submitted :
         return redirect('/printSummary')
+
     profile = Appdata.objects.get(user=request.user)
     response['profile'] = profile
     response['qualifying_exams'] = QualifyingExam.objects.all()
@@ -34,35 +35,30 @@ def index(request) :
     if request.method == "POST" :
         app_id = Appdata.objects.get(user=request.user)
 
-        if not FacUser.objects.filter(app_id=app_id).exists():
-            facuser = FacUser()
-            facuser.app_id = app_id
+        if not GeneralData.objects.filter(app_id=app_id).exists():
+            generalData = GeneralData(app_id=app_id)
         else :
-            facuser = FacUser.objects.get(app_id=app_id)
-        facuser.full_name = request.POST['Name']
-        facuser.gender = request.POST['gender']
-        facuser.father_name = request.POST['fatherName']
-        facuser.father_occ = request.POST.get('fatherOccupation')
-        facuser.mother_name = request.POST['motherName']
-        facuser.mother_occ = request.POST.get('motherOccupation')
-        facuser.nation = request.POST['nationality']
-        facuser.pob = request.POST['birthplace']
-        facuser.dob = request.POST['dateOfBirth']
-        facuser.age = calculate_age(facuser.dob)
-        facuser.correspond_addr = request.POST['corresAddress']
-        facuser.permanent_addr = request.POST['permanentAddress']
-        facuser.category = request.POST.get('category')
-        facuser.pwd = request.POST.get('pwd')
-        facuser.aadhaarNo = request.POST.get('aadhaar')
-        facuser.save()
+            generalData = GeneralData.objects.get(app_id=app_id)
+        generalData.full_name = request.POST['Name']
+        generalData.gender = request.POST['gender']
+        generalData.father_name = request.POST['fatherName']
+        generalData.mother_name = request.POST['motherName']
+        generalData.nation = request.POST['nationality']
+        generalData.dob = request.POST['dateOfBirth']
+        generalData.age = calculate_age(generalData.dob)
+        generalData.correspond_addr = request.POST['corresAddress']
+        generalData.permanent_addr = request.POST['permanentAddress']
+        generalData.category = request.POST.get('category')
+        generalData.pwd = request.POST.get('pwd')
+        generalData.aadhaarNo = request.POST.get('aadhaar')
+        generalData.save()
 
 
         #Education Part
         if not Education.objects.filter(app_id=app_id,degreeType='UG').exists():
-            ugdegree = Qualification()
+            ugdegree = Education(app_id=app_id)
         else :
-            ugdegree = Qualification.objects.get(app_id=app_id,degreeType='UG')
-        ugdegree.app_id = app_id
+            ugdegree = Education.objects.get(app_id=app_id,degreeType='UG')
         ugdegree.degreeType = 'UG'
         ugdegree.degreeName = request.POST['Bdegree']
         ugdegree.university = request.POST['Buniv']
@@ -72,10 +68,9 @@ def index(request) :
         ugdegree.save()
 
         if not Education.objects.filter(app_id=app_id,degreeType='PG').exists():
-            pgdegree = Qualification()
+            pgdegree = Education(app_id=app_id)
         else :
-            pgdegree = Qualification.objects.get(app_id=app_id,degreeType='PG')
-        pgdegree.app_id = app_id
+            pgdegree = Education.objects.get(app_id=app_id,degreeType='PG')
         pgdegree.degreeType = 'PG'
         pgdegree.degreeName = request.POST['Mdegree']
         pgdegree.university = request.POST['Muniv']
@@ -86,68 +81,133 @@ def index(request) :
 
         #QualifyingExam
         if not QualifyingExamDetails.objects.filter(app_id=app_id).exists():
-            qualexam = QualifyingExamDetails()
+            qualexam = QualifyingExamDetails(app_id=app_id)
         else :
             qualexam = QualifyingExamDetails.objects.get(app_id=app_id)
-        qualexam.app_id = app_id
-        qualexam.exam = request.POST['exam']
-        qualexam.QualifyingYear = request.POST['qualyear']
+        qualexam.exam = QualifyingExam.objects.get(name=request.POST['exam'])
+        qualexam.qualifyingYear = request.POST['qualyear']
         qualexam.score = request.POST['score']
         qualexam.rank = request.POST['rank']
-        qualexam.cutoffScore = request.POST['cutoff']
+        qualexam.cutoffScore = request.POST['cutoffScore']
         qualexam.save()
 
         #Experience
         if not Experience.objects.filter(app_id=app_id).exists():
-            exp = Experience()
+            exp = Experience(app_id=app_id)
         else :
             exp = Experience.objects.get(app_id=app_id)
-        exp.app_id = app_id
-        exp.teaching_exp = request.POST['teachingExp']
-        exp.research_exp = request.POST['researchExp']
-        exp.industrial_exp = request.POST['industrialExp']
+        exp.teaching_exp = request.POST['teaching_exp']
+        exp.research_exp = request.POST['research_exp']
+        exp.industrial_exp = request.POST['industrial_exp']
         exp.save()
 
         #Research
         if Research.objects.filter(app_id=app_id).exists():
             Research.objects.filter(app_id=app_id).delete()
-        for paper in request.POST['papers']:
-            research = Research(app_id=app_id, title=paper.title, conference=paper.conference, link = paper.link)
+        for paper in json.loads(request.POST['papers']):
+            research = Research(app_id=app_id, title=paper['title'], conference=paper['conference'], link = paper['link'])
             research.save()
 
         #Others
-        if not Others.objects.filter(app_id=app_id).exists():
-            oth = Others()
+        if not Other.objects.filter(app_id=app_id).exists():
+            oth = Other(app_id=app_id)
         else :
-            oth = Others.objects.get(app_id=app_id)
-        oth.app_id = app_id
-        exp.proposedFieldOfResearch = request.POST['proposedFieldOfResearch']
+            oth = Other.objects.get(app_id=app_id)
+        oth.proposedFieldOfResearch = request.POST['proposedFieldOfResearch']
         oth.save()
 
+        flag = Flag.objects.get(app_id=app_id)
+        flag.application = True
+        flag.save()
 
+        response['message'] = 'Profile saved successfully'
+        if request.POST['submitbtn'] == 'saveandcontinue':
+            return redirect('/annexures')
 
     if Appdata.objects.filter(user=request.user).exists() :
         app_id = Appdata.objects.get(user=request.user)
-        if FacUser.objects.filter(app_id=app_id).exists():
-            response['generalData'] = FacUser.objects.get(app_id=app_id)
+        if GeneralData.objects.filter(app_id=app_id).exists():
+            response['generalData'] = GeneralData.objects.get(app_id=app_id)
         if Experience.objects.filter(app_id=app_id).exists():
             response['Experience'] = Experience.objects.get(app_id=app_id)
 
         if Education.objects.filter(app_id=app_id,degreeType='UG').exists():
-            response['Bqual'] = Qualification.objects.get(app_id=app_id,degreeType='UG')
+            response['Bqual'] = Education.objects.get(app_id=app_id,degreeType='UG')
         if Education.objects.filter(app_id=app_id,degreeType='PG').exists():
-            response['Mqual'] = Qualification.objects.get(app_id=app_id,degreeType='PG')
+            response['Mqual'] = Education.objects.get(app_id=app_id,degreeType='PG')
 
         if QualifyingExamDetails.objects.filter(app_id=app_id).exists():
             response['QExamDetails'] = QualifyingExamDetails.objects.get(app_id=app_id)
 
         if Research.objects.filter(app_id=app_id).exists():
-            response['papers'] = Research.objects.filter(app_id=app_id).values()
+            response['papers'] = Research.objects.filter(app_id=app_id)
+            response['papersJSON'] = json.dumps(list(Research.objects.filter(app_id=app_id).values('title', 'conference', 'link')))
 
-        if Others.objects.filter(app_id=app_id).exists():
-            response['Others'] = Others.objects.get(app_id=app_id)
+        if Other.objects.filter(app_id=app_id).exists():
+            response['Others'] = Other.objects.get(app_id=app_id)
 
     return render(request,'recruit/mainForm.djt',response)
+
+
+@login_required(login_url='/register')
+@is_applicant(login_url='/register')
+def annexures(request):
+    response ={}
+    app_id = Appdata.objects.get(user=request.user)
+    flags = Flag.objects.get(app_id=app_id)
+    gd = GeneralData.objects.get(app_id=app_id)
+    cat = gd.category
+    post = app_id.post_for
+
+    if not flags.application:
+        redirect('recruit')
+
+    if request.method == 'POST':
+        if flags.annexure_obc and flags.annexure_parttime:
+            redirect('recruit/uploadDocs')
+        redirect('recruit/annexures')
+
+    if cat == 'OBC':
+        response['obc'] = True
+        response['obc_filled'] = flags.annexure_obc
+    else:
+        response['obc'] = False
+
+    if post == 'Part Time':
+        response['parttime'] = True
+        response['parttime_filled'] = flags.annexure_parttime
+
+    return render(request, 'recruit/annexures_master.djt', response);
+
+
+@login_required(login_url='/register')
+@is_applicant(login_url='/register')
+def uploadDocs(request):
+    response = {}
+    return HttpResponse('Yoooo')
+
+
+@login_required(login_url='/register')
+@is_applicant(login_url='/register')
+def uploadpic(request):
+    response = {}
+    profile = Appdata.objects.get(user=request.user)
+
+    flags = Flag.objects.get(app_id=profile)
+
+    response['profile'] = profile
+
+    if request.method == 'POST' :
+        file = request.FILES['profilepic']
+        profile.profilePic = file
+        profile.save()
+
+        flags.profile_pic = True
+        flags.save()
+
+        return redirect('/')
+    return render(request,'recruit/uploadpic.djt',response)
+
 
 
 @login_required(login_url='/register')
@@ -187,26 +247,25 @@ def annexure_obc(request):
 def annexure_parttime(request):
     response = {}
     if request.method == 'POST':
-        if Annexure_PartTime.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
-            Annexure = Annexure_PartTime.objects.filter(app_id=Appdata.objects.filter(user=request.user))
+        if Annexure_Part_Time.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
+            Annexure = Annexure_Part_Time.objects.filter(app_id=Appdata.objects.filter(user=request.user))
         else:
-            Annexure = Annexure_PartTime(app_id=Appdata.objects.filter(user=request.user))
-        response['name'] = Annexure.name = request.POST['name']
-        response['designation'] = Annexure.designation = request.POST['designation']
-        response['date'] = Annexure.date = request.POST['date']
-        response['address'] = Annexure.address = request.POST['address']
-        response['employment_years'] = Annexure.employment_years = request.POST['employment_years']
+            Annexure = Annexure_Part_Time(app_id=Appdata.objects.filter(user=request.user))
+        Annexure.name = request.POST['name']
+        Annexure.designation = request.POST['designation']
+        Annexure.date = request.POST['date']
+        Annexure.address = request.POST['address']
+        Annexure.employment_years = request.POST['employment_years']
 
         Annexure.save()
 
-    else:
-        if Annexure_PartTime.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
-            Annexure = Annexure_PartTime.objects.filter(app_id=Appdata.objects.filter(user=request.user))
-            response['name'] = Annexure.name
-            response['designation'] = Annexure.designation
-            response['date'] = Annexure.date
-            response['address'] = Annexure.address
-            response['employment_years'] = Annexure.employment_years
+    if Annexure_Part_Time.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
+        Annexure = Annexure_Part_Time.objects.filter(app_id=Appdata.objects.filter(user=request.user))
+        response['name'] = Annexure.name
+        response['designation'] = Annexure.designation
+        response['date'] = Annexure.date
+        response['address'] = Annexure.address
+        response['employment_years'] = Annexure.employment_years
 
     return render(request, 'recruit/annexure/annexure_parttime.djt', response)
 
@@ -223,8 +282,8 @@ def print_main_application(request):
     response = {}
     response['profile'] = Appdata.objects.get(user = request.user)
     app_id = Appdata.objects.get(user=request.user)
-    if FacUser.objects.filter(app_id=app_id).exists():
-        response['generalData'] = FacUser.objects.get(app_id=app_id)
+    if GeneralData.objects.filter(app_id=app_id).exists():
+        response['generalData'] = GeneralData.objects.get(app_id=app_id)
     if Experience.objects.filter(app_id=app_id).exists():
         exp = Experience.objects.get(app_id=app_id)
         response['Experience'] = exp
@@ -373,7 +432,7 @@ def lockApplication(request) :
 def printAck(request):
     response = {}
     app = Appdata.objects.get(user=request.user)
-    response['facuser'] = FacUser.objects.get(app_id=app)
+    response['GeneralData'] = GeneralData.objects.get(app_id=app)
     response['app'] = app
     return render(request,'recruit/printAck.djt',response)
 
@@ -395,7 +454,7 @@ def all_annexures(request) :
     app_id = Appdata.objects.get(user=request.user)
     response['profile'] = Appdata.objects.get(user = request.user)
     obc = Annexure_OBC.objects.filter(app_id=app_id)
-    parttime = Annexure_PartTime.objects.filter(app_id=app_id)
+    parttime = Annexure_Part_Time.objects.filter(app_id=app_id)
 
     return render(request, 'recruit/all_annexures.djt', response)
 

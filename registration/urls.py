@@ -9,7 +9,6 @@ urlpatterns = [
     url(r'^signin/$',views.signin,name='signin'),
     url(r'^signout/$',views.signout,name='signout'),
     url(r'^termsandconditions/$',views.termsandconditions,name='termsandconditions'),
-    url(r'^uploadpic/$',views.uploadpic,name='uploadpic'),
     url(r'^forgotPassword/$',views.forgotPassword,name='forgotPassword'),
     url(r'^paymentDetails/$',views.paymentDetails,name='paymentDetails'),
 ]

@@ -10,10 +10,10 @@ from django.core.validators import FileExtensionValidator
 from registration.models import *
 
 def get_profilepic_path(instance,filename):
-	return 'users/{0}/profilepic/{1}'.format(instance.applicationID,filename)
+	return 'users/{0}/profilepic/{1}'.format(instance.app_id,filename)
 
-def get_path(instance,filename):
-	return 'users/{0}/papers/{1}'.format(instance.app_id.app_id,filename)
+def get_docpath(instance,filename):
+	return 'users/{0}/documents/{1}'.format(instance.app_id.app_id,filename)
 
 def validate(value):
 	import os
@@ -37,18 +37,15 @@ class Appdata(models.Model):
 	submitDate = models.DateTimeField(blank=True,default=datetime.datetime.now,auto_now=False, auto_now_add=False)
 
 	def __unicode__(self):
-		return str(self.app_id)
+		return self.app_id + '\'s application'
 
-class FacUser(models.Model):
+class GeneralData(models.Model):
 	app_id = models.ForeignKey(Appdata)
 	full_name = models.CharField(max_length=200)
 	gender = models.CharField(max_length=200)
 	father_name = models.CharField(max_length=200)
-	father_occ = models.CharField(max_length=200)
 	mother_name = models.CharField(max_length=200)
-	mother_occ = models.CharField(max_length=200,blank=True)
 	nation = models.CharField(max_length=200)
-	pob = models.CharField(max_length=200)
 	dob = models.DateField(default=datetime.date.today)
 	age = models.IntegerField()
 	permanent_addr = models.CharField(max_length=200)
@@ -58,10 +55,13 @@ class FacUser(models.Model):
 	aadhaarNo = models.CharField(max_length=13,blank=True)
 
 	def __unicode__(self):
-		return self.full_name
+		return self.app_id.app_id + '\'s GeneralData'
 
 class QualifyingExam(models.Model):
-	name = models.TextField(max_length=10)
+	name = models.CharField(max_length=20)
+
+	def __unicode__(self):
+		return self.name
 
 
 class Education(models.Model):
@@ -74,7 +74,7 @@ class Education(models.Model):
 	division = models.CharField(max_length=100)
 
 	def __unicode__(self):
-		return str(self.app_id.app_id+"-"+self.degreeType)
+		return self.app_id.app_id + '\'s ' + self.degreeType
 
 class QualifyingExamDetails(models.Model):
 	app_id = models.ForeignKey(Appdata)
@@ -85,16 +85,16 @@ class QualifyingExamDetails(models.Model):
 	cutoffScore = models.FloatField()
 
 	def __unicode__(self):
-		return str(self.app_id)
+		return self.app_id.app_id + '\'s ' + self.exam
 
 class Experience(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	teaching_exp = models.IntegerField()
-	research_exp = models.IntegerField()
-	industrial_exp = models.IntegerField()
+	teaching_exp = models.CharField(max_length=5)
+	research_exp = models.CharField(max_length=5)
+	industrial_exp = models.CharField(max_length=5)
 
 	def __unicode__(self):
-		return str(self.app_id)
+		return self.app_id.app_id + '\'s experience'
 
 class Research(models.Model):
 	app_id = models.ForeignKey(Appdata)
@@ -102,9 +102,15 @@ class Research(models.Model):
 	conference = models.TextField(max_length=50)
 	link = models.TextField(max_length=50)
 
-class Others(models.Model):
+	def __unicode__(self):
+		return self.app_id.app_id + '\'s papers'
+
+class Other(models.Model):
 	app_id = models.ForeignKey(Appdata)
 	proposedFieldOfResearch = models.TextField(max_length=50)
+
+	def __unicode__(self):
+		return self.app_id.app_id + '\'s other details'
 
 class Annexure_OBC(models.Model):
 	app_id = models.ForeignKey(Appdata)
@@ -117,9 +123,9 @@ class Annexure_OBC(models.Model):
 	community = models.CharField(max_length=30)
 
 	def __unicode__(self):
-		return str(self.app_id) + "_obc"
+		return self.app_id.app_id + '\'s Annexure - OBC'
 
-class Annexure_PartTime(models.Model):
+class Annexure_Part_Time(models.Model):
 	app_id = models.ForeignKey(Appdata)
 	name = models.CharField(max_length=30)
 	designation = models.CharField(max_length=30)
@@ -128,22 +134,32 @@ class Annexure_PartTime(models.Model):
 	employment_years = models.CharField(max_length=5)
 
 	def __unicode__(self):
-		return str(self.app_id) + "_parttime"
+		return self.app_id.app_id + '\'s Annexure - Part Time'
 
-class Documents(models.Model):
+class Document(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	bacheoler_degree = models.BooleanField(default=False)
-	bacheoler_memo = models.BooleanField(default=False)
-	masters_degree = models.BooleanField(default=False)
-	masters_memo = models.BooleanField(default=False)
-	caste = models.BooleanField(default=False)
-	qualifying_scorecard = models.BooleanField(default=False)
+	UDegree = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	UMemo = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	MDegree = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	MMemo = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	CasteCertificate = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	QualifyingExamScoreCard = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
-class Flags(models.Model):
+	def __unicode__(self):
+		return self.app_id.app_id + '\'s Documents'
+
+class Flag(models.Model):
+	app_id = models.ForeignKey(Appdata)
+	profile_pic = models.BooleanField(default=False)
+	annexure_obc = models.BooleanField(default=False)
+	annexure_parttime = models.BooleanField(default=False)
 	bacheoler_degree = models.BooleanField(default=False)
 	bacheoler_memo = models.BooleanField(default=False)
 	masters_degree = models.BooleanField(default=False)
 	masters_memo = models.BooleanField(default=False)
-	caste = models.BooleanField(default=False)
+	caste_certi = models.BooleanField(default=False)
 	qualifying_scorecard = models.BooleanField(default=False)
 	application = models.BooleanField(default=False)
+
+	def __unicode__(self):
+		return self.app_id.app_id + '\'s flags'

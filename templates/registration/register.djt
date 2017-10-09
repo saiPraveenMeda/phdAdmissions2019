@@ -92,7 +92,7 @@
 					<div class="form-group">
 					  <label for="post">Full Time/ Part Time</label>
 					  <select class="form-control" name="post">
-					  	<option>----</option>
+					  	<option disabled>----</option>
 					    {% for post in posts %}
 					    <option value="{{post.id}}">{{post.name}}</option>
 					    {% endfor %}
@@ -101,7 +101,7 @@
 					<div class="form-group">
 					  <label for="dept">Applying in the Department</label>
 					  <select class="form-control" name="dept">
-					  	<option>----</option>
+					  	<option disabled>----</option>
 					    {% for dept in depts %}
 					    <option value="{{dept.deptID}}">{{dept.name}}</option>
 					    {% endfor %}
