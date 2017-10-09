@@ -20,6 +20,7 @@ def is_applicant(login_url=None):
 
 def is_file_exists(file):
     if file == None or file.url in [None, '']:
+
         return False
     if os.path.isfile(os.path.join(settings.BASE_DIR, file.url[1:])):
         return True
@@ -34,7 +35,7 @@ def index(request) :
     if app.paymentUploaded == False :
         return redirect('/register/paymentDetails')
     if app.submitted :
-        return redirect('/printSummary')
+        return redirect('/submit')
 
     profile = Appdata.objects.get(user=request.user)
     response['profile'] = profile
@@ -54,6 +55,15 @@ def index(request) :
         else:
             if generalData.category != 'OBC':
                 flags.annexure_obc = False
+
+        if request.POST['category'] == 'UR':
+            if Document.objects.filter(app_id=app_id).exists():
+                d = Document.objects.get(app_id=app_id)
+                os.remove(os.path.join(BASE_DIR, d.CasteCertificate.url[1:]))
+            flags.caste_certi = True
+        else:
+            if generalData.category == 'UR':
+                flags.caste_certi = False
 
         generalData.full_name = request.POST['Name']
         generalData.gender = request.POST['gender']
@@ -164,7 +174,9 @@ def index(request) :
 
         if Other.objects.filter(app_id=app_id).exists():
             response['Others'] = Other.objects.get(app_id=app_id)
-
+    response['status1'] = flags.application and flags.profile_pic
+    response['status2'] = flags.annexure_obc and flags.annexure_parttime
+    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
     return render(request,'recruit/mainForm.djt',response)
 
 
@@ -177,6 +189,9 @@ def annexures(request):
     gd = GeneralData.objects.get(app_id=app_id)
     cat = gd.category
     post = app_id.post_for.name
+
+    if app_id.submitted:
+        return redirect('/submit')
 
     response['profile'] = app_id
 
@@ -201,6 +216,9 @@ def annexures(request):
         response['parttime'] = True
         response['parttime_filled'] = flags.annexure_parttime
 
+    response['status1'] = flags.application and flags.profile_pic
+    response['status2'] = flags.annexure_obc and flags.annexure_parttime
+    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
     return render(request, 'recruit/annexures_master.djt', response);
 
 
@@ -212,6 +230,10 @@ def uploadDocs(request):
     flags = Flag.objects.get(app_id=app_id)
     gd = GeneralData.objects.get(app_id=app_id)
     qe = QualifyingExamDetails.objects.get(app_id=app_id)
+
+    if app_id.submitted:
+        return redirect('/submit')
+
     response['profile'] = app_id
     response['QExam'] = qe
     if Document.objects.filter(app_id=app_id).exists():
@@ -222,38 +244,64 @@ def uploadDocs(request):
         return redirect('/annexures')
 
     if request.method == 'POST':
-        docs.UDegree = request.FILES['UDegree']
-        docs.UMemo = request.FILES['UMemo']
-        docs.MDegree = request.FILES['MDegree']
-        docs.MMemo = request.FILES['MMemo']
-        if gd.category != 'UR':
+        if 'UDegree' in request.FILES:
+            docs.UDegree = request.FILES['UDegree']
+        if 'UMemo' in request.FILES:
+            docs.UMemo = request.FILES['UMemo']
+        if 'MDegree' in request.FILES:
+            docs.MDegree = request.FILES['MDegree']
+        if 'MMemo' in request.FILES:
+            docs.MMemo = request.FILES['MMemo']
+        if 'CasteCertificate' in request.FILES:
             docs.CasteCertificate = request.FILES['CasteCertificate']
-        docs.QualifyingExamScoreCard = request.FILES['QualifyingExamScoreCard']
+        if 'QualifyingExamScoreCard' in request.FILES:
+            docs.QualifyingExamScoreCard = request.FILES['QualifyingExamScoreCard']
 
-        if not (validateFormat(docs.UDegree) and validateFormat(docs.UMemo) and validateFormat(docs.MDegree) and validateFormat(docs.MMemo) and validateFormat(docs.QualifyingExamScoreCard) and (gd.category=='UR' or validateFormat(docs.CasteCertificate))):
+        if not (((not docs.UDegree) or validateFormat(docs.UDegree)) and
+            ((not docs.UMemo) or validateFormat(docs.UMemo)) and
+            ((not docs.MDegree) or validateFormat(docs.MDegree)) and
+            ((not docs.MMemo) or validateFormat(docs.MMemo)) and
+            ((not docs.QualifyingExamScoreCard) or validateFormat(docs.QualifyingExamScoreCard)) and
+            (gd.category=='UR' or (not docs.CasteCertificate) or validateFormat(docs.CasteCertificate))):
             response['message'] = 'Only PDF Format is allowed'
             return redirect('/uploadDocs')
 
         docs.save()
 
-        flags.bacheoler_degree = True
-        flags.bacheoler_memo = True
-        flags.masters_degree = True
-        flags.masters_memo = True
-        flags.qualifying_scorecard = True
-        flags.caste_certi = True
+        flags.bacheoler_degree = is_file_exists(docs.UDegree)
+        flags.bacheoler_memo = is_file_exists(docs.UMemo)
+        flags.masters_degree = is_file_exists(docs.MDegree)
+        flags.masters_memo = is_file_exists(docs.MMemo)
+        flags.qualifying_scorecard = is_file_exists(docs.QualifyingExamScoreCard)
+        if gd.category != 'UR':
+            flags.caste_certi = is_file_exists(docs.CasteCertificate)
 
         flags.save()
 
-    response['UDegree'] = is_file_exists(docs.UDegree)
-    response['UMemo'] = is_file_exists(docs.UMemo)
-    response['MDegree'] = is_file_exists(docs.MDegree)
-    response['MMemo'] = is_file_exists(docs.MMemo)
+        if all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi]):
+            response['message'] = 'All files are uploaded successfully'
+        else:
+            response['message'] = 'Some files failed to upload. Re-upload them !'
+
+    response['UDegree'] = flags.bacheoler_degree
+    response['UDegreeURL'] = docs.UDegree.url
+    response['UMemo'] = flags.bacheoler_memo
+    response['UMemoURL'] = docs.UMemo.url
+    response['MDegree'] = flags.masters_degree
+    response['MDegreeURL'] = docs.MDegree.url
+    response['MMemo'] = flags.masters_memo
+    response['MMemoURL'] = docs.MMemo.url
     if gd.category != 'UR':
         response['isReserved'] = True
-        response['CasteCertificate'] = is_file_exists(docs.CasteCertificate)
-    response['QualifyingExamScoreCard'] = is_file_exists(docs.QualifyingExamScoreCard)
+        response['CasteCertificate'] = flags.caste_certi
+        response['CasteCertificateURL'] = docs.CasteCertificate.url
+    response['QualifyingExamScoreCard'] = flags.qualifying_scorecard
+    response['QualifyingExamScoreCardURL'] = docs.QualifyingExamScoreCard.url
 
+    response['finalsubbtn'] = True
+    response['status1'] = flags.application and flags.profile_pic
+    response['status2'] = flags.annexure_obc and flags.annexure_parttime
+    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
     return render(request, 'recruit/docs.djt', response)
 
 
@@ -264,6 +312,9 @@ def uploadpic(request):
     profile = Appdata.objects.get(user=request.user)
 
     flags = Flag.objects.get(app_id=profile)
+
+    if profile.submitted:
+        return redirect('/submit')
 
     response['profile'] = profile
 
@@ -276,6 +327,10 @@ def uploadpic(request):
         flags.save()
 
         return redirect('/')
+
+    response['status1'] = flags.application and flags.profile_pic
+    response['status2'] = flags.annexure_obc and flags.annexure_parttime
+    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
     return render(request,'recruit/uploadpic.djt',response)
 
 
@@ -287,6 +342,9 @@ def annexure_obc(request):
     app_id = Appdata.objects.get(user=request.user)
     flags = Flag.objects.get(app_id=app_id)
     gd = GeneralData.objects.get(app_id=app_id)
+
+    if app_id.submitted:
+        return redirect('/submit')
 
     response['profile'] = app_id
 
@@ -327,6 +385,9 @@ def annexure_obc(request):
         response['state'] = Annexure.state
         response['community'] = Annexure.community
 
+    response['status1'] = flags.application and flags.profile_pic
+    response['status2'] = flags.annexure_obc and flags.annexure_parttime
+    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
     return render(request, 'recruit/annexure/annexure_obc.djt', response)
 
 
@@ -336,6 +397,9 @@ def annexure_parttime(request):
     response = {}
     app_id = Appdata.objects.get(user=request.user)
     flags = Flag.objects.get(app_id=app_id)
+
+    if app_id.submitted:
+        return redirect('/submit')
 
     response['profile'] = app_id
 
@@ -371,13 +435,27 @@ def annexure_parttime(request):
         response['address'] = Annexure.address
         response['employment_years'] = Annexure.employment_years
 
+    response['status1'] = flags.application and flags.profile_pic
+    response['status2'] = flags.annexure_obc and flags.annexure_parttime
+    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
     return render(request, 'recruit/annexure/annexure_parttime.djt', response)
 
 
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
-def printSummary(request):
+def submit(request):
     response = {}
+    app_id = Appdata.objects.get(user=request.user)
+    flags = Flag.objects.get(app_id=app_id)
+
+    if not all([flags.application, flags.annexure_obc, flags.annexure_parttime, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi]):
+        return redirect('/')
+
+    if not app_id.submitted:
+        app_id.submitted = True
+        app_id.submitDate = datetime.datetime.now()
+        app_id.save()
+
     return render(request,'recruit/summary.djt',response)
 
 @login_required(login_url='/register')
@@ -404,45 +482,12 @@ def print_main_application(request):
     if Qualification.objects.filter(app_id=app_id,degreeType='other').exists():
         response['Oqual'] = Qualification.objects.get(app_id=app_id,degreeType='other')
 
-    external_sponsored_rnd = External_Sponsored_RnD.objects.filter(app_id=app_id)
-    consultancy_projects = Consultancy_Projects.objects.filter(app_id=app_id)
-    phd_completed = PhD_Completed.objects.filter(app_id=app_id)
-    journal_papers = Journal_Papers.objects.filter(app_id = app_id)
-    conference_paper_sci = Conference_Paper_SCI.objects.filter(app_id = app_id)
-
-
-    acad_annex_a = Acad_Annex_A.objects.filter(app_id=app_id)
-    acad_annex_b = Acad_Annex_B.objects.filter(app_id=app_id)
-    acad_annex_c = Acad_Annex_C.objects.filter(app_id=app_id)
-    acad_annex_d = Acad_Annex_D.objects.filter(app_id=app_id)
-
     if external_sponsored_rnd.count() > 0:
         response['external_sponsored_rnd'] = external_sponsored_rnd[0]
         if external_sponsored_rnd[0].projects_not_pi:
             response['projects_not_pi'] = json.loads(external_sponsored_rnd[0].projects_not_pi)
         if external_sponsored_rnd[0].patents_not_pi:
             response['patents_not_pi'] = json.loads(external_sponsored_rnd[0].patents_not_pi)
-
-    if consultancy_projects.count() > 0:
-        response['consultancy_projects'] = consultancy_projects[0]
-
-    if phd_completed.count() > 0:
-        response['phd_completed'] = phd_completed[0]
-        if phd_completed[0].phds:
-            response['phds'] = json.loads(phd_completed[0].phds)
-        response['phds'] = json.loads(phd_completed[0].phds)
-
-    if journal_papers.count() > 0:
-        response['journal_papers'] = journal_papers[0]
-        if journal_papers[0].papers:
-            response['papers'] = json.loads(journal_papers[0].papers)
-        response['papers'] = json.loads(journal_papers[0].papers)
-
-    if conference_paper_sci.count() > 0:
-        response['conference_paper_sci'] = conference_paper_sci[0]
-        if conference_paper_sci[0].papers:
-            response['papers1'] = json.loads(conference_paper_sci[0].papers)
-        response['papers1'] = json.loads(conference_paper_sci[0].papers)
     
     return render(request, 'recruit/print_main_application.djt', response)
 
@@ -455,30 +500,6 @@ def print_annexures(request):
 
     return render(request, 'recruit/print_annexures.djt', response)
 
-def lockApplication(request) :
-    response = {}
-    app = Appdata.objects.get(user=request.user)
-    app.submitted = True
-    app.submitDate = datetime.datetime.now()
-    app.save()
-
-    mailid = request.user.email
-
-    receiver = mailid
-    sender = 'support_admissions_2017@nitw.ac.in'
-    content = 'Your Application for the position of '+app.post_for.name+' PHD student'
-    content = content + ' in '+app.post_in+' has been submitted on '
-    content = content + app.submitDate.strftime('%Y-%m-%d %H:%M')
-    rlist = []
-    rlist.append(receiver)
-    subject = 'NIT WARANGAL - Acknowlegement for Submission of PhD Admission Application'
-    print (mailid+" : "+content)
-    try:
-        send_mail(subject,content,sender,rlist,fail_silently=False,)
-    except BadHeaderError:
-        return HttpResponse('Invalid header found.')
-
-    return redirect('/subject_ref')
 
 def printAck(request):
     response = {}

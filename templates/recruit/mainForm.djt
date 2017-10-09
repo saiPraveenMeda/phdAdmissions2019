@@ -29,6 +29,7 @@
 	<center><h2>PhD Admission Form</h2></center>	
 	<br>
 </div>
+{% include "recruit/status.djt" %}
 <div class="row" style="margin-top:2%;">
 	<div class="col-sm-1 col-sm-offset-10">
 		<a href="/register/signout"><button class="btn btn-primary">Logout</button></a>
@@ -494,6 +495,7 @@
 			        <th>Conference / Workshop</th>
 			        <th>Link to the paper</th>
 			        <th>Delete</th>
+			       </tr>
 			    </thead>
 			    <tbody id="papersTbody">
 			    	{% for paper in papers %}
@@ -501,7 +503,7 @@
 			    		<td>{{forloop.counter}}.</td>
 			    		<td>{{paper.title}}</td>
 			    		<td>{{paper.conference}}</td>
-			    		<td><a target="_blank" href="//{{paper.link}}">View<a></td>
+			    		<td><a target="_blank" href="//{{paper.link}}">View</a></td>
 			    		<td><button id="{{forloop.counter}}" onclick="deletepaper(this.id)" class="btn btn-danger" type="button" disabled="disabled">Delete</button></td>
 			    	</tr>
 			    	{% endfor %}

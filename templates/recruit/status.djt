@@ -1,0 +1,30 @@
+<div class="well well-lg">
+	<div class="row">
+	    <div class="col-sm-3">
+	    	<h5><b>Status of your application</b></h5>
+	    </div>
+		<div class="col-sm-2">
+		    <span class="badge"> Application </span>
+		    {% if status1 %} <span class="glyphicon glyphicon-ok"></span>
+		    {% else %} <span class="glyphicon glyphicon-remove"></span>
+		    {% endif %} 
+		</div>
+		<div class="col-sm-2">
+			<span class="badge"> Annexures </span>
+		    {% if status2 %} <span class="glyphicon glyphicon-ok"></span>
+		    {% else %} <span class="glyphicon glyphicon-remove"></span>
+		    {% endif %}
+		</div>
+		<div class="col-sm-2">
+			<span class="badge"> Documents </span>
+		    {% if status3 %} <span class="glyphicon glyphicon-ok"></span>
+		    {% else %} <span class="glyphicon glyphicon-remove"></span>
+		    {% endif %}
+		</div>
+		<div class="col-sm-2">
+			{% if status1 and status2 and status3 and finalsubbtn %}
+			<form id="status" action="/submit/" method="post" onsubmit="return confirm('Application once submitted cant be edited. Are you sure?')">{%csrf_token%}<button class="btn btn-danger"> Submit Application </button></form>
+			{% endif %}
+		</div>
+	</div>
+</div>

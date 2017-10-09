@@ -30,6 +30,7 @@
 	<center><h2>PhD Admission Form</h2></center>
 	<br>
 </div>
+{% include "recruit/status.djt" %}
 
 <div class="row">
 	<div class="col-sm-1 col-sm-offset-11" style="margin-top:2%;">

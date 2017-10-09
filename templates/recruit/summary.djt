@@ -40,7 +40,7 @@
 		<div class="col-sm-8 col-sm-offset-2">
 			<div class="alert alert-info">
 			<center>
-			<b><h3>Your Application form has been submitted.</h3></b>
+			<b><h3>Your Application form has been successfully submitted.</h3></b>
 			<b>You can print your application form and Annexures using the buttons given below.</b>
 			</center>
 			</div>
@@ -49,10 +49,6 @@
 
 	<div class="row" style="margin-top:5%;">
 		<div class="col-sm-4 col-sm-offset-4">
-			<center>
-				<a href="/all_annexures"><button class="btn btn-success" type="button">All Annexures</button></a>
-			</center>
-			<br>
 			<center>
 				<a href="/print_main_application"><button class="btn btn-success" type="button">Print Application</button></a>
 			</center>
@@ -68,10 +64,5 @@
 		</div>
 	</div>
 	<br><br><br>
-	<!-- <div class="row">
-		<div class="col-sm-10 col-sm-offset-1">
-			<a href="/subject_ref"><button class="btn btn-primary" type="button" style="float: left;">Back</button></a>
-		</div>
-	</div> -->
 </body>
 </html>

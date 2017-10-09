@@ -30,6 +30,17 @@
 		<center><h2>PhD Admission Form</h2></center>
 		<br>
 	</div>
+	{% include "recruit/status.djt" %}
+	{% if message %}
+	<div class="row" style="margin-top:2%">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div class="alert alert-danger alert-dismissable">
+			  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			  <strong>{{message}}</strong>
+			</div>
+		</div>
+	</div>
+    {% endif %}
 
 	<div class="row">
 		<div class="col-sm-1 col-sm-offset-11" style="margin-top:2%;">
@@ -52,6 +63,7 @@
 			        <th>S.No.</th>
 			        <th> Document </th>
 			        <th> Status </th>
+			        <th> File </th>
 			        <th> Action </th>
 			      </tr>
 			    </thead>
@@ -65,7 +77,14 @@
 			    		    {% endif %}
 			    		</td>
 			    		<td>
-			    			<input type="file" name="UDegree">
+			    			{% if UDegree %} <a href="{{UDegreeURL}}" target="_blank"> View </a>
+			    			{% else %} <span>-------</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    		    {% if UDegree %} <button class="btn btn-info" id="UDegree" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" name="UDegree">
+			    		    {% endif %}
 			    		</td>
 			    	</tr>
 			    	<tr>
@@ -77,7 +96,14 @@
 			    		    {% endif %}
 			    		</td>
 			    		<td>
-			    			<input type="file" name="UMemo">
+			    			{% if UMemo %} <a href="{{UMemoURL}}" target="_blank"> View </a>
+			    			{% else %} <span>-------</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    			{% if UMemo %} <button class="btn btn-info" id="UMemo" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" name="UMemo">
+			    		    {% endif %}
 			    		</td>
 			    	</tr>
 			    	<tr>
@@ -89,7 +115,14 @@
 			    		    {% endif %}
 			    		</td>
 			    		<td>
-			    			<input type="file" name="MDegree">
+			    			{% if MDegree %} <a href="{{MDegreeURL}}" target="_blank"> View </a>
+			    			{% else %} <span>-------</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    			{% if MDegree %} <button class="btn btn-info" id="MDegree" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" name="MDegree">
+			    		    {% endif %}
 			    		</td>
 			    	</tr>
 			    	<tr>
@@ -101,7 +134,14 @@
 			    		    {% endif %}
 			    		</td>
 			    		<td>
-			    			<input type="file" name="MMemo">
+			    			{% if MMemo %} <a href="{{MMemoURL}}" target="_blank"> View </a>
+			    			{% else %} <span>-------</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    			{% if MMemo %} <button class="btn btn-info" id="MMemo" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" name="MMemo">
+			    		    {% endif %}
 			    		</td>
 			    	</tr>
 			    	<tr>
@@ -113,7 +153,14 @@
 			    		    {% endif %}
 			    		</td>
 			    		<td>
-			    			<input type="file" name="QualifyingExamScoreCard">
+			    			{% if QualifyingExamScoreCard %} <a href="{{QualifyingExamScoreCardURL}}" target="_blank"> View </a>
+			    			{% else %} <span>-------</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    			{% if QualifyingExamScoreCard %} <button class="btn btn-info" id="QualifyingExamScoreCard" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" name="QualifyingExamScoreCard">
+			    		    {% endif %}
 			    		</td>
 			    	</tr>
 			    	{% if isReserved %}
@@ -126,7 +173,14 @@
 			    		    {% endif %}
 			    		</td>
 			    		<td>
-			    			<input type="file" name="CasteCertificate">
+			    			{% if CasteCertificate %} <a href="{{CasteCertificateURL}}" target="_blank"> View </a>
+			    			{% else %} <span>-------</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    			{% if CasteCertificate %} <button class="btn btn-info" id="CasteCertificate" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" name="CasteCertificate">
+			    		    {% endif %}
 			    		</td>
 			    	</tr>
 			    	{% endif %}
@@ -137,9 +191,11 @@
 			    <div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
 						<a href="/"><button class="btn btn-primary" type="button" style="float: left;">Back</button></a>
-						<button class="btn btn-primary" type="submit" style="float: right;">Save</button>
+						<button class="btn btn-primary" onclick="wait();" type="submit" style="float: right;">Save</button>
 					</div>
 				</div>
+				<br>
+				<span class="badge" style="float: right;" id="jsmsg"></span>
 				<br><br><br>
 			    </form>		
 			
@@ -158,6 +214,15 @@
 	     }
 	    return valid;
 	}
+
+	function edit(id){
+		$('#'+id.toString()).replaceWith('<input type="file" name="' + id.toString() + '">')
+	}
+
+	function wait(){
+		$('#jsmsg').text('Please wait while the files are uploading. Refrain form reloading or closing the browser tab to avoid data loss');
+	}
+
 </script>
 
 </html>

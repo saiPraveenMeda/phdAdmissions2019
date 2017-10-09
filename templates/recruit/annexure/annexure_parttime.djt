@@ -27,6 +27,7 @@
 <div class="row" style="background-color:#003A6A; color: white;">
 	<center><h2>PhD Admission Form</h2></center>
 </div> 
+{% include "recruit/status.djt" %}
 
 <div class="row">
 	<div class="row">
