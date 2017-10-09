@@ -23,6 +23,7 @@ def is_applicant(login_url=None):
 def index(request) :
     response = {}
     app = Appdata.objects.get(user=request.user)
+    flags = Flag.objects.get(app_id=app)
     if app.paymentUploaded == False :
         return redirect('/register/paymentDetails')
     if app.submitted :
@@ -39,6 +40,16 @@ def index(request) :
             generalData = GeneralData(app_id=app_id)
         else :
             generalData = GeneralData.objects.get(app_id=app_id)
+
+        if app_id.post_for.name == 'Full Time':
+            flags.annexure_parttime = True
+        if request.POST['category'] != 'OBC':
+            Annexure_OBC.objects.filter(app_id=app_id).delete()
+            flags.annexure_obc = True
+        else:
+            if generalData.category != 'OBC':
+                flags.annexure_obc = False
+
         generalData.full_name = request.POST['Name']
         generalData.gender = request.POST['gender']
         generalData.father_name = request.POST['fatherName']
@@ -116,9 +127,8 @@ def index(request) :
         oth.proposedFieldOfResearch = request.POST['proposedFieldOfResearch']
         oth.save()
 
-        flag = Flag.objects.get(app_id=app_id)
-        flag.application = True
-        flag.save()
+        flags.application = True
+        flags.save()
 
         response['message'] = 'Profile saved successfully'
         if request.POST['submitbtn'] == 'saveandcontinue':
@@ -157,15 +167,20 @@ def annexures(request):
     flags = Flag.objects.get(app_id=app_id)
     gd = GeneralData.objects.get(app_id=app_id)
     cat = gd.category
-    post = app_id.post_for
+    post = app_id.post_for.name
+
+    response['profile'] = app_id
 
     if not flags.application:
         redirect('recruit')
 
     if request.method == 'POST':
         if flags.annexure_obc and flags.annexure_parttime:
-            redirect('recruit/uploadDocs')
-        redirect('recruit/annexures')
+            return redirect('recruit/uploadDocs')
+        return redirect('recruit/annexures')
+
+    if cat != 'OBC' and post != 'Part Time':
+        return redirect('/uploadDocs')
 
     if cat == 'OBC':
         response['obc'] = True
@@ -183,8 +198,23 @@ def annexures(request):
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
 def uploadDocs(request):
-    response = {}
-    return HttpResponse('Yoooo')
+    response ={}
+    app_id = Appdata.objects.get(user=request.user)
+    flags = Flag.objects.get(app_id=app_id)
+    gd = GeneralData.objects.get(app_id=app_id)
+    if Document.objects.filter(app_id=app_id).exists():
+        docs = Document.objects.get(app_id=app_id)
+    else:
+        docs = Document(app_id=app_id)
+    if not all([flags.annexure_obc, flags.annexure_parttime]):
+        return redirect('/annexures')
+
+    if request.method == 'POST':
+        docs.UDegree = request.FILES['UDegree']
+        docs.UMemo = request.FILES['UMemo']
+        docs.MDegree = request.FILES['MDegree']
+        docs.MMemo = request.FILES['MMemo']
+
 
 
 @login_required(login_url='/register')
@@ -214,6 +244,18 @@ def uploadpic(request):
 @is_applicant(login_url='/register')
 def annexure_obc(request):
     response = {}
+    app_id = Appdata.objects.get(user=request.user)
+    flags = Flag.objects.get(app_id=app_id)
+    gd = GeneralData.objects.get(app_id=app_id)
+
+    response['profile'] = app_id
+
+    if not flags.application:
+        return redirect('/')
+
+    if gd.category != 'OBC':
+        return redirect('/')
+
     if request.method == 'POST':
         if Annexure_OBC.objects.filter(app_id=Appdata.objects.get(user=request.user)).exists():
             Annexure = Annexure_OBC.objects.get(app_id=Appdata.objects.get(user=request.user))
@@ -223,11 +265,17 @@ def annexure_obc(request):
         Annexure.gender = request.POST['gender']
         Annexure.parent_name = request.POST['parent_name']
         Annexure.village = request.POST['village']
-        Annexure.district = request.POST['disctrict']
+        Annexure.district = request.POST['district']
         Annexure.state = request.POST['state']
         Annexure.community = request.POST['community']
 
         Annexure.save()
+
+        flags.annexure_obc = True
+        flags.save()
+
+        response['message'] = 'Annexure - OBC saved successfully'
+
 
     if Annexure_OBC.objects.filter(app_id=Appdata.objects.get(user=request.user)).exists():
         Annexure = Annexure_OBC.objects.get(app_id=Appdata.objects.get(user=request.user))
@@ -246,11 +294,22 @@ def annexure_obc(request):
 @is_applicant(login_url='/register')
 def annexure_parttime(request):
     response = {}
+    app_id = Appdata.objects.get(user=request.user)
+    flags = Flag.objects.get(app_id=app_id)
+
+    response['profile'] = app_id
+
+    if not flags.application:
+        return redirect('/')
+
+    if app_id.post_for.name == 'Full Time':
+        redirect('/')
+
     if request.method == 'POST':
-        if Annexure_Part_Time.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
-            Annexure = Annexure_Part_Time.objects.filter(app_id=Appdata.objects.filter(user=request.user))
+        if Annexure_Part_Time.objects.filter(app_id=Appdata.objects.get(user=request.user)).exists():
+            Annexure = Annexure_Part_Time.objects.get(app_id=Appdata.objects.get(user=request.user))
         else:
-            Annexure = Annexure_Part_Time(app_id=Appdata.objects.filter(user=request.user))
+            Annexure = Annexure_Part_Time(app_id=Appdata.objects.get(user=request.user))
         Annexure.name = request.POST['name']
         Annexure.designation = request.POST['designation']
         Annexure.date = request.POST['date']
@@ -259,8 +318,13 @@ def annexure_parttime(request):
 
         Annexure.save()
 
-    if Annexure_Part_Time.objects.filter(app_id=Appdata.objects.filter(user=request.user)).exists():
-        Annexure = Annexure_Part_Time.objects.filter(app_id=Appdata.objects.filter(user=request.user))
+        flags.annexure_parttime = True
+        flags.save()
+
+        response['message'] = 'Annexure - Part Time saved successfully'
+
+    if Annexure_Part_Time.objects.filter(app_id=Appdata.objects.get(user=request.user)).exists():
+        Annexure = Annexure_Part_Time.objects.get(app_id=Appdata.objects.get(user=request.user))
         response['name'] = Annexure.name
         response['designation'] = Annexure.designation
         response['date'] = Annexure.date
@@ -350,59 +414,6 @@ def print_annexures(request):
     app_id = Appdata.objects.get(user=request.user)
 
     return render(request, 'recruit/print_annexures.djt', response)
-
-def uploadPaper(request,papernum=0) :
-    response = {}
-    app_id = Appdata.objects.get(user=request.user)
-
-    if Paper.objects.filter(app_id=app_id).exists() :
-        obj = Paper.objects.get(app_id=app_id)
-    else :
-        obj = Paper()
-        obj.app_id = app_id
-        obj.save()
-
-    if request.method == 'POST' :
-        if papernum=='1' :
-            obj.paper1 = request.FILES['paper1']
-            if validateFormat(obj.paper1) :
-                obj.save()
-            else : 
-                return HttpResponse('Only Pdf format is allowed')
-        if papernum=='2' :
-            obj.paper2 = request.FILES['paper2']
-            if validateFormat(obj.paper2) :
-                obj.save()
-            else : 
-                return HttpResponse('Only Pdf format is allowed')
-        if papernum=='3' :
-            obj.paper3 = request.FILES['paper3']
-            if validateFormat(obj.paper3) :
-                obj.save()
-            else : 
-                return HttpResponse('Only Pdf format is allowed')
-        if papernum=='4' :
-            obj.paper4 = request.FILES['paper4']
-            if validateFormat(obj.paper5) :
-                obj.save()
-            else : 
-                return HttpResponse('Only Pdf format is allowed')
-        if papernum=='5' :
-            obj.paper5 = request.FILES['paper5']
-            if validateFormat(obj.paper5) :
-                obj.save()
-            else : 
-                return HttpResponse('Only Pdf format is allowed')
-        if papernum=='6' :
-            obj.cvpaper = request.FILES['cvpaper']
-            if validateFormat(obj.cvpaper) :
-                obj.save()
-            else : 
-                return HttpResponse('Only Pdf format is allowed')
-        return redirect('/uploadPaper/0')
-
-    response['obj'] = obj
-    return render(request,'recruit/upload_docs.djt',response)
 
 def lockApplication(request) :
     response = {}

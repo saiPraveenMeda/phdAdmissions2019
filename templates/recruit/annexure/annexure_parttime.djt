@@ -24,7 +24,29 @@
 
 <body>
 <center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>PhD Admission Form</h2></center>
+</div> 
+
 <div class="row">
+	<div class="row">
+		<center>
+		<h3><u> Application Form for faculty Position </u></h3>
+		<h3><u>Application ID : {{profile.app_id}}</u></h3>
+		</center><br>
+	</div>
+</div>
+<div class="row">
+    {% if message %}
+	<div class="row" style="margin-top:2%">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div class="alert alert-danger alert-dismissable">
+			  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			  <strong>{{message}}</strong>
+			</div>
+		</div>
+	</div>
+    {% endif %}
 	<div class="col-sm-10 col-sm-offset-1">
 	<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
 		{% csrf_token %}
@@ -33,20 +55,34 @@
 			<center><h4><b>FOR PART-TIME CANDIDATES:</b></h4></center><br>
 		</div>
 		<div class="well well-lg">
-		This is to certify that Mr./Ms. <input name = "name" type = "text" value = "{{name}}" align = "center"> Designation <input name = "desig" type = "text" value = "{{designation}}" align = "center"> an applicant for admission into Ph.D. program of the National Institute of Technology, Warangal, for the <input type = "text" name = "date" value = "{{date}}" align = "center"> has been in continuous employment in our organization named <input type = "name" name = "company" value = "{{address}}" align = "center"> (give complete address),for the last <input type = "text" name = "yrs" value = "{{employment_years}}" align = "center"> years and that he/she has been sponsored by us for undergoing the program. Certified further that his/her services with the organization will be retained during the period carrying out the studies/ research work at the National Institute of Technology, Warangal, and on completion there of he/she will continue in service in our organization.
+		This is to certify that Mr./Ms. <input name = "name" id="name" type = "text" value = "{{name}}" align = "center"> Designation <input name = "designation" id="designation" type = "text" value = "{{designation}}" align = "center"> an applicant for admission into Ph.D. program of the National Institute of Technology, Warangal, for the <input type = "text" name = "date" value = "{{date}}" align = "center">(month and year) has been in continuous employment in our organization named <input type = "text" name = "address" value = "{{address}}" align = "center"> (give complete address),for the last <input type = "text" name = "employment_years" value = "{{employment_years}}" align = "center"> years and that he/she has been sponsored by us for undergoing the program. Certified further that his/her services with the organization will be retained during the period carrying out the studies/ research work at the National Institute of Technology, Warangal, and on completion there of he/she will continue in service in our organization.
 		<br>
-		Station:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Signature of the Competent Authority with seal)<br>Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name in full : <input type = "text" name = "name1" value = "{{name}}" align = "center" disabled><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Designation : <input type = "text" name = "desig1" value = "{{designation}}" align = "center" disabled><br><right>(seal)</right>
+		Station:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Signature of the Competent Authority with seal)<br>Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name in full : <input type = "text" id = "name1" value = "{{name}}" align = "center" disabled><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Designation : <input type = "text" id = "designation1" value = "{{designation}}" align = "center" disabled><br><right>(seal)</right>
 		<br><br>
 		<b>NOTE: </b> Application will not be considered without the above sponsorship certificate duly printed on the letterhead of the organization.
 		</div>
 		<div class="row well well-sm">
-			<div class="col-sm-12">
-				<center><button type="submit" style="float:left;" class="btn btn-success" id="part-timesubmit">Save</button></center>
-			</div>
+			    <a href="/annexures"><button type="button" style="float:left;" class="btn btn-success">Back</button></a>
+				<button type="submit" style="float:right;" class="btn btn-success" id="parttimesubmit">Save</button>
 		</div>
 	</form>
 	</div>
 </div>
 </body>
+
+<script>
+	$('input[name=name]').change(
+	function(){
+		var name = $('#name').val();
+		$('#name1').val(name);
+	}
+	);
+	$('input[name=designation]').change(
+	function(){
+		var designation = $('#designation').val();
+		$('#designation1').val(designation);
+	}
+	);
+</script>
 
 </html>

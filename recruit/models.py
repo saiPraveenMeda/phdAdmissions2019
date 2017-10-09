@@ -131,7 +131,7 @@ class Annexure_Part_Time(models.Model):
 	designation = models.CharField(max_length=30)
 	date = models.CharField(max_length=20)
 	address = models.CharField(max_length=100)
-	employment_years = models.CharField(max_length=5)
+	employment_years = models.CharField(max_length=10)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s Annexure - Part Time'

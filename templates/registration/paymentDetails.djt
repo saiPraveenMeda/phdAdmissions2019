@@ -81,7 +81,7 @@
 						<input type="text" class="form-control" name="amount" id="amountval" disabled>
 					</div>
 					<div class="form-group">
-						<label for="receipt">Upload Payment Receipt</label>
+						<label for="receipt">Upload Payment Receipt (PDF format only)</label>
 						<input for="receipt" class="form-control" name="receipt" type="file">
 					</div>
 

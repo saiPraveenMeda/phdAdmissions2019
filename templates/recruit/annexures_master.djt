@@ -31,52 +31,76 @@
 	<div class="row">
 		<center>
 		<h3><u> Application Form for faculty Position </u></h3>
-		<h3><u>Application ID : {{profile.applicationID}}</u></h3>
+		<h3><u>Application ID : {{profile.app_id}}</u></h3>
 		</center><br>
 	</div>
 </div>
 
 <div class="row">
-
-	<form method="post" action="/annexures" style="margin-top:3%;">
+    <div class="col-sm-10 col-sm-offset-1">
+	<form method="post" action="/uploadDocs/" style="margin-top:3%;">
 		{% csrf_token %}
 		<div class="row">
-			<b><h3>Annexures to be filled</h3></b>
+			<center><b><h4>Annexures to be filled</h4></b></center>
 		</div>
+		<hr>
 		<div class="well well-lg">
-		    {% if obc %}
-			<div class="row">
-				<div class="col-sm-6 col-sm-offset-1">
-					Annexure - OBC
-				</div>
-				<div class="col-sm-4">
-					{% if obc_filled %}
-					<span class="glyphicon glyphicon-ok"> Filled </span>
-					<a href="/annexure_obc"><button type="button"> Edit </button></a>
-					{% else %}
-					<span class="glyphicon glyphicon-remove"> Not filled </span>
-					<a href="/annexure_obc"><button type="button"> Fill </button></a>
-					{% endif %}
-				</div>
+	    {% if obc %}
+		<div class="row">
+			<div class="col-sm-4 col-sm-offset-2">
+				Annexure - OBC
 			</div>
-			{% endif %}
-			{% if parttime %}
-			<div class="row">
-				<div class="col-sm-6 col-sm-offset-1">
-					Annexure - Part Time
+				{% if obc_filled %}
+				<div class="col-sm-3">
+				<span class="glyphicon glyphicon-ok"> FILLED </span>
 				</div>
-				<div class="col-sm-4">
-					{% if parttime_filled %}
-					<span class="glyphicon glyphicon-ok"></span>
-					<a href="/annexure_parttime"><button type="button"> Edit </button></a>
-					{% else %}
-					<span class="glyphicon glyphicon-remove"> Not filled </span>
-					<a href="/annexure_parttime"><button type="button"> Fill </button></a>
-					{% endif %}
+				<div class="col-sm-3">
+				<a href="/annexure_obc"><button class="btn btn-success" type="button"> EDIT </button></a>
 				</div>
-			</div>
-			{% endif %}
+				{% else %}
+				<div class="col-sm-3">
+				<span class="glyphicon glyphicon-remove"> NOT FILLED </span>
+				</div>
+				<div class="col-sm-3">
+				<a href="/annexure_obc"><button class="btn btn-success" type="button"> FILL </button></a>
+				</div>
+				{% endif %}
 		</div>
+		{% endif %}
+		<br><br>
+		{% if parttime %}
+		<div class="row">
+			<div class="col-sm-4 col-sm-offset-2">
+				Annexure - Part Time
+			</div>
+				{% if parttime_filled %}
+				<div class="col-sm-3">
+				<span class="glyphicon glyphicon-ok"> FILLED </span>
+				</div>
+				<div class="col-sm-3">
+				<a href="/annexure_parttime"><button class="btn btn-success" type="button"> EDIT </button></a>
+				</div>
+				{% else %}
+				<div class="col-sm-3">
+				<span class="glyphicon glyphicon-remove"> NOT FILLED </span>
+				</div>
+				<div class="col-sm-3">
+				<a href="/annexure_parttime"><button class="btn btn-success" type="button"> FILL </button></a>
+				</div>
+				{% endif %}
+		</div>
+		{% endif %}
+		</div>
+		<br><br>
+		<hr>
+		<br>
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-1">
+			    <a href="/"><button type="button" class="btn btn-lg btn-success" style="float: left;"> Back </button></a>
+				<button type="submit" class="btn btn-lg btn-success" style="float: right;"> Next </button>
+			</div>
+		</div>
+		<br><br>
 	</form>
-
+	</div>
 </div>
