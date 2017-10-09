@@ -10,22 +10,20 @@ from django.core.validators import FileExtensionValidator
 from registration.models import *
 
 def get_profilepic_path(instance,filename):
-	return 'users/{0}/profilepic/{1}'.format(instance.app_id,filename)
+	return 'users/{0}/profilepic/{1}'.format(instance.app_id + '_' + instance.unique_key,filename)
 
 def get_docpath(instance,filename):
-	return 'users/{0}/documents/{1}'.format(instance.app_id.app_id,filename)
+	return 'users/{0}/documents/{1}'.format(instance.app_id.app_id + '_' + instance.app_id.unique_key,filename)
 
-def validate(value):
-	import os
-	ext = os.path.splitext(value.name)[1]
-	valid_extentions = ['.pdf']
-	if not ext in valid_extentions:
-	    raise ValidationError(u'File type is not supported')
+def get_pay_path(instance,filename):
+	return 'users/{0}/payment/{1}'.format(instance.appID.app_id + '_' + instance.appID.unique_key,filename)
+
 
 # Create your models here.
 class Appdata(models.Model):
-	app_id = models.CharField(max_length=10,primary_key=True)
+	app_id = models.CharField(max_length=15,primary_key=True)
 	user = models.ForeignKey(User, default=None)
+	unique_key = models.CharField(max_length=21)
 	post_for = models.ForeignKey(Post)
 	post_in = models.ForeignKey(Department)
 	contact = models.CharField(max_length=14)
@@ -38,6 +36,20 @@ class Appdata(models.Model):
 
 	def __unicode__(self):
 		return self.app_id + '\'s application'
+
+class PaymentDetails(models.Model) :
+	appID = models.ForeignKey(Appdata)
+	bankName = models.CharField(max_length=100,blank=True,null=True)
+	transID = models.CharField(max_length=50)
+	accountNum = models.CharField(max_length=30)
+	payDate = models.DateField(blank=True,null=True)
+	payType = models.CharField(max_length=10,blank=True,null=True)
+	amount = models.CharField(max_length=10,blank=True,null=True)
+	receipt = models.FileField(upload_to=get_pay_path, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+
+	def __str__(self):
+		return self.appID.app_id + '\'s payment details'
+
 
 class GeneralData(models.Model):
 	app_id = models.ForeignKey(Appdata)

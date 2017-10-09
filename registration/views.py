@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, Http404
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User, Group
-from recruit.models import Appdata, Flag
+from recruit.models import Appdata, Flag, PaymentDetails
 import random, string
 from .models import *
 import datetime
@@ -125,14 +125,16 @@ def createApp(request) :
 			app_data.post_for = appPost
 			app_data.post_in = dept
 			app_data.contact = request.POST['contact']
+			app_data.unique_key = ''.join(random.choice(string.ascii_letters + string.digits) for char in xrange(20))
 			app_data.save()
 
+			profile = Appdata.objects.get(user=user)
+
 			pay_data = PaymentDetails()
-			pay_data.appID = applicationID
+			pay_data.appID = profile
 			pay_data.transID = request.POST['transID']
 			pay_data.save()
 
-			profile = Appdata.objects.get(user=user)
 			flags = Flag(app_id=profile)
 			flags.save()
 			
@@ -143,7 +145,7 @@ def createApp(request) :
 			rlist = []
 			rlist.append(receiver)
 			try:
-				send_mail('NIT WARANGAL - Application Id for PhD Admission portal registration',content,sender,rlist,fail_silently=False,)
+				send_mail('NIT WARANGAL - Application ID for PhD Admission portal registration',content,sender,rlist,fail_silently=False,)
 			except BadHeaderError:
 				return HttpResponse('Invalid header found.')
 
@@ -183,7 +185,7 @@ def forgotPassword(request):
 def paymentDetails(request):
 	response = {}
 	profile = Appdata.objects.get(user=request.user)
-	pay_data = PaymentDetails.objects.get(appID=profile.app_id)
+	pay_data = PaymentDetails.objects.get(appID=profile)
 	response['paydata'] = pay_data
 	if request.method == 'POST' :
 		pay_data.bankName = request.POST['bank']

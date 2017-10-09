@@ -18,6 +18,13 @@ import smtplib
 def is_applicant(login_url=None):
     return user_passes_test(lambda u: u.groups.filter(name='Applicant').exists(), login_url=login_url)
 
+def is_file_exists(file):
+    if file == None or file.url in [None, '']:
+        return False
+    if os.path.isfile(os.path.join(settings.BASE_DIR, file.url[1:])):
+        return True
+    return False
+
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
 def index(request) :
@@ -41,8 +48,6 @@ def index(request) :
         else :
             generalData = GeneralData.objects.get(app_id=app_id)
 
-        if app_id.post_for.name == 'Full Time':
-            flags.annexure_parttime = True
         if request.POST['category'] != 'OBC':
             Annexure_OBC.objects.filter(app_id=app_id).delete()
             flags.annexure_obc = True
@@ -128,6 +133,10 @@ def index(request) :
         oth.save()
 
         flags.application = True
+        if app_id.post_for.name == 'Full Time':
+            flags.annexure_parttime = True
+        if generalData.category == 'UR':
+            flags.caste_certi = True
         flags.save()
 
         response['message'] = 'Profile saved successfully'
@@ -202,6 +211,9 @@ def uploadDocs(request):
     app_id = Appdata.objects.get(user=request.user)
     flags = Flag.objects.get(app_id=app_id)
     gd = GeneralData.objects.get(app_id=app_id)
+    qe = QualifyingExamDetails.objects.get(app_id=app_id)
+    response['profile'] = app_id
+    response['QExam'] = qe
     if Document.objects.filter(app_id=app_id).exists():
         docs = Document.objects.get(app_id=app_id)
     else:
@@ -214,7 +226,35 @@ def uploadDocs(request):
         docs.UMemo = request.FILES['UMemo']
         docs.MDegree = request.FILES['MDegree']
         docs.MMemo = request.FILES['MMemo']
+        if gd.category != 'UR':
+            docs.CasteCertificate = request.FILES['CasteCertificate']
+        docs.QualifyingExamScoreCard = request.FILES['QualifyingExamScoreCard']
 
+        if not (validateFormat(docs.UDegree) and validateFormat(docs.UMemo) and validateFormat(docs.MDegree) and validateFormat(docs.MMemo) and validateFormat(docs.QualifyingExamScoreCard) and (gd.category=='UR' or validateFormat(docs.CasteCertificate))):
+            response['message'] = 'Only PDF Format is allowed'
+            return redirect('/uploadDocs')
+
+        docs.save()
+
+        flags.bacheoler_degree = True
+        flags.bacheoler_memo = True
+        flags.masters_degree = True
+        flags.masters_memo = True
+        flags.qualifying_scorecard = True
+        flags.caste_certi = True
+
+        flags.save()
+
+    response['UDegree'] = is_file_exists(docs.UDegree)
+    response['UMemo'] = is_file_exists(docs.UMemo)
+    response['MDegree'] = is_file_exists(docs.MDegree)
+    response['MMemo'] = is_file_exists(docs.MMemo)
+    if gd.category != 'UR':
+        response['isReserved'] = True
+        response['CasteCertificate'] = is_file_exists(docs.CasteCertificate)
+    response['QualifyingExamScoreCard'] = is_file_exists(docs.QualifyingExamScoreCard)
+
+    return render(request, 'recruit/docs.djt', response)
 
 
 @login_required(login_url='/register')
@@ -426,7 +466,7 @@ def lockApplication(request) :
 
     receiver = mailid
     sender = 'support_admissions_2017@nitw.ac.in'
-    content = 'Your Application for the position of '+app.post_for+' PHD student'
+    content = 'Your Application for the position of '+app.post_for.name+' PHD student'
     content = content + ' in '+app.post_in+' has been submitted on '
     content = content + app.submitDate.strftime('%Y-%m-%d %H:%M')
     rlist = []

@@ -71,7 +71,7 @@
 					<div class="form-group">
 						<label>Category</label>
 						<select class="form-control" name="paytype">
-					  	<option>----</option>
+					  	<option selected disabled>----</option>
 					  	<option value="GEN/OBC">General / OBC</option>
 					    <option value="SC/ST/PWD">SC / ST / PWD</option>
 					  </select>

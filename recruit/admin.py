@@ -6,6 +6,7 @@ from recruit.models import *
 
 # Register your models here.
 admin.site.register(Appdata)
+admin.site.register(PaymentDetails)
 admin.site.register(GeneralData)
 admin.site.register(Experience)
 admin.site.register(Education)

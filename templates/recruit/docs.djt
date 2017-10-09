@@ -1,0 +1,163 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PhD Admission Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+
+	<div class="row" style="background-color:#003A6A; color: white;">
+		<center><h2>PhD Admission Form</h2></center>
+		<br>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-1 col-sm-offset-11" style="margin-top:2%;">
+			<a href="/register/signout"><button class="btn btn-primary">Logout</button></a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12" style="margin-top:2%;">
+			<center><h4><b>Only PDF Format is allowed</b></h4></center>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 1%;">
+		<div class="col-sm-8 col-sm-offset-2">
+			   <form method="POST" enctype="multipart/form-data" action="" onsubmit="return validate()">
+			    {% csrf_token %}
+			    <table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th>S.No.</th>
+			        <th> Document </th>
+			        <th> Status </th>
+			        <th> Action </th>
+			      </tr>
+			    </thead>
+			    <tbody id="papersTbody">
+			    	<tr>
+			    		<td>1.</td>
+			    		<td> Bachelor's Degree Certificate</td>
+			    		<td>
+			    		    {% if UDegree %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			<input type="file" name="UDegree">
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>2.</td>
+			    		<td> Bacheoler's Degree Marks Memo</td>
+			    		<td>
+			    		    {% if UMemo %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			<input type="file" name="UMemo">
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>3.</td>
+			    		<td> Master's Degree Certificate</td>
+			    		<td>
+			    		    {% if MDegree %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			<input type="file" name="MDegree">
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>4.</td>
+			    		<td> Master's Degree Marks Memo</td>
+			    		<td>
+			    		    {% if MMemo %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			<input type="file" name="MMemo">
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>5.</td>
+			    		<td> {{QExam.name}} Qualifying Score Card </td>
+			    		<td>
+			    		    {% if QualifyingExamScoreCard %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			<input type="file" name="QualifyingExamScoreCard">
+			    		</td>
+			    	</tr>
+			    	{% if isReserved %}
+			    	<tr>
+			    		<td>6.</td>
+			    		<td> Caste Certificate</td>
+			    		<td>
+			    		    {% if CasteCertificate %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			<input type="file" name="CasteCertificate">
+			    		</td>
+			    	</tr>
+			    	{% endif %}
+			    </tbody>
+			    </table>
+
+			    <br><br><br>
+			    <div class="row">
+					<div class="col-sm-8 col-sm-offset-2">
+						<a href="/"><button class="btn btn-primary" type="button" style="float: left;">Back</button></a>
+						<button class="btn btn-primary" type="submit" style="float: right;">Save</button>
+					</div>
+				</div>
+				<br><br><br>
+			    </form>		
+			
+		</div>
+		</div>
+	</div>
+	
+</body>
+
+<script type="text/javascript">
+	function validate(){
+	  valid = true;
+	     if($('input[type="file"]').val() == ''){
+	        valid = false;
+	        alert('Upload all the files !');
+	     }
+	    return valid;
+	}
+</script>
+
+</html>

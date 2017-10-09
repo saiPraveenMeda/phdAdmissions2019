@@ -57,26 +57,20 @@
 				<li>
 					Keep these points in mind while filling the form :
 					<ol>
-						<li>Fill all the details (required) at once on a page and save it using the save button given at the bottom of the page, else filled data will not be saved and get lost on coming back. <span class="label label-danger">Important</span></li>
+					    <li>
+					    There are three parts in Application form
+					    	<ul>
+					    		<li>Main Application where you fill all your details</li>
+					    		<li>Annexures Part (This is applicable either if you are applying for Part Time or you belong to OBC Category. Others will be redirected to third part after main application.)</li>
+					    		<li>Documents Upload Part (All files are to be uploaded mandatorily. All should be in PDF Format. Reserved category applicants will have to upload Caste Certificate additionally.)</li>
+					    	</ul>
+					    </li>
+						<li>Fill all the details (required) at once on a page and save it using the save button given at the bottom of the page, else filled data will not be saved and get lost if navigated away from page. <span class="label label-danger">Important</span></li>
 						<li>You can modify the data after saving</li>
-						<li>Go to next part of the form using next button at the bottom of page.</li>
-						<li>On Second page of the form, First fill the Annexures (whichever applicable) attached to parts of form and then proceed to fill details on the page and save.
-						 on second page and submit them.
-							<ol>
-								<li>When submitting the annexures, it is mandatory to upload the pdf of supporting documents (like certificates,etc.)</li>
-								<li>All the documents related to a annexure should be merged into single pdf and then you should upload it as a single file.  <span class="label label-danger">Important</span></li>
-								<li>
-									In case of Journal papers, only first pages of each journal should be scanned and merged.  <span class="label label-danger">Important</span>
-								</li>
-							</ol>
-						</li>
 						<br>
-						<li>After filling and saving all the three pages of the form, your application details will be completed.</li>
-						<li>Upload Your Resume using link given in the end.</li>
+						<li>After filling and saving all the three pages of the form, your application details will be completed. The you will receive an acknowledgement.</li>
 						<li>You can print your Application form and Annexures from Summary Page.</li>
 					</ol>
-					<br>
-					<b style="color:red;">Annexures once filled get freezed on Submit and can't be edited. You will have to refresh it and fill that again in case of any changes. Data to be filled carefully.</b>
 				</li>
 			</ol>
 		</b>

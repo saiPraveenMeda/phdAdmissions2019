@@ -28,11 +28,10 @@
 		<div class="col-sm-offset-3 col-sm-6">
 			<div class="alert alert-success">			  
 			  <strong>
-			  You are registered successfully. An Email has been sent to your email-id {{email}} with your username.<br>
-			  Login using your username to fill application.
-			  <br>Please Follow this link to Login.
+			  You are registered successfully. An Email has been sent to your email-id '{{email}}' with your username.<br>
+			  Login using your username to fill the application.
+			  <br>Please Follow this link to Login. <a href="/register">Login</a>
 			  </strong>
-			  <br> <a href="/register">Login</a>
 			</div>
 		</div>
 	</div>
