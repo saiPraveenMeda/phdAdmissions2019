@@ -39,9 +39,7 @@ class Appdata(models.Model):
 
 class PaymentDetails(models.Model) :
 	appID = models.ForeignKey(Appdata)
-	bankName = models.CharField(max_length=100,blank=True,null=True)
 	transID = models.CharField(max_length=50)
-	accountNum = models.CharField(max_length=30)
 	payDate = models.DateField(blank=True,null=True)
 	payType = models.CharField(max_length=10,blank=True,null=True)
 	amount = models.CharField(max_length=10,blank=True,null=True)
@@ -53,15 +51,15 @@ class PaymentDetails(models.Model) :
 
 class GeneralData(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	full_name = models.CharField(max_length=200)
-	gender = models.CharField(max_length=200)
-	father_name = models.CharField(max_length=200)
-	mother_name = models.CharField(max_length=200)
-	nation = models.CharField(max_length=200)
+	full_name = models.CharField(max_length=100)
+	gender = models.CharField(max_length=20)
+	father_name = models.CharField(max_length=100)
+	mother_name = models.CharField(max_length=100)
+	nation = models.CharField(max_length=20)
 	dob = models.DateField(default=datetime.date.today)
 	age = models.IntegerField()
-	permanent_addr = models.CharField(max_length=200)
-	correspond_addr = models.CharField(max_length=200)
+	permanent_addr = models.CharField(max_length=300)
+	correspond_addr = models.CharField(max_length=300)
 	category = models.CharField(max_length=10,blank=True)
 	pwd = models.CharField(max_length=10,default='no')
 	aadhaarNo = models.CharField(max_length=13,blank=True)
@@ -78,12 +76,12 @@ class QualifyingExam(models.Model):
 
 class Education(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	degreeType = models.CharField(max_length=30)
+	degreeType = models.CharField(max_length=100)
 	degreeName = models.CharField(max_length=100)
-	university = models.CharField(max_length=200)
+	university = models.CharField(max_length=100)
 	passingYear = models.IntegerField()
 	marks = models.CharField(max_length=10)
-	division = models.CharField(max_length=100)
+	division = models.CharField(max_length=30)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s ' + self.degreeType
@@ -110,8 +108,8 @@ class Experience(models.Model):
 
 class Research(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	title = models.TextField(max_length=50)
-	conference = models.TextField(max_length=50)
+	title = models.TextField(max_length=100)
+	conference = models.TextField(max_length=100)
 	link = models.TextField(max_length=50)
 
 	def __unicode__(self):
@@ -126,23 +124,23 @@ class Other(models.Model):
 
 class Annexure_OBC(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	name = models.CharField(max_length=30)
+	name = models.CharField(max_length=100)
 	gender = models.CharField(max_length=10)
-	parent_name = models.CharField(max_length=30)
-	village = models.CharField(max_length=30)
-	district = models.CharField(max_length=30)
-	state = models.CharField(max_length=30)
-	community = models.CharField(max_length=30)
+	parent_name = models.CharField(max_length=100)
+	village = models.CharField(max_length=100)
+	district = models.CharField(max_length=100)
+	state = models.CharField(max_length=50)
+	community = models.CharField(max_length=100)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s Annexure - OBC'
 
 class Annexure_Part_Time(models.Model):
 	app_id = models.ForeignKey(Appdata)
-	name = models.CharField(max_length=30)
-	designation = models.CharField(max_length=30)
+	name = models.CharField(max_length=100)
+	designation = models.CharField(max_length=50)
 	date = models.CharField(max_length=20)
-	address = models.CharField(max_length=100)
+	address = models.CharField(max_length=300)
 	employment_years = models.CharField(max_length=10)
 
 	def __unicode__(self):
@@ -156,6 +154,7 @@ class Document(models.Model):
 	MMemo = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	CasteCertificate = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	QualifyingExamScoreCard = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	PWDCertificate = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s Documents'
@@ -170,6 +169,7 @@ class Flag(models.Model):
 	masters_degree = models.BooleanField(default=False)
 	masters_memo = models.BooleanField(default=False)
 	caste_certi = models.BooleanField(default=False)
+	pwd_certi = models.BooleanField(default=False)
 	qualifying_scorecard = models.BooleanField(default=False)
 	application = models.BooleanField(default=False)
 

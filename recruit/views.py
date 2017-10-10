@@ -64,6 +64,14 @@ def index(request) :
         else:
             if generalData.category == 'UR':
                 flags.caste_certi = False
+        if request.POST['pwd'] == 'no':
+            if Document.objects.filter(app_id=app_id).exists():
+                d = Document.objects.get(app_id=app_id)
+                os.remove(os.path.join(BASE_DIR, d.PWDCertificate.url[1:]))
+            flags.pwd_certi = True
+        else:
+            if generalData.pwd == 'no':
+                flags.pwd_certi = False
 
         generalData.full_name = request.POST['Name']
         generalData.gender = request.POST['gender']
@@ -256,13 +264,16 @@ def uploadDocs(request):
             docs.CasteCertificate = request.FILES['CasteCertificate']
         if 'QualifyingExamScoreCard' in request.FILES:
             docs.QualifyingExamScoreCard = request.FILES['QualifyingExamScoreCard']
+        if 'PWDCertificate' in request.FILES:
+            docs.PWDCertificate = request.FILES['PWDCertificate']
 
         if not (((not docs.UDegree) or validateFormat(docs.UDegree)) and
             ((not docs.UMemo) or validateFormat(docs.UMemo)) and
             ((not docs.MDegree) or validateFormat(docs.MDegree)) and
             ((not docs.MMemo) or validateFormat(docs.MMemo)) and
             ((not docs.QualifyingExamScoreCard) or validateFormat(docs.QualifyingExamScoreCard)) and
-            (gd.category=='UR' or (not docs.CasteCertificate) or validateFormat(docs.CasteCertificate))):
+            (gd.category=='UR' or (not docs.CasteCertificate) or validateFormat(docs.CasteCertificate)) and
+            (gd.pwd=='no' or (not docs.PWDCertificate) or validateFormat(docs.PWDCertificate))):
             response['message'] = 'Only PDF Format is allowed'
             return redirect('/uploadDocs')
 
@@ -275,33 +286,46 @@ def uploadDocs(request):
         flags.qualifying_scorecard = is_file_exists(docs.QualifyingExamScoreCard)
         if gd.category != 'UR':
             flags.caste_certi = is_file_exists(docs.CasteCertificate)
+        if gd.pwd != 'no':
+            flags.pwd_certi = is_file_exists(docs.PWDCertificate)
 
         flags.save()
 
-        if all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi]):
+        if all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi]):
             response['message'] = 'All files are uploaded successfully'
         else:
             response['message'] = 'Some files failed to upload. Re-upload them !'
 
     response['UDegree'] = flags.bacheoler_degree
-    response['UDegreeURL'] = docs.UDegree.url
+    if flags.bacheoler_degree:
+        response['UDegreeURL'] = docs.UDegree.url
     response['UMemo'] = flags.bacheoler_memo
-    response['UMemoURL'] = docs.UMemo.url
+    if flags.bacheoler_memo:
+        response['UMemoURL'] = docs.UMemo.url
     response['MDegree'] = flags.masters_degree
-    response['MDegreeURL'] = docs.MDegree.url
+    if flags.masters_degree:
+        response['MDegreeURL'] = docs.MDegree.url
     response['MMemo'] = flags.masters_memo
-    response['MMemoURL'] = docs.MMemo.url
+    if flags.masters_memo:
+        response['MMemoURL'] = docs.MMemo.url
+    response['QualifyingExamScoreCard'] = flags.qualifying_scorecard
+    if flags.qualifying_scorecard:
+        response['QualifyingExamScoreCardURL'] = docs.QualifyingExamScoreCard.url
     if gd.category != 'UR':
         response['isReserved'] = True
         response['CasteCertificate'] = flags.caste_certi
-        response['CasteCertificateURL'] = docs.CasteCertificate.url
-    response['QualifyingExamScoreCard'] = flags.qualifying_scorecard
-    response['QualifyingExamScoreCardURL'] = docs.QualifyingExamScoreCard.url
+        if flags.caste_certi:
+            response['CasteCertificateURL'] = docs.CasteCertificate.url
+    if gd.pwd != 'yes':
+        response['isPWD'] = True
+        response['PWDCertificate'] = flags.pwd_certi
+        if flags.pwd_certi:
+            response['PWDCertificateURL'] = docs.PWDCertificate.url
 
     response['finalsubbtn'] = True
     response['status1'] = flags.application and flags.profile_pic
     response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
+    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi])
     return render(request, 'recruit/docs.djt', response)
 
 

@@ -279,7 +279,7 @@
 					<div class="col-sm-2"><b>Degree</b></div>
 					<div class="col-sm-2"><b>Name of University/Institute</b></div>
 					<div class="col-sm-2"><b>Year of Passing</b></div>
-					<div class="col-sm-2"><b>% of Marks / CGPA</b></div>
+					<div class="col-sm-2"><b> Aggregate % of Marks / CGPA</b></div>
 					<div class="col-sm-2"><b>Class/Division</b></div>
 				</div>
 				<br>

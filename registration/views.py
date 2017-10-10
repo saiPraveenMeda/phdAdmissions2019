@@ -188,8 +188,6 @@ def paymentDetails(request):
 	pay_data = PaymentDetails.objects.get(appID=profile)
 	response['paydata'] = pay_data
 	if request.method == 'POST' :
-		pay_data.bankName = request.POST['bank']
-		pay_data.accountNum = request.POST['account']
 		pay_data.payDate = request.POST['paydate']
 		pay_data.receipt = request.FILES['receipt']
 		pay_data.payType = request.POST['paytype']

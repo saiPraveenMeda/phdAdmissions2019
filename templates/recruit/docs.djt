@@ -184,6 +184,27 @@
 			    		</td>
 			    	</tr>
 			    	{% endif %}
+			    	{% if isPWD %}
+			    	<tr>
+			    		<td>7.</td>
+			    		<td> PWD Certificate</td>
+			    		<td>
+			    		    {% if PWDCertificate %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			{% if PWDCertificate %} <a href="{{CasteCertificateURL}}" target="_blank"> View </a>
+			    			{% else %} <span>-------</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    			{% if PWDCertificate %} <button class="btn btn-info" id="CasteCertificate" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" name="CasteCertificate">
+			    		    {% endif %}
+			    		</td>
+			    	</tr>
+			    	{% endif %}
 			    </tbody>
 			    </table>
 
