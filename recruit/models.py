@@ -110,7 +110,7 @@ class Research(models.Model):
 	app_id = models.ForeignKey(Appdata)
 	title = models.TextField(max_length=100)
 	conference = models.TextField(max_length=100)
-	link = models.TextField(max_length=50)
+	link = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s papers'
@@ -171,6 +171,7 @@ class Flag(models.Model):
 	caste_certi = models.BooleanField(default=False)
 	pwd_certi = models.BooleanField(default=False)
 	qualifying_scorecard = models.BooleanField(default=False)
+	papers = models.BooleanField(default=False)
 	application = models.BooleanField(default=False)
 
 	def __unicode__(self):

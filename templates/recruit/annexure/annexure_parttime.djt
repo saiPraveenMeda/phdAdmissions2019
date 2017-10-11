@@ -17,6 +17,12 @@
     		height: 1px;
     		background-color: black;
 		}
+		p{
+			line-height: 30px;
+		}
+		input[type=text]{
+			text-align: center;
+		}
 	</style>
 	<title>Annexures</title>
 
@@ -56,11 +62,22 @@
 			<center><h4><b>FOR PART-TIME CANDIDATES:</b></h4></center><br>
 		</div>
 		<div class="well well-lg">
-		This is to certify that Mr./Ms. <input name = "name" id="name" type = "text" value = "{{name}}" align = "center"> Designation <input name = "designation" id="designation" type = "text" value = "{{designation}}" align = "center"> an applicant for admission into Ph.D. program of the National Institute of Technology, Warangal, for the <input type = "text" name = "date" value = "{{date}}" align = "center">(month and year) has been in continuous employment in our organization named <input type = "text" name = "address" value = "{{address}}" align = "center"> (give complete address),for the last <input type = "text" name = "employment_years" value = "{{employment_years}}" align = "center"> years and that he/she has been sponsored by us for undergoing the program. Certified further that his/her services with the organization will be retained during the period carrying out the studies/ research work at the National Institute of Technology, Warangal, and on completion there of he/she will continue in service in our organization.
+		<p>
+		This is to certify that Mr./Ms. <input name = "name" id="name" type = "text" value = "{{name}}" align = "center"> Designation <input name = "designation" id="designation" type = "text" value = "{{designation}}" align = "center"> an applicant for admission into Ph.D. program of the National Institute of Technology, Warangal, for the <input type = "text" name = "date" value = "{{date}}" align = "center">(month and year) has been in continuous employment in our organization named <input type = "text" name = "address" value = "{{address}}" align = "center"> (give complete address),for the last <input type = "text" name = "employment_years" value = "{{employment_years}}" align = "center"> years and that he/she has been sponsored by us for undergoing the program. Certified further that his/her services with the organization will be retained during the period carrying out the studies/ research work at the National Institute of Technology, Warangal, and on completion there of he/she will continue in service in our organization.</p>
 		<br>
-		Station:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Signature of the Competent Authority with seal)<br>Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name in full : <input type = "text" id = "name1" value = "{{name}}" align = "center" disabled><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Designation : <input type = "text" id = "designation1" value = "{{designation}}" align = "center" disabled><br><right>(seal)</right>
-		<br><br>
-		<b>NOTE: </b> Application will not be considered without the above sponsorship certificate duly printed on the letterhead of the organization.
+		        <div class="row">
+					<div class="col-sm-6"><p>Station:</p></div>
+					<div class="col-sm-6"><p>(Signature of the Competent Authority with seal)</p></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6"><p>Date</p></div>
+					<div class="col-sm-6"><p>Name in full : <input type="text" id="name1" value="{{name}}" disabled></p></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6"></div>
+					<div class="col-sm-6"><p>Designation : <input type="text" id="designation1" value="{{designation}}" disabled></p><br><p>(seal)</p></div>
+				</div>
+		<br><b>NOTE: </b> Application will not be considered without the above sponsorship certificate duly printed on the letterhead of the organization.
 		</div>
 		<div class="row well well-sm">
 			    <a href="/annexures"><button type="button" style="float:left;" class="btn btn-success">Back</button></a>

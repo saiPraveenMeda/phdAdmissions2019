@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dbbackup',
     'django_cleanup',
     'recruit',
     'registration',
@@ -111,6 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+ADMINS = ['Support Admissions NITW', 'support_admissions_2017@nitw.ac.in']
 
 
 # Internationalization

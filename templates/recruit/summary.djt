@@ -40,8 +40,8 @@
 		<div class="col-sm-8 col-sm-offset-2">
 			<div class="alert alert-info">
 			<center>
-			<b><h3>Your Application form has been successfully submitted.</h3></b>
-			<b>You can print your application form and Annexures using the buttons given below.</b>
+			<b><h3>Your Application form has been submitted.</h3></b>
+			<b>You can print your application form {%if isAnnexure%}and Annexures{%endif%} using the buttons given below.</b>
 			</center>
 			</div>
 		</div>
@@ -53,10 +53,12 @@
 				<a href="/print_main_application"><button class="btn btn-success" type="button">Print Application</button></a>
 			</center>
 			<br>
+			{%if isAnnexure%}
 			<center>
 				<a href="/print_annexures"><button class="btn btn-success" type="button">Print Annexures</button></a>
 			</center>
 			<br>
+			{%endif%}
 			<center>
 				<a href="/printAck"><button class="btn btn-success" type="button">Print Acknowledgement Receipt</button></a>
 			</center>

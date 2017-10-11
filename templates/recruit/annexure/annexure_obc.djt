@@ -18,6 +18,12 @@
 			height: 1px;
 			background-color: black;
 		}
+		input[type=text]{
+			text-align: center;
+		}
+		p{
+			line-height: 30px;
+		}
 	</style>
 
 </head>
@@ -59,13 +65,14 @@
 						<br>
 						<p> <center><b>CERTIFICATE TO BE PRODUCED BY CANDIDATES FROM OTHER BACKWARD CLASSES APPLYING FOR ADMISSION TO CENTRAL EDUCATIONAL INSTITUTIONS (CEls), UNDER GOVERNMENT OF INDIA</b></center>
 						<br><br>
-						This is to certify that Shri/Smt./Kum. <input class="form-control" id = "name" name = "name" type = "text" value = "{{name}}" required> 
-						<select for = "gender" id = "gender" name="gender" value = "{{gender}}" class="form-control" required> 
-							<option disabled>----</option>
-							<option value="Daughter">Daughter</option>
-							<option value="Son">Son</option>
+						<p>
+						This is to certify that Shri/Smt./Kum. <input id = "name" name = "name" type = "text" value = "{{name}}" required> 
+						<select for = "gender" id = "gender" name="gender" required> 
+							<option {%if not gender%} selected {%endif%} disabled>----</option>
+							<option {%if gender == 'Daughter'%} selected {%endif%} value="Daughter">Daughter</option>
+							<option {%if gender == 'Son'%} selected {%endif%} value="Son">Son</option>
 						</select> 
-						of Shri/Smt <input name = "parent_name" id="parent_name" type = "text" value = "{{parent_name}}" class="form-control" required> of Village/Town/City <input name = "village" id="village" type = "text" value = "{{village}}" class="form-control" required> district/division <input name = "district" id="district" type = "text" value = "{{district}}" class="form-control" required> in the <input name = "state" id="state" type = "text" value = "{{state}}" class="form-control" required> State belongs to the <input name = "community" id="community" type = "text" value = "{{community}}" class="form-control" required> Community which is recognized as a backward class under : <br>
+						of Shri/Smt <input name = "parent_name" id="parent_name" type = "text" value = "{{parent_name}}" required> of Village/Town/City <input name = "village" id="village" type = "text" value = "{{village}}" required> district/division <input name = "district" id="district" type = "text" value = "{{district}}" required> in the <input name = "state" id="state" type = "text" value = "{{state}}" required> State belongs to the <input name = "community" id="community" type = "text" value = "{{community}}" required> Community which is recognized as a backward class under :
 						<br>
 						<ol>
 							<li>Resolution No. 12011/68/93- BCC(C) dated 10/09/93 published in the Gazette of India Extraordinary Part I Section I No.186 dated 13/09/93.</li>
@@ -88,11 +95,15 @@
 						Shri/Smt./Kum. <input id = "name1" type = "text" value = "{{name}}" disabled> and/or his family ordinarily reside(s) in the <input id = "district1" type = "text" value = "{{district}}" align = "center" disabled> District/Division of <input id = "state1" type = "text" align = "center" value = "{{state}}" disabled> State. This is also to certify that he/she does not belong to the Persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the Govrnment of India, Department of Personnel & Training O.M. No. 36012/22/93- Estt.(SCT) dated 08/09/93 which is modified vide OM No. 36033/3/2004 Estt. (Res.) dated 09/03/2004 or the latest notification of the Government of India.
 						</p>
 						<br><br>
-						<b>Dated</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>District Magistrate/Competent Authority:</b>
+						<div class="row">
+							<div class="col-sm-6"><p><b>Dated:</b></p></div>
+							<div class="col-sm-6"><p><b>District Magistrate/Competent Authority:</b></p></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6"><p><b>Seal</b></p></div>
+							<div class="col-sm-6"></div>
+						</div>
 						<br><br>
-						<b>Seal</b>
-						<br>
-						<br>
 						<br>
 						<b>NOTE:</b><br>
 						<ol>
@@ -109,18 +120,21 @@
 						<center> <b>Declaration /undertaking - for OBC Candidates only</b></center>
 						<br>
 						I, <input id = "name2" type = "text" value = "{{name}}" disabled> 
-						<select for = "child2" id = "gender1" value = "{{gender}}" disabled> 
-							<option disabled>----</option>
-							<option value="Daughter">Daughter</option>
-							<option value="Son">Son</option>
-						</select> 
+						<select for = "gender" id = "gender1" required> 
+							<option {%if not gender%} selected {%endif%} disabled>----</option>
+							<option {%if gender == 'Daughter'%} selected {%endif%} value="Daughter">Daughter</option>
+							<option {%if gender == 'Son'%} selected {%endif%} value="Son">Son</option>
+						</select>
 						of Shri/Smt <input id = "parent_name1" type = "text" value = "{{parent_name}}" align = "center" disabled> of Village/Town/City <input id = "village1" type = "text" value = "{{village}}" disabled align = "center" > district/division <input id = "district2" type = "text" value = "{{district}}" align = "center" disabled> in the <input id = "state2" type = "text" value = "{{state}}" disabled> State hereby declare that I belong to the<input id = "community1" type = "text" value = "{{community}}" disabled> Community which is recognized as a backward class by the Government of India for the purpose of reservation in services admission in Central Government Institutions as per orders contained in Department of Personnel and Training Office Memorandum No. 36012/22/93 – Estt. (SCT), dated 8/9/1993. It is also declared that I do not belong to persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the above referred Office Memorandum, dated 8/9/1993, which is modified vide Department of Personnel and Training Office Memorandum No. 36033/3/2004 Estt. (Res.) dated 9/3/2004 or the latest notification of the Government of India. I also declare that the condition of status/annual income for creamy layer of my parents/guardian is within prescribed limits as on financial year ending on March 31, 2017.
-						<br>
-						<br>
-						<br>
-						<b>Place: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Signature of the Candidate: <br>
-						Date:</b>
-						<br>
+						<br><br><br>
+						<div class="row">
+							<div class="col-sm-6"><p><b>Place:</b></p></div>
+							<div class="col-sm-6"><p><b>Signature of the Candidate</b></p></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6"><p><b>Date:</b></p></div>
+							<div class="col-sm-6"></div>
+						</div>
 						<br>
 						<center><b>Applications without declaration/undertaking not signed by Candidates will be rejected</b></center>
 					</div>
@@ -146,7 +160,8 @@ $('input[name=name]').change(
 $('input[name=gender]').change(
 	function(){
 		var gender = $('#gender').val();
-		$('#gender1').value = gender;
+		alert(gender);
+		$('#gender1 option[value="' + gender + '"]').attr('selected', 'selected');
 	}
 	);
 $('input[name=parent_name]').change(

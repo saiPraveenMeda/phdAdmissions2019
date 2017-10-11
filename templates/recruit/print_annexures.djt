@@ -26,21 +26,19 @@
 </head>
 
 <body>
+    {% if isOBC %}
 	<div class="well well-lg">
 			<br/>
 			<div class="row" style="padding: 30px;">
+			<div style="page-break-after: always;">
 				<center><h3><u> Annexure - I </u></h3></center><br>
 				<center><h4>Proforma for Other Backward Class (OBC Certificate)</h4></center>
 				<br>
-				<p> <center><b>CERTIFICATE TO BE PRODUCED BY CANDIDATES FROM OTHER BACKWARD CLASSES APPLYING FOR ADMISSION TO CENTRAL EDUCATIONAL INSTITUTIONS (CEls), UNDER GOVERNMENT OF INDIA</b></center>
+				<p> <center><b>CERTIFICATE TO BE PRODUCED BY CANDIDATES FROM OTHER BACKWARD CLASSES APPLYING FOR ADMISSION TO CENTRAL EDUCATIONAL INSTITUTIONS (CEls), UNDER GOVERNMENT OF INDIA</b></center></p>
 				<br><br>
-				This is to certify that Shri/Smt./Kum. <input class="form-control" id = "name" name = "name" type = "text" value = "{{name}}" required> 
-				<select for = "gender" id = "gender" name="gender" value = "{{gender}}" class="form-control" required> 
-					<option disabled>----</option>
-					<option value="Daughter">Daughter</option>
-					<option value="Son">Son</option>
-				</select> 
-				of Shri/Smt <input name = "parent_name" id="parent_name" type = "text" value = "{{parent_name}}" class="form-control" required> of Village/Town/City <input name = "village" id="village" type = "text" value = "{{village}}" class="form-control" required> district/division <input name = "district" id="district" type = "text" value = "{{district}}" class="form-control" required> in the <input name = "state" id="state" type = "text" value = "{{state}}" class="form-control" required> State belongs to the <input name = "community" id="community" type = "text" value = "{{community}}" class="form-control" required> Community which is recognized as a backward class under : <br>
+				This is to certify that Shri/Smt./Kum. {{obc.name}}
+				{{obc.gender}}
+				of Shri/Smt {{parent_name}} of Village/Town/City {{obc.village}} district/division {{obc.district}} in the {{obc.state}} State belongs to the {{obc.community}} Community which is recognized as a backward class under : <br>
 				<br>
 				<ol>
 					<li>Resolution No. 12011/68/93- BCC(C) dated 10/09/93 published in the Gazette of India Extraordinary Part I Section I No.186 dated 13/09/93.</li>
@@ -60,7 +58,7 @@
 					<li>Resolution No. 12011/9/2004-BCC dated 16/01/2006 published in the Gazette of India Extraordinary Part I Section I No.210 dated 16/01/2006.</li>
 				</ol>
 				<br>
-				Shri/Smt./Kum. <input id = "name1" type = "text" value = "{{name}}" disabled> and/or his family ordinarily reside(s) in the <input id = "district1" type = "text" value = "{{district}}" align = "center" disabled> District/Division of <input id = "state1" type = "text" align = "center" value = "{{state}}" disabled> State. This is also to certify that he/she does not belong to the Persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the Govrnment of India, Department of Personnel & Training O.M. No. 36012/22/93- Estt.(SCT) dated 08/09/93 which is modified vide OM No. 36033/3/2004 Estt. (Res.) dated 09/03/2004 or the latest notification of the Government of India.
+				Shri/Smt./Kum. {{obc.name}} and/or his family ordinarily reside(s) in the {{obc.district}} District/Division of {{state}} State. This is also to certify that he/she does not belong to the Persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the Govrnment of India, Department of Personnel & Training O.M. No. 36012/22/93- Estt.(SCT) dated 08/09/93 which is modified vide OM No. 36033/3/2004 Estt. (Res.) dated 09/03/2004 or the latest notification of the Government of India.
 				</p>
 				<br><br>
 				<b>Dated</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>District Magistrate/Competent Authority:</b>
@@ -69,10 +67,11 @@
 				<br>
 				<br>
 				<br>
+				</div>
 				<b>NOTE:</b><br>
 				<ol>
 				<li>The term “Ordinarily” used here will have the same meaning as in Section 20 of the Representation of the People Act, 1950.</li>
-				<li>The authorities competent to issue Caste Certificates are indicated below:
+				<li>The authorities competent to issue Caste Certificates are indicated below:</li>
 				<ol>
 				<li>District Magistrate / Additional Magistrate / Collector / Deputy Commissioner / Additional Deputy Commissioner /Deputy Collector / 1st Class Stipendiary Magistrate / Sub-Divisional Magistrate /Taluka Magistrate / Executive Magistrate / Extra Assistant Commissioner (not below the rank of 1 st Class Stipendiary Magistrate)</li>
 				<li>Chief Presidency Magistrate / Additional Chief Presidency Magistrate / Presidency Magistrate.</li>
@@ -83,13 +82,9 @@
 				</ol><br>
 				<center> <b>Declaration /undertaking - for OBC Candidates only</b></center>
 				<br>
-				I, <input id = "name2" type = "text" value = "{{name}}" disabled> 
-				<select for = "child2" id = "gender1" value = "{{gender}}" disabled> 
-					<option disabled>----</option>
-					<option value="Daughter">Daughter</option>
-					<option value="Son">Son</option>
-				</select> 
-				of Shri/Smt <input id = "parent_name1" type = "text" value = "{{parent_name}}" align = "center" disabled> of Village/Town/City <input id = "village1" type = "text" value = "{{village}}" disabled align = "center" > district/division <input id = "district2" type = "text" value = "{{district}}" align = "center" disabled> in the <input id = "state2" type = "text" value = "{{state}}" disabled> State hereby declare that I belong to the<input id = "community1" type = "text" value = "{{community}}" disabled> Community which is recognized as a backward class by the Government of India for the purpose of reservation in services admission in Central Government Institutions as per orders contained in Department of Personnel and Training Office Memorandum No. 36012/22/93 – Estt. (SCT), dated 8/9/1993. It is also declared that I do not belong to persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the above referred Office Memorandum, dated 8/9/1993, which is modified vide Department of Personnel and Training Office Memorandum No. 36033/3/2004 Estt. (Res.) dated 9/3/2004 or the latest notification of the Government of India. I also declare that the condition of status/annual income for creamy layer of my parents/guardian is within prescribed limits as on financial year ending on March 31, 2017.
+				I, {{obc.name}}
+				{{obc.gender}}
+				of Shri/Smt {{obc.parent_name}} of Village/Town/City {{obc.village}} district/division {{obc.district}} in the {{obc.state}} State hereby declare that I belong to the {{obc.community}} Community which is recognized as a backward class by the Government of India for the purpose of reservation in services admission in Central Government Institutions as per orders contained in Department of Personnel and Training Office Memorandum No. 36012/22/93 – Estt. (SCT), dated 8/9/1993. It is also declared that I do not belong to persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the above referred Office Memorandum, dated 8/9/1993, which is modified vide Department of Personnel and Training Office Memorandum No. 36033/3/2004 Estt. (Res.) dated 9/3/2004 or the latest notification of the Government of India. I also declare that the condition of status/annual income for creamy layer of my parents/guardian is within prescribed limits as on financial year ending on March 31, 2017.
 				<br>
 				<br>
 				<br>
@@ -97,24 +92,35 @@
 				Date:</b>
 				<br>
 				<br>
-				<center><b>Applications without declaration/undertaking not signed by Candidates will be rejected</b></center>
 			</div>
 		</div>
+		{% endif %}
 
-
-
-
+        {% if isPartTime %}
+		<div class="well well-lg">
 			<div class="row">
 				<center><h3><u> Annexure - II </u></h3></center><br>
 				<center><h4><b>FOR PART-TIME CANDIDATES:</b></h4></center><br>
 			</div>
-			<div class="well well-lg">
-				This is to certify that Mr./Ms. <input name = "name" id="name" type = "text" value = "{{name}}" align = "center"> Designation <input name = "designation" id="designation" type = "text" value = "{{designation}}" align = "center"> an applicant for admission into Ph.D. program of the National Institute of Technology, Warangal, for the <input type = "text" name = "date" value = "{{date}}" align = "center">(month and year) has been in continuous employment in our organization named <input type = "text" name = "address" value = "{{address}}" align = "center"> (give complete address),for the last <input type = "text" name = "employment_years" value = "{{employment_years}}" align = "center"> years and that he/she has been sponsored by us for undergoing the program. Certified further that his/her services with the organization will be retained during the period carrying out the studies/ research work at the National Institute of Technology, Warangal, and on completion there of he/she will continue in service in our organization.
-				<br>
-				Station:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Signature of the Competent Authority with seal)<br>Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name in full : <input type = "text" id = "name1" value = "{{name}}" align = "center" disabled><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Designation : <input type = "text" id = "designation1" value = "{{designation}}" align = "center" disabled><br><right>(seal)</right>
+			
+				This is to certify that Mr./Ms. {{parttime.name}} Designation {{parttime.designation}} an applicant for admission into Ph.D. program of the National Institute of Technology, Warangal, for the {{parttime.date}} (month and year) has been in continuous employment in our organization named {{parttime.address}} (give complete address),for the last {{parttime.employment_years}} years and that he/she has been sponsored by us for undergoing the program. Certified further that his/her services with the organization will be retained during the period carrying out the studies/ research work at the National Institute of Technology, Warangal, and on completion there of he/she will continue in service in our organization.
 				<br><br>
-				<b>NOTE: </b> Application will not be considered without the above sponsorship certificate duly printed on the letterhead of the organization.
-			</div>
+				<div class="row">
+					<div class="col-sm-6">Station:</div>
+					<div class="col-sm-6">(Signature of the Competent Authority with seal)</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">Date</div>
+					<div class="col-sm-6">Name in full : {{parttime.name}}</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6"></div>
+					<div class="col-sm-6">Designation : {{parttime.designation}}<br><right>(seal)</right></div>
+				</div>
+				<br><br>
+				<b>
+		</div>
+		{% endif %}
 </body>
 
 <script type="text/javascript">

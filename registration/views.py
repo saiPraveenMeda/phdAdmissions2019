@@ -175,7 +175,8 @@ def forgotPassword(request):
 			except BadHeaderError:
 				return HttpResponse('Invalid header found.')
 
-			response['emailId'] = mailid[:5]+'*****'+mailid.split('@')[1]
+			uname, domain = mailid.split('@')
+			response['emailId'] = uname[:4] + '*'*(len(uname)-4) + '@' + domain
 			return render(request,'registration/resetSucc.djt',response)
 
 		else :

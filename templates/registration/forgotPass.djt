@@ -27,7 +27,7 @@
 	<div class="row" style="margin-top:3%;">
 		<div class="col-sm-6 col-sm-offset-3">
 			<div class="alert alert-info">
-			<center><b>Your ApplicationID is your Username.</b></center>
+			<center><b>Your Username was sent to your mail when registered.</b></center>
 			<center>On resetting password, new password will be mailed to your registered email id.</center>
 			</div>
 		</div>
@@ -38,7 +38,7 @@
 				<form method="POST" action="/register/forgotPassword/">
 				{% csrf_token %}
 					<div class="form-group">
-						<label for="firstName">ApplicationID</label>
+						<label for="firstName">Username</label>
 						<input for="firstName" class="form-control" name="appID" required>
 					</div>
 

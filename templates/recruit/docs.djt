@@ -32,14 +32,16 @@
 	</div>
 	{% include "recruit/status.djt" %}
 	{% if message %}
+	{%for msg in message%}
 	<div class="row" style="margin-top:2%">
 		<div class="col-sm-offset-3 col-sm-6">
 			<div class="alert alert-danger alert-dismissable">
 			  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			  <strong>{{message}}</strong>
+			  <strong>{{msg}}</strong>
 			</div>
 		</div>
 	</div>
+	{%endfor%}
     {% endif %}
 
 	<div class="row">
@@ -78,7 +80,7 @@
 			    		</td>
 			    		<td>
 			    			{% if UDegree %} <a href="{{UDegreeURL}}" target="_blank"> View </a>
-			    			{% else %} <span>-------</span>
+			    			{% else %} <span>--</span>
 			    			{% endif %}
 			    		</td>
 			    		<td>
@@ -97,7 +99,7 @@
 			    		</td>
 			    		<td>
 			    			{% if UMemo %} <a href="{{UMemoURL}}" target="_blank"> View </a>
-			    			{% else %} <span>-------</span>
+			    			{% else %} <span>--</span>
 			    			{% endif %}
 			    		</td>
 			    		<td>
@@ -116,7 +118,7 @@
 			    		</td>
 			    		<td>
 			    			{% if MDegree %} <a href="{{MDegreeURL}}" target="_blank"> View </a>
-			    			{% else %} <span>-------</span>
+			    			{% else %} <span>--</span>
 			    			{% endif %}
 			    		</td>
 			    		<td>
@@ -135,7 +137,7 @@
 			    		</td>
 			    		<td>
 			    			{% if MMemo %} <a href="{{MMemoURL}}" target="_blank"> View </a>
-			    			{% else %} <span>-------</span>
+			    			{% else %} <span>--</span>
 			    			{% endif %}
 			    		</td>
 			    		<td>
@@ -154,7 +156,7 @@
 			    		</td>
 			    		<td>
 			    			{% if QualifyingExamScoreCard %} <a href="{{QualifyingExamScoreCardURL}}" target="_blank"> View </a>
-			    			{% else %} <span>-------</span>
+			    			{% else %} <span>--</span>
 			    			{% endif %}
 			    		</td>
 			    		<td>
@@ -174,7 +176,7 @@
 			    		</td>
 			    		<td>
 			    			{% if CasteCertificate %} <a href="{{CasteCertificateURL}}" target="_blank"> View </a>
-			    			{% else %} <span>-------</span>
+			    			{% else %} <span>--</span>
 			    			{% endif %}
 			    		</td>
 			    		<td>
@@ -195,12 +197,39 @@
 			    		</td>
 			    		<td>
 			    			{% if PWDCertificate %} <a href="{{CasteCertificateURL}}" target="_blank"> View </a>
-			    			{% else %} <span>-------</span>
+			    			{% else %} <span>--</span>
 			    			{% endif %}
 			    		</td>
 			    		<td>
-			    			{% if PWDCertificate %} <button class="btn btn-info" id="CasteCertificate" type="button" onclick="edit(this.id)"> Change </button>
-			    		    {% else %} <input type="file" name="CasteCertificate">
+			    			{% if PWDCertificate %} <button class="btn btn-info" id="PWDCertificate" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" name="PWDCertificate">
+			    		    {% endif %}
+			    		</td>
+			    	</tr>
+			    	{% endif %}
+			    	{% if isResearch %}
+			    	<tr>
+			    		<td>7.</td>
+			    		<td> Research papers (only first pages)</td>
+			    		<td>
+			    		    {% if researchdone %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			{% if researchdone %} <a href="{{CasteCertificateURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    			{% if researchdone %} <button class="btn btn-info" id="PWDCertificate" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} 
+			    		     {% with ''|center:ResearchCount as range %}
+			    		     {% for _ in range%}
+			    		     <input type="file" name="ResearchPaper_{{forloop.counter}}">
+			    		     {% endfor %}
+			    		     {% endwith %}
+			    		    }
 			    		    {% endif %}
 			    		</td>
 			    	</tr>
@@ -233,6 +262,9 @@
 	        valid = false;
 	        alert('Upload all the files !');
 	     }
+	     else{
+	     	$('#jsmsg').text('Please wait while the files are uploading. Refrain form reloading or closing the browser tab to avoid data loss');
+	     }
 	    return valid;
 	}
 
@@ -241,7 +273,7 @@
 	}
 
 	function wait(){
-		$('#jsmsg').text('Please wait while the files are uploading. Refrain form reloading or closing the browser tab to avoid data loss');
+		
 	}
 
 </script>

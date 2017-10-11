@@ -42,6 +42,7 @@ def index(request) :
     response['qualifying_exams'] = QualifyingExam.objects.all()
 
     if request.method == "POST" :
+        print request.FILES
         app_id = Appdata.objects.get(user=request.user)
 
         if not GeneralData.objects.filter(app_id=app_id).exists():
@@ -58,16 +59,18 @@ def index(request) :
 
         if request.POST['category'] == 'UR':
             if Document.objects.filter(app_id=app_id).exists():
-                d = Document.objects.get(app_id=app_id)
-                os.remove(os.path.join(BASE_DIR, d.CasteCertificate.url[1:]))
+                if generalData.category != 'UR':
+                    d = Document.objects.get(app_id=app_id)
+                    os.remove(os.path.join(settings.BASE_DIR, d.CasteCertificate.url[1:]))
             flags.caste_certi = True
         else:
             if generalData.category == 'UR':
                 flags.caste_certi = False
         if request.POST['pwd'] == 'no':
             if Document.objects.filter(app_id=app_id).exists():
-                d = Document.objects.get(app_id=app_id)
-                os.remove(os.path.join(BASE_DIR, d.PWDCertificate.url[1:]))
+                if generalData.pwd != 'no':
+                    d = Document.objects.get(app_id=app_id)
+                    os.remove(os.path.join(settings.BASE_DIR, d.PWDCertificate.url[1:]))
             flags.pwd_certi = True
         else:
             if generalData.pwd == 'no':
@@ -136,11 +139,16 @@ def index(request) :
         exp.save()
 
         #Research
-        if Research.objects.filter(app_id=app_id).exists():
-            Research.objects.filter(app_id=app_id).delete()
-        for paper in json.loads(request.POST['papers']):
-            research = Research(app_id=app_id, title=paper['title'], conference=paper['conference'], link = paper['link'])
-            research.save()
+        addedpapers = json.loads(request.POST['papers'])
+        for p in list(Research.objects.filter(app_id=app_id)):
+            if p not in addedpapers:
+                p.delete()
+
+        for paper in addedpapers:
+            if paper not in Research.objects.filter(app_id=app_id):
+                research = Research(app_id=app_id, title=paper['title'], conference=paper['conference'], link=request.FILES[paper['title']])
+                research.save()
+        flags.papers = all([is_file_exists(file.link) for file in list(Research.objects.filter(app_id=app_id))])
 
         #Others
         if not Other.objects.filter(app_id=app_id).exists():
@@ -198,7 +206,9 @@ def annexures(request):
     cat = gd.category
     post = app_id.post_for.name
 
-    if app_id.submitted:
+    if app_id.paymentUploaded == False :
+        return redirect('/register/paymentDetails')
+    if app_id.submitted :
         return redirect('/submit')
 
     response['profile'] = app_id
@@ -239,11 +249,14 @@ def uploadDocs(request):
     gd = GeneralData.objects.get(app_id=app_id)
     qe = QualifyingExamDetails.objects.get(app_id=app_id)
 
-    if app_id.submitted:
+    if app_id.paymentUploaded == False :
+        return redirect('/register/paymentDetails')
+    if app_id.submitted :
         return redirect('/submit')
 
     response['profile'] = app_id
     response['QExam'] = qe
+    response['message'] = []
     if Document.objects.filter(app_id=app_id).exists():
         docs = Document.objects.get(app_id=app_id)
     else:
@@ -274,10 +287,10 @@ def uploadDocs(request):
             ((not docs.QualifyingExamScoreCard) or validateFormat(docs.QualifyingExamScoreCard)) and
             (gd.category=='UR' or (not docs.CasteCertificate) or validateFormat(docs.CasteCertificate)) and
             (gd.pwd=='no' or (not docs.PWDCertificate) or validateFormat(docs.PWDCertificate))):
-            response['message'] = 'Only PDF Format is allowed'
-            return redirect('/uploadDocs')
 
-        docs.save()
+            response['message'].append('Only PDF Format is allowed.')
+        else:
+            docs.save()
 
         flags.bacheoler_degree = is_file_exists(docs.UDegree)
         flags.bacheoler_memo = is_file_exists(docs.UMemo)
@@ -292,9 +305,9 @@ def uploadDocs(request):
         flags.save()
 
         if all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi]):
-            response['message'] = 'All files are uploaded successfully'
+            response['message'].append('All files are uploaded successfully')
         else:
-            response['message'] = 'Some files failed to upload. Re-upload them !'
+            response['message'].append('Some files failed to upload. Re-upload them !')
 
     response['UDegree'] = flags.bacheoler_degree
     if flags.bacheoler_degree:
@@ -316,11 +329,12 @@ def uploadDocs(request):
         response['CasteCertificate'] = flags.caste_certi
         if flags.caste_certi:
             response['CasteCertificateURL'] = docs.CasteCertificate.url
-    if gd.pwd != 'yes':
+    if gd.pwd == 'yes':
         response['isPWD'] = True
         response['PWDCertificate'] = flags.pwd_certi
         if flags.pwd_certi:
             response['PWDCertificateURL'] = docs.PWDCertificate.url
+
 
     response['finalsubbtn'] = True
     response['status1'] = flags.application and flags.profile_pic
@@ -337,7 +351,9 @@ def uploadpic(request):
 
     flags = Flag.objects.get(app_id=profile)
 
-    if profile.submitted:
+    if profile.paymentUploaded == False :
+        return redirect('/register/paymentDetails')
+    if profile.submitted :
         return redirect('/submit')
 
     response['profile'] = profile
@@ -367,7 +383,9 @@ def annexure_obc(request):
     flags = Flag.objects.get(app_id=app_id)
     gd = GeneralData.objects.get(app_id=app_id)
 
-    if app_id.submitted:
+    if app_id.paymentUploaded == False :
+        return redirect('/register/paymentDetails')
+    if app_id.submitted :
         return redirect('/submit')
 
     response['profile'] = app_id
@@ -422,7 +440,9 @@ def annexure_parttime(request):
     app_id = Appdata.objects.get(user=request.user)
     flags = Flag.objects.get(app_id=app_id)
 
-    if app_id.submitted:
+    if app_id.paymentUploaded == False :
+        return redirect('/register/paymentDetails')
+    if app_id.submitted :
         return redirect('/submit')
 
     response['profile'] = app_id
@@ -471,6 +491,7 @@ def submit(request):
     response = {}
     app_id = Appdata.objects.get(user=request.user)
     flags = Flag.objects.get(app_id=app_id)
+    gd = GeneralData.objects.get(app_id=app_id)
 
     if not all([flags.application, flags.annexure_obc, flags.annexure_parttime, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi]):
         return redirect('/')
@@ -480,6 +501,8 @@ def submit(request):
         app_id.submitDate = datetime.datetime.now()
         app_id.save()
 
+    response['isAnnexure'] = app_id.post_for == 'Part Time' and gd.category == 'OBC'
+
     return render(request,'recruit/summary.djt',response)
 
 @login_required(login_url='/register')
@@ -488,46 +511,72 @@ def print_main_application(request):
     response = {}
     response['profile'] = Appdata.objects.get(user = request.user)
     app_id = Appdata.objects.get(user=request.user)
-    if GeneralData.objects.filter(app_id=app_id).exists():
-        response['generalData'] = GeneralData.objects.get(app_id=app_id)
-    if Experience.objects.filter(app_id=app_id).exists():
-        exp = Experience.objects.get(app_id=app_id)
-        response['Experience'] = exp
-        response['teachingData'] = json.loads(exp.teaching_data)
-        response['researchData'] = json.loads(exp.research_data)
-        response['industryData'] = json.loads(exp.industrial_data)
 
-    if Qualification.objects.filter(app_id=app_id,degreeType='UG').exists():
-        response['Bqual'] = Qualification.objects.get(app_id=app_id,degreeType='UG')
-    if Qualification.objects.filter(app_id=app_id,degreeType='PG').exists():
-        response['Mqual'] = Qualification.objects.get(app_id=app_id,degreeType='PG')
-    if Qualification.objects.filter(app_id=app_id,degreeType='PHD').exists():
-        response['Phdqual'] = Qualification.objects.get(app_id=app_id,degreeType='PHD')
-    if Qualification.objects.filter(app_id=app_id,degreeType='other').exists():
-        response['Oqual'] = Qualification.objects.get(app_id=app_id,degreeType='other')
+    if not app_id.submitted:
+        return render('/')
 
-    if external_sponsored_rnd.count() > 0:
-        response['external_sponsored_rnd'] = external_sponsored_rnd[0]
-        if external_sponsored_rnd[0].projects_not_pi:
-            response['projects_not_pi'] = json.loads(external_sponsored_rnd[0].projects_not_pi)
-        if external_sponsored_rnd[0].patents_not_pi:
-            response['patents_not_pi'] = json.loads(external_sponsored_rnd[0].patents_not_pi)
+    if Appdata.objects.filter(user=request.user).exists() :
+        app_id = Appdata.objects.get(user=request.user)
+        if GeneralData.objects.filter(app_id=app_id).exists():
+            response['generalData'] = GeneralData.objects.get(app_id=app_id)
+        if Experience.objects.filter(app_id=app_id).exists():
+            response['Experience'] = Experience.objects.get(app_id=app_id)
+
+        if Education.objects.filter(app_id=app_id,degreeType='UG').exists():
+            response['Bqual'] = Education.objects.get(app_id=app_id,degreeType='UG')
+        if Education.objects.filter(app_id=app_id,degreeType='PG').exists():
+            response['Mqual'] = Education.objects.get(app_id=app_id,degreeType='PG')
+
+        if QualifyingExamDetails.objects.filter(app_id=app_id).exists():
+            response['QExamDetails'] = QualifyingExamDetails.objects.get(app_id=app_id)
+
+        if Research.objects.filter(app_id=app_id).exists():
+            response['papers'] = Research.objects.filter(app_id=app_id)
+            response['papersJSON'] = json.dumps(list(Research.objects.filter(app_id=app_id).values('title', 'conference', 'link')))
+
+        if Other.objects.filter(app_id=app_id).exists():
+            response['Others'] = Other.objects.get(app_id=app_id)
     
     return render(request, 'recruit/print_main_application.djt', response)
+
 
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
 def print_annexures(request):
     response = {}
-    response['profile'] = Appdata.objects.get(user = request.user)
-    app_id = Appdata.objects.get(user=request.user)
+    app = Appdata.objects.get(user = request.user)
+    response['profile'] = app
+
+    if not app.submitted:
+        return render('/')
+
+    gd = GeneralData.objects.get(app_id=app_id)
+    if gd.category != 'OBC' and app.post_for == 'FullTime':
+        return redirect('/summary')
+
+    if Annexure_OBC.objects.filter(app_id=Appdata.objects.get(user=request.user)).exists():
+        response['isOBC'] = True
+        Annexure = Annexure_OBC.objects.get(app_id=Appdata.objects.get(user=request.user))
+        response['obc'] = Annexure
+    else:
+        response['isOBC'] = False
+
+    if Annexure_Part_Time.objects.filter(app_id=Appdata.objects.get(user=request.user)).exists():
+        response['isPartTime'] = True
+        Annexure = Annexure_Part_Time.objects.get(app_id=Appdata.objects.get(user=request.user))
+        response['parttime'] = Annexure
+    else:
+        response['isPartTime'] = False
 
     return render(request, 'recruit/print_annexures.djt', response)
 
-
+@login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def printAck(request):
     response = {}
     app = Appdata.objects.get(user=request.user)
+    if not app.submitted:
+        return render('/')
     response['GeneralData'] = GeneralData.objects.get(app_id=app)
     response['app'] = app
     return render(request,'recruit/printAck.djt',response)
@@ -543,15 +592,5 @@ def calculate_age(dob):
     born = datetime.datetime.strptime(dob, "%Y-%m-%d")
     today = datetime.date.today()
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
-
-
-def all_annexures(request) :
-    response = {}
-    app_id = Appdata.objects.get(user=request.user)
-    response['profile'] = Appdata.objects.get(user = request.user)
-    obc = Annexure_OBC.objects.filter(app_id=app_id)
-    parttime = Annexure_Part_Time.objects.filter(app_id=app_id)
-
-    return render(request, 'recruit/all_annexures.djt', response)
 
 
