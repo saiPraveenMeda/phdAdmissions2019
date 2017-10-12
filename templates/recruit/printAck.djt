@@ -24,9 +24,7 @@
 
 <body>
 
-<div class="row" style="background-color:white; color: white;">
-	<center><h2><b>National Institute Of Technology, Warangal</b></h2></center>
-</div>	
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>	
 <hr>
 <div class="row" style="background-color:#003A6A; color: white;">
 	<center><h3>PHD ADMISSION FORM - ACKNOWLEDGEMENT RECEIPT</h3></center>
@@ -61,6 +59,8 @@
 		</div>
 	</div>
 </div>
+<br><br>
+<center><img  src="{% static 'img/logo_wsdc.png' %}" align="center" style="background-color:white;" alt="WSDC - NITW" title="National Institute of Technology Warangal"/></center>
 
 </body>
 

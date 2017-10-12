@@ -22,6 +22,16 @@
 	<center><h2>Forgot Password</h2></center>
 	<br>
 </div>
+{% if error %}
+	<div class="row" style="margin-top:2%">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div class="alert alert-danger alert-dismissable">
+			  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			  <strong>{{error}}</strong>
+			</div>
+		</div>
+	</div>
+{% endif %}
 
 <div class="container">
 	<div class="row" style="margin-top:3%;">

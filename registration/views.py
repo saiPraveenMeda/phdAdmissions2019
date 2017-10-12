@@ -19,6 +19,15 @@ def is_dean(user):
 def is_hod(user):
     return user.groups.filter(name="HOD").exists()
 
+def is_file_exists(file):
+    if file == None or file.url in [None, '']:
+
+        return False
+    if os.path.isfile(os.path.join(settings.BASE_DIR, file.url[1:])):
+        return True
+    return False
+
+
 def index(request) :
 	response = {}
 	return render(request,'registration/login.djt',response)
@@ -159,7 +168,7 @@ def forgotPassword(request):
 	if request.method == 'POST':
 		appID = request.POST['appID']
 		if Appdata.objects.filter(app_id=appID).exists():
-			appdata = Appdata.objects.filter(app_id=appID)
+			appdata = Appdata.objects.get(app_id=appID)
 			mailid = appdata.user.email
 			newpass = ''.join(random.choice(string.ascii_uppercase + string.digits) for char in xrange(12))
 			appdata.user.set_password(newpass)
@@ -199,14 +208,18 @@ def paymentDetails(request):
 		
 		if validateFormat(pay_data.receipt) :
 			pay_data.save()
-			app_data = Appdata.objects.get(user=request.user)
-			app_data.paymentUploaded = True
-			app_data.save()
 		else : 
 			response['error'] = 'Only Pdf format is allowed'
 			return render(request,'registration/paymentDetails.djt',response)
 
-		return redirect('/')
+		if is_file_exists(pay_data.receipt):
+			app_data = Appdata.objects.get(user=request.user)
+			app_data.paymentUploaded = True
+			app_data.save()
+			return redirect('/')
+		else:
+			response['error'] = 'Some error occured uploading receipt. Try again.'
+			return render(request,'registration/paymentDetails.djt',response)
 
 	return render(request,'registration/paymentDetails.djt',response)
 

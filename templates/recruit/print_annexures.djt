@@ -27,7 +27,7 @@
 
 <body>
     {% if isOBC %}
-	<div class="well well-lg">
+	<div class="well well-lg" style="page-break-after: always;">
 			<br/>
 			<div class="row" style="padding: 30px;">
 			<div style="page-break-after: always;">

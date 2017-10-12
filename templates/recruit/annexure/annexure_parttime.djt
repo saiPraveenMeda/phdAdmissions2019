@@ -80,8 +80,8 @@
 		<br><b>NOTE: </b> Application will not be considered without the above sponsorship certificate duly printed on the letterhead of the organization.
 		</div>
 		<div class="row well well-sm">
-			    <a href="/annexures"><button type="button" style="float:left;" class="btn btn-success">Back</button></a>
-				<button type="submit" style="float:right;" class="btn btn-success" id="parttimesubmit">Save</button>
+		        <button type="submit" style="float:left;" class="btn btn-success" id="parttimesubmit">Save</button>
+			    <a href="/annexures"><button type="button" style="float:right;" class="btn btn-success">Continue</button></a>
 		</div>
 	</form>
 	</div>

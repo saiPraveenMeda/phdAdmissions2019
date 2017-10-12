@@ -39,10 +39,14 @@ def index(request) :
 
     profile = Appdata.objects.get(user=request.user)
     response['profile'] = profile
-    response['qualifying_exams'] = QualifyingExam.objects.all()
+    if app.post_in.deptID in [1,2,3,4,5,6,7,8]:
+        response['qualifying_exams'] = QualifyingExam.objects.filter(type=1)
+    if app.post_in.deptID in [9,10,11,12]:
+        response['qualifying_exams'] = QualifyingExam.objects.filter(type=2)
+    if app.post_in.deptID in [13]:
+        response['qualifying_exams'] = QualifyingExam.objects.filter(type=3)
 
     if request.method == "POST" :
-        print request.FILES
         app_id = Appdata.objects.get(user=request.user)
 
         if not GeneralData.objects.filter(app_id=app_id).exists():
@@ -121,7 +125,7 @@ def index(request) :
             qualexam = QualifyingExamDetails(app_id=app_id)
         else :
             qualexam = QualifyingExamDetails.objects.get(app_id=app_id)
-        qualexam.exam = QualifyingExam.objects.get(name=request.POST['exam'])
+        qualexam.exam = QualifyingExam.objects.get(id=int(request.POST['exam']))
         qualexam.qualifyingYear = request.POST['qualyear']
         qualexam.score = request.POST['score']
         qualexam.rank = request.POST['rank']
@@ -139,15 +143,25 @@ def index(request) :
         exp.save()
 
         #Research
-        addedpapers = json.loads(request.POST['papers'])
-        for p in list(Research.objects.filter(app_id=app_id)):
-            if p not in addedpapers:
+        oldpapers = request.POST['oldpapers']
+        if not oldpapers == '':
+            oldpapers = json.loads(oldpapers)
+        else:
+            oldpapers = {}
+        oldpapers = [int((n.values()[0]).split('_')[1]) for n in oldpapers]
+        print oldpapers
+        for p in Research.objects.filter(app_id=app_id):
+            if not p.id in oldpapers:
                 p.delete()
+        addedpapers = request.POST['papers']
+        if not addedpapers == '':
+            addedpapers = json.loads(addedpapers)
+        else:
+            addedpapers = {}
 
         for paper in addedpapers:
-            if paper not in Research.objects.filter(app_id=app_id):
-                research = Research(app_id=app_id, title=paper['title'], conference=paper['conference'], link=request.FILES[paper['title']])
-                research.save()
+            research = Research(app_id=app_id, title=paper['title'], conference=paper['conference'], link=request.FILES['paper'+str(paper['index'])])
+            research.save()
         flags.papers = all([is_file_exists(file.link) for file in list(Research.objects.filter(app_id=app_id))])
 
         #Others
@@ -186,7 +200,7 @@ def index(request) :
 
         if Research.objects.filter(app_id=app_id).exists():
             response['papers'] = Research.objects.filter(app_id=app_id)
-            response['papersJSON'] = json.dumps(list(Research.objects.filter(app_id=app_id).values('title', 'conference', 'link')))
+            response['papersJSON'] = json.dumps(list(Research.objects.filter(app_id=app_id).values('title', 'conference')))
 
         if Other.objects.filter(app_id=app_id).exists():
             response['Others'] = Other.objects.get(app_id=app_id)
@@ -360,13 +374,17 @@ def uploadpic(request):
 
     if request.method == 'POST' :
         file = request.FILES['profilepic']
-        profile.profilePic = file
-        profile.save()
+        if validatePic(file):
+            profile.profilePic = file
+            profile.save()
+            if is_file_exists(profile.profilePic):
+                flags.profilepic = True;
+                flags.save()
 
-        flags.profile_pic = True
-        flags.save()
-
-        return redirect('/')
+            return redirect('/')
+        else:
+            response['message'] = 'Only \'.jpg\' format is allowed'
+            return render(request,'recruit/uploadpic.djt',response)
 
     response['status1'] = flags.application and flags.profile_pic
     response['status2'] = flags.annexure_obc and flags.annexure_parttime
@@ -501,7 +519,22 @@ def submit(request):
         app_id.submitDate = datetime.datetime.now()
         app_id.save()
 
-    response['isAnnexure'] = app_id.post_for == 'Part Time' and gd.category == 'OBC'
+        mailid = request.user.email
+
+        receiver = mailid
+        sender = 'support_admissions_2017@nitw.ac.in'
+        content = 'Your Application for the post of '+ app.post_for.name
+        content = content + ' in '+ app.post_in.name +' has been submitted on '
+        content = content + app.submitDate.strftime('%Y-%m-%d %H:%M')
+        rlist = []
+        rlist.append(receiver)
+        subject = 'Acknowlegement for Submission of Application'
+        try:
+            send_mail(subject,content,sender,rlist,fail_silently=False,)
+        except BadHeaderError:
+            return HttpResponse('Invalid header found.')
+
+    response['isAnnexure'] = (app_id.post_for.name == 'Part Time' or gd.category == 'OBC')
 
     return render(request,'recruit/summary.djt',response)
 
@@ -550,7 +583,7 @@ def print_annexures(request):
     if not app.submitted:
         return render('/')
 
-    gd = GeneralData.objects.get(app_id=app_id)
+    gd = GeneralData.objects.get(app_id=app)
     if gd.category != 'OBC' and app.post_for == 'FullTime':
         return redirect('/summary')
 
@@ -584,6 +617,13 @@ def printAck(request):
 def validateFormat(filename):
     ext = os.path.splitext(filename.name)[1]
     valid_extentions = ['.pdf']
+    if not ext in valid_extentions:
+        return False
+    return True
+
+def validatePic(filename):
+    ext = os.path.splitext(filename.name)[1]
+    valid_extentions = ['.jpg']
     if not ext in valid_extentions:
         return False
     return True

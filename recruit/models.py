@@ -15,6 +15,9 @@ def get_profilepic_path(instance,filename):
 def get_docpath(instance,filename):
 	return 'users/{0}/documents/{1}'.format(instance.app_id.app_id + '_' + instance.app_id.unique_key,filename)
 
+def get_paperpath(instance,filename):
+	return 'users/{0}/papers/{1}'.format(instance.app_id.app_id + '_' + instance.app_id.unique_key,filename)
+
 def get_pay_path(instance,filename):
 	return 'users/{0}/payment/{1}'.format(instance.appID.app_id + '_' + instance.appID.unique_key,filename)
 
@@ -69,6 +72,7 @@ class GeneralData(models.Model):
 
 class QualifyingExam(models.Model):
 	name = models.CharField(max_length=20)
+	type = models.IntegerField()
 
 	def __unicode__(self):
 		return self.name
@@ -110,7 +114,7 @@ class Research(models.Model):
 	app_id = models.ForeignKey(Appdata)
 	title = models.TextField(max_length=100)
 	conference = models.TextField(max_length=100)
-	link = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	link = models.FileField(upload_to=get_paperpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s papers'

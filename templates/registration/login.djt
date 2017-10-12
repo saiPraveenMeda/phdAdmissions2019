@@ -22,6 +22,12 @@
 		    font-size: 14px;
 		    text-align: justify;
 		}
+		.blink{
+			animation: blinker 0.7s linear infinite;
+		}
+		@keyframes blinker{
+			20% {opacity: 0.0;}
+		}
 	</style>
 </head>
 
@@ -61,29 +67,54 @@
 					The Institute is well known for its dedicated faculty, staff and the state-of-the art infrastructure conducive to a healthy academic environment. The Institute is constantly striving to achieve higher levels of technical excellence. Faculty of the institute are actively participating the development activities of the country in particular and the academic community all over the world in general.
 				</p>
 				<p>
-					The Institute is looking for motivated and dynamic persons with passion for "Research" and zeal to "excel in academic career", inviting applications for Doctoral Program (PhD) various departments.
+					The Institute is looking for motivated and dynamic persons with passion for "Research" and zeal to "excel in academic career", inviting applications for Doctoral Program (PhD) in various departments.
 				</p>
 				<p style="color:red;">
-					<u><b>Note</b> : Please use Google Chrome for filling the application.</u> <span class="label label-danger"> Important </span>
+					<u><b>Note</b> : Please use Google Chrome for filling the application.</u> <span class="label label-danger blink"> Important </span>
 				</p>
 				</b>
-				<br>
-				<center><h4><b>Important Links</b></h4></center>
-				
+				<br><hr><br>
+				<div class="row">
+					<div class="col-sm-5">
+						<center>
+						<b><h4><u>Important Dates</u></h4></b><br>
+						Application start date : 16th October, 2017
+						Application deadline : 16th November, 2017
+						</center>
+					</div>
+					<div class="col-sm-1"></div>
+					<div class="col-sm-6">
+						<center>
+						<b><h4><u>Important links</u></h4></b><br>
+						<a href="{% static 'files/PaymentInstructions.pdf' %}" target="_blank"><u>Application Fee Payment instructions</u></a><br>
+						<a href="{% static 'files/Brochure.pdf' %}" target="_blank"><u>Brochure for PhD Admissions</u></a><br>
+						<a href="https://www.nitw.ac.in"><u>Institute Website</u></a>
+						</center>
+
+					</div>
+				</div>
+				<hr>
 			</div>
 			
 		</div>
 		<div class="col-sm-4">
-			<div class="row" style="margin-top:3%;">
-				<div class="col-sm-12">
-					<div class="alert alert-info">
-					<center><b>Your Username was sent to your mail when registered.</b></center>
-					</div>
-				</div>
-			</div>
+		    <div class="row" style="margin-bottom: 10%;">
+		    	<div class="col-sm-12">
+		    	    <div class="alert alert-danger" style="padding: 10%;">
+		    		<center><a href="/register/signup"><button class="btn btn-success btn-lg">REGISTER</button></a></center>
+		    		</div>
+		    	</div>
+		    </div>
 			<div class="well well-lg">
 				<form method="POST" action="/register/signin/">
 				{% csrf_token %}
+				<div class="row" style="margin-top:3%;">
+				<div class="col-sm-12">
+					<div class="alert alert-info">
+					<center><b>Your Username will be sent to your mail when registered.</b></center>
+					</div>
+				</div>
+			    </div>
 					<div class="form-group">
 						<label for="firstName">Username</label>
 						<input for="firstName" class="form-control" name="username">

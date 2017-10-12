@@ -140,8 +140,8 @@
 					</div>
 				</div>
 				<div class="row well well-sm">
-				    <a href="/annexures"><button type="button" style="float:left;" class="btn btn-success">Back</button></a>
-					<button type="submit" style="float:right;" class="btn btn-success" id="obcsubmit">Save</button>
+				    <button type="submit" style="float:left;" class="btn btn-success" id="obcsubmit">Save</button>
+				    <a href="/annexures"><button type="button" style="float:right;" class="btn btn-success">Continue</button></a>
 			</div>
 		</form>
 

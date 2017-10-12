@@ -13,7 +13,14 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
-
+<style>
+	.blink{
+			animation: blinker 0.7s linear infinite;
+		}
+		@keyframes blinker{
+			20% {opacity: 0.0;}
+		}
+</style>
 <body>
 	<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 
@@ -42,12 +49,14 @@
 				<br>
 				<b>Fee Amount :</b><br>
 				General/OBC : Rs.1000<br>
-				SC/ST/PWD : Rs.500<br>
-				Candidates applying from abroad : $25 
+				SC/ST/PWD : Rs.500Register 
 				<br> <br>
-				<center><b> Payment is to be done through <br> <i>State Bank Collect</i> </b></center>
+				<b> Payment is to be done through <br> <i><a href="#"><u>State Bank Collect</u></a></i> </b><br>
+				<span class="label label-danger blink">Important</span><br>
+				<p>If payments are done in any other way (Direct Transfer / IMPS / NEFT / RTGS), their application will be <b>REJECTED</b>.</p><br>
+				<p>No payments shall be refunded at any cost.</p>
 				<br>
-				<b style="color:red;">Note :</b> Keep Transaction Receipt ready for uploading. Once you login after registration, you will have to upload it.
+				<b style="color:red;">Note :</b> Keep Transaction Receipt ready for uploading. Once you login after registration, you will have to upload it to proceed further.
 				</center>
 			</div>
 		</div>
@@ -82,8 +91,8 @@
 					</div>
 					<div class="form-group">
 					  <label for="post">Full Time/ Part Time</label>
-					  <select class="form-control" name="post">
-					  	<option selected disabled>----</option>
+					  <select class="form-control" name="post" required>
+					  	<option selected disabled value="">----</option>
 					    {% for post in posts %}
 					    <option value="{{post.id}}">{{post.name}}</option>
 					    {% endfor %}
@@ -91,8 +100,8 @@
 					</div>
 					<div class="form-group">
 					  <label for="dept">Applying in the Department</label>
-					  <select class="form-control" name="dept">
-					  	<option selected disabled>----</option>
+					  <select class="form-control" name="dept" required>
+					  	<option selected disabled value="">----</option>
 					    {% for dept in depts %}
 					    <option value="{{dept.deptID}}">{{dept.name}}</option>
 					    {% endfor %}
@@ -103,7 +112,7 @@
 						<input for="transID" class="form-control" name="transID" type="text" required>
 					</div>
 
-					<center><button type="submit" class="btn btn-success btn-lg">Submit</button></center>
+					<center><button type="submit" class="btn btn-success btn-lg">Register</button></center>
 				</form>
 					<center><a href="/register/">Or login</a></center>
 			</div>
@@ -124,5 +133,6 @@
 	  color: white;
 	}
 </style>
-
+<script>
+</script>
 </html>

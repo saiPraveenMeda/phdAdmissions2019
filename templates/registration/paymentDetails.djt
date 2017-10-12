@@ -50,7 +50,7 @@
 	<div class="row" style="margin-top:3%;">
 		<div class="col-sm-6 col-sm-offset-3">
 			<div class="well well-lg">
-				<form method="POST" action="/register/paymentDetails/" enctype="multipart/form-data" id="payform">
+				<form method="POST" action="/register/paymentDetails/" onsubmit="return validate()" enctype="multipart/form-data" id="payform">
 				{% csrf_token %}
 					<div class="form-group">
 						<label for="trans">Transaction-ID</label>
@@ -78,6 +78,9 @@
 					</div>
 
 					<center><button type="submit" class="btn btn-success btn-lg">Submit</button></center>
+					<br>
+					<span class="badge" style="float: right;" id="jsmsg"></span>
+					<br>
 				</form>
 				<br>
 			</div>
@@ -100,6 +103,18 @@
 </style>
 
 <script type="text/javascript">
+    function validate(){
+	  valid = true;
+	     if($('input[type="file"]').val() == ''){
+	        valid = false;
+	        alert('Upload all the files !');
+	     }
+	     else{
+	     	$('#jsmsg').text('Please wait while the files are uploading. Refrain form reloading or closing the browser tab to avoid data loss');
+	     }
+	    return valid;
+	}
+
 	$('select').change(function(){
 		$('#amount').show();
 		var x;

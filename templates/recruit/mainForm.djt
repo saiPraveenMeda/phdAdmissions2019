@@ -18,6 +18,12 @@
     		height: 1px;
     		background-color: black;
 		}
+		.blink{
+			animation: blinker 0.7s linear infinite;
+		}
+		@keyframes blinker{
+			20% {opacity: 0.0;}
+		}
 	</style>
 
 </head>
@@ -71,8 +77,12 @@
 						<li> Status of your application can be seen at the top. If you fill all the three parts, you will be allowed to submit the application by clicking on 'Submit Application' button at top-right corner of Documents page. <span class="label label-success"> New </span></li>
 						<li>You can modify the data after saving.<br>But if you submit the application once, you can't modify anything. <span class="label label-danger"> Important </span></li>
 						<li>After filling and saving all the three pages of the form, your application details will be completed. Then you will receive an acknowledgement.</li>
-						<li>You can print your Application form and Annexures from Summary Page.</li>
+						<li>You can print your Application form, Annexures(if applicable) and Acknowledgement receipt from Summary Page.</li>
+						<li>Application won't be considered for processing unless you make the final submission and receive the acknowledgement. <span class="label label-danger blink">Important</span></li>
 					</ol>
+				</li>
+				<li>
+					After the application process (after receiving acknowledgement), the printed application form, the printed annexures(if applicable), hard copies of all the uploaded documents and any other relevant testimonials, certificates are to be <b>SELF ATTESTED</b> and sent to<br> <b>“ The Chairman (Admissions), National Institute of Technology Warangal, Warangal-506004, Telangana, INDIA. "</b>
 				</li>
 			</ol>
 		</b>
@@ -363,7 +373,7 @@
 						<select for="Examination" class="form-control" name="exam" required>
 							<option {% if QExamDetails == None %} selected {% endif %} disabled>-------------</option>
 							{% for exam in qualifying_exams %}
-					        <option value="{{exam.name}}" {% ifequal QExamDetails.exam.name exam.name %} selected {% endifequal %}>{{exam.name}}</option>o
+					        <option value="{{exam.id}}" {% ifequal QExamDetails.exam.id exam.id %} selected {% endifequal %}>{{exam.name}}</option>o
 
 					        {% endfor %}
 						</select>
@@ -492,21 +502,19 @@
 			<table class="table table-bordered">
 				<thead>
 			      <tr style="background-color:#e3e3e3;">
-			        <th>S.No.</th>
 			        <th>Title of paper</th>
-			        <th>Conference / Workshop</th>
-			        <th>File</th>
+			        <th>Journal / Conference / Workshop</th>
+			        <th>File (First page of paper)</th>
 			        <th>Action</th>
 			       </tr>
 			    </thead>
 			    <tbody id="papersTbody">
 			    	{% for paper in papers %}
-			    	<tr>
-			    		<td>{{forloop.counter}}.</td>
+			    	<tr id="r_{{paper.id}}">
 			    		<td>{{paper.title}}</td>
 			    		<td>{{paper.conference}}</td>
 			    		<td><a href="{{paper.link.url}}" target="_blank">View</a></td>
-			    		<td><button id="{{forloop.counter}}" onclick="deletepaper(this.id)" class="btn btn-danger" type="button" disabled="disabled">Delete</button></td>
+			    		<td><button id="delbtn{{forloop.counter}}" onclick="deletepaper(this.id)" class="btn btn-danger" type="button">Delete</button></td>
 			    	</tr>
 			    	{% endfor %}
 			    </tbody>
@@ -521,7 +529,7 @@
 				</div>
 				<div class="col-sm-5">
 					<div class="form-group">
-						<label for="conference">Conference / Workshop</label>
+						<label for="conference">Journal / Conference / Workshop</label>
 						<input for="conference" class="form-control" type="text" id="conference" name="conference">
 					</div>
 				</div>
@@ -529,6 +537,7 @@
 			
 			<center><button type="button" class="btn" id="AddPaper">Add</button><br></center>
 			<input type="text" name="papers" id="papersObj" hidden>
+			<input type="text" name="oldpapers" id="oldpapersObj" hidden>
 
 			</div>
 			<hr>
@@ -552,6 +561,7 @@
 				<center><button type="submit" form="mainform" style="float:left;" class="btn btn-success" name="submitbtn" value="save">Save</button></center>
 
 				<center><button type="submit" form="mainform" style="float:right;" class="btn btn-info" name="submitbtn" value="saveandcontinue">Save and Continue</button></center>
+				<button type="button" onclick="test()"></button>
 			</div>
 		</div>
 		<br>
@@ -578,21 +588,39 @@
 </style>
 <script type="text/javascript">
 
-    var papersArray = [];
-	$(document).ready(function() {
-		var existing = "{{papersJSON|safe|escapejs}}";
-		if(existing && existing.length!=0) papersArray = JSON.parse(existing);
-		var dataString = JSON.stringify(papersArray);
-		$('#papersObj').val(dataString);
-	});
-
 	function checkfiles(){
 	  valid = true;
-	     if($('input[type="file"]').val() == ''){
+	     if($('input[type="file"]').val() == '' || !"{{profile.profilePic}}"){
 	        valid = false;
 	        alert('Upload all the files !');
 	     }
+	    if(valid){
+	    	var papersArray = [], oldpapersArray = [], data, cells;
+	    	var index = 1;
+	    	$('#papersTbody').children('tr').each(function(){
+	    		row = $(this);
+	    		if(row[0].children[2].children[0].nodeName == 'INPUT'){
+	    		row[0].children[2].children[0].name = 'paper'+index.toString();
+	    		data = {'index': index, 'title' : row[0].children[0].innerHTML, 'conference' : row[0].children[1].innerHTML};
+	    		papersArray.push(data);
+	    		index += 1;
+		    	}
+		    	else{
+		    		data = {'id': row[0].id};
+		    		oldpapersArray.push(data);
+		    	}
+	    	});
+	    	var dataString = JSON.stringify(papersArray);
+	    	$('#papersObj').val(dataString);
+	    	dataString = JSON.stringify(oldpapersArray);
+	    	$('#oldpapersObj').val(dataString);
+	    }
 	    return valid;
+	}
+
+	function deletepaper(id){
+		var pars = $('#'+id).parent().parent();
+		pars.remove();
 	}
 
 	$('#AddPaper').click(function(){
@@ -609,19 +637,13 @@
  
  		var rowCount = $('#papersTbody tr').length;
  
- 		var rowHtml = '<tr>' + '<td>' + (rowCount+1) + '</td>';
+ 		var rowHtml = '<tr>';
  		rowHtml = rowHtml + '<td>' + title + '</td>';
  		rowHtml = rowHtml + '<td>' + conference + '</td>';
- 		rowHtml = rowHtml + '<td><input type="file" name="' + title + '"></td>';
- 		rowHtml = rowHtml + '<td><button id="' + (rowCount+1).toString() + '" onclick="deletepaper(this.id)" class="btn btn-danger" type="button" disabled="disabled">Delete</button></td>';
+ 		rowHtml = rowHtml + '<td><input type="file" name=""></td>';
+ 		rowHtml = rowHtml + '<td><button onclick="deletepaper(this.id)" class="btn btn-danger" type="button">Delete</button></td>';
+ 		rowHtml = rowHtml + '</tr>';
  		$('#papersTbody').append(rowHtml);
-
- 
- 		papersArray.push(data);
- 
- 		var dataString = JSON.stringify(papersArray);
- 		console.log(dataString);
- 		$('#papersObj').val(dataString);
  	});
 
 </script>
