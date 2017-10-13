@@ -23,7 +23,7 @@
 </head>
 
 <body>
-
+<br><br><br>
 <center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>	
 <hr>
 <div class="row" style="background-color:#003A6A; color: white;">
@@ -44,7 +44,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-8">
-				<b>Post Applied for</b> : &nbsp&nbsp&nbsp {{app.post_for}}
+				<b>Applied for</b> : &nbsp&nbsp&nbsp {{app.post_for}} PhD
 			</div>
 		</div>
 		<div class="row">

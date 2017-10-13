@@ -88,7 +88,7 @@
 						<b><h4><u>Important links</u></h4></b><br>
 						<a href="{% static 'files/PaymentInstructions.pdf' %}" target="_blank"><u>Application Fee Payment instructions</u></a><br>
 						<a href="{% static 'files/Brochure.pdf' %}" target="_blank"><u>Brochure for PhD Admissions</u></a><br>
-						<a href="https://www.nitw.ac.in"><u>Institute Website</u></a>
+						<a href="http://nitw.ac.in" target="_blank"><u>Institute Website</u></a>
 						</center>
 
 					</div>

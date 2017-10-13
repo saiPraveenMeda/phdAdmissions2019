@@ -38,7 +38,7 @@
 				<br><br>
 				This is to certify that Shri/Smt./Kum. {{obc.name}}
 				{{obc.gender}}
-				of Shri/Smt {{parent_name}} of Village/Town/City {{obc.village}} district/division {{obc.district}} in the {{obc.state}} State belongs to the {{obc.community}} Community which is recognized as a backward class under : <br>
+				of Shri/Smt {{obc.parent_name}} of Village/Town/City {{obc.village}} district/division {{obc.district}} in the {{obc.state}} State belongs to the {{obc.community}} Community which is recognized as a backward class under : <br>
 				<br>
 				<ol>
 					<li>Resolution No. 12011/68/93- BCC(C) dated 10/09/93 published in the Gazette of India Extraordinary Part I Section I No.186 dated 13/09/93.</li>

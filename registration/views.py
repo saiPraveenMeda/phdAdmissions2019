@@ -9,7 +9,7 @@ from recruit.models import Appdata, Flag, PaymentDetails
 import random, string
 from .models import *
 import datetime
-from django.core.mail import send_mail
+from django.core.mail import send_mail, BadHeaderError
 import smtplib
 import os
 import unicodedata
@@ -149,14 +149,14 @@ def createApp(request) :
 			
 			#Mail application ID to applicant
 			receiver = user.email
-			sender = 'support_admissions_2017@nitw.ac.in'
-			content = 'Your Application ID is : '+applicationID+"\nYour username is same as your Application ID. Thanks for Registering."
+			sender = settings.EMAIL_HOST_USER
+			content = 'Your Application ID is : '+applicationID+". Your username is same as your Application ID. Thanks for Registering."
 			rlist = []
 			rlist.append(receiver)
 			try:
-				send_mail('NIT WARANGAL - Application ID for PhD Admission portal registration',content,sender,rlist,fail_silently=False,)
-			except BadHeaderError:
-				return HttpResponse('Invalid header found.')
+				send_mail('NIT WARANGAL - Username for PhD Admission portal registration',content,sender,rlist,fail_silently=False,)
+			except:
+				return HttpResponse('Your account has been created, but we couldn\'t send you a mail. Contact us immediately (support_admissions_2017@nitw.ac.in)')
 
 			return render(request,'registration/regDone.djt', {'email' : user.email})
 
@@ -175,14 +175,14 @@ def forgotPassword(request):
 			appdata.user.save()
 
 			receiver = mailid
-			sender = 'support_admissions_2017@nitw.ac.in'
+			sender = settings.EMAIL_HOST_USER
 			content = 'Your new Password is : '+newpass
 			rlist = []
 			rlist.append(receiver)
 			try:
 				send_mail('NIT WARANGAL - Forgot Password request for PhD Admission portal',content,sender,rlist,fail_silently=False,)
 			except BadHeaderError:
-				return HttpResponse('Invalid header found.')
+				return HttpResponse('Your password was reset, but we couldn\'t send you a mail. Contact us immediately (support_admissions_2017@nitw.ac.in)')
 
 			uname, domain = mailid.split('@')
 			response['emailId'] = uname[:4] + '*'*(len(uname)-4) + '@' + domain

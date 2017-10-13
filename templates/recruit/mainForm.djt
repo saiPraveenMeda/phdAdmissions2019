@@ -560,8 +560,7 @@
 			<div class="col-sm-12">
 				<center><button type="submit" form="mainform" style="float:left;" class="btn btn-success" name="submitbtn" value="save">Save</button></center>
 
-				<center><button type="submit" form="mainform" style="float:right;" class="btn btn-info" name="submitbtn" value="saveandcontinue">Save and Continue</button></center>
-				<button type="button" onclick="test()"></button>
+				<center><button type="submit" form="mainform" style="float:right;" class="btn btn-info" name="submitbtn" value="saveandcontinue">Continue</button></center>
 			</div>
 		</div>
 		<br>
@@ -592,7 +591,7 @@
 	  valid = true;
 	     if($('input[type="file"]').val() == '' || !"{{profile.profilePic}}"){
 	        valid = false;
-	        alert('Upload all the files !');
+	        alert('Upload all the files (Profile pic and Research Papers)!');
 	     }
 	    if(valid){
 	    	var papersArray = [], oldpapersArray = [], data, cells;

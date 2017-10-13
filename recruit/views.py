@@ -12,7 +12,7 @@ import json
 import datetime
 import os
 import unicodedata
-from django.core.mail import send_mail
+from django.core.mail import send_mail, BadHeaderError
 import smtplib
 
 def is_applicant(login_url=None):
@@ -20,7 +20,6 @@ def is_applicant(login_url=None):
 
 def is_file_exists(file):
     if file == None or file.url in [None, '']:
-
         return False
     if os.path.isfile(os.path.join(settings.BASE_DIR, file.url[1:])):
         return True
@@ -30,6 +29,7 @@ def is_file_exists(file):
 @is_applicant(login_url='/register')
 def index(request) :
     response = {}
+    response['message'] = ''
     app = Appdata.objects.get(user=request.user)
     flags = Flag.objects.get(app_id=app)
     if app.paymentUploaded == False :
@@ -142,28 +142,6 @@ def index(request) :
         exp.industrial_exp = request.POST['industrial_exp']
         exp.save()
 
-        #Research
-        oldpapers = request.POST['oldpapers']
-        if not oldpapers == '':
-            oldpapers = json.loads(oldpapers)
-        else:
-            oldpapers = {}
-        oldpapers = [int((n.values()[0]).split('_')[1]) for n in oldpapers]
-        print oldpapers
-        for p in Research.objects.filter(app_id=app_id):
-            if not p.id in oldpapers:
-                p.delete()
-        addedpapers = request.POST['papers']
-        if not addedpapers == '':
-            addedpapers = json.loads(addedpapers)
-        else:
-            addedpapers = {}
-
-        for paper in addedpapers:
-            research = Research(app_id=app_id, title=paper['title'], conference=paper['conference'], link=request.FILES['paper'+str(paper['index'])])
-            research.save()
-        flags.papers = all([is_file_exists(file.link) for file in list(Research.objects.filter(app_id=app_id))])
-
         #Others
         if not Other.objects.filter(app_id=app_id).exists():
             oth = Other(app_id=app_id)
@@ -179,7 +157,32 @@ def index(request) :
             flags.caste_certi = True
         flags.save()
 
-        response['message'] = 'Profile saved successfully'
+        #Research
+        oldpapers = request.POST['oldpapers']
+        if not oldpapers == '':
+            oldpapers = json.loads(oldpapers)
+        else:
+            oldpapers = {}
+        oldpapers = [int((n.values()[0]).split('_')[1]) for n in oldpapers]
+        for p in Research.objects.filter(app_id=app_id):
+            if not p.id in oldpapers:
+                p.delete()
+        addedpapers = request.POST['papers']
+        if not addedpapers == '':
+            addedpapers = json.loads(addedpapers)
+        else:
+            addedpapers = {}
+
+        for paper in addedpapers:
+            research = Research(app_id=app_id, title=paper['title'], conference=paper['conference'], link=request.FILES['paper'+str(paper['index'])])
+            if validateFormat(research.link):
+                research.save()
+            else:
+                response['message'] += 'Only PDF Format is allowed.'
+        flags.papers = all([is_file_exists(file.link) for file in list(Research.objects.filter(app_id=app_id))])
+
+
+        response['message'] += 'Profile saved successfully'
         if request.POST['submitbtn'] == 'saveandcontinue':
             return redirect('/annexures')
 
@@ -204,6 +207,7 @@ def index(request) :
 
         if Other.objects.filter(app_id=app_id).exists():
             response['Others'] = Other.objects.get(app_id=app_id)
+
     response['status1'] = flags.application and flags.profile_pic
     response['status2'] = flags.annexure_obc and flags.annexure_parttime
     response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
@@ -378,9 +382,8 @@ def uploadpic(request):
             profile.profilePic = file
             profile.save()
             if is_file_exists(profile.profilePic):
-                flags.profilepic = True;
+                flags.profile_pic = True;
                 flags.save()
-
             return redirect('/')
         else:
             response['message'] = 'Only \'.jpg\' format is allowed'
@@ -522,17 +525,17 @@ def submit(request):
         mailid = request.user.email
 
         receiver = mailid
-        sender = 'support_admissions_2017@nitw.ac.in'
-        content = 'Your Application for the post of '+ app.post_for.name
-        content = content + ' in '+ app.post_in.name +' has been submitted on '
-        content = content + app.submitDate.strftime('%Y-%m-%d %H:%M')
+        sender = settings.EMAIL_HOST_USER
+        content = 'Your Application for '+ app_id.post_for.name + ' PhD'
+        content = content + ' in '+ app_id.post_in.name +' - NIT Warangal has been submitted on '
+        content = content + app_id.submitDate.strftime('%Y-%m-%d %H:%M')
         rlist = []
         rlist.append(receiver)
         subject = 'Acknowlegement for Submission of Application'
         try:
             send_mail(subject,content,sender,rlist,fail_silently=False,)
-        except BadHeaderError:
-            return HttpResponse('Invalid header found.')
+        except:
+            return HttpResponse('Your application is submitted, but we couldn\'t send you a mail. Contact us immediately (support_admissions_2017@nitw.ac.in)')
 
     response['isAnnexure'] = (app_id.post_for.name == 'Part Time' or gd.category == 'OBC')
 
