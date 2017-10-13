@@ -79,7 +79,7 @@
 					</div>
 					<div class="form-group">
 						<label for="contact">Phone Number</label>
-						<input for="contact" class="form-control" name="contact" required>
+						<input for="contact" class="form-control" name="contact" maxlength="14" required>
 					</div>
 					<div class="form-group">
 						<label for="password1">Password</label>

@@ -27,7 +27,7 @@ SECRET_KEY = '2pesar&-wu2x128%f*g0ztbdhd5kfzj4-ell&$w0xof0-5$w#b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['admissions.nitw.ac.in', '172.20.0.247', '127.0.0.1']
 
 
 # Application definition
@@ -108,6 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 ADMINS = ['Support Admissions NITW', 'support_admissions_2017@nitw.ac.in']
+MANAGERS = ['Support Admissions NITW', 'support_admissions_2017@nitw.ac.in']
 
 
 # Internationalization
