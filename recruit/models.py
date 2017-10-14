@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import datetime
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -35,7 +35,7 @@ class Appdata(models.Model):
 	submitted = models.BooleanField(default=False)
 	verified = models.BooleanField(default=False)
 	paymentUploaded = models.BooleanField(default=False)
-	submitDate = models.DateTimeField(blank=True,default=datetime.datetime.now,auto_now=False, auto_now_add=False)
+	submitDate = models.DateTimeField(blank=True,default=timezone.now,auto_now=False, auto_now_add=False)
 
 	def __unicode__(self):
 		return self.app_id + '\'s application'
@@ -59,7 +59,7 @@ class GeneralData(models.Model):
 	father_name = models.CharField(max_length=100)
 	mother_name = models.CharField(max_length=100)
 	nation = models.CharField(max_length=20)
-	dob = models.DateField(default=datetime.date.today)
+	dob = models.DateField(default=timezone.now)
 	age = models.IntegerField()
 	permanent_addr = models.CharField(max_length=300)
 	correspond_addr = models.CharField(max_length=300)
@@ -146,12 +146,15 @@ class Annexure_Part_Time(models.Model):
 	date = models.CharField(max_length=20)
 	address = models.CharField(max_length=300)
 	employment_years = models.CharField(max_length=10)
+	guide = models.CharField(max_length=100)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s Annexure - Part Time'
 
 class Document(models.Model):
 	app_id = models.ForeignKey(Appdata)
+	SSC = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	Intermediate = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	UDegree = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	UMemo = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	MDegree = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
@@ -159,6 +162,7 @@ class Document(models.Model):
 	CasteCertificate = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	QualifyingExamScoreCard = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	PWDCertificate = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	GuideBio = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s Documents'
@@ -168,6 +172,8 @@ class Flag(models.Model):
 	profile_pic = models.BooleanField(default=False)
 	annexure_obc = models.BooleanField(default=False)
 	annexure_parttime = models.BooleanField(default=False)
+	ssc = models.BooleanField(default=False)
+	intermediate = models.BooleanField(default=False)
 	bacheoler_degree = models.BooleanField(default=False)
 	bacheoler_memo = models.BooleanField(default=False)
 	masters_degree = models.BooleanField(default=False)
@@ -176,6 +182,7 @@ class Flag(models.Model):
 	pwd_certi = models.BooleanField(default=False)
 	qualifying_scorecard = models.BooleanField(default=False)
 	papers = models.BooleanField(default=False)
+	guidebio = models.BooleanField(default=False)
 	application = models.BooleanField(default=False)
 
 	def __unicode__(self):

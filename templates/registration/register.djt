@@ -78,8 +78,8 @@
 						<input for="email" class="form-control" name="email" type="email" required>
 					</div>
 					<div class="form-group">
-						<label for="contact">Phone Number</label>
-						<input for="contact" class="form-control" name="contact" maxlength="14" required>
+						<label for="contact">10-digit Mobile Number</label>
+						<input for="contact" class="form-control" name="contact" type="number" maxlength="10" required>
 					</div>
 					<div class="form-group">
 						<label for="password1">Password</label>

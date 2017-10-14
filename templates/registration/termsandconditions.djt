@@ -17,9 +17,15 @@
 <body>
 <center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 <div class="row" style="background-color:#003A6A; color: white;">
-		<center><h2>PhD Admission Form</h2></center>
-		<br>
+    <div class="col-sm-4 col-sm-offset-4">
+	<center><h2>PhD Admission Form</h2></center>
 	</div>
+	<div class="col-sm-4">
+	<br>
+	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
+	</div>
+	<br>
+</div>
 <div id="container">
 	<div class="row" style="margin-top:4%;">
 		<div>

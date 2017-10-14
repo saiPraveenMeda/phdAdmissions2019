@@ -1,8 +1,14 @@
 <div class="well well-lg">
 	<div class="row">
-	    <div class="col-sm-3">
+	    <div class="col-sm-2">
 	    	<h5><b>Status of your application</b></h5>
 	    </div>
+	    <div class="col-sm-2">
+			<span class="badge"> Payment </span>
+		    {% if status4 %} <span class="glyphicon glyphicon-ok"></span>
+		    {% else %} <span class="glyphicon glyphicon-remove"></span>
+		    {% endif %}
+		</div>
 		<div class="col-sm-2">
 		    <span class="badge"> Application </span>
 		    {% if status1 %} <span class="glyphicon glyphicon-ok"></span>

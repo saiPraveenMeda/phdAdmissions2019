@@ -27,9 +27,15 @@
 	<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 
 	<div class="row" style="background-color:#003A6A; color: white;">
-		<center><h2>PhD Admission Form</h2></center>
-		<br>
+    <div class="col-sm-4 col-sm-offset-4">
+	<center><h2>PhD Admission Form</h2></center>
 	</div>
+	<div class="col-sm-4">
+	<br>
+	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
+	</div>
+	<br>
+    </div>
 	{% include "recruit/status.djt" %}
 	{% if message %}
 	{%for msg in message%}
@@ -44,11 +50,6 @@
 	{%endfor%}
     {% endif %}
 
-	<div class="row">
-		<div class="col-sm-1 col-sm-offset-11" style="margin-top:2%;">
-			<a href="/register/signout"><button class="btn btn-primary">Logout</button></a>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-sm-12" style="margin-top:2%;">
 			<center><h4><b>Only PDF Format is allowed</b></h4></center>
@@ -70,8 +71,46 @@
 			      </tr>
 			    </thead>
 			    <tbody id="papersTbody">
-			    	<tr>
+			        <tr>
 			    		<td>1.</td>
+			    		<td> SSC Certificate</td>
+			    		<td>
+			    		    {% if SSC %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			{% if SSC %} <a href="{{SSCURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    		    {% if SSC %} <button class="btn btn-info" id="SSC" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" name="SSC">
+			    		    {% endif %}
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>2.</td>
+			    		<td> Intermediate Certificate</td>
+			    		<td>
+			    		    {% if Intermediate %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			{% if Intermediate %} <a href="{{IntermediateURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    		    {% if Intermediate %} <button class="btn btn-info" id="Intermediate" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" name="Intermediate">
+			    		    {% endif %}
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>3.</td>
 			    		<td> Bachelor's Degree Certificate</td>
 			    		<td>
 			    		    {% if UDegree %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
@@ -90,7 +129,7 @@
 			    		</td>
 			    	</tr>
 			    	<tr>
-			    		<td>2.</td>
+			    		<td>4.</td>
 			    		<td> Bacheoler's Degree Marks Memo</td>
 			    		<td>
 			    		    {% if UMemo %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
@@ -109,7 +148,7 @@
 			    		</td>
 			    	</tr>
 			    	<tr>
-			    		<td>3.</td>
+			    		<td>5.</td>
 			    		<td> Master's Degree Certificate</td>
 			    		<td>
 			    		    {% if MDegree %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
@@ -128,7 +167,7 @@
 			    		</td>
 			    	</tr>
 			    	<tr>
-			    		<td>4.</td>
+			    		<td>6.</td>
 			    		<td> Master's Degree Marks Memo</td>
 			    		<td>
 			    		    {% if MMemo %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
@@ -147,7 +186,7 @@
 			    		</td>
 			    	</tr>
 			    	<tr>
-			    		<td>5.</td>
+			    		<td>7.</td>
 			    		<td> {{QExam.name}} Qualifying Score Card </td>
 			    		<td>
 			    		    {% if QualifyingExamScoreCard %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
@@ -167,7 +206,7 @@
 			    	</tr>
 			    	{% if isReserved %}
 			    	<tr>
-			    		<td>6.</td>
+			    		<td>8.</td>
 			    		<td> Caste Certificate</td>
 			    		<td>
 			    		    {% if CasteCertificate %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
@@ -188,7 +227,7 @@
 			    	{% endif %}
 			    	{% if isPWD %}
 			    	<tr>
-			    		<td>7.</td>
+			    		<td>9.</td>
 			    		<td> PWD Certificate</td>
 			    		<td>
 			    		    {% if PWDCertificate %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
@@ -207,29 +246,23 @@
 			    		</td>
 			    	</tr>
 			    	{% endif %}
-			    	{% if isResearch %}
+			    	{% if isPartTime %}
 			    	<tr>
-			    		<td>7.</td>
-			    		<td> Research papers (only first pages)</td>
+			    		<td>10.</td>
+			    		<td> Guide Bio Data (Annexure - IV)</td>
 			    		<td>
-			    		    {% if researchdone %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% if GuideBio %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
 			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
 			    		    {% endif %}
 			    		</td>
 			    		<td>
-			    			{% if researchdone %} <a href="{{CasteCertificateURL}}" target="_blank"> View </a>
+			    			{% if GuideBio %} <a href="{{GuideBioURL}}" target="_blank"> View </a>
 			    			{% else %} <span>--</span>
 			    			{% endif %}
 			    		</td>
 			    		<td>
-			    			{% if researchdone %} <button class="btn btn-info" id="PWDCertificate" type="button" onclick="edit(this.id)"> Change </button>
-			    		    {% else %} 
-			    		     {% with ''|center:ResearchCount as range %}
-			    		     {% for _ in range%}
-			    		     <input type="file" name="ResearchPaper_{{forloop.counter}}">
-			    		     {% endfor %}
-			    		     {% endwith %}
-			    		    }
+			    			{% if GuideBio %} <button class="btn btn-info" id="GuideBio" type="button" onclick="edit(this.id)"> Change </button>
+			    		     {% else %} <input type="file" name="GuideBio">
 			    		    {% endif %}
 			    		</td>
 			    	</tr>
@@ -258,13 +291,22 @@
 <script type="text/javascript">
 	function validate(){
 	  valid = true;
-	     if($('input[type="file"]').val() == ''){
-	        valid = false;
-	        alert('Upload all the files !');
-	     }
-	     else{
-	     	$('#jsmsg').text('Please wait while the files are uploading. Refrain form reloading or closing the browser tab to avoid data loss');
-	     }
+     $('input[type=file]').each(function(){
+  	    if($(this).val() == ''){
+  		valid = false;
+  		alert('Upload all the files !');
+  		return valid;
+  	    }
+    });
+     if(valid)
+	  $('#jsmsg').text('Please wait while the files are uploading. Refrain form reloading or closing the browser tab to avoid data loss');
+	     // if($('input[type="file"]').val() == ''){
+	     //    valid = false;
+	     //    alert('Upload all the files !');
+	     // }
+	     // else{
+	     // 	$('#jsmsg').text('Please wait while the files are uploading. Refrain form reloading or closing the browser tab to avoid data loss');
+	     // }
 	    return valid;
 	}
 

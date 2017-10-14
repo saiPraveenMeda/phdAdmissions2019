@@ -32,15 +32,16 @@
 <center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 
 <div class="row" style="background-color:#003A6A; color: white;">
-	<center><h2>PhD Admission Form</h2></center>	
+    <div class="col-sm-4 col-sm-offset-4">
+	<center><h2>PhD Admission Form</h2></center>
+	</div>
+	<div class="col-sm-4">
+	<br>
+	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
+	</div>
 	<br>
 </div>
 {% include "recruit/status.djt" %}
-<div class="row" style="margin-top:2%;">
-	<div class="col-sm-1 col-sm-offset-10">
-		<a href="/register/signout"><button class="btn btn-primary">Logout</button></a>
-	</div>
-</div>
 
 {% if message %}
 	<div class="row" style="margin-top:2%">
@@ -127,7 +128,7 @@
 					</div>
 
 					<div class="row">
-						<div class="col-sm-4"> <b>Name in Full (In Block Letters)</b><br> <h6>(As per X Standard Certificate)</h6> </div>
+						<div class="col-sm-4"> <b>Name in Full (In Block Letters)</b><br> <h6>(As per SSC Certificate)</h6> </div>
 						<div class="col-sm-6">
 							<div class="form-group">
 								<input class="form-control" type="text" name="Name" value="{{generalData.full_name}}" required>
@@ -589,10 +590,18 @@
 
 	function checkfiles(){
 	  valid = true;
-	     if($('input[type="file"]').val() == '' || !"{{profile.profilePic}}"){
-	        valid = false;
-	        alert('Upload all the files (Profile pic and Research Papers)!');
-	     }
+	  if (!"{{profile.profilePic}}") {
+	  	valid = false;
+	  	alert('Upload Profile picture first !');
+	  	return valid;
+	  }
+     $('input[type=file]').each(function(){
+  	    if($(this).val() == ''){
+  		valid = false;
+  		alert('Upload all the files (Research Papers)!');
+  		return valid;
+  	    }
+    });
 	    if(valid){
 	    	var papersArray = [], oldpapersArray = [], data, cells;
 	    	var index = 1;

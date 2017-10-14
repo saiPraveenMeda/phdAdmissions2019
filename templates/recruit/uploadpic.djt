@@ -27,7 +27,13 @@
 <center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 
 <div class="row" style="background-color:#003A6A; color: white;">
+    <div class="col-sm-4 col-sm-offset-4">
 	<center><h2>PhD Admission Form</h2></center>
+	</div>
+	<div class="col-sm-4">
+	<br>
+	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
+	</div>
 	<br>
 </div>
 {% include "recruit/status.djt" %}
@@ -41,11 +47,6 @@
 		</div>
 	</div>
 {% endif %}
-<div class="row">
-	<div class="col-sm-1 col-sm-offset-11" style="margin-top:2%;">
-		<a href="/register/signout"><button class="btn btn-primary">Logout</button></a>
-	</div>
-</div>
 
 <div class="row" style="margin-top:2%;">
 	<div class="col-sm-4 col-sm-offset-4">

@@ -48,7 +48,8 @@ def index(request) :
 
     if request.method == "POST" :
         app_id = Appdata.objects.get(user=request.user)
-
+        if app_id.post_for.name == 'Full Time':
+            flags.guidebio = True
         if not GeneralData.objects.filter(app_id=app_id).exists():
             generalData = GeneralData(app_id=app_id)
         else :
@@ -179,7 +180,10 @@ def index(request) :
                 research.save()
             else:
                 response['message'] += 'Only PDF Format is allowed.'
-        flags.papers = all([is_file_exists(file.link) for file in list(Research.objects.filter(app_id=app_id))])
+        if Research.objects.filter(app_id=app_id).exists():
+            flags.papers = all([is_file_exists(file.link) for file in list(Research.objects.filter(app_id=app_id))])
+        else:
+            flags.papers = True
 
 
         response['message'] += 'Profile saved successfully'
@@ -210,7 +214,8 @@ def index(request) :
 
     response['status1'] = flags.application and flags.profile_pic
     response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
+    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
+    response['status4'] = profile.paymentUploaded
     return render(request,'recruit/mainForm.djt',response)
 
 
@@ -254,7 +259,8 @@ def annexures(request):
 
     response['status1'] = flags.application and flags.profile_pic
     response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
+    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
+    response['status4'] = app_id.paymentUploaded
     return render(request, 'recruit/annexures_master.djt', response);
 
 
@@ -283,6 +289,13 @@ def uploadDocs(request):
         return redirect('/annexures')
 
     if request.method == 'POST':
+        print request.FILES
+        if 'SSC' in request.FILES:
+            docs.SSC = request.FILES['SSC']
+        if 'Intermediate' in request.FILES:
+            docs.Intermediate = request.FILES['Intermediate']
+        if 'GuideBio' in request.FILES:
+            docs.GuideBio = request.FILES['GuideBio']
         if 'UDegree' in request.FILES:
             docs.UDegree = request.FILES['UDegree']
         if 'UMemo' in request.FILES:
@@ -304,12 +317,15 @@ def uploadDocs(request):
             ((not docs.MMemo) or validateFormat(docs.MMemo)) and
             ((not docs.QualifyingExamScoreCard) or validateFormat(docs.QualifyingExamScoreCard)) and
             (gd.category=='UR' or (not docs.CasteCertificate) or validateFormat(docs.CasteCertificate)) and
-            (gd.pwd=='no' or (not docs.PWDCertificate) or validateFormat(docs.PWDCertificate))):
+            (gd.pwd=='no' or (not docs.PWDCertificate) or validateFormat(docs.PWDCertificate)) and
+            (app_id.post_for.name=='Full Time' or (not docs.GuideBio) or validateFormat(docs.GuideBio))):
 
             response['message'].append('Only PDF Format is allowed.')
         else:
             docs.save()
 
+        flags.ssc = is_file_exists(docs.SSC)
+        flags.intermediate = is_file_exists(docs.Intermediate)
         flags.bacheoler_degree = is_file_exists(docs.UDegree)
         flags.bacheoler_memo = is_file_exists(docs.UMemo)
         flags.masters_degree = is_file_exists(docs.MDegree)
@@ -319,14 +335,22 @@ def uploadDocs(request):
             flags.caste_certi = is_file_exists(docs.CasteCertificate)
         if gd.pwd != 'no':
             flags.pwd_certi = is_file_exists(docs.PWDCertificate)
+        if app_id.post_for.name == 'Part Time':
+            flags.guidebio = is_file_exists(docs.GuideBio)
 
         flags.save()
 
-        if all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi]):
+        if all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio]):
             response['message'].append('All files are uploaded successfully')
         else:
             response['message'].append('Some files failed to upload. Re-upload them !')
 
+    response['SSC'] = flags.ssc
+    if flags.ssc:
+        response['SSCURL'] = docs.SSC.url
+    response['Intermediate'] = flags.intermediate
+    if flags.intermediate:
+        response['IntermediateURL'] = docs.UDegree.url
     response['UDegree'] = flags.bacheoler_degree
     if flags.bacheoler_degree:
         response['UDegreeURL'] = docs.UDegree.url
@@ -352,12 +376,18 @@ def uploadDocs(request):
         response['PWDCertificate'] = flags.pwd_certi
         if flags.pwd_certi:
             response['PWDCertificateURL'] = docs.PWDCertificate.url
+    if app_id.post_for.name == 'Part Time':
+        response['isPartTime'] = True
+        response['GuideBio'] = flags.guidebio
+        if flags.guidebio:
+            response['GuideBioURL'] = docs.GuideBio.url
 
 
     response['finalsubbtn'] = True
     response['status1'] = flags.application and flags.profile_pic
     response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi])
+    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
+    response['status4'] = app_id.paymentUploaded
     return render(request, 'recruit/docs.djt', response)
 
 
@@ -391,7 +421,8 @@ def uploadpic(request):
 
     response['status1'] = flags.application and flags.profile_pic
     response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
+    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
+    response['status4'] = profile.paymentUploaded
     return render(request,'recruit/uploadpic.djt',response)
 
 
@@ -450,7 +481,8 @@ def annexure_obc(request):
 
     response['status1'] = flags.application and flags.profile_pic
     response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
+    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
+    response['status4'] = app_id.paymentUploaded
     return render(request, 'recruit/annexure/annexure_obc.djt', response)
 
 
@@ -484,6 +516,7 @@ def annexure_parttime(request):
         Annexure.date = request.POST['date']
         Annexure.address = request.POST['address']
         Annexure.employment_years = request.POST['employment_years']
+        Annexure.guide = request.POST['guide']
 
         Annexure.save()
 
@@ -499,10 +532,12 @@ def annexure_parttime(request):
         response['date'] = Annexure.date
         response['address'] = Annexure.address
         response['employment_years'] = Annexure.employment_years
+        response['guide'] = Annexure.guide
 
     response['status1'] = flags.application and flags.profile_pic
     response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
+    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
+    response['status4'] = app_id.paymentUploaded
     return render(request, 'recruit/annexure/annexure_parttime.djt', response)
 
 

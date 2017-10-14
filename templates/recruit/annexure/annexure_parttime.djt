@@ -31,8 +31,15 @@
 <body>
 <center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 <div class="row" style="background-color:#003A6A; color: white;">
+    <div class="col-sm-4 col-sm-offset-4">
 	<center><h2>PhD Admission Form</h2></center>
-</div> 
+	</div>
+	<div class="col-sm-4">
+	<br>
+	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
+	</div>
+	<br>
+</div>
 {% include "recruit/status.djt" %}
 
 <div class="row">
@@ -58,7 +65,7 @@
 	<form id="annexure" enctype="multipart/form-data" style="margin-top:3%;" action="" method="POST">
 		{% csrf_token %}
 		<div class="row">
-			<center><h3><u> Annexure - II </u></h3></center><br>
+			<center><h3><u> Annexure - III </u></h3></center><br>
 			<center><h4><b>FOR PART-TIME CANDIDATES:</b></h4></center><br>
 		</div>
 		<div class="well well-lg">
@@ -77,6 +84,31 @@
 					<div class="col-sm-6"></div>
 					<div class="col-sm-6"><p>Designation : <input type="text" id="designation1" value="{{designation}}" disabled></p><br><p>(seal)</p></div>
 				</div>
+        <br><br><br>
+		<center><b>DECLARATION</b></center>
+		<div class="row">
+			<div class="col-sm-3">
+				To<br>
+				The Director,<br>
+				National Institute of Technology,<br>
+				WARANGAL 506 004<br><br>
+				Dear Sir,
+			</div>
+		</div>
+		<br><br>
+		<div class="row">
+			<p>I, Dr. <input type="text" name="guide" value="{{guide}}" required> hereby express my willingness to act as a supervisor to Mr. / Ms. <input type="text" id="name2" value="{{name}}" disabled> , who is interested in doing Ph.D. at the National Institute of Technology, Warangal, under part-time program. I am herewith enclosing my bio-data. I also state that adequate facilities are available with us, for doing Ph.D. work at our organization.</p>
+		</div>
+        <br><br>
+		<div class="row">
+			<div class="col-sm-3">
+				Signature:………………………….<br>
+				Name: …………………………<br>
+				Date: ……………………………….<br>
+				Seal:<br>
+			</div>
+		</div>
+
 		<br><b>NOTE: </b> Application will not be considered without the above sponsorship certificate duly printed on the letterhead of the organization.
 		</div>
 		<div class="row well well-sm">
@@ -86,6 +118,8 @@
 	</form>
 	</div>
 </div>
+
+
 </body>
 
 <script>
@@ -93,6 +127,7 @@
 	function(){
 		var name = $('#name').val();
 		$('#name1').val(name);
+		$('#name2').val(name);
 	}
 	);
 	$('input[name=designation]').change(

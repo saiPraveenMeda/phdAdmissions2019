@@ -31,9 +31,16 @@
 	<!-- </div> -->
 
 <div class="row" style="background-color:#003A6A; color: white;">
-	<center><h2>PhD Admission Portal</h2></center>
+    <div class="col-sm-4 col-sm-offset-4">
+	<center><h2>PhD Admission Form</h2></center>
+	</div>
+	<div class="col-sm-4">
+	<br>
+	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
+	</div>
 	<br>
 </div>
+{% include "recruit/status.djt" %}
 
 <div class="container">
 	{% if error %}

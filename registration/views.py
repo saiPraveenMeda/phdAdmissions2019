@@ -38,7 +38,9 @@ def send_to_register(request,errorNo='0') :
 		msg = 'Registration for selected position in selected department has already been done using this'
 		msg = msg + ' Email-id'
 		response['error'] = msg
-	if errorNo=='2' :
+	if errorNo=='2':
+		response['error'] = 'Password should be a minimum of 8 Characters'
+	if errorNo=='3' :
 		response['error'] = 'Password do not match'
 	response['depts'] = Department.objects.all()
 	response['posts'] = Post.objects.all()
@@ -51,6 +53,7 @@ def signin(request) :
 		password = request.POST['password']
 		user = authenticate(username=username,password=password)
 		if user is None :
+			response['error'] = 'Login Failed. Username and Password didn\'t match.'
 			return render(request, 'registration/login.djt', response)
 		elif (is_hod(user) or is_dean(user)):
 			login(request,user)
@@ -98,10 +101,14 @@ def createApp(request) :
 				if Appdata.objects.filter(user=existingUser,post_for=appPost,post_in=dept).exists():
 					return redirect('/register/signup/1')
 
+
 		pass1 = request.POST['password1']
 		pass2 = request.POST['password2']
-		if pass1 != pass2 :
+
+		if len(pass1) < 8:
 			return redirect('/register/signup/2')
+		if pass1 != pass2 :
+			return redirect('/register/signup/3')
 		else : 
 			user = User()
 			user.first_name = request.POST['firstName']
@@ -189,13 +196,15 @@ def forgotPassword(request):
 			return render(request,'registration/resetSucc.djt',response)
 
 		else :
-			response['error'] = 'Application-ID is wrong'
+			response['error'] = 'Username is wrong'
+
 	return render(request,'registration/forgotPass.djt',response)
 
 def paymentDetails(request):
 	response = {}
 	profile = Appdata.objects.get(user=request.user)
 	pay_data = PaymentDetails.objects.get(appID=profile)
+	flags = Flag.objects.get(app_id=profile)
 	response['paydata'] = pay_data
 	if request.method == 'POST' :
 		pay_data.payDate = request.POST['paydate']
@@ -221,6 +230,10 @@ def paymentDetails(request):
 			response['error'] = 'Some error occured uploading receipt. Try again.'
 			return render(request,'registration/paymentDetails.djt',response)
 
+	response['status1'] = flags.application and flags.profile_pic
+	response['status2'] = flags.annexure_obc and flags.annexure_parttime
+	response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
+	response['status4'] = profile.paymentUploaded
 	return render(request,'registration/paymentDetails.djt',response)
 
 def validateFormat(filename):

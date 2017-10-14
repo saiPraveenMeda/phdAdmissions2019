@@ -30,7 +30,14 @@
 <body>
 <center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 <div class="row" style="background-color:#003A6A; color: white;">
+    <div class="col-sm-4 col-sm-offset-4">
 	<center><h2>PhD Admission Form</h2></center>
+	</div>
+	<div class="col-sm-4">
+	<br>
+	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
+	</div>
+	<br>
 </div>
 {% include "recruit/status.djt" %}
 
@@ -60,7 +67,7 @@
 				<div class="well well-lg">
 					<br/>
 					<div class="row" style="padding: 30px;">
-						<center><h3><u> Annexure - I </u></h3></center><br>
+						<center><h3><u> Annexure - II </u></h3></center><br>
 						<center><h4>Proforma for Other Backward Class (OBC Certificate)</h4></center>
 						<br>
 						<p> <center><b>CERTIFICATE TO BE PRODUCED BY CANDIDATES FROM OTHER BACKWARD CLASSES APPLYING FOR ADMISSION TO CENTRAL EDUCATIONAL INSTITUTIONS (CEls), UNDER GOVERNMENT OF INDIA</b></center>

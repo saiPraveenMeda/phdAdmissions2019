@@ -44,13 +44,23 @@
 	<center><h2>PhD Admission Portal</h2></center>
 	<br>
 </div>
+{% if error %}
+	<div class="row" style="margin-top:2%">
+		<div class="col-sm-offset-3 col-sm-6">
+			<div class="alert alert-danger alert-dismissable">
+			  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			  <strong>{{error}}</strong>
+			</div>
+		</div>
+	</div>
+{% endif %}
 
 <div class="container">
 	<div class="row" style="margin-top:3%;">
 		<div class="col-sm-8">
 			<div class="well well-lg">
 			<br><br>
-				<center><h2 style="margin-top:0px;"><span class="label label-primary">NIT Warangal</span></h2></center>
+				<center><h2 style="margin-top:0px;"><b>NIT WARANGAL</b></h2></center>
 				<br>
 
 				<b>
