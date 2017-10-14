@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2pesar&-wu2x128%f*g0ztbdhd5kfzj4-ell&$w0xof0-5$w#b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['admissions.nitw.ac.in', '172.20.0.247', '127.0.0.1']
 

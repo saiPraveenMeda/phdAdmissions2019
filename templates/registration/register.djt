@@ -45,11 +45,11 @@
 		<div class="col-sm-4">
 			<div class="well well-lg">
 				<center><h3><b>Important</b></h3>
-				Payment needs to be done before Registration, as Transaction ID of payment is needed for registration.<br>
+				Payment needs to be done before Registration. Transaction ID of payment is needed for registration.<br>
 				<br>
 				<b>Fee Amount :</b><br>
 				General/OBC : Rs.1000<br>
-				SC/ST/PWD : Rs.500Register 
+				SC/ST/PWD : Rs.500 
 				<br> <br>
 				<b> Payment is to be done through <br> <i><a href="{% static 'files/PaymentInstructions.pdf' %}" target="_blank"><u>State Bank Collect</u></a></i> </b><br>
 				<span class="label label-danger blink">Important</span><br>
@@ -79,7 +79,7 @@
 					</div>
 					<div class="form-group">
 						<label for="contact">10-digit Mobile Number</label>
-						<input for="contact" class="form-control" name="contact" id="#mob" type="number" maxlength="10" required>
+						<input for="contact" class="form-control" name="contact" id="mob" type="number" maxlength="10" required>
 					</div>
 					<div class="form-group">
 						<label for="password1">Password</label>
@@ -140,7 +140,7 @@ function checknumber(){
 	var mob = $('#mob').val();
 	if(mob.length != 10){
 		valid = false;
-		alert('Mobile number should be of 10 - digits');
+		alert('Mobile number should be of 10 digits');
 	}
 	return valid;
 }

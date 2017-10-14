@@ -59,7 +59,7 @@
 	<div class="row" style="margin-top:3%;">
 		<div class="col-sm-8">
 			<div class="well well-lg">
-			<br><br>
+			<br>
 				<center><h2 style="margin-top:0px;"><b>NIT WARANGAL</b></h2></center>
 				<br>
 
@@ -78,26 +78,29 @@
 				</p>
 				<p>
 					The Institute is looking for motivated and dynamic persons with passion for "Research" and zeal to "excel in academic career", inviting applications for Doctoral Program (PhD) in various departments.
-				</p>
+				</p><br>
 				<p style="color:red;">
 					<u><b>Note</b> : Please use Google Chrome for filling the application.</u> <span class="label label-danger blink"> Important </span>
 				</p>
 				</b>
 				<br><hr><br>
 				<div class="row">
-					<div class="col-sm-5">
+					<div class="col-sm-7">
 						<center>
 						<b><h4><u>Important Dates</u></h4></b><br>
-						Application start date : 16th October, 2017
-						Application deadline : 16th November, 2017
+						<b>Announcement of inviting Applications:</b><br> October 16 th 2017<br><br>
+						<b>Last date to receive applications:</b><br> November 7 th 2017<br><br>
+						<b>Announcement of candidates called for Written Test/Interview:</b><br> November 13 th 2017<br><br>
+						<b>Dates of Written Test/Interview:</b><br> November 22 nd - 24 th 2017<br><br>
+						<b>Announcement of Selected Candidates:</b><br> December 4 th 2017<br><br>
+						<!-- <b>Dates of Reporting of selected candidates for Ph.D. admission:</b><br> December 11 th & 12 th 2017<br><br> -->
 						</center>
 					</div>
-					<div class="col-sm-1"></div>
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<center>
 						<b><h4><u>Important links</u></h4></b><br>
-						<a href="{% static 'files/PaymentInstructions.pdf' %}" target="_blank"><u>Application Fee Payment instructions</u></a><br>
-						<a href="{% static 'files/Brochure.pdf' %}" target="_blank"><u>Brochure for PhD Admissions</u></a><br>
+						<a href="{% static 'files/PaymentInstructions.pdf' %}" target="_blank"><u>Application Fee Payment instructions</u></a><br><br>
+						<a href="{% static 'files/Brochure.pdf' %}" target="_blank"><u>Brochure for PhD Admissions</u></a><br><br>
 						<a href="http://nitw.ac.in" target="_blank"><u>Institute Website</u></a>
 						</center>
 
@@ -152,7 +155,9 @@
 </div>
 
 <div class="copyright">
+<br>
   <div style="text-align: center">&copy; WSDC 2017, NIT Warangal</div>
+  <br>
 </div>
 	
 </body>
