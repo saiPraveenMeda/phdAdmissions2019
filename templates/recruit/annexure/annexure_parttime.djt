@@ -45,7 +45,7 @@
 <div class="row">
 	<div class="row">
 		<center>
-		<h3><u> Application Form for faculty Position </u></h3>
+		<h3><u> Application Form for fPhD Program </u></h3>
 		<h3><u>Application ID : {{profile.app_id}}</u></h3>
 		</center><br>
 	</div>
@@ -114,8 +114,8 @@
 		<br><b>NOTE: </b> Application will not be considered without the above sponsorship certificate duly printed on the letterhead of the organization.
 		</div>
 		<div class="row well well-sm">
-		        <button type="submit" style="float:left;" class="btn btn-success" id="parttimesubmit">Save</button>
-			    <a href="/annexures"><button type="button" style="float:right;" class="btn btn-success">Continue</button></a>
+		        <button type="submit" style="float:left;" class="btn btn-success" name="submitbtn" value="save">Save</button>
+			    <button type="submit" style="float:right;" class="btn btn-success" name="submitbtn" value="saveandcontinue">Continue</button>
 		</div>
 	</form>
 	</div>

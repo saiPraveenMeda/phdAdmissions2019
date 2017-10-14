@@ -179,7 +179,7 @@ def index(request) :
             if validateFormat(research.link):
                 research.save()
             else:
-                response['message'] += 'Only PDF Format is allowed.'
+                response['message'] += 'Only PDF Format is allowed for research papers.'
         if Research.objects.filter(app_id=app_id).exists():
             flags.papers = all([is_file_exists(file.link) for file in list(Research.objects.filter(app_id=app_id))])
         else:
@@ -466,7 +466,10 @@ def annexure_obc(request):
         flags.annexure_obc = True
         flags.save()
 
-        response['message'] = 'Annexure - OBC saved successfully'
+        response['message'] = 'Annexure - II saved successfully'
+
+        if request.POST['submitbtn'] == 'saveandcontinue':
+            return redirect('/annexures')
 
 
     if Annexure_OBC.objects.filter(app_id=Appdata.objects.get(user=request.user)).exists():
@@ -523,7 +526,11 @@ def annexure_parttime(request):
         flags.annexure_parttime = True
         flags.save()
 
-        response['message'] = 'Annexure - Part Time saved successfully'
+        response['message'] = 'Annexure - III & IV saved successfully'
+
+        if request.POST['submitbtn'] == 'saveandcontinue':
+            return redirect('/annexures')
+
 
     if Annexure_Part_Time.objects.filter(app_id=Appdata.objects.get(user=request.user)).exists():
         Annexure = Annexure_Part_Time.objects.get(app_id=Appdata.objects.get(user=request.user))

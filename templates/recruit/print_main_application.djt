@@ -19,7 +19,7 @@
 			background-color: black;
 		}
 		@media print {
-    		@page { size: landscape; };
+    		@page { size: A4 landscape; };
 			}
 	</style>
 

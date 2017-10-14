@@ -30,7 +30,7 @@
 <div class="row">
 	<div class="row">
 		<center>
-		<h3><u> Application Form for faculty Position </u></h3>
+		<h3><u> Application Form for PhD Program </u></h3>
 		<h3><u>Application ID : {{profile.app_id}}</u></h3>
 		</center><br>
 	</div>

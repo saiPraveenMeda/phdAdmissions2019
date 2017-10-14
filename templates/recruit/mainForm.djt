@@ -61,7 +61,7 @@
 			<ol>
 			<center><h3><b>Instructions to fill the form</b><br> (Kindly follow these for avoiding any inconvenience)</h3></center>
 			<br>
-				<li>Upload your picture first before proceeding to fill the form.  <span class="label label-danger">Important</span></li>
+				<li>Upload your picture first before proceeding to fill the form. Or your details will not be saved. <span class="label label-danger">Important</span></li>
 				<li>After uploading the picture, you can proceed to fill the form.</li>
 				<li>
 					Points to be noted while filling the form :
@@ -112,7 +112,7 @@
 							<div class="form-group" style="font-size:18px;">
 								<b><u>{{profile.post_for}}</u></b>
 								{% if profile.post_for.name == 'Part Time' %}
-								<span class="badge" id="annexure">Part Time applicants need to fill 'Annexure - Part Time' (in the next page)</span>
+								<span class="badge" id="annexure">Part Time applicants need to fill 'Annexure - III & IV' (in the next page)</span>
 								{% endif %}
 							</div>
 						</div>
@@ -148,6 +148,7 @@
 				</div>
 
 				<div class="col-sm-3">
+				<span class="label label-danger blink"> Upload profile picture before filling form </span><br><br>
 				<center>
 					{% if profile.profilePic %}
 					<img src="{{profile.profilePic.url}}" class="img-rounded" style="height:150px; max-width:90%;">
@@ -258,7 +259,7 @@
 				<label class="radio-inline"><input type="radio" value="UR" name="category" {% ifequal generalData.category 'UR' %} checked {% endifequal %} id="UR">UR</label>
 				<br>
 				<span class="badge" {%if generalData == None or generalData.category == 'UR' %} style="visibility: hidden;" {%endif%} id="isCASTE">You need to upload caste certificate (in next page)</span>
-				<span class="badge" {%if generalData == None or generalData.category != 'OBC'%} style="visibility: hidden;" {%endif%} id="isOBC">You need to fill 'Annexure - OBC' (in next page)</span>
+				<span class="badge" {%if generalData == None or generalData.category != 'OBC'%} style="visibility: hidden;" {%endif%} id="isOBC">You need to fill 'Annexure - II' (in next page)</span>
 				</div>
 				</div>
 			</div>
@@ -505,7 +506,7 @@
 			      <tr style="background-color:#e3e3e3;">
 			        <th>Title of paper</th>
 			        <th>Journal / Conference / Workshop</th>
-			        <th>File (First page of paper)</th>
+			        <th>File (First page of paper)<br>(Only in PDF Format)</th>
 			        <th>Action</th>
 			       </tr>
 			    </thead>
@@ -515,7 +516,7 @@
 			    		<td>{{paper.title}}</td>
 			    		<td>{{paper.conference}}</td>
 			    		<td><a href="{{paper.link.url}}" target="_blank">View</a></td>
-			    		<td><button id="delbtn{{forloop.counter}}" onclick="deletepaper(this.id)" class="btn btn-danger" type="button">Delete</button></td>
+			    		<td><button onclick="deletepaper(this)" class="btn btn-danger" type="button">Delete</button></td>
 			    	</tr>
 			    	{% endfor %}
 			    </tbody>
@@ -626,8 +627,8 @@
 	    return valid;
 	}
 
-	function deletepaper(id){
-		var pars = $('#'+id).parent().parent();
+	function deletepaper(btn){
+		var pars = $(btn).parent().parent();
 		pars.remove();
 	}
 
@@ -649,7 +650,7 @@
  		rowHtml = rowHtml + '<td>' + title + '</td>';
  		rowHtml = rowHtml + '<td>' + conference + '</td>';
  		rowHtml = rowHtml + '<td><input type="file" name=""></td>';
- 		rowHtml = rowHtml + '<td><button onclick="deletepaper(this.id)" class="btn btn-danger" type="button">Delete</button></td>';
+ 		rowHtml = rowHtml + '<td><button onclick="deletepaper(this)" class="btn btn-danger" type="button">Delete</button></td>';
  		rowHtml = rowHtml + '</tr>';
  		$('#papersTbody').append(rowHtml);
  	});

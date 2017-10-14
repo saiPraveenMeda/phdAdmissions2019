@@ -113,7 +113,6 @@
 					</div>
 
 					<center><button type="submit" class="btn btn-success btn-lg">Register</button></center>
-					<button type="button" onclick="checknumber();"></button>
 				</form>
 					<center><a href="/register/">Or login</a></center>
 			</div>
