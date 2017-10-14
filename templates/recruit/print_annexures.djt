@@ -29,9 +29,10 @@
     {% if isOBC %}
 	<div class="well well-lg" style="page-break-after: always;">
 			<br/>
+			<div class="hidden-print"><a href="/submit"><button type="button" class="btn btn-info">Back</button></a></div>
 			<div class="row" style="padding: 30px;">
 			<div style="page-break-after: always;">
-				<center><h3><u> Annexure - I </u></h3></center><br>
+				<center><h3><u> Annexure - II </u></h3></center><br>
 				<center><h4>Proforma for Other Backward Class (OBC Certificate)</h4></center>
 				<br>
 				<p> <center><b>CERTIFICATE TO BE PRODUCED BY CANDIDATES FROM OTHER BACKWARD CLASSES APPLYING FOR ADMISSION TO CENTRAL EDUCATIONAL INSTITUTIONS (CEls), UNDER GOVERNMENT OF INDIA</b></center></p>
@@ -57,17 +58,17 @@
 					<li>Resolution No. 12011/4/2002-BCC dated 13/01/2004.</li>
 					<li>Resolution No. 12011/9/2004-BCC dated 16/01/2006 published in the Gazette of India Extraordinary Part I Section I No.210 dated 16/01/2006.</li>
 				</ol>
-				<br>
+				<br><br><br><br>
 				Shri/Smt./Kum. {{obc.name}} and/or his family ordinarily reside(s) in the {{obc.district}} District/Division of {{state}} State. This is also to certify that he/she does not belong to the Persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the Govrnment of India, Department of Personnel & Training O.M. No. 36012/22/93- Estt.(SCT) dated 08/09/93 which is modified vide OM No. 36033/3/2004 Estt. (Res.) dated 09/03/2004 or the latest notification of the Government of India.
 				</p>
 				<br><br>
 				<b>Dated</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>District Magistrate/Competent Authority:</b>
 				<br><br>
 				<b>Seal</b>
-				<br>
-				<br>
-				<br>
 				</div>
+				<br>
+				<br>
+				<br>
 				<b>NOTE:</b><br>
 				<ol>
 				<li>The term “Ordinarily” used here will have the same meaning as in Section 20 of the Representation of the People Act, 1950.</li>
@@ -99,7 +100,8 @@
         {% if isPartTime %}
 		<div class="well well-lg">
 			<div class="row">
-				<center><h3><u> Annexure - II </u></h3></center><br>
+			    <br><br>
+				<center><h3><u> Annexure - III </u></h3></center><br>
 				<center><h4><b>FOR PART-TIME CANDIDATES:</b></h4></center><br>
 			</div>
 			
@@ -121,6 +123,8 @@
 				<br>
 				<div class="row" style="page-break-after: always;"></div>
 				<br><br>
+				<center><h3><u>Annexure - IV </u></h3></center>
+				<br>
 				<center><b>DECLARATION</b></center>
 				<div class="row">
 					<div class="col-sm-3">

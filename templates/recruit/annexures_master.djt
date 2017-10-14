@@ -48,7 +48,7 @@
 	    {% if obc %}
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-2">
-				Annexure - OBC
+				Annexure - II
 			</div>
 				{% if obc_filled %}
 				<div class="col-sm-3">
@@ -71,7 +71,7 @@
 		{% if parttime %}
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-2">
-				Annexure - Part Time
+				Annexure - III and Annexure - IV
 			</div>
 				{% if parttime_filled %}
 				<div class="col-sm-3">

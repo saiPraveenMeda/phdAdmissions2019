@@ -25,12 +25,13 @@
 <body>
 <br><br><br>
 <center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>	
-<hr>
+<br>
 <div class="row" style="background-color:#003A6A; color: white;">
 	<center><h3>PHD ADMISSION FORM - ACKNOWLEDGEMENT RECEIPT</h3></center>
 </div>
 
 <div class="row" style="margin-top:5%; border: 5px solid black; padding: 50px;">
+    <div class="hidden-print"><a href="/submit"><button type="button" class="btn btn-info">Back</button></a></div>
 	<div class="col-sm-8 col-sm-offset-3">
 		<div class="row">
 			<div class="col-sm-8">

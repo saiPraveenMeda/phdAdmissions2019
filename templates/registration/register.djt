@@ -63,7 +63,7 @@
 
 		<div class="col-sm-6 col-sm-offset-1">
 			<div class="well well-lg">
-				<form method="POST" action="/register/createApp/">
+				<form method="POST" action="/register/createApp/" onsubmit="return checknumber();">
 				{% csrf_token %}
 					<div class="form-group">
 						<label for="firstName">First Name</label>
@@ -79,7 +79,7 @@
 					</div>
 					<div class="form-group">
 						<label for="contact">10-digit Mobile Number</label>
-						<input for="contact" class="form-control" name="contact" type="number" maxlength="10" required>
+						<input for="contact" class="form-control" name="contact" id="#mob" type="number" maxlength="10" required>
 					</div>
 					<div class="form-group">
 						<label for="password1">Password</label>
@@ -113,6 +113,7 @@
 					</div>
 
 					<center><button type="submit" class="btn btn-success btn-lg">Register</button></center>
+					<button type="button" onclick="checknumber();"></button>
 				</form>
 					<center><a href="/register/">Or login</a></center>
 			</div>
@@ -134,5 +135,14 @@
 	}
 </style>
 <script>
+function checknumber(){
+	valid = true;
+	var mob = $('#mob').val();
+	if(mob.length != 10){
+		valid = false;
+		alert('Mobile number should be of 10 - digits');
+	}
+	return valid;
+}
 </script>
 </html>

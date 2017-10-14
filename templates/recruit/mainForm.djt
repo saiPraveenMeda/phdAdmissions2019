@@ -77,7 +77,7 @@
 						<li>Fill all the details (required) at once on a page and save it using the save button at the bottom of the page, else filled data will be lost if navigated away from page. <span class="label label-danger">Important</span></li>
 						<li> Status of your application can be seen at the top. If you fill all the three parts, you will be allowed to submit the application by clicking on 'Submit Application' button at top-right corner of Documents page. <span class="label label-success"> New </span></li>
 						<li>You can modify the data after saving.<br>But if you submit the application once, you can't modify anything. <span class="label label-danger"> Important </span></li>
-						<li>After filling and saving all the three pages of the form, your application details will be completed. Then you will receive an acknowledgement.</li>
+						<li>After filling and saving all the three pages of the form, your application details will be completed. Then you will receive an acknowledgement to print(an acknowledgement mail will be sent as well).</li>
 						<li>You can print your Application form, Annexures(if applicable) and Acknowledgement receipt from Summary Page.</li>
 						<li>Application won't be considered for processing unless you make the final submission and receive the acknowledgement. <span class="label label-danger blink">Important</span></li>
 					</ol>

@@ -1,3 +1,11 @@
+<style>
+	.blink{
+			animation: blinker 0.7s linear infinite;
+		}
+		@keyframes blinker{
+			1% {opacity: 0.0;}
+		}
+</style>
 <div class="well well-lg">
 	<div class="row">
 	    <div class="col-sm-2">
@@ -29,7 +37,7 @@
 		</div>
 		<div class="col-sm-2">
 			{% if status1 and status2 and status3 and finalsubbtn %}
-			<form id="status" action="/submit/" method="post" onsubmit="return confirm('Application once submitted cant be edited. Are you sure?')">{%csrf_token%}<button class="btn btn-danger"> Submit Application </button></form>
+			<form id="status" action="/submit/" method="post" onsubmit="return confirm('Application once submitted can\'t be edited. Are you sure?')">{%csrf_token%}<button class="btn btn-danger blink"> Submit Application </button></form>
 			{% endif %}
 		</div>
 	</div>
