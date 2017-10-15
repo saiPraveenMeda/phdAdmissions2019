@@ -26,7 +26,7 @@ SECRET_KEY = '2pesar&-wu2x128%f*g0ztbdhd5kfzj4-ell&$w0xof0-5$w#b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['admissions.nitw.ac.in', '172.20.0.247', '127.0.0.1']
+ALLOWED_HOSTS = ['admissions.nitw.ac.in', '218.248.13.238', '172.20.0.247', '127.0.0.1']
 
 
 # Application definition
@@ -135,6 +135,8 @@ LOGGING = {
         },
     },
 }
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location' : '/home/wsdcadmin/phdformbackup'}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
