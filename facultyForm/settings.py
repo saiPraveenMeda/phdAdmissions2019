@@ -26,7 +26,8 @@ SECRET_KEY = '2pesar&-wu2x128%f*g0ztbdhd5kfzj4-ell&$w0xof0-5$w#b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['admissions.nitw.ac.in', '218.248.13.238', '172.20.0.247', '127.0.0.1']
+ALLOWED_HOSTS = ['admissions.nitw.ac.in', 'www.admissions.nitw.ac.in', '218.248.13.238', '172.20.0.247', 'localhost']
+# ALLOWED_HOSTS = ['*']
 
 
 # Application definition
