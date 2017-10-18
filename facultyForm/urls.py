@@ -17,8 +17,14 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic.base import RedirectView
+from django.http import HttpResponse
+
+favicon_view = RedirectView.as_view(url='/static/img/favicon.png', permanent=True)
 
 urlpatterns = [
+    url('r^robots.txt$', lambda r: HttpResponse('User-agent: *\nDisallow: /', mimetype='text/plain')),
+    url(r'^favicon\.ico$', favicon_view),
     url(r'^secureadmin/', admin.site.urls),
     url(r'^', include('recruit.urls', namespace = 'recruit')),
     url(r'^register/', include('registration.urls', namespace = 'register')),

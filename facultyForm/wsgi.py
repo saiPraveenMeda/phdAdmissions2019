@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 import os,sys
 
 from django.core.wsgi import get_wsgi_application
-
+os.environ['HTTPS'] = "on"
 #sys.path.append('/home/wsdcadmin/facultyForm')
 #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "facultyForm.settings")
 os.environ['DJANGO_SETTINGS_MODULE'] = 'facultyForm.settings'

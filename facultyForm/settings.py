@@ -106,6 +106,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# secure proxy SSL header and secure cookies
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+# wsgi scheme
+os.environ['wsgi.url_scheme'] = 'https'
+
+
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 ADMINS = ['Support Admissions NITW', 'support_admissions_2017@nitw.ac.in']
 MANAGERS = ['Support Admissions NITW', 'support_admissions_2017@nitw.ac.in']
@@ -115,7 +123,7 @@ LOGGING = {
     'handlers': {
         'mail_admins': {
             'class': 'django.utils.log.AdminEmailHandler',
-            'level': 'WARNING',
+            'level': 'INFO',
             'include_html': True,
         },
         'logfile': {
@@ -126,12 +134,12 @@ LOGGING = {
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
-            'level': 'WARNING',
+            'level': 'INFO',
             'propagate': True,
         },
         'django': {
             'handlers': ['logfile'],
-            'level': 'WARNING',
+            'level': 'INFO',
             'propagate': False,
         },
     },
