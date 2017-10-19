@@ -289,7 +289,6 @@ def uploadDocs(request):
         return redirect('/annexures')
 
     if request.method == 'POST':
-        print request.FILES
         if 'SSC' in request.FILES:
             docs.SSC = request.FILES['SSC']
         if 'Intermediate' in request.FILES:

@@ -27,7 +27,7 @@ def index(request):
 		
 	elif is_hod(request.user):
 		isDean = False
-		applns = Appdata.objects.filter(submitted=True, post_in=userprofile.department.name)
+		applns = Appdata.objects.filter(verified=True, post_in=userprofile.department.name)
     
 	# response['applns'] = zip(applns, users)
 	response['applns'] = applns
@@ -38,7 +38,7 @@ def index(request):
 @is_scrutinizer(login_url='/register')
 def verifyApplication(request):
 	if is_dean(request.user):
-		applnID = request.GET['verify']
+		applnID = request.POST['verify']
 		appln = Appdata.objects.get(id=applnID)
 		appln.verified = True
 		appln.save()
