@@ -54,6 +54,10 @@ def index(request) :
             generalData = GeneralData(app_id=app_id)
         else :
             generalData = GeneralData.objects.get(app_id=app_id)
+        if not QualifyingExamDetails.objects.filter(app_id=app_id).exists():
+            qualexam = QualifyingExamDetails(app_id=app_id)
+        else :
+            qualexam = QualifyingExamDetails.objects.get(app_id=app_id)
 
         if request.POST['category'] != 'OBC':
             Annexure_OBC.objects.filter(app_id=app_id).delete()
@@ -80,6 +84,14 @@ def index(request) :
         else:
             if generalData.pwd == 'no':
                 flags.pwd_certi = False
+
+        if int(request.POST['exam']) in [12,13,14]:
+            QualifyingExamDetails.objects.filter(app_id=app_id).delete()
+            flags.qualifying_scorecard = True
+        else:
+            if int(qualexam.exam.id) in [12, 13, 14]:
+                flags.qualifying_scorecard = False
+        flags.save()
 
         generalData.full_name = request.POST['Name']
         generalData.gender = request.POST['gender']
@@ -122,10 +134,6 @@ def index(request) :
         pgdegree.save()
 
         #QualifyingExam
-        if not QualifyingExamDetails.objects.filter(app_id=app_id).exists():
-            qualexam = QualifyingExamDetails(app_id=app_id)
-        else :
-            qualexam = QualifyingExamDetails.objects.get(app_id=app_id)
         qualexam.exam = QualifyingExam.objects.get(id=int(request.POST['exam']))
         qualexam.qualifyingYear = request.POST['qualyear']
         qualexam.score = request.POST['score']
@@ -184,6 +192,7 @@ def index(request) :
             flags.papers = all([is_file_exists(file.link) for file in list(Research.objects.filter(app_id=app_id))])
         else:
             flags.papers = True
+        flags.save()
 
 
         response['message'] += 'Profile saved successfully'
@@ -314,7 +323,7 @@ def uploadDocs(request):
             ((not docs.UMemo) or validateFormat(docs.UMemo)) and
             ((not docs.MDegree) or validateFormat(docs.MDegree)) and
             ((not docs.MMemo) or validateFormat(docs.MMemo)) and
-            ((not docs.QualifyingExamScoreCard) or validateFormat(docs.QualifyingExamScoreCard)) and
+            (int(qe.exam.id) in [12, 13, 14] or (not docs.QualifyingExamScoreCard) or validateFormat(docs.QualifyingExamScoreCard)) and
             (gd.category=='UR' or (not docs.CasteCertificate) or validateFormat(docs.CasteCertificate)) and
             (gd.pwd=='no' or (not docs.PWDCertificate) or validateFormat(docs.PWDCertificate)) and
             (app_id.post_for.name=='Full Time' or (not docs.GuideBio) or validateFormat(docs.GuideBio))):
@@ -329,7 +338,8 @@ def uploadDocs(request):
         flags.bacheoler_memo = is_file_exists(docs.UMemo)
         flags.masters_degree = is_file_exists(docs.MDegree)
         flags.masters_memo = is_file_exists(docs.MMemo)
-        flags.qualifying_scorecard = is_file_exists(docs.QualifyingExamScoreCard)
+        if int(qe.exam.id) not in [12, 13, 14]:
+            flags.qualifying_scorecard = is_file_exists(docs.QualifyingExamScoreCard)
         if gd.category != 'UR':
             flags.caste_certi = is_file_exists(docs.CasteCertificate)
         if gd.pwd != 'no':
@@ -349,7 +359,7 @@ def uploadDocs(request):
         response['SSCURL'] = docs.SSC.url
     response['Intermediate'] = flags.intermediate
     if flags.intermediate:
-        response['IntermediateURL'] = docs.UDegree.url
+        response['IntermediateURL'] = docs.Intermediate.url
     response['UDegree'] = flags.bacheoler_degree
     if flags.bacheoler_degree:
         response['UDegreeURL'] = docs.UDegree.url
@@ -362,9 +372,11 @@ def uploadDocs(request):
     response['MMemo'] = flags.masters_memo
     if flags.masters_memo:
         response['MMemoURL'] = docs.MMemo.url
-    response['QualifyingExamScoreCard'] = flags.qualifying_scorecard
-    if flags.qualifying_scorecard:
-        response['QualifyingExamScoreCardURL'] = docs.QualifyingExamScoreCard.url
+    if int(qe.exam.id) not in [12, 13, 14]:
+        response['isQual'] = True
+        response['QualifyingExamScoreCard'] = flags.qualifying_scorecard
+        if flags.qualifying_scorecard:
+            response['QualifyingExamScoreCardURL'] = docs.QualifyingExamScoreCard.url
     if gd.category != 'UR':
         response['isReserved'] = True
         response['CasteCertificate'] = flags.caste_certi
@@ -661,14 +673,14 @@ def printAck(request):
 def validateFormat(filename):
     ext = os.path.splitext(filename.name)[1]
     valid_extentions = ['.pdf']
-    if not ext in valid_extentions:
+    if not ext.lower() in valid_extentions:
         return False
     return True
 
 def validatePic(filename):
     ext = os.path.splitext(filename.name)[1]
     valid_extentions = ['.jpg']
-    if not ext in valid_extentions:
+    if not ext.lower() in valid_extentions:
         return False
     return True
 

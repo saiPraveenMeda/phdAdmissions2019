@@ -143,7 +143,7 @@ class Annexure_Part_Time(models.Model):
 	app_id = models.ForeignKey(Appdata)
 	name = models.CharField(max_length=100)
 	designation = models.CharField(max_length=50)
-	date = models.CharField(max_length=20)
+	date = models.CharField(max_length=50)
 	address = models.CharField(max_length=300)
 	employment_years = models.CharField(max_length=10)
 	guide = models.CharField(max_length=100)

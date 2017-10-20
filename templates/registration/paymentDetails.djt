@@ -69,8 +69,8 @@
 					</div>
 					<div class="form-group">
 						<label>Category</label>
-						<select class="form-control" name="paytype">
-					  	<option selected disabled>----</option>
+						<select class="form-control" name="paytype" required>
+					  	<option selected disabled value="">----</option>
 					  	<option value="GEN/OBC">General / OBC</option>
 					    <option value="SC/ST/PWD">SC / ST / PWD</option>
 					  </select>
@@ -81,7 +81,7 @@
 					</div>
 					<div class="form-group">
 						<label for="receipt">Upload Payment Receipt (PDF format only)</label>
-						<input for="receipt" class="form-control" name="receipt" type="file">
+						<input for="receipt" class="form-control" name="receipt" type="file" required>
 					</div>
 
 					<center><button type="submit" class="btn btn-success btn-lg">Submit</button></center>

@@ -23,7 +23,7 @@ from django.http import HttpResponse
 favicon_view = RedirectView.as_view(url='/static/img/favicon.png', permanent=True)
 
 urlpatterns = [
-    url('r^robots.txt$', lambda r: HttpResponse('User-agent: *\nDisallow: /', mimetype='text/plain')),
+    url(r'^robots\.txt$', lambda r: HttpResponse('User-agent: *\nDisallow: /', content_type='text/plain')),
     url(r'^favicon\.ico$', favicon_view),
     url(r'^secureadmin/', admin.site.urls),
     url(r'^', include('recruit.urls', namespace = 'recruit')),

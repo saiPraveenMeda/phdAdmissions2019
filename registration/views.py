@@ -18,6 +18,15 @@ def is_dean(user):
     return user.groups.filter(name="Dean").exists()
 def is_hod(user):
     return user.groups.filter(name="HOD").exists()
+def is_applicant(login_url=None):
+    return user_passes_test(lambda u: u.groups.filter(name='Applicant').exists(), login_url=login_url)
+
+def validateFormat(filename):
+    ext = os.path.splitext(filename.name)[1]
+    valid_extentions = ['.pdf']
+    if not ext.lower() in valid_extentions:
+        return False
+    return True
 
 def is_file_exists(file):
     if file == None or file.url in [None, '']:
@@ -30,10 +39,14 @@ def is_file_exists(file):
 
 def index(request) :
 	response = {}
+	if 'Chrome' not in request.META['HTTP_USER_AGENT']:
+		response['error'] = 'Looks like you are not using Google Chrome ! Using Chrome is mandatory to avoid technical issues !'
 	return render(request,'registration/login.djt',response)
 
 def send_to_register(request,errorNo='0') :
 	response = {}
+	if 'Chrome' not in request.META['HTTP_USER_AGENT']:
+		return redirect('/register')
 	if errorNo=='1' :
 		msg = 'Registration for selected position in selected department has already been done using this'
 		msg = msg + ' Email-id'
@@ -73,6 +86,8 @@ def signout(request):
 	logout(request)
 	return redirect('/register')
 
+@login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def termsandconditions(request) :
 	response = {}
 	profile = Appdata.objects.get(user=request.user)
@@ -200,6 +215,8 @@ def forgotPassword(request):
 
 	return render(request,'registration/forgotPass.djt',response)
 
+@login_required(login_url='/register')
+@is_applicant(login_url='/register')
 def paymentDetails(request):
 	response = {}
 	profile = Appdata.objects.get(user=request.user)
@@ -235,10 +252,3 @@ def paymentDetails(request):
 	response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
 	response['status4'] = profile.paymentUploaded
 	return render(request,'registration/paymentDetails.djt',response)
-
-def validateFormat(filename):
-    ext = os.path.splitext(filename.name)[1]
-    valid_extentions = ['.pdf']
-    if not ext in valid_extentions:
-        return False
-    return True

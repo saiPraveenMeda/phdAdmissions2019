@@ -75,7 +75,7 @@
 						<p>
 						This is to certify that Shri/Smt./Kum. <input id = "name" name = "name" type = "text" value = "{{name}}" required> 
 						<select for = "gender" id = "gender" name="gender" required> 
-							<option {%if not gender%} selected {%endif%} disabled>----</option>
+							<option {%if not gender%} selected {%endif%} disabled value="">----</option>
 							<option {%if gender == 'Daughter'%} selected {%endif%} value="Daughter">Daughter</option>
 							<option {%if gender == 'Son'%} selected {%endif%} value="Son">Son</option>
 						</select> 
@@ -127,8 +127,8 @@
 						<center> <b>Declaration /undertaking - for OBC Candidates only</b></center>
 						<br>
 						I, <input id = "name2" type = "text" value = "{{name}}" disabled> 
-						<select for = "gender" id = "gender1" required> 
-							<option {%if not gender%} selected {%endif%} disabled>----</option>
+						<select for = "gender" id = "gender1">
+							<option {%if not gender%} selected {%endif%} disabled value="">----</option>
 							<option {%if gender == 'Daughter'%} selected {%endif%} value="Daughter">Daughter</option>
 							<option {%if gender == 'Son'%} selected {%endif%} value="Son">Son</option>
 						</select>
