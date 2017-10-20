@@ -60,7 +60,7 @@
 				<form method="POST" action="/register/paymentDetails/" onsubmit="return validate()" enctype="multipart/form-data" id="payform">
 				{% csrf_token %}
 					<div class="form-group">
-						<label for="trans">Transaction-ID</label>
+						<label for="trans">SBH Collect Reference Number</label>
 						<input for="trans" class="form-control" name="transID" value="{{paydata.transID}}" disabled>
 					</div>
 					<div class="form-group">
