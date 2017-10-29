@@ -89,7 +89,10 @@ def index(request) :
             QualifyingExamDetails.objects.filter(app_id=app_id).delete()
             flags.qualifying_scorecard = True
         else:
-            if int(qualexam.exam.id) in [12, 13, 14]:
+            try:
+                if int(qualexam.exam.id) in [12, 13, 14]:
+                    flags.qualifying_scorecard = False
+            except:
                 flags.qualifying_scorecard = False
         flags.save()
 
@@ -105,7 +108,10 @@ def index(request) :
         generalData.category = request.POST.get('category')
         generalData.pwd = request.POST.get('pwd')
         generalData.aadhaarNo = request.POST.get('aadhaar')
-        generalData.save()
+        try:
+            generalData.save()
+        except:
+            response['message'] += 'Date format incorrect. Please correct and save again'
 
 
         #Education Part

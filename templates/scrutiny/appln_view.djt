@@ -1,0 +1,497 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PhD Admission Form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+	</style>
+
+</head>
+<body>
+
+<center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+    <div class="col-sm-4 col-sm-offset-4">
+	    <center><h2>Application of {{profile.app_id}}</h2></center>
+	</div>
+	<div class="col-sm-4">
+	<br>
+	    <center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
+	</div>
+	<br>
+</div>
+
+
+
+<div style="padding: 50px;">
+<div id="part1" style="page-break-after: always;">
+		<div class="well well-lg">
+		<div class="row hidden-print"><a href="/scrutiny" style="float: left"><button type="button" class="btn btn-info">Back</button></a>
+		{% if is_dean %}
+		<a href="/scrutiny/verifyApplication/{{profile.app_id}}" style="float: right"><button type="button" class="btn btn-success">Verify</button></a>
+		{% endif %}
+		</div>
+		<br><br><br>
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="row">
+						<div class="col-sm-4"> <b>Applied Position:</b> </div>
+						<div class="col-sm-6">
+							<div class="form-group" style="font-size:18px;">
+								<b><u>{{profile.post_for}}</u></b>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4"> <b>In the Department of </b> </div>
+						<div class="col-sm-6">
+							<div class="form-group" style="font-size:18px;">
+								<b><u>{{profile.post_in}}</u></b>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4"> <b>Name in Full (In Block Letters)</b> </div>
+						<div class="col-sm-6">
+							{{generalData.full_name}}
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4"> <b>Gender</b> </div>
+						<div class="col-sm-6">
+							{{generalData.gender}}
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+				<center>
+					{% if profile.profilePic %}
+					<img src="{{profile.profilePic.url}}" class="img-rounded" style="height:150px; max-width:90%;">
+					{% else %}
+					<img src="{% static 'img/default_profile.jpg' %}" class="img-rounded" style="height:150px; max-width:90%;">
+					{% endif %}
+					<br><br>
+				</center>
+				</div>
+
+			</div>
+			<!-- -->
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Father's Name</b> </div>
+				<div class="col-sm-3">
+					{{generalData.father_name}}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Mother's Name</b> </div>
+				<div class="col-sm-3">
+					{{generalData.mother_name}}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Nationality</b> </div>
+				<div class="col-sm-3">
+					{{generalData.nation}}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Date of Birth</b> </div>
+				<div class="col-sm-3">
+					{{generalData.dob | date:'Y-m-d'}}
+				</div>
+				{% if generalData.age %}
+				<div class="col-sm-1"> <b>Age</b> </div>
+				<div class="col-sm-1">
+					{{generalData.age}}
+				</div>
+				{% endif %}
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"><b>Aadhaar Number</b></div>
+				<div class="col-sm-3">
+				{{generalData.aadhaarNo}}
+				</div>
+			</div><br>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Contact</b> </div>
+				<div class="col-sm-3">
+					<div class="form-group" style="font-size:15px;">
+						<b>{{profile.contact}}</b>
+					</div>
+				</div>
+				<div class="col-sm-1"> <b>Email : </b> </div>
+				<div class="col-sm-3">
+					<div class="form-group" style="font-size:15px;">
+						<b>{{user.email}}</b>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Address of Correspondence</b> </div>
+				<div class="col-sm-8">
+					{{generalData.correspond_addr}}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Permanent Address</b> </div>
+				<div class="col-sm-8">
+					{{generalData.permanent_addr}}
+				</div>				
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b>Category</b> </div>
+				<div class="col-sm-9">
+				{{generalData.category}}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3"> <b> PWD :  </b> </div>
+
+				<div class="col-sm-3">
+				{{generalData.pwd}}
+			</div>
+			</div>
+</div></div>
+<div >
+
+			<div class="row">
+				<div class="col-sm-10">
+					<b><h3>Particulars of Educational Qualifications</h3></b>
+				</div>
+			</div>
+			<br>
+
+			<div class="well well-lg">
+
+				<div class="row">
+				<div class="col-sm-2"><b>Degree Obtained & Specializations</b></div>
+					<div class="col-sm-2"><b>Degree</b></div>
+					<div class="col-sm-2"><b>Name of University/Institute</b></div>
+					<div class="col-sm-2"><b>Year of Passing</b></div>
+					<div class="col-sm-2"><b>% of Marks / CGPA</b></div>
+					<div class="col-sm-2"><b>Class/Division</b></div>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="col-sm-2">Bachelor's Degree</div>
+					<div class="col-sm-2">
+						{{Bqual.degreeName}}
+					</div>
+					<div class="col-sm-2">
+						{{Bqual.university}}
+					</div>
+					<div class="col-sm-2">
+						{{Bqual.passingYear}}
+					</div>
+					<div class="col-sm-2">
+						{{Bqual.marks}}
+					</div>
+					<div class="col-sm-2">
+						{{Bqual.division}}
+					</div>
+				</div>
+				<br><br>
+
+				<div class="row">
+					<div class="col-sm-2">Master's Degree</div>
+					<div class="col-sm-2">
+						{{Mqual.degreeName}}
+					</div>
+					<div class="col-sm-2">
+						{{Mqual.university}}
+					</div>
+					<div class="col-sm-2">
+						{{Mqual.passingYear}}
+					</div>
+					<div class="col-sm-2">
+						{{Mqual.marks}}
+					</div>
+					<div class="col-sm-2">
+						{{Mqual.division}}
+					</div>
+				</div>
+				</div>
+		 </div>
+				<hr>
+
+			<div class="row">
+				<div class="col-sm-10">
+					<b><h3>Qualifying Examination Details</h3></b>
+				</div>
+			</div>
+			<br>
+
+			<div class="well well-lg">
+			<div class="row">
+			<div class="col-sm-3"> <b>Examination Qualified : </b> </div>
+				<div class="col-sm-3">
+					{{QExamDetails.exam.name}}
+				</div>
+			</div>
+            <br><br>
+
+            <div class="row">
+				<div class="col-sm-2">
+					Qualifying Year: {{QExamDetails.qualifyingYear}}
+				</div>
+				<div class="col-sm-2">
+					Score: {{QExamDetails.score}}
+				</div>
+				<div class="col-sm-2">
+					Rank: {{QExamDetails.rank}}
+				</div>
+				<div class="col-sm-2">
+					Category: {{generalData.category}} 
+				</div>
+				<div class="col-sm-2">
+					Cutoff Score: {{QExamDetails.cutoffScore}}
+				</div>
+			</div>
+
+			</div>
+            <br>
+
+			<hr>
+
+			<div class="row">
+				<div class="col-sm-10">
+					<b><h3>Details of Experience</h3></b>
+				</div>
+			</div>
+			<br>
+			<br>
+
+			<!-- Teaching Experience Code -->
+			<div class="well well-lg">
+			<div class="row">
+				<div class="col-sm-3"> <b>1. Teaching Experience (years)</b> </div>
+				<div class="col-sm-3">
+					{{Experience.teaching_exp}}
+				</div>
+			</div>
+			
+
+			<!-- Research Experience Code -->
+
+			<div class="row">
+				<div class="col-sm-3"> <b>2. Research Experience (years)</b> </div>
+				<div class="col-sm-3">
+					{{Experience.research_exp}}
+				</div>
+			</div>
+
+			
+			<!-- Industrial Experience Code -->
+
+			<div class="row">
+				<div class="col-sm-3"> <b>3. Industrial Experience (years)</b> </div>
+				<div class="col-sm-3">
+					{{Experience.industrial_exp}}
+				</div>
+			</div>
+			</div>
+
+			<br><br><br>
+			<!-- Research Papers published -->
+			<div class="row">
+				<div class="col-sm-6"> <h3>Research papers published </h3></div>
+			</div>
+			<div class="well well-lg">
+			<table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th>S.No.</th>
+			        <th>Title of paper</th>
+			        <th>Conference / Workshop</th>
+			        <th>Action</th>
+			       </tr>
+			    </thead>
+			    <tbody id="papersTbody">
+			    	{% for paper in papers %}
+			    	<tr>
+			    		<td>{{forloop.counter}}.</td>
+			    		<td>{{paper.title}}</td>
+			    		<td>{{paper.conference}}</td>
+			    		<td><a href="{{paper.link.url}}" target="_blank">View First page</a></td>
+			    	</tr>
+			    	{% endfor %}
+			    </tbody>
+			</table>
+
+			</div>
+			<hr>
+			
+			<div class="well well-lg">
+				<div class="row">
+				<div class="col-sm-5"><h4> <b>Field of Proposed Area of Research</b></h4> </div>
+			</div>
+				<div class = "row">
+					<div class="col-sm-4">
+						{{Others.proposedFieldOfResearch}}
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-sm-6"> <h3>Documents Uploaded </h3></div>
+			</div>
+			<div class="well well-lg">
+				<table class="table table-bordered">
+				<thead>
+			      <tr style="background-color:#e3e3e3;">
+			        <th>S.No.</th>
+			        <th> Document </th>
+			        <th> File </th>
+			      </tr>
+			    </thead>
+			    <tbody id="papersTbody">
+			        <tr>
+			    		<td>1.</td>
+			    		<td> SSC Certificate</td>
+			    		<td>
+			    			{% if SSC %} <a href="{{SSCURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>2.</td>
+			    		<td> Intermediate Certificate</td>
+			    		<td>
+			    			{% if Intermediate %} <a href="{{IntermediateURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>3.</td>
+			    		<td> Bachelor's Degree Certificate</td>
+			    		<td>
+			    			{% if UDegree %} <a href="{{UDegreeURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>4.</td>
+			    		<td> Bacheoler's Degree Marks Memo</td>
+			    		<td>
+			    			{% if UMemo %} <a href="{{UMemoURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>5.</td>
+			    		<td> Master's Degree Certificate <br> </td>
+			    		<td>
+			    			{% if MDegree %} <a href="{{MDegreeURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td>6.</td>
+			    		<td> Master's Degree Marks Memo</td>
+			    		<td>
+			    			{% if MMemo %} <a href="{{MMemoURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	{% if isQual %}
+			    	<tr>
+			    		<td>7.</td>
+			    		<td> {{QExam.exam.name}} Qualifying Score Card </td>
+			    		<td>
+			    			{% if QualifyingExamScoreCard %} <a href="{{QualifyingExamScoreCardURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	{% endif %}
+			    	{% if isReserved %}
+			    	<tr>
+			    		<td>8.</td>
+			    		<td> Caste Certificate</td>
+			    		<td>
+			    			{% if CasteCertificate %} <a href="{{CasteCertificateURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	{% endif %}
+			    	{% if isPWD %}
+			    	<tr>
+			    		<td>9.</td>
+			    		<td> PWD Certificate</td>
+			    		<td>
+			    			{% if PWDCertificate %} <a href="{{CasteCertificateURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	{% endif %}
+			    	{% if isPartTime %}
+			    	<tr>
+			    		<td>10.</td>
+			    		<td> Guide Bio Data (Annexure - IV)</td>
+			    		<td>
+			    			{% if GuideBio %} <a href="{{GuideBioURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	{% endif %}
+			    </tbody>
+			    </table>
+			</div>
+</div>
+</div>
+
+
+
+
+<div class="copyright">
+  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
+  <div style="text-align:center">Designed and Developed by WSDC</div>
+</div>
+
+</body>
+
+<style type="text/css">
+	.copyright {
+	  background-color: #003A6A;
+	  color: white;
+	}
+</style>

@@ -84,8 +84,8 @@ class Education(models.Model):
 	degreeName = models.CharField(max_length=100)
 	university = models.CharField(max_length=100)
 	passingYear = models.IntegerField()
-	marks = models.CharField(max_length=10)
-	division = models.CharField(max_length=30)
+	marks = models.CharField(max_length=50)
+	division = models.CharField(max_length=100)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s ' + self.degreeType
@@ -99,7 +99,7 @@ class QualifyingExamDetails(models.Model):
 	cutoffScore = models.FloatField()
 
 	def __unicode__(self):
-		return self.app_id.app_id + '\'s ' + self.exam
+		return self.app_id.app_id + '\'s ' + str(self.exam)
 
 class Experience(models.Model):
 	app_id = models.ForeignKey(Appdata)
@@ -145,7 +145,7 @@ class Annexure_Part_Time(models.Model):
 	designation = models.CharField(max_length=50)
 	date = models.CharField(max_length=50)
 	address = models.CharField(max_length=300)
-	employment_years = models.CharField(max_length=10)
+	employment_years = models.CharField(max_length=20)
 	guide = models.CharField(max_length=100)
 
 	def __unicode__(self):

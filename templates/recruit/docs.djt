@@ -149,7 +149,7 @@
 			    	</tr>
 			    	<tr>
 			    		<td>5.</td>
-			    		<td> Master's Degree Certificate</td>
+			    		<td> Master's Degree Certificate <br> (Upload Marks memo in case you are a recent graduate and yet to receive your Masters Certificate) </td>
 			    		<td>
 			    		    {% if MDegree %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
 			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>

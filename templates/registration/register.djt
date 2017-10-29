@@ -82,7 +82,7 @@
 						<input for="contact" class="form-control" name="contact" id="mob" type="number" maxlength="10" required>
 					</div>
 					<div class="form-group">
-						<label for="password1">Password</label>
+						<label for="password1">Password (min. 8 chars)</label>
 						<input for="password1" class="form-control" name="password1" type="password" required>
 					</div>
 					<div class="form-group">
