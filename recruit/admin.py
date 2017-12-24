@@ -7,10 +7,10 @@ from recruit.models import *
 class AppdataAdmin(admin.ModelAdmin):
 	list_display = ('app_id', 'post_for', 'post_in', 'submitted', 'verified')
 	search_fields = ('app_id',)
-	list_filter = ('post_for', 'post_in', 'submitted', 'verified')
+	list_filter = ('post_for', 'post_in', 'submitted', 'verified', 'shortlisted')
 
 class PaymentDetailsAdmin(admin.ModelAdmin):
-	search_fields = ('appID',)
+	search_fields = ('appID__app_id',)
 
 class GeneralDataAdmin(admin.ModelAdmin):
 	search_fields = ('app_id', 'full_name')

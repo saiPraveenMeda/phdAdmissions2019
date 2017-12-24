@@ -11,6 +11,12 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/sc-1.4.3/sl-1.2.3/datatables.min.css"/>
+ 
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/sc-1.4.3/sl-1.2.3/datatables.min.js"></script>
+
 
 	<style type="text/css">
 		hr{
@@ -35,17 +41,39 @@
 	</div>
 	<br>
     </div>
-
+<br><br>
+<div class="row">
+    <form method="post" action="/scrutiny/generateReport">
+    {%csrf_token%}
+    {%if is_dean%}
+	<div class="col-sm-4 col-sm-offset-2">
+	<button type="submit" class="btn btn-danger" name="status" value="1">All Verified candidates list</button>
+	</div>
+	<div class="col-sm-4">
+	<button type="submit" class="btn btn-danger" name="status" value="0">All Un Verified candidates list</button>
+	</div>
+	{% endif %}
+	<br><br>
+	<div class="col-sm-4 col-sm-offset-2">
+	<button type="submit" class="btn btn-danger" name="status" value="1">All Shortlisted candidates list</button>
+	</div>
+	<div class="col-sm-4">
+	<button type="submit" class="btn btn-danger" name="status" value="0">All Un Shortlisted candidates list</button>
+	</div>
+	</form>
+</div>
+<br><br>
+<center><h3><b>{%if is_dean%}UN-VERIFIED{%else%}NOT SHORTLISTED{%endif%}</b></h3></center><br>
 <div class="row" style="margin: 30px;">
 <div class="col-sm-12">
 	<table class="table table-bordered">
 		<thead>
-	      <tr style="background-color:#e3e3e3;">
+	      <tr style="background-color: gray;">
 	        <th>S.No.</th>
 	        {% if is_dean %}
 	        <th>Department</th>
 	        {% endif %}
-	        <th>Registration Number</th>
+	        <th>Application ID</th>
 	        <th>Position</th>
 	        <th>First Name</th>
 	        <th>Last Name</th>
@@ -54,8 +82,7 @@
 	      </tr>
 	    </thead>
 	    <tbody>
-	    {% for appln in applns %}
-	    {% if is_dean or appln.verified or 1 %}
+	    {% for appln in applns_no %}
 	    	<tr>
 	    		<td>{{forloop.counter}}</td>
 	    		{% if is_dean %}
@@ -66,8 +93,14 @@
 	    		<td>{{appln.user.first_name}}</td>
 	    		<td>{{appln.user.last_name}}</td>
 	    		<td><center>
+	    		    {% if is_dean %}
 	    			{% if appln.verified %} <span class="glyphicon glyphicon-ok"></span>
 	    			{% else %} <span class="glyphicon glyphicon-remove"></span>
+	    			{% endif %}
+	    			{% else %}
+	    			{% if appln.shortlisted %} <span class="glyphicon glyphicon-ok"></span>
+	    			{% else %} <span class="glyphicon glyphicon-remove"></span>
+	    			{% endif %}
 	    			{% endif %}
 	    			</center>
 	    		</td>
@@ -75,13 +108,63 @@
 		           <a href="/scrutiny/viewApplication/{{appln.app_id}}">View Application</a>
 		        </td>
 	    	</tr>
-	    {% endif %}
 	    {% endfor %}
 	    </tbody>
 	</table> 
 </div>
 </div>
+<br><br><br>
+<center><h3><b>{%if is_dean%}VERIFIED{%else%}SHORTLISTED{%endif%}</b></h3></center><br>
 
+<div class="row" style="margin: 30px;">
+<div class="col-sm-12">
+	<table class="table table-bordered">
+		<thead>
+	      <tr style="background-color: gray;">
+	        <th>S.No.</th>
+	        {% if is_dean %}
+	        <th>Department</th>
+	        {% endif %}
+	        <th>Application ID</th>
+	        <th>Position</th>
+	        <th>First Name</th>
+	        <th>Last Name</th>
+	        <th>Status</th>
+	        <th>Action</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    {% for appln in applns_yes %}
+	    	<tr>
+	    		<td>{{forloop.counter}}</td>
+	    		{% if is_dean %}
+		        <td>{{appln.post_in}}</td>
+		        {% endif %}
+	    		<td>{{appln.app_id}}</td>
+	    		<td>{{appln.post_for}}</td>
+	    		<td>{{appln.user.first_name}}</td>
+	    		<td>{{appln.user.last_name}}</td>
+	    		<td><center>
+	    		    {% if is_dean %}
+	    			{% if appln.verified %} <span class="glyphicon glyphicon-ok"></span>
+	    			{% else %} <span class="glyphicon glyphicon-remove"></span>
+	    			{% endif %}
+	    			{% else %}
+	    			{% if appln.shortlisted %} <span class="glyphicon glyphicon-ok"></span>
+	    			{% else %} <span class="glyphicon glyphicon-remove"></span>
+	    			{% endif %}
+	    			{% endif %}
+	    			</center>
+	    		</td>
+		        <td>
+		           <a href="/scrutiny/viewApplication/{{appln.app_id}}">View Application</a>
+		        </td>
+	    	</tr>
+	    {% endfor %}
+	    </tbody>
+	</table> 
+</div>
+</div>
 
 
 <div class="copyright">
@@ -97,3 +180,8 @@
 	  color: white;
 	}
 </style>
+<script>
+$(document).ready(function() {
+    $('.table').DataTable();
+} );
+</script>

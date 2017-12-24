@@ -34,6 +34,8 @@ class Appdata(models.Model):
 	termsRead = models.BooleanField(default=False)
 	submitted = models.BooleanField(default=False)
 	verified = models.BooleanField(default=False)
+	shortlisted = models.BooleanField(default=False)
+	remark = models.CharField(default='',max_length=300)
 	paymentUploaded = models.BooleanField(default=False)
 	submitDate = models.DateTimeField(blank=True,default=timezone.now,auto_now=False, auto_now_add=False)
 

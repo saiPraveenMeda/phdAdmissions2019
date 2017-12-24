@@ -137,7 +137,7 @@
 				</div>
 				<br><br>
 				<div class="row">
-					I, Dr. {{guide}} hereby express my willingness to act as a supervisor to Mr. / Ms. {{name}} , who is interested in doing Ph.D. at the National Institute of Technology, Warangal, under part-time program. I am herewith enclosing my bio-data. I also state that adequate facilities are available with us, for doing Ph.D. work at our organization.
+					I, Dr. {{parttime.guide}} hereby express my willingness to act as a supervisor to Mr. / Ms. {{parttime.name}} , who is interested in doing Ph.D. at the National Institute of Technology, Warangal, under part-time program. I am herewith enclosing my bio-data. I also state that adequate facilities are available with us, for doing Ph.D. work at our organization.
 				</div>
 		        <br><br>
 				<div class="row">

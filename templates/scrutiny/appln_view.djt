@@ -18,6 +18,9 @@
     		height: 1px;
     		background-color: black;
 		}
+		@media print {
+    		@page { size: A4 landscape; };
+			}
 	</style>
 
 </head>
@@ -26,10 +29,10 @@
 <center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
 
 <div class="row" style="background-color:#003A6A; color: white;">
-    <div class="col-sm-4 col-sm-offset-4">
+    <div class="col-sm-8 col-sm-offset-2">
 	    <center><h2>Application of {{profile.app_id}}</h2></center>
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-2 hidden-print">
 	<br>
 	    <center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
 	</div>
@@ -40,13 +43,39 @@
 
 <div style="padding: 50px;">
 <div id="part1" style="page-break-after: always;">
-		<div class="well well-lg">
-		<div class="row hidden-print"><a href="/scrutiny" style="float: left"><button type="button" class="btn btn-info">Back</button></a>
+        <div class="row hidden-print"><a href="/scrutiny" style="float: left"><button type="button" class="btn btn-info">Back</button></a>
+		&nbsp;&nbsp;<button type="button" onclick="window.print();" class="btn btn-primary">Print</button>
 		{% if is_dean %}
+		{% if is_verified %}
+		<span class="label label-warning" style="float: right;">Verified</span>
+		{% else %}
 		<a href="/scrutiny/verifyApplication/{{profile.app_id}}" style="float: right"><button type="button" class="btn btn-success">Verify</button></a>
+		{% endif %}
+		{% else %}
+		{% if not is_shortlisted %}
+		<form action="/scrutiny/shortlistApplication/{{profile.app_id}}" method="post" style="float: right;">
+		    {% csrf_token %}
+			Remark: <input type="text" class="form-group" name="content" required><br>
+			<input type="radio" name="check" value="1" required>Shortlist<br>
+			<input type="radio" name="check" value="0" required>Reject<br>
+			<button type="submit" class="btn btn-success">Submit</button>
+		</form>
+		{% else %}
+		<span class="label label-warning" style="float: right;">Shortlisted</span>
+		{% endif %}
 		{% endif %}
 		</div>
 		<br><br><br>
+		<div class="well well-lg">
+		<h3>Application Fee Payment Details:</h3><br>
+			<div class="row">
+				<div class="col-sm-3">Transaction ID: {{payment.transID}}</div>
+				<div class="col-sm-3">Payment Date: {{payment.payDate}}</div>
+				<div class="col-sm-3">Amount: {{payment.amount}}</div>
+				<div class="col-sm-3">Receipt: <a href="{{payment.receipt.url}}" target="_blank">View</a></div>
+			</div>
+		</div>
+		<div class="well well-lg">
 			<div class="row">
 				<div class="col-sm-9">
 					<div class="row">

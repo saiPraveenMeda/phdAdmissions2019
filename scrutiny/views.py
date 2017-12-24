@@ -24,13 +24,16 @@ def index(request):
 	userprofile = ScrutinizerProfile.objects.get(user=request.user)
 	if is_dean(request.user):
 		isDean = True
-		applns = Appdata.objects.filter(submitted=True)
+		applns_yes = Appdata.objects.filter(submitted=True, verified=True)
+		applns_no = Appdata.objects.filter(submitted=True, verified=False)
 		
 	elif is_hod(request.user):
 		isDean = False
-		applns = Appdata.objects.filter(submitted=True, post_in=userprofile.department)
+		applns_yes = Appdata.objects.filter(submitted=True, verified=True, post_in=userprofile.department, shortlisted=True)
+		applns_no = Appdata.objects.filter(submitted=True, verified=True, post_in=userprofile.department, shortlisted=False)
 	# response['applns'] = zip(applns, users)
-	response['applns'] = applns
+	response['applns_yes'] = applns_yes
+	response['applns_no'] = applns_no
 	response['is_dean'] = isDean
 	return render(request,'scrutiny/applications.djt',response)
 
@@ -46,15 +49,35 @@ def verifyApplication(request, applnid):
 
 @login_required(login_url='/register')
 @is_scrutinizer(login_url='/register')
+def shortlistApplication(request, applnid):
+	if is_hod(request.user) and request.method == 'POST':
+		if Appdata.objects.filter(app_id=applnid).exists():
+			appln = Appdata.objects.get(app_id=applnid)
+			appln.shortlisted = request.POST['check']
+			appln.remark = request.POST['content']
+			appln.save()
+	return HttpResponseRedirect('/scrutiny')
+
+
+@login_required(login_url='/register')
+@is_scrutinizer(login_url='/register')
 def viewApplication(request, applnid):
 	response ={}
 	if not Appdata.objects.filter(app_id=applnid).exists():
 		return HttpResponseRedirect('/scrutiny')
 	response['is_dean'] = is_dean(request.user)
 	app_id = Appdata.objects.get(app_id=applnid)
+	response['is_verified'] = app_id.verified
+	response['is_shortlisted'] = app_id.shortlisted
 	response['profile'] = app_id
 	response['user'] = User.objects.get(username=applnid)
+	userprofile = ScrutinizerProfile.objects.get(user=request.user)
 
+	if not is_dean(request.user) and app_id.post_in!=userprofile.department:
+		return HttpResponseRedirect('/scrutiny')
+
+	if PaymentDetails.objects.filter(appID=app_id).exists():
+		response['payment'] = PaymentDetails.objects.get(appID=app_id)
 	if GeneralData.objects.filter(app_id=app_id).exists():
 		response['generalData'] = GeneralData.objects.get(app_id=app_id)
 	if Experience.objects.filter(app_id=app_id).exists():
@@ -119,3 +142,20 @@ def viewApplication(request, applnid):
 			if flags.guidebio:
 				response['GuideBioURL'] = docs.GuideBio.url
 	return render(request, 'scrutiny/appln_view.djt', response)
+
+
+@login_required(login_url='/register')
+@is_scrutinizer(login_url='/register')
+def generateReport(request):
+	response = {}
+	status = request.POST['status']
+	if is_dean(request.user):
+		quals = Appdata.objects.filter(submitted=True, verified=status).all()
+	else:
+		userprofile = ScrutinizerProfile.objects.get(user=request.user)
+		quals = Appdata.objects.filter(verified=True, shortlisted=status,post_in=userprofile.department).order_by('qualifyingexamdetails__exam_id', '-qualifyingexamdetails__score')
+		response['dept'] = userprofile.department.name
+	response['quals'] = quals
+	response['is_dean'] = is_dean(request.user)
+	response['status'] = status
+	return render(request, 'scrutiny/report.djt', response)

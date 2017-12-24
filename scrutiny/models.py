@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from recruit.models import Appdata
 
 from django.db import models
 from django.contrib.auth.models import User
