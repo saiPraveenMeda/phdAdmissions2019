@@ -24,10 +24,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2pesar&-wu2x128%f*g0ztbdhd5kfzj4-ell&$w0xof0-5$w#b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['admissions.nitw.ac.in', 'www.admissions.nitw.ac.in', '218.248.13.238', '172.20.0.247', 'localhost']
-# ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['admissions.nitw.ac.in', 'www.admissions.nitw.ac.in', '218.248.13.238', '172.20.0.247', 'localhost']
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,9 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dbbackup',
     'django_cleanup',
+    'payu',
     'recruit',
     'registration',
-    'scrutiny'
+    'scrutiny',
+    'payment'
 ]
 
 MIDDLEWARE = [
@@ -61,7 +64,7 @@ ROOT_URLCONF = 'facultyForm.urls'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'support_admissions_2017@nitw.ac.in'
+EMAIL_HOST_USER = 'support_admissions_2018@nitw.ac.in'
 EMAIL_HOST_PASSWORD = confidential.EMAIL_HOST_PASSWORD
 EMAIL_PORT = 587
 
@@ -87,6 +90,7 @@ WSGI_APPLICATION = 'facultyForm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 DATABASES = confidential.DATABASES
+PAYU_INFO = confidential.PAYU_INFO
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -107,16 +111,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # secure proxy SSL header and secure cookies
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 # wsgi scheme
-os.environ['wsgi.url_scheme'] = 'https'
+#os.environ['wsgi.url_scheme'] = 'https'
 
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-ADMINS = ['Support Admissions NITW', 'support_admissions_2017@nitw.ac.in']
-MANAGERS = ['Support Admissions NITW', 'support_admissions_2017@nitw.ac.in']
+ADMINS = ['Support Admissions NITW', 'support_admissions_2018@nitw.ac.in']
+MANAGERS = ['Support Admissions NITW', 'support_admissions_2018@nitw.ac.in']
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -128,7 +132,7 @@ LOGGING = {
         },
         'logfile': {
             'class': 'logging.handlers.WatchedFileHandler',
-            'filename': '/home/wsdcadmin/Desktop/phdformlogs/phdform.log'
+            'filename': '/home/wsdcadmin/phdform/phdlog/phdform.log'
         },
     },
     'loggers': {

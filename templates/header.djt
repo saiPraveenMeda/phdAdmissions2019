@@ -1,0 +1,14 @@
+{% load static %}
+<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="80%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
+<div class="row" style="background-color:#564c4A; color: #DBEAE4;">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+    	<center><h2><b>PHD ADMISSIONS PORTAL - 2018</b></h2></center><br>
+    </div>
+    <div class="col-sm-2 hidden-print">
+    <br>
+    {% if is_signed_in %}
+    	<a href="/register/signout"><button class="btn btn-primary"><span class="glyphicon glyphicon-log-out"></span> Logout</button></a>
+    {% endif %}
+    </div>
+</div>

@@ -31,7 +31,6 @@ def index(request):
 		isDean = False
 		applns_yes = Appdata.objects.filter(submitted=True, verified=True, post_in=userprofile.department, shortlisted=True)
 		applns_no = Appdata.objects.filter(submitted=True, verified=True, post_in=userprofile.department, shortlisted=False)
-	# response['applns'] = zip(applns, users)
 	response['applns_yes'] = applns_yes
 	response['applns_no'] = applns_no
 	response['is_dean'] = isDean
@@ -55,6 +54,17 @@ def shortlistApplication(request, applnid):
 			appln = Appdata.objects.get(app_id=applnid)
 			appln.shortlisted = request.POST['check']
 			appln.remark = request.POST['content']
+			appln.save()
+	return HttpResponseRedirect('/scrutiny')
+
+
+@login_required(login_url='/register')
+@is_scrutinizer(login_url='/register')
+def unshortlistApplication(request, applnid):
+	if is_hod(request.user) and request.method == 'GET':
+		if Appdata.objects.filter(app_id=applnid).exists():
+			appln = Appdata.objects.get(app_id=applnid)
+			appln.shortlisted = False
 			appln.save()
 	return HttpResponseRedirect('/scrutiny')
 

@@ -1,0 +1,13 @@
+
+<div class="copyright">
+<br>
+  <div style="text-align: center">&copy; 2018 Designed, Developed and Maintained by WSDC, NIT Warangal</div>
+  <br>
+</div>
+
+<style type="text/css">
+	.copyright {
+	  background-color: #564c4A;
+	  color: #DBEAE4;
+	}
+</style>

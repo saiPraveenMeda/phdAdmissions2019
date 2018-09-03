@@ -22,14 +22,10 @@
 		}
 </style>
 <body>
-	<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
-
-<div class="row" style="background-color:#003A6A; color: white;">
-	<center><h2>Registration</h2></center>
-	<br>
-</div>
+{% include "header.djt" %}
 
 <div class="container">
+    <center><h3><b style="color: gray;">REGISTRATION</b></h3></center><br>
 	{% if error %}
 	<div class="row" style="margin-top:2%">
 		<div class="col-sm-offset-3 col-sm-6">
@@ -51,7 +47,7 @@
 				General/OBC : Rs.1000<br>
 				SC/ST/PWD : Rs.500 
 				<br> <br>
-				<b> Payment is to be done through <br> <i><a href="{% static 'files/PaymentInstructions.pdf' %}" target="_blank"><u>State Bank Collect</u></a></i> </b><br>
+				<b> Payment is to be done through <br> <i><a href="{% static "files/PaymentInstructions_Updated_July_2018.pdf" %}" target="_blank"><u>State Bank Collect</u></a></i> </b><br>
 				<span class="label label-danger blink">Important</span><br>
 				<p>If payments are done in any other way (Direct Transfer / IMPS / NEFT / RTGS), their application will be <b>REJECTED</b>.</p><br>
 				<p>No payments shall be refunded at any cost.</p>
@@ -61,7 +57,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-6 col-sm-offset-1">
+		<div class="col-sm-8">
 			<div class="well well-lg">
 				<form method="POST" action="/register/createApp/" onsubmit="return checknumber();">
 				{% csrf_token %}
@@ -91,7 +87,7 @@
 					</div>
 					<div class="form-group">
 					  <label for="post">Full Time/ Part Time</label>
-					  <select class="form-control" name="post" required>
+					  <select class="form-control" name="post" required id="post">
 					  	<option selected disabled value="">----</option>
 					    {% for post in posts %}
 					    <option value="{{post.id}}">{{post.name}}</option>
@@ -108,31 +104,29 @@
 					  </select>
 					</div>
 					<div class="form-group">
+					  <label for="dept">Category of Application</label>
+					  <select class="form-control" name="scat" required id="scat">
+					  	
+					  </select>
+					</div>
+					<div class="form-group">
 						<label for="transID">Payment Transcation Number (SBH Collect Reference Number)</label>
 						<input for="transID" class="form-control" name="transID" type="text" required>
 					</div>
 
-					<center><button type="submit" class="btn btn-success btn-lg">Register</button></center>
+					<center><button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-saved"></span> Register</button></center>
 				</form>
-					<center><a href="/register/">Or login</a></center>
+				<br>
+					<center><a href="/register/" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-lock"></span> Go to Login Page</a></center>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="copyright">
-  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
-  <div style="text-align:center">Designed and Developed by WSDC</div>
-</div>
+{% include "footer.djt" %}
 	
 </body>
 
-<style type="text/css">
-	.copyright {
-	  background-color: #003A6A;
-	  color: white;
-	}
-</style>
 <script>
 function checknumber(){
 	valid = true;
@@ -143,5 +137,14 @@ function checknumber(){
 	}
 	return valid;
 }
+$('#post').on('change', function(){
+	if($('#post').val() == 1)
+	{
+	$('#scat')[0].innerHTML = '<option selected disabled value="">----</option><option value="Full-time student on institute fellowship.">Full-time student on institute fellowship.</option value="Full-time Government/Semi-Government Fellowship awardees / QIP/ FIP (UGC) / CSIR / UGC / DOE / DST /DBT / NBHM etc"><option>Full-time Government/Semi-Government Fellowship awardees / QIP/ FIP (UGC) / CSIR / UGC / DOE / DST /DBT / NBHM etc</option><option value="Full-time project fellows/JRF/SRF appointed in R&D projects being carried out in NITW">Full-time project fellows/JRF/SRF appointed in R&D projects being carried out in NITW</option><option value="Full-time Sponsored student from Industry/R&D organizations">Full-time Sponsored student from Industry/R&D organizations</option><option value="Indian Council for Cultural Relations (ICCR) fellowship awardees (Foreign students)">Indian Council for Cultural Relations (ICCR) fellowship awardees (Foreign students)</option><option value="Full-time External (CSIR/ JRF/ SRF Fellows) working in National Research Laboratories/ R&D Organization having necessary facilities">Full-time External (CSIR/ JRF/ SRF Fellows) working in National Research Laboratories/ R&D Organization having necessary facilities</option>';
+	}
+	else{
+		$('#scat')[0].innerHTML = '<option selected disabled value="">----</option><option value="Permanent faculty and other permanent staff of NIT, Warangal">Permanent faculty and other permanent staff of NIT, Warangal</option><option value="External scholars from National Research Laboratories, PSUs having MOU with NIT Warangal, R&D Organizations approved by the Senate having necessary and required research facilities">External scholars from National Research Laboratories, PSUs having MOU with NIT Warangal, R&D Organizations approved by the Senate having necessary and required research facilities</option>' ;
+	}
+});
 </script>
 </html>

@@ -24,18 +24,7 @@
 
 <body>
 
-<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
-
-<div class="row" style="background-color:#003A6A; color: white;">
-    <div class="col-sm-4 col-sm-offset-4">
-	<center><h2>PhD Admission Form</h2></center>
-	</div>
-	<div class="col-sm-4">
-	<br>
-	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
-	</div>
-	<br>
-</div>
+{% include "header.djt" %}
 {% include "recruit/status.djt" %}
 {% if message %}
 	<div class="row" style="margin-top:2%">
@@ -73,20 +62,8 @@
 	</div>
 </div>
 <br><br><br>
-
+{% include "footer.djt" %}
 </body>
-
-<style type="text/css">
-	.copyright {
-	  position: absolute;
-	  right: 0;
-	  bottom: 0;
-	  left: 0;
-	  padding: 1rem;
-	  background-color: #003A6A;
-	  color: white;
-	}
-</style>
 
 <script type="text/javascript">
 	function validate(){

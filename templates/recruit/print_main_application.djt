@@ -26,9 +26,7 @@
 </head>
 
 <body>
-<div class="row" style="background-color:#003A6A; color: white;">
-	<center><h2>PhD Admission Form</h2></center>
-</div>
+{% include "header.djt" %}
 <div style="padding: 30px;">
 <div id="part1" style="page-break-after: always;">
 		<div class="well well-lg">
@@ -50,6 +48,15 @@
 						<div class="col-sm-6">
 							<div class="form-group" style="font-size:18px;">
 								<b><u>{{profile.post_in}}</u></b>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4"> <b>Under the Category </b> </div>
+						<div class="col-sm-6">
+							<div class="form-group" style="font-size:18px;">
+								<b><u>{{profile.scat}}</u></b>
 							</div>
 						</div>
 					</div>
@@ -351,7 +358,7 @@
 <script type="text/javascript">
 	window.print();
 </script>
-
+{% include "footer.djt" %}
 </body>
 
 </html>

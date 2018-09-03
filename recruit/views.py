@@ -25,15 +25,32 @@ def is_file_exists(file):
         return True
     return False
 
+def _render(request, template, response):
+    response['is_signed_in'] = request.user.is_authenticated()
+    return render(request, template, response)
+
+def _render_withstatus(request, template, response):
+    response['is_signed_in'] = request.user.is_authenticated()
+    profile = Appdata.objects.get(user=request.user)
+    flags = Flag.objects.get(app_id=profile)
+    response['status1'] = flags.application and flags.profile_pic
+    response['status2'] = flags.annexure_obc and flags.annexure_parttime
+    response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
+    response['status4'] = profile.paymentUploaded
+    return render(request, template, response)
+
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
 def index(request) :
     response = {}
     response['message'] = ''
     app = Appdata.objects.get(user=request.user)
+    # return redirect('/submit')
     flags = Flag.objects.get(app_id=app)
     if app.paymentUploaded == False :
         return redirect('/register/paymentDetails')
+    if app.termsRead == False:
+        return redirect('/register/termsandconditions')
     if app.submitted :
         return redirect('/submit')
 
@@ -201,7 +218,7 @@ def index(request) :
         flags.save()
 
 
-        response['message'] += 'Profile saved successfully'
+        response['message'] += 'Application saved successfully'
         if request.POST['submitbtn'] == 'saveandcontinue':
             return redirect('/annexures')
 
@@ -227,11 +244,7 @@ def index(request) :
         if Other.objects.filter(app_id=app_id).exists():
             response['Others'] = Other.objects.get(app_id=app_id)
 
-    response['status1'] = flags.application and flags.profile_pic
-    response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
-    response['status4'] = profile.paymentUploaded
-    return render(request,'recruit/mainForm.djt',response)
+    return _render_withstatus(request,'recruit/mainForm.djt',response)
 
 
 @login_required(login_url='/register')
@@ -272,11 +285,7 @@ def annexures(request):
         response['parttime'] = True
         response['parttime_filled'] = flags.annexure_parttime
 
-    response['status1'] = flags.application and flags.profile_pic
-    response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
-    response['status4'] = app_id.paymentUploaded
-    return render(request, 'recruit/annexures_master.djt', response);
+    return _render_withstatus(request, 'recruit/annexures_master.djt', response)
 
 
 @login_required(login_url='/register')
@@ -401,11 +410,7 @@ def uploadDocs(request):
 
 
     response['finalsubbtn'] = True
-    response['status1'] = flags.application and flags.profile_pic
-    response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
-    response['status4'] = app_id.paymentUploaded
-    return render(request, 'recruit/docs.djt', response)
+    return _render_withstatus(request, 'recruit/docs.djt', response)
 
 
 @login_required(login_url='/register')
@@ -436,11 +441,7 @@ def uploadpic(request):
             response['message'] = 'Only \'.jpg\' format is allowed'
             return render(request,'recruit/uploadpic.djt',response)
 
-    response['status1'] = flags.application and flags.profile_pic
-    response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
-    response['status4'] = profile.paymentUploaded
-    return render(request,'recruit/uploadpic.djt',response)
+    return _render_withstatus(request,'recruit/uploadpic.djt',response)
 
 
 
@@ -499,11 +500,7 @@ def annexure_obc(request):
         response['state'] = Annexure.state
         response['community'] = Annexure.community
 
-    response['status1'] = flags.application and flags.profile_pic
-    response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
-    response['status4'] = app_id.paymentUploaded
-    return render(request, 'recruit/annexure/annexure_obc.djt', response)
+    return _render_withstatus(request, 'recruit/annexure/annexure_obc.djt', response)
 
 
 @login_required(login_url='/register')
@@ -558,11 +555,7 @@ def annexure_parttime(request):
         response['employment_years'] = Annexure.employment_years
         response['guide'] = Annexure.guide
 
-    response['status1'] = flags.application and flags.profile_pic
-    response['status2'] = flags.annexure_obc and flags.annexure_parttime
-    response['status3'] = all([flags.ssc, flags.intermediate, flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi, flags.pwd_certi, flags.guidebio])
-    response['status4'] = app_id.paymentUploaded
-    return render(request, 'recruit/annexure/annexure_parttime.djt', response)
+    return _render_withstatus(request, 'recruit/annexure/annexure_parttime.djt', response)
 
 
 @login_required(login_url='/register')
@@ -594,11 +587,11 @@ def submit(request):
         try:
             send_mail(subject,content,sender,rlist,fail_silently=False,)
         except:
-            return HttpResponse('Your application is submitted, but we couldn\'t send you a mail. Contact us immediately (support_admissions_2017@nitw.ac.in)')
+            return HttpResponse('Your application is submitted, but we couldn\'t send you a mail. Contact us immediately (support_admissions_2018@nitw.ac.in)')
 
     response['isAnnexure'] = (app_id.post_for.name == 'Part Time' or gd.category == 'OBC')
 
-    return render(request,'recruit/summary.djt',response)
+    return _render(request,'recruit/summary.djt',response)
 
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
@@ -632,7 +625,7 @@ def print_main_application(request):
         if Other.objects.filter(app_id=app_id).exists():
             response['Others'] = Other.objects.get(app_id=app_id)
     
-    return render(request, 'recruit/print_main_application.djt', response)
+    return _render(request, 'recruit/print_main_application.djt', response)
 
 
 @login_required(login_url='/register')
@@ -663,7 +656,7 @@ def print_annexures(request):
     else:
         response['isPartTime'] = False
 
-    return render(request, 'recruit/print_annexures.djt', response)
+    return _render(request, 'recruit/print_annexures.djt', response)
 
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
@@ -674,7 +667,7 @@ def printAck(request):
         return render('/')
     response['GeneralData'] = GeneralData.objects.get(app_id=app)
     response['app'] = app
-    return render(request,'recruit/printAck.djt',response)
+    return _render(request,'recruit/printAck.djt',response)
 
 def validateFormat(filename):
     ext = os.path.splitext(filename.name)[1]

@@ -15,13 +15,7 @@
 </head>
 
 <body>
-<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a>
-</center>
-
-<div class="row" style="background-color:#003A6A; color: white;">
-	<center><h2>Forgot Password</h2></center>
-	<br>
-</div>
+{% include "header.djt" %}
 {% if error %}
 	<div class="row" style="margin-top:2%">
 		<div class="col-sm-offset-3 col-sm-6">
@@ -34,10 +28,10 @@
 {% endif %}
 
 <div class="container">
+    <center><h3><b style="color: gray;">FORGOT PASSWORD</b></h3></center>
 	<div class="row" style="margin-top:3%;">
 		<div class="col-sm-6 col-sm-offset-3">
 			<div class="alert alert-info">
-			<center><b>Your Username was sent to your mail when registered.</b></center>
 			<center>On resetting password, new password will be mailed to your registered email id.</center>
 			</div>
 		</div>
@@ -48,37 +42,23 @@
 				<form method="POST" action="/register/forgotPassword/">
 				{% csrf_token %}
 					<div class="form-group">
-						<label for="firstName">Username</label>
+						<label for="firstName">Username*:</label><br>
+						<i>(Your Username was sent to your mail when registered)</i>
 						<input for="firstName" class="form-control" name="appID" required>
 					</div>
 
 					<center><button type="submit" class="btn btn-success btn-lg">Reset Password</button></center>
 				</form>
 				<br>
-				<center><a href="/register">Or Login</a></center>
+				<center><a href="/register"><button class="btn btn-info">Go back to Login page</button></a></center>
 			</div>
 		</div>
 	</div>
 </div>
 
 
-<div class="copyright">
-  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
-  <div style="text-align:center">Designed and Developed by WSDC</div>
-</div>
+{% include "footer.djt" %}
 	
 </body>
-
-<style type="text/css">
-	.copyright {
-	  position: absolute;
-	  right: 0;
-	  bottom: 0;
-	  left: 0;
-	  padding: 1rem;
-	  background-color: #003A6A;
-	  color: white;
-	}
-</style>
 
 </html>

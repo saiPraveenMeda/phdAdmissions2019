@@ -29,7 +29,7 @@
 <center>
 <button class="btn btn-success btn-lg hidden-print" onclick="window.print()">Print</button>
 <br>
-<h3>{%if is_dean%}{% if status == 1 %}Verified{%else%}Unverified{%endif%} Applications{%else%}{% if status == 1 %}Shortlisted{%else%}UnShortlisted{%endif%} candidates for Interviews{%endif%} - PhD Admissions (Dec, 2017)</h3> <br>
+<h3>{%if is_dean%}{% if status %}Verified{%else%}Unverified{%endif%} Applications{%else%}{% if status %}Shortlisted{%else%}UnShortlisted{%endif%} candidates for Interviews{%endif%} - PhD Admissions (JULY, 2018)</h3> <br>
 {%if not is_dean%}<h4>{{dept}}, NIT Warangal</h4>{%endif%}
 </center>
 <div class="row" style="margin: 30px;">

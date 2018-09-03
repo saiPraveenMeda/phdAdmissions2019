@@ -29,18 +29,7 @@
 </head>
 <body>
 
-<center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
-
-<div class="row" style="background-color:#003A6A; color: white;">
-    <div class="col-sm-4 col-sm-offset-4">
-	<center><h2>PhD Admission Form</h2></center>
-	</div>
-	<div class="col-sm-4">
-	<br>
-	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
-	</div>
-	<br>
-</div>
+{% include "header.djt" %}
 {% include "recruit/status.djt" %}
 
 {% if message %}
@@ -70,7 +59,7 @@
 					    There are three parts in Application form:
 					    	<ul>
 					    		<li>Main Application where you fill all your details</li>
-					    		<li>Annexures Part (This is applicable either if you are applying for Part Time or you belong to OBC Category. Others will be redirected to third part after main application.)</li>
+					    		<li>Annexures Part (This is applicable either if you are applying for Part Time or if you belong to OBC Category. Others will be redirected to third part after main application.)</li>
 					    		<li>Documents Upload Part (All files are to be uploaded mandatorily. All should be in PDF Format. Reserved category applicants will have to upload Caste Certificate additionally. PWD applicants need to upload their PWD Certificate additionally.)</li>
 					    	</ul>
 					    </li>
@@ -82,9 +71,9 @@
 						<li>Application won't be considered for processing unless you make the final submission and receive the acknowledgement. <span class="label label-danger blink">Important</span></li>
 					</ol>
 				</li>
-				<li>
+				<!-- <li>
 					After the application process (after receiving acknowledgement), the printed application form, the printed annexures(if applicable), the payment receipt, hard copies of all the uploaded documents and any other relevant testimonials, certificates are to be <b>SELF ATTESTED</b> and sent to<br> <b>“ The Chairman (Admissions), National Institute of Technology Warangal, Warangal-506004, Telangana, INDIA. "</b>
-				</li>
+				</li> -->
 			</ol>
 		</b>
 		</div>
@@ -123,6 +112,15 @@
 						<div class="col-sm-6">
 							<div class="form-group" style="font-size:18px;">
 								<b><u>{{profile.post_in}}</u></b>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4"> <b>Under the Category </b> </div>
+						<div class="col-sm-6">
+							<div class="form-group" style="font-size:18px;">
+								<b><u>{{profile.scat}}</u></b>
 							</div>
 						</div>
 					</div>
@@ -502,6 +500,7 @@
 				<div class="col-sm-6"> <h3>Research papers published </h3></div>
 			</div>
 			<div class="well well-lg">
+			<h4 class="blink">Click on save button after adding any papers</h4>
 			<table class="table table-bordered">
 				<thead>
 			      <tr style="background-color:#e3e3e3;">
@@ -576,19 +575,9 @@
 	</div>
 </div>
 
-<div class="copyright">
-  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
-  <div style="text-align:center">Designed and Developed by WSDC</div>
-</div>
+{% include "footer.djt" %}
 
 </body>
-
-<style type="text/css">
-	.copyright {
-	  background-color: #003A6A;
-	  color: white;
-	}
-</style>
 <script type="text/javascript">
 
 	function checkfiles(){

@@ -79,13 +79,13 @@
 				<li>Revenue Officer not below the rank of Tasildar’ and</li>
 				<li>Sub- Divisional Officer of the area where the candidate and / or his family resides.</li>
 				</ol>
-				<li>The annual income /status of the parents of the applicant should be based on financial year ending March 31, 2017.</li>
+				<li>The annual income /status of the parents of the applicant should be based on financial year ending March 31, 2018.</li>
 				</ol><br>
 				<center> <b>Declaration /undertaking - for OBC Candidates only</b></center>
 				<br>
 				I, {{obc.name}}
 				{{obc.gender}}
-				of Shri/Smt {{obc.parent_name}} of Village/Town/City {{obc.village}} district/division {{obc.district}} in the {{obc.state}} State hereby declare that I belong to the {{obc.community}} Community which is recognized as a backward class by the Government of India for the purpose of reservation in services admission in Central Government Institutions as per orders contained in Department of Personnel and Training Office Memorandum No. 36012/22/93 – Estt. (SCT), dated 8/9/1993. It is also declared that I do not belong to persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the above referred Office Memorandum, dated 8/9/1993, which is modified vide Department of Personnel and Training Office Memorandum No. 36033/3/2004 Estt. (Res.) dated 9/3/2004 or the latest notification of the Government of India. I also declare that the condition of status/annual income for creamy layer of my parents/guardian is within prescribed limits as on financial year ending on March 31, 2017.
+				of Shri/Smt {{obc.parent_name}} of Village/Town/City {{obc.village}} district/division {{obc.district}} in the {{obc.state}} State hereby declare that I belong to the {{obc.community}} Community which is recognized as a backward class by the Government of India for the purpose of reservation in services admission in Central Government Institutions as per orders contained in Department of Personnel and Training Office Memorandum No. 36012/22/93 – Estt. (SCT), dated 8/9/1993. It is also declared that I do not belong to persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the above referred Office Memorandum, dated 8/9/1993, which is modified vide Department of Personnel and Training Office Memorandum No. 36033/3/2004 Estt. (Res.) dated 9/3/2004 or the latest notification of the Government of India. I also declare that the condition of status/annual income for creamy layer of my parents/guardian is within prescribed limits as on financial year ending on March 31, 2018.
 				<br>
 				<br>
 				<br>

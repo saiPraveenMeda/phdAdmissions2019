@@ -22,10 +22,7 @@
 
 </head>
 <body>
-<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
-<div class="row" style="background-color:#003A6A; color: white;">
-	<center><h2>PhD Admission Form</h2></center>
-</div>
+{% include "header.djt" %}
 {% include "recruit/status.djt" %}
 <div class="row">
 	<div class="row">
@@ -104,3 +101,5 @@
 	</form>
 	</div>
 </div>
+{% include "footer.djt" %}
+</body>

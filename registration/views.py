@@ -36,12 +36,26 @@ def is_file_exists(file):
         return True
     return False
 
+def _render(request, template, response):
+	response['is_signed_in'] = request.user.is_authenticated()
+	return render(request, template, response)
+
+def _render_withstatus(request, template, response):
+	response['is_signed_in'] = request.user.is_authenticated()
+	profile = Appdata.objects.get(user=request.user)
+	flags = Flag.objects.get(app_id=profile)
+	response['status1'] = flags.application and flags.profile_pic
+	response['status2'] = flags.annexure_obc and flags.annexure_parttime
+	response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
+	response['status4'] = profile.paymentUploaded
+	return render(request, template, response)
+
 
 def index(request) :
 	response = {}
 	if 'Chrome' not in request.META['HTTP_USER_AGENT']:
 		response['error'] = 'Looks like you are not using Google Chrome ! Using Chrome is mandatory to avoid technical issues !'
-	return render(request,'registration/login.djt',response)
+	return _render(request,'registration/login.djt',response)
 
 def send_to_register(request,errorNo='0') :
 	response = {}
@@ -57,7 +71,7 @@ def send_to_register(request,errorNo='0') :
 		response['error'] = 'Password do not match'
 	response['depts'] = Department.objects.all()
 	response['posts'] = Post.objects.all()
-	return render(request,'registration/register.djt',response)
+	return _render(request,'registration/register.djt',response)
 
 def signin(request) :
 	response = {}
@@ -67,7 +81,9 @@ def signin(request) :
 		user = authenticate(username=username,password=password)
 		if user is None :
 			response['error'] = 'Login Failed. Username and Password didn\'t match.'
-			return render(request, 'registration/login.djt', response)
+			return _render(request, 'registration/login.djt', response)
+		elif 'next' in request.GET:
+			return redirect(request.GET['next'])
 		elif (is_hod(user) or is_dean(user)):
 			login(request,user)
 			user = request.user
@@ -76,15 +92,15 @@ def signin(request) :
 			login(request,user)
 			user = request.user
 			profile = Appdata.objects.get(user=request.user)
-			if profile.termsRead :
-				return redirect('/')
-			else :
-				return redirect('/register/termsandconditions')
+			# if profile.termsRead :
+			return redirect('/')
+			# else :
+			# 	return redirect('/register/termsandconditions')
 	return redirect('/')
 
 def signout(request):
 	logout(request)
-	return redirect('/register')
+	return redirect('/')
 
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
@@ -100,7 +116,7 @@ def termsandconditions(request) :
 	if profile.termsRead :
 		return redirect('/')
 	else :
-		return render(request, 'registration/termsandconditions.djt', response)
+		return _render(request, 'registration/termsandconditions.djt', response)
 	
 
 def createApp(request) :
@@ -114,16 +130,19 @@ def createApp(request) :
 			existingUsers = User.objects.filter(email=emailid)
 			for existingUser in existingUsers :
 				if Appdata.objects.filter(user=existingUser,post_for=appPost,post_in=dept).exists():
-					return redirect('/register/signup/1')
+					response['error'] = 'Registration for selected position in selected department has already been done using this Email-ID'
+					return _render(request, 'registration/login.djt', response)
 
 
 		pass1 = request.POST['password1']
 		pass2 = request.POST['password2']
 
 		if len(pass1) < 8:
-			return redirect('/register/signup/2')
+			response['error'] = 'Password should be a minimum of 8 Characters'
+			return _render(request, 'registration/login.djt', response)
 		if pass1 != pass2 :
-			return redirect('/register/signup/3')
+			response['error'] = 'Passwords didn\'t match'
+			return _render(request, 'registration/login.djt', response)
 		else : 
 			user = User()
 			user.first_name = request.POST['firstName']
@@ -135,7 +154,7 @@ def createApp(request) :
 			year = datetime.datetime.now().year
 			yy = str(year)
 			p2 = yy[2:]
-			p3 = '1'
+			p3 = '0'
 			p4 = str(dept.deptID).zfill(2)
 			dept.appCount = dept.appCount + 1
 			dept.save()
@@ -155,6 +174,7 @@ def createApp(request) :
 			app_data.app_id = applicationID
 			app_data.post_for = appPost
 			app_data.post_in = dept
+			app_data.scat = request.POST['scat']
 			app_data.contact = request.POST['contact']
 			app_data.unique_key = ''.join(random.choice(string.ascii_letters + string.digits) for char in xrange(20))
 			app_data.save()
@@ -178,11 +198,13 @@ def createApp(request) :
 			try:
 				send_mail('NIT WARANGAL - Username for PhD Admission portal registration',content,sender,rlist,fail_silently=False,)
 			except:
-				return HttpResponse('Your account has been created, but we couldn\'t send you a mail. Contact us immediately (support_admissions_2017@nitw.ac.in)')
+				return HttpResponse('Your account has been created, but we couldn\'t send you a mail. Contact us immediately (support_admissions_2018@nitw.ac.in)')
 
-			return render(request,'registration/regDone.djt', {'email' : user.email})
+			return _render(request,'registration/regDone.djt', {'email' : user.email})
 
-	return redirect('/register/signup')
+	response['depts'] = Department.objects.all()
+	response['posts'] = Post.objects.all()
+	return _render(request,'registration/register.djt',response)
 
 
 def forgotPassword(request):
@@ -204,16 +226,16 @@ def forgotPassword(request):
 			try:
 				send_mail('NIT WARANGAL - Forgot Password request for PhD Admission portal',content,sender,rlist,fail_silently=False,)
 			except BadHeaderError:
-				return HttpResponse('Your password was reset, but we couldn\'t send you a mail. Contact us immediately (support_admissions_2017@nitw.ac.in)')
+				return HttpResponse('Your password was reset, but we couldn\'t send you a mail. Contact us immediately (support_admissions_2018@nitw.ac.in)')
 
 			uname, domain = mailid.split('@')
 			response['emailId'] = uname[:4] + '*'*(len(uname)-4) + '@' + domain
-			return render(request,'registration/resetSucc.djt',response)
+			return _render(request,'registration/resetSucc.djt',response)
 
 		else :
-			response['error'] = 'Username is wrong'
+			response['error'] = 'Username is wrong or you haven\'t created an account yet.'
 
-	return render(request,'registration/forgotPass.djt',response)
+	return _render(request,'registration/forgotPass.djt',response)
 
 @login_required(login_url='/register')
 @is_applicant(login_url='/register')
@@ -221,7 +243,6 @@ def paymentDetails(request):
 	response = {}
 	profile = Appdata.objects.get(user=request.user)
 	pay_data = PaymentDetails.objects.get(appID=profile)
-	flags = Flag.objects.get(app_id=profile)
 	response['paydata'] = pay_data
 	if request.method == 'POST' :
 		pay_data.payDate = request.POST['paydate']
@@ -236,7 +257,7 @@ def paymentDetails(request):
 			pay_data.save()
 		else : 
 			response['error'] = 'Only Pdf format is allowed'
-			return render(request,'registration/paymentDetails.djt',response)
+			return _render(request,'registration/paymentDetails.djt',response)
 
 		if is_file_exists(pay_data.receipt):
 			app_data = Appdata.objects.get(user=request.user)
@@ -245,10 +266,6 @@ def paymentDetails(request):
 			return redirect('/')
 		else:
 			response['error'] = 'Some error occured uploading receipt. Try again.'
-			return render(request,'registration/paymentDetails.djt',response)
+			return _render(request,'registration/paymentDetails.djt',response)
 
-	response['status1'] = flags.application and flags.profile_pic
-	response['status2'] = flags.annexure_obc and flags.annexure_parttime
-	response['status3'] = all([flags.bacheoler_degree, flags.bacheoler_memo, flags.masters_degree, flags.masters_memo, flags.qualifying_scorecard, flags.caste_certi])
-	response['status4'] = profile.paymentUploaded
-	return render(request,'registration/paymentDetails.djt',response)
+	return _render_withstatus(request,'registration/paymentDetails.djt',response)

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PhD Admission Portal</title>
+	<title>PhD Admissions Portal</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -17,10 +17,12 @@
 			border: none;
     		height: 1px;
     		background-color: black;
+    		text-align: justify-all;
 		}
 		p{
-		    font-size: 14px;
+		    font-size: 16px;
 		    text-align: justify;
+		    font-family: "Trebuchet MS", Helvetica, sans-serif;
 		}
 		.blink{
 			animation: blinker 0.7s linear infinite;
@@ -32,18 +34,7 @@
 </head>
 
 <body>
-	<!-- <div id="title" align="center"> -->
-	
-		<!-- <div style="float:left;" align="center"> -->
-	
-		<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
-		<!-- </div> -->
-	<!-- </div> -->
-
-<div class="row" style="background-color:#003A6A; color: white;">
-	<center><h2>PhD Admission Portal</h2></center>
-	<br>
-</div>
+{% include 'header.djt' %}
 {% if error %}
 	<div class="row" style="margin-top:2%">
 		<div class="col-sm-offset-3 col-sm-6">
@@ -55,28 +46,69 @@
 	</div>
 {% endif %}
 
-<div class="well well-lg">
+<!-- <div class="well well-lg">
 	<div class="row">
 		<div class="col-sm-12">
 			<h1 class="blink">Deadline for submission of online applications for PhD Admissions of NIT Warangal has been crossed.</h1>
 		</div>
 	</div>
+</div> -->
+<div class="well well-lg blink">
+	<center><h2>Deadline for online application has reached</h2></center>
 </div>
+<div class="container" style="width: 100%;">
+    <div class="row" style="margin-top:3%;">
+	    <div class="col-sm-4">
+		    <div class="well well-lg">
+				<form method="POST" action="/register/signin/">
+				{% csrf_token %}
+				<div class="row" style="margin-top:3%;">
+				<div class="col-sm-12">
+					<div class="alert alert-info">
+					<!-- <center><b>If you haven't created an account already,<br> please do it <a href="/register/createApp"><u>here</u></a></b></center> -->
+					</div>
+				</div>
+			    </div>
+					<div class="form-group">
+						<label for="firstName">Username*:</label>
+						<input for="firstName" class="form-control" name="username">
+					</div>
+					<div class="form-group">
+						<label for="lastName">Password*:</label>
+						<input for="lastName" class="form-control" name="password" type="password">
+					</div>
 
-<div class="container">
-	<div class="row" style="margin-top:3%;">
-		<div class="col-sm-8">
+					<center><button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-lock"></span> Login</button></center>
+				</form>
+				<br>
+				<center><a href="/register/forgotPassword" style="float: left;"><u>Forgot Password?</u></a> <!-- <a href="/register/createApp" style="float: right;"><u>Sign up for new account</u></a> --></center>
+				<br>
+			</div>
+		    <!-- <div class="row" style="margin-bottom: 10%;">
+		    	<div class="col-sm-12">
+		    	    <div class="alert alert-danger" style="padding: 10%;">
+		    		<center><a href="/register/signup"><button class="btn btn-success btn-lg">REGISTER</button></a></center>
+		    		</div>
+		    	</div>
+		    </div> -->
 			<div class="well well-lg">
-			<br>
-				<center><h2 style="margin-top:0px;"><b>NIT WARANGAL</b></h2></center>
+				<center>
+				<b style="color:blue;">Technical Support </b><br> 
+				<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp <a href="mailto:support_admissions_2018@nitw.ac.in">support_admissions_2018@nitw.ac.in</a>
+				</center>
+			</div>
+		</div>
+	
+		<div class="col-sm-8">
+			<div class="well well-lg" style="padding: 6%;">
+				<center><h2 style="margin-top:0px;"><b>ABOUT</b> <span class="glyphicon glyphicon-info-sign"></span></h2></center>
 				<br>
 
-				<b>
 				<p>
 					National Institute of Technology, Warangal, formerly known as Regional Engineering College, was established in 1959.
 				</p>
 				<p>
-					Pandit Jawaharlal Nehru laid the foundation stone for this institute on<br> October 10, 1959, the first in the chain of 30 NITs (formerly known as RECs) in the country.
+					Pandit Jawaharlal Nehru laid the foundation stone for this institute on October 10, 1959, the first in the chain of 30 NITs (formerly known as RECs) in the country.
 				</p>
 				<p>
 					Alumni of the institute are spaced both length and breadth wise across the world and occupied noble positions in the industry as well as academia.
@@ -90,33 +122,30 @@
 				<p style="color:red;">
 					<u><b>Note</b> : Please use Google Chrome for filling the application.</u> <span class="label label-danger blink"> Important </span>
 				</p>
-				</b>
+
 				<br><hr><br>
 				<center><h3>Announcements</h3></center><br>
-				<!-- <p style="color:blue;">
-					The previously mandated GATE (or similar Exams) Qualification has been relaxed. Fill 'NA' in Qualifying Exam Section if not applicable <span class="label label-success blink"> New </span>
-				</p><br> -->
-				<p style="color:blue;">
-					The previously mandated Masters Certificate has been relaxed. If you are a recent graduate and are yet to receive your Masters Certificate, uplaod your Masters marks memo in place of Masters certificate too. <span class="label label-success blink"> New </span>
-				</p><br>
+				<center><h3>COMING SOON</h3></center>
 				<hr><br>
 				<div class="row">
 					<div class="col-sm-7">
 						<center>
 						<b><h4><u>Important Dates</u></h4></b><br>
-						<b>Announcement of inviting Applications:</b><br> October 16 th 2017<br><br>
-						<b>Last date to receive applications:</b><br> November 7 th 2017<br><br>
-						<b>Announcement of candidates called for Written Test/Interview:</b><br> November 13 th 2017<br><br>
-						<b>Dates of Written Test/Interview:</b><br> November 22 nd - 24 th 2017<br><br>
-						<b>Announcement of Selected Candidates:</b><br> December 4 th 2017<br><br>
-						<!-- <b>Dates of Reporting of selected candidates for Ph.D. admission:</b><br> December 11 th & 12 th 2017<br><br> -->
+						<b>Announcement of inviting Applications:</b><br> April 9th 2018<br><br>
+						<b>Last date to receive applications:</b><br> May 7th 2018<br><br>
+						<b>Announcement of candidates called for Written Test/Interview:</b><br> June 4th 2018<br><br>
+						<b>Dates of Written Test/Interview:</b><br> June 18th - June 22nd 2018<br><br>
+						<b>Announcement of Selected Candidates:</b><br> June 27th 2018<br><br>
+						<b>Dates of Reporting of selected candidates for Ph.D. admission:</b><br> july 9th & 10th 2018<br><br>
 						</center>
 					</div>
 					<div class="col-sm-5">
 						<center>
 						<b><h4><u>Important links</u></h4></b><br>
-						<a href="{% static 'files/PaymentInstructions.pdf' %}" target="_blank"><u>Application Fee Payment instructions</u></a><br><br>
-						<a href="{% static 'files/Brochure.pdf' %}" target="_blank"><u>Brochure for PhD Admissions</u></a><br><br>
+						<!-- <h3>COMING SOON</h3> -->
+						<a href="{% static 'files/PaymentInstructions_Updated_July_2018.pdf' %}" target="_blank"><u>Application Fee Payment instructions</u></a><br><br>
+						<a href="{% static 'files/RulesAndRegulations_Updated_July_2018.pdf' %}" target="_blank"><u>Rules and Regulations</u></a><br><br>
+						<a href="{% static 'files/Brochure_Updated_July_2018.pdf' %}" target="_blank"><u>Brochure for PhD Admissions</u></a><br><br>
 						<a href="http://nitw.ac.in" target="_blank"><u>Institute Website</u></a>
 						</center>
 
@@ -126,63 +155,11 @@
 			</div>
 			
 		</div>
-		<div class="col-sm-4">
-		    <div class="row" style="margin-bottom: 10%;">
-		    	<div class="col-sm-12">
-		    	    <div class="alert alert-danger" style="padding: 10%;">
-		    		<center><a href="/register/signup"><button class="btn btn-success btn-lg">REGISTER</button></a></center>
-		    		</div>
-		    	</div>
-		    </div>
-			<div class="well well-lg">
-				<form method="POST" action="/register/signin/">
-				{% csrf_token %}
-				<div class="row" style="margin-top:3%;">
-				<div class="col-sm-12">
-					<div class="alert alert-info">
-					<center><b>Your Username will be sent to your mail when registered.</b></center>
-					</div>
-				</div>
-			    </div>
-					<div class="form-group">
-						<label for="firstName">Username</label>
-						<input for="firstName" class="form-control" name="username">
-					</div>
-					<div class="form-group">
-						<label for="lastName">Password</label>
-						<input for="lastName" class="form-control" name="password" type="password">
-					</div>
-
-					<center><button type="submit" class="btn btn-success btn-lg">Login</button></center>
-				</form>
-				<br>
-				<center><a href="/register/signup">New User Registration</a></center>
-				<br>
-				<center><a href="/register/forgotPassword">Forgot Password</a></center>
-			</div>
-			<div class="well well-lg">
-				<center>
-				<b style="color:blue;">Technical Support </b><br> 
-				<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp support_admissions_2017@nitw.ac.in
-				</center>
-			</div>
-		</div>
 	</div>
 </div>
 
-<div class="copyright">
-<br>
-  <div style="text-align: center">&copy; WSDC 2017, NIT Warangal</div>
-  <br>
-</div>
+{% include "footer.djt" %}
 	
 </body>
-
-<style type="text/css">
-	.copyright {
-	  background-color: #003A6A;
-	  color: white;
-	}
-</style>
 
 </html>

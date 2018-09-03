@@ -22,24 +22,7 @@
 </head>
 
 <body>
-	<!-- <div id="title" align="center"> -->
-	
-		<!-- <div style="float:left;" align="center"> -->
-	
-		<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
-		<!-- </div> -->
-	<!-- </div> -->
-
-<div class="row" style="background-color:#003A6A; color: white;">
-    <div class="col-sm-4 col-sm-offset-4">
-	<center><h2>PhD Admission Form</h2></center>
-	</div>
-	<div class="col-sm-4">
-	<br>
-	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
-	</div>
-	<br>
-</div>
+{% include 'header.djt' %}
 {% include "recruit/status.djt" %}
 
 <div class="container">
@@ -81,7 +64,7 @@
 					</div>
 					<div class="form-group">
 						<label for="receipt">Upload Payment Receipt (PDF format only)</label>
-						<input for="receipt" class="form-control" name="receipt" type="file" required>
+						<input for="receipt" class="form-control" name="receipt" type="file" accept="application/pdf" required>
 					</div>
 
 					<center><button type="submit" class="btn btn-success btn-lg">Submit</button></center>
@@ -95,19 +78,9 @@
 	</div>
 </div>
 
-<div class="copyright">
-  <div style="text-align: center">Copyright &copy; NIT Warangal</div>
-  <div style="text-align:center">Designed and Developed by WSDC</div>
-</div>
+{% include "footer.djt" %}
 	
 </body>
-
-<style type="text/css">
-	.copyright {
-	  background-color: #003A6A;
-	  color: white;
-	}
-</style>
 
 <script type="text/javascript">
     function validate(){

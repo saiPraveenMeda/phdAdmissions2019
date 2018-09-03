@@ -26,8 +26,9 @@ urlpatterns = [
     url(r'^robots\.txt$', lambda r: HttpResponse('User-agent: *\nDisallow: /', content_type='text/plain')),
     url(r'^favicon\.ico$', favicon_view),
     url(r'^secureadmin/', admin.site.urls),
-    url(r'^', include('recruit.urls', namespace = 'recruit')),
-    url(r'^register/', include('registration.urls', namespace = 'register')),
-    url(r'^scrutiny/', include('scrutiny.urls', namespace = 'scrutiny')),
+    url(r'^', include('recruit.urls', namespace='recruit')),
+    url(r'^register/', include('registration.urls', namespace='register')),
+    url(r'^scrutiny/', include('scrutiny.urls', namespace='scrutiny')),
+    url(r'^payment/', include('payment.urls', namespace='payment')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

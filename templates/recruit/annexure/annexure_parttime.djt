@@ -29,17 +29,7 @@
 </head>
 
 <body>
-<center><a href="/"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
-<div class="row" style="background-color:#003A6A; color: white;">
-    <div class="col-sm-4 col-sm-offset-4">
-	<center><h2>PhD Admission Form</h2></center>
-	</div>
-	<div class="col-sm-4">
-	<br>
-	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
-	</div>
-	<br>
-</div>
+{% include "header.djt" %}
 {% include "recruit/status.djt" %}
 
 <div class="row">
@@ -70,7 +60,7 @@
 		</div>
 		<div class="well well-lg">
 		<p>
-		This is to certify that Mr./Ms. <input name = "name" id="name" type = "text" value = "{{name}}" align = "center"> Designation <input name = "designation" id="designation" type = "text" value = "{{designation}}" align = "center"> an applicant for admission into Ph.D. program of the National Institute of Technology, Warangal, for the <input type = "text" name = "date" value = "{{date}}" align = "center">(month and year) has been in continuous employment in our organization named <input type = "text" name = "address" value = "{{address}}" align = "center"> (give complete address),for the last <input type = "text" name = "employment_years" value = "{{employment_years}}" align = "center"> years and that he/she has been sponsored by us for undergoing the program. Certified further that his/her services with the organization will be retained during the period carrying out the studies/ research work at the National Institute of Technology, Warangal, and on completion there of he/she will continue in service in our organization.</p>
+		This is to certify that Mr./Ms. <input required name = "name" id="name" type = "text" value = "{{name}}" align = "center"> Designation <input required name = "designation" id="designation" type = "text" value = "{{designation}}" align = "center"> an applicant for admission into Ph.D. program of the National Institute of Technology, Warangal, for the <input required type = "text" name = "date" value = "{{date}}" align = "center" required>(month and year) has been in continuous employment in our organization named <input required type = "text" name = "address" value = "{{address}}" align = "center"> (give complete address),for the last <input required type = "text" name = "employment_years" value = "{{employment_years}}" align = "center"> years and that he/she has been sponsored by us for undergoing the program. Certified further that his/her services with the organization will be retained during the period carrying out the studies/ research work at the National Institute of Technology, Warangal, and on completion there of he/she will continue in service in our organization.</p>
 		<br>
 		        <div class="row">
 					<div class="col-sm-6"><p>Station:</p></div>
@@ -78,11 +68,11 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-6"><p>Date</p></div>
-					<div class="col-sm-6"><p>Name in full : <input type="text" id="name1" value="{{name}}" disabled></p></div>
+					<div class="col-sm-6"><p>Name in full : <input required type="text" id="name1" value="{{name}}" disabled></p></div>
 				</div>
 				<div class="row">
 					<div class="col-sm-6"></div>
-					<div class="col-sm-6"><p>Designation : <input type="text" id="designation1" value="{{designation}}" disabled></p><br><p>(seal)</p></div>
+					<div class="col-sm-6"><p>Designation : <input required type="text" id="designation1" value="{{designation}}" disabled></p><br><p>(seal)</p></div>
 				</div>
         <br><br><br>
         <center><h3><u>Annexure - IV </u></h3></center>
@@ -99,7 +89,7 @@
 		</div>
 		<br><br>
 		<div class="row">
-			<p>I, Dr. <input type="text" name="guide" value="{{guide}}" required> hereby express my willingness to act as a supervisor to Mr. / Ms. <input type="text" id="name2" value="{{name}}" disabled> , who is interested in doing Ph.D. at the National Institute of Technology, Warangal, under part-time program. I am herewith enclosing my bio-data. I also state that adequate facilities are available with us, for doing Ph.D. work at our organization.</p>
+			<p>I, Dr. <input required type="text" name="guide" value="{{guide}}" required> hereby express my willingness to act as a supervisor to Mr. / Ms. <input required type="text" id="name2" value="{{name}}" disabled> , who is interested in doing Ph.D. at the National Institute of Technology, Warangal, under part-time program. I am herewith enclosing my bio-data. I also state that adequate facilities are available with us, for doing Ph.D. work at our organization.</p>
 		</div>
         <br><br>
 		<div class="row">
@@ -121,7 +111,7 @@
 	</div>
 </div>
 
-
+{% include "footer.djt" %}
 </body>
 
 <script>

@@ -29,6 +29,7 @@ class Appdata(models.Model):
 	unique_key = models.CharField(max_length=21)
 	post_for = models.ForeignKey(Post)
 	post_in = models.ForeignKey(Department)
+	scat = models.CharField(default="init", max_length=200)
 	contact = models.CharField(max_length=14)
 	profilePic = models.ImageField(upload_to=get_profilepic_path,null=True,blank=True)
 	termsRead = models.BooleanField(default=False)

@@ -15,17 +15,7 @@
 </head>
 
 <body>
-<center><a href="index.php"> <img  src="{% static 'img/HINDI2.png' %}" align="center" style="background-color:white;" height="110px" width="100%px" alt="National Institute of Technology Warangal" title="National Institute of Technology Warangal"/></a></center>
-<div class="row" style="background-color:#003A6A; color: white;">
-    <div class="col-sm-4 col-sm-offset-4">
-	<center><h2>PhD Admission Form</h2></center>
-	</div>
-	<div class="col-sm-4">
-	<br>
-	<center><a href="/register/signout"><button class="btn btn-primary">Logout</button></a></center>
-	</div>
-	<br>
-</div>
+{% include "header.djt" %}
 <div id="container">
 	<div class="row" style="margin-top:4%;">
 		<div>
@@ -71,9 +61,9 @@
 						Original documents and ID proof (Adhaar /Passport/Voter ID/PAN Card) will have to be produced at the time of interview, else interview will not be conducted.
 					</li>
 					<br>
-					<li>
+					<!--<li>
 						Application filled online along with self-attested copies of relevant testimonials, certificates are to be sent to <b>“ The Chairman (Admissions), National Institute of Technology Warangal, Warangal-506004, Telangana, INDIA. "</b>
-					</li>
+					</li>-->
 					<br>
 					<li>
 						The envelope containing the application be super scribed as <b>APPLICATION FOR  PHD IN THE DEPARTMENT OF .......................</b>
@@ -102,7 +92,7 @@
 		</div>
 	</div>
 </div>
-
+{% include "footer.djt" %}
 </body>
 
 </html>

@@ -9,7 +9,7 @@ urlpatterns = [
     # url(r'^annexure_parttime/', views.annexure_parttime, name = 'annexure_parttime'),
     # url(r'^uploadDocs/', views.uploadDocs, name = 'uploadDocs'),
     # url(r'^submit/$',views.submit,name='submit'),
-    # url(r'^print_main_application', views.print_main_application, name = 'print_main_application'),
-    # url(r'^print_annexures', views.print_annexures, name = 'print_annexures'),
-    # url(r'^printAck/$',views.printAck,name='printAck')
+    url(r'^print_main_application', views.print_main_application, name = 'print_main_application'),
+    url(r'^print_annexures', views.print_annexures, name = 'print_annexures'),
+    url(r'^printAck/$',views.printAck,name='printAck')
 ]
