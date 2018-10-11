@@ -2437,3 +2437,532 @@ Not Found: /phpmyadmin-old/index.php
 Not Found: /phpMyAdminold/index.php
 Not Found: /phpMyAdmin.old/index.php
 Not Found: /pma-old/index.php
+Not Found: /echo.php
+Not Found: /nice ports,/Trinity.txt.bak
+Not Found: /w00tw00t.at.blackhats.romanian.anti-sec:)
+Not Found: /phpMyAdmin/scripts/setup.php
+Not Found: /pma/scripts/setup.php
+Not Found: /myadmin/scripts/setup.php
+Not Found: /MyAdmin/scripts/setup.php
+Not Found: /feed/
+Not Found: /d575563c70483de31a0c8536f17de6d43124a4a6a6e39324dce16f31d5d4ce97.txt
+Not Found: /d575563c70483de31a0c8536f17de6d43124a4a6a6e39324dce16f31d5d4ce97.txt
+Not Found: /d575563c70483de31a0c8536f17de6d43124a4a6a6e39324dce16f31d5d4ce97.txt
+Not Found: /d575563c70483de31a0c8536f17de6d43124a4a6a6e39324dce16f31d5d4ce97.txt
+Not Found: /d575563c70483de31a0c8536f17de6d43124a4a6a6e39324dce16f31d5d4ce97.txt
+Not Found: /d575563c70483de31a0c8536f17de6d43124a4a6a6e39324dce16f31d5d4ce97.txt
+"GET / HTTP/1.1" 302 0
+"GET /register?next=/ HTTP/1.1" 301 0
+"GET /register/?next=/ HTTP/1.1" 200 6931
+"GET /static/img/HINDI2.png HTTP/1.1" 200 395392
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+"GET /register/forgotPassword HTTP/1.1" 301 0
+"GET /register/forgotPassword/ HTTP/1.1" 200 2415
+"GET /register/?next=/ HTTP/1.1" 200 6931
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+"GET /register/createApp HTTP/1.1" 301 0
+"GET /register/createApp/ HTTP/1.1" 200 8404
+"GET /register/signup HTTP/1.1" 301 0
+"GET /register/signup/ HTTP/1.1" 200 8404
+"GET /register/signup/ HTTP/1.1" 200 8404
+"POST /register/createApp/ HTTP/1.1" 200 123
+"POST /register/createApp/ HTTP/1.1" 200 7282
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+"GET /register/signup/ HTTP/1.1" 200 8404
+"POST /register/createApp/ HTTP/1.1" 200 123
+"GET /register/signup/ HTTP/1.1" 200 8404
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+"GET / HTTP/1.1" 302 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"GET /register/forgotPassword/ HTTP/1.1" 200 2415
+"POST /register/forgotPassword/ HTTP/1.1" 200 2745
+"GET /register HTTP/1.1" 301 0
+"GET /register/ HTTP/1.1" 200 6913
+Not Found: /nice ports,/Trinity.txt.bak
+"GET / HTTP/1.1" 302 0
+"GET /register?next=/ HTTP/1.1" 301 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"GET /static/img/HINDI2.png HTTP/1.1" 200 395392
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+"GET / HTTP/1.1" 302 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"GET /register/signup HTTP/1.1" 301 0
+"GET /register/signup/ HTTP/1.1" 200 8404
+"POST /register/createApp/ HTTP/1.1" 200 7282
+"GET /register/forgotPassword HTTP/1.1" 301 0
+"GET /register/forgotPassword/ HTTP/1.1" 200 2415
+"POST /register/forgotPassword/ HTTP/1.1" 200 2745
+"POST /register/forgotPassword/ HTTP/1.1" 200 2745
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+"GET /register/ HTTP/1.1" 200 6913
+"GET /register/forgotPassword/ HTTP/1.1" 200 2415
+code 400, message Bad request syntax ('\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03.B5\xbd\x91y\x97{K\xea\xb2\xb5S\xba\xa1\x90\xef\xfb\xf3\x98\xe9\x8a6\xcclF\x8b\r\xc4\xb2%j \xe4<e\xf3\xde\xa2\r\xd4\xd4\x84O\x14\xd6L$-Q\x08wS\x08\xfeV{\xcb\xc4A\xc4\x8c\xfd\xdc\xd3\x00"\x8a\x8a\x13\x03\x13\x01\x13\x02\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request version ('V\xee\xa4\xc3\xa3\xb80\xb6z0H8\xb2-\xa6o6\x89C\xe3\x1c,\xf4\xe9\xaf2N\x16\xd4\xa2\xa5l\x00"\xaa\xaa\x13\x03\x13\x01\x13\x02\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request version ('\xa1\xecJ\x86\x7f\xf7\xcd\xfch\xbc\x00\x00\x1cjj\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+"GET / HTTP/1.1" 302 0
+"GET /register?next=/ HTTP/1.1" 301 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"GET /static/img/HINDI2.png HTTP/1.1" 200 395392
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+"GET /register/forgotPassword HTTP/1.1" 301 0
+"GET /register/forgotPassword/ HTTP/1.1" 200 2415
+"GET /register HTTP/1.1" 301 0
+"GET /register/ HTTP/1.1" 200 6913
+"POST /register/signin/ HTTP/1.1" 200 7236
+"POST /register/signin/ HTTP/1.1" 200 7236
+"GET / HTTP/1.1" 302 0
+"GET /register?next=/ HTTP/1.1" 301 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"GET /static/img/HINDI2.png HTTP/1.1" 200 395392
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+"GET /register/forgotPassword HTTP/1.1" 301 0
+"GET /register/forgotPassword/ HTTP/1.1" 200 2415
+Internal Server Error: /register/forgotPassword/
+Traceback (most recent call last):
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/wsdcadmin/phdformtest/phdform/registration/views.py", line 227, in forgotPassword
+    send_mail('NIT WARANGAL - Forgot Password request for PhD Admission portal',content,sender,rlist,fail_silently=False,)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/mail/__init__.py", line 62, in send_mail
+    return mail.send()
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/mail/message.py", line 348, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/mail/backends/smtp.py", line 104, in send_messages
+    new_conn_created = self.open()
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/mail/backends/smtp.py", line 64, in open
+    self.connection = self.connection_class(self.host, self.port, **connection_params)
+  File "/usr/lib/python2.7/smtplib.py", line 256, in __init__
+    (code, msg) = self.connect(host, port)
+  File "/usr/lib/python2.7/smtplib.py", line 316, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+  File "/usr/lib/python2.7/smtplib.py", line 291, in _get_socket
+    return socket.create_connection((host, port), timeout)
+  File "/usr/lib/python2.7/socket.py", line 575, in create_connection
+    raise err
+error: [Errno 113] No route to host
+"GET /register/forgotPassword/ HTTP/1.1" 200 2415
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+"GET /register/forgotPassword/ HTTP/1.1" 200 2415
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+Internal Server Error: /register/forgotPassword/
+Traceback (most recent call last):
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/wsdcadmin/phdformtest/phdform/registration/views.py", line 227, in forgotPassword
+    send_mail('NIT WARANGAL - Forgot Password request for PhD Admission portal',content,sender,rlist,fail_silently=False,)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/mail/__init__.py", line 62, in send_mail
+    return mail.send()
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/mail/message.py", line 348, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/mail/backends/smtp.py", line 104, in send_messages
+    new_conn_created = self.open()
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/mail/backends/smtp.py", line 64, in open
+    self.connection = self.connection_class(self.host, self.port, **connection_params)
+  File "/usr/lib/python2.7/smtplib.py", line 256, in __init__
+    (code, msg) = self.connect(host, port)
+  File "/usr/lib/python2.7/smtplib.py", line 316, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+  File "/usr/lib/python2.7/smtplib.py", line 291, in _get_socket
+    return socket.create_connection((host, port), timeout)
+  File "/usr/lib/python2.7/socket.py", line 575, in create_connection
+    raise err
+error: [Errno 113] No route to host
+"GET /secureadmin HTTP/1.1" 301 0
+"GET /secureadmin/ HTTP/1.1" 302 0
+"GET /secureadmin/login/?next=/secureadmin/ HTTP/1.1" 200 1678
+"GET /static/admin/css/login.css HTTP/1.1" 200 1203
+"GET /static/admin/css/base.css HTTP/1.1" 200 15937
+"GET /static/admin/css/fonts.css HTTP/1.1" 200 423
+"GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 80304
+"GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200 81348
+"POST /secureadmin/login/?next=/secureadmin/ HTTP/1.1" 302 0
+"GET /secureadmin/ HTTP/1.1" 200 11973
+"GET /static/admin/css/dashboard.css HTTP/1.1" 200 434
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+"GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 82564
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+"GET /secureadmin/auth/user/ HTTP/1.1" 200 52166
+"GET /static/admin/css/changelists.css HTTP/1.1" 200 6117
+"GET /static/admin/js/core.js HTTP/1.1" 200 7976
+"GET /static/admin/js/jquery.init.js HTTP/1.1" 200 363
+"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 6577
+"GET /static/admin/js/actions.js HTTP/1.1" 200 6501
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"GET /static/admin/js/urlify.js HTTP/1.1" 200 8186
+"GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1538
+"GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 128820
+"GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 258648
+"GET /static/admin/img/search.svg HTTP/1.1" 200 458
+"GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+"GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+"GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+"GET /secureadmin/auth/user/?q=PH18007153 HTTP/1.1" 200 7435
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"GET /secureadmin/auth/user/1218/change/?_changelist_filters=q%3DPH18007153 HTTP/1.1" 200 18270
+"GET /static/admin/css/forms.css HTTP/1.1" 200 7750
+"GET /static/admin/js/SelectBox.js HTTP/1.1" 200 5755
+"GET /static/admin/js/calendar.js HTTP/1.1" 200 7790
+"GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 12389
+"GET /static/admin/js/change_form.js HTTP/1.1" 200 698
+"GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 20529
+"GET /static/admin/css/widgets.css HTTP/1.1" 200 10340
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 495
+"GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+"GET /static/admin/img/icon-unknown-alt.svg HTTP/1.1" 200 655
+"GET /static/admin/img/icon-unknown.svg HTTP/1.1" 200 655
+"GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+"GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+"GET /secureadmin/auth/user/1218/password/ HTTP/1.1" 200 3089
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"POST /secureadmin/auth/user/1218/password/ HTTP/1.1" 302 0
+"GET /secureadmin/auth/user/1218/change/ HTTP/1.1" 200 18287
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+"GET /secureadmin/logout/ HTTP/1.1" 200 1032
+"GET /secureadmin/ HTTP/1.1" 302 0
+"GET /secureadmin/login/?next=/secureadmin/ HTTP/1.1" 200 1678
+"GET / HTTP/1.1" 302 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"POST /register/signin/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /register/paymentDetails HTTP/1.1" 301 0
+"GET /register/paymentDetails/ HTTP/1.1" 200 5201
+"POST /register/paymentDetails/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /register/termsandconditions HTTP/1.1" 301 0
+"GET /register/termsandconditions/ HTTP/1.1" 200 5564
+"POST /register/termsandconditions/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 23976
+"GET /static/img/default_profile.jpg HTTP/1.1" 200 15449
+"GET /uploadpic HTTP/1.1" 301 0
+"GET /uploadpic/ HTTP/1.1" 200 3432
+"POST /uploadpic/ HTTP/1.1" 200 3603
+"POST /uploadpic/ HTTP/1.1" 200 3603
+"POST /uploadpic/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 24074
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/profilepic/DSC_2654.JPG HTTP/1.1" 200 13906079
+"POST / HTTP/1.1" 200 24656
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/profilepic/DSC_2654.JPG HTTP/1.1" 304 0
+"POST / HTTP/1.1" 302 0
+"GET /annexures HTTP/1.1" 301 0
+"GET /annexures/ HTTP/1.1" 200 3705
+"GET /annexure_parttime HTTP/1.1" 301 0
+"GET /annexure_parttime/ HTTP/1.1" 200 6545
+"POST /annexure_parttime/ HTTP/1.1" 302 0
+"GET /annexures HTTP/1.1" 301 0
+"GET /annexures/ HTTP/1.1" 200 3693
+"GET /uploadDocs HTTP/1.1" 301 0
+"GET /uploadDocs/ HTTP/1.1" 200 7923
+"POST /uploadDocs/ HTTP/1.1" 200 9668
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/documents/e.mail_registration_form_1.pdf HTTP/1.1" 200 14498
+"GET / HTTP/1.1" 200 24348
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/profilepic/DSC_2654.JPG HTTP/1.1" 304 0
+"POST / HTTP/1.1" 302 0
+"GET /annexures HTTP/1.1" 301 0
+"GET /annexures/ HTTP/1.1" 200 3689
+"GET /uploadDocs/ HTTP/1.1" 200 9355
+"POST /uploadDocs/ HTTP/1.1" 200 9668
+"GET / HTTP/1.1" 200 24348
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/profilepic/DSC_2654.JPG HTTP/1.1" 304 0
+"POST / HTTP/1.1" 200 25343
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/profilepic/DSC_2654.JPG HTTP/1.1" 304 0
+"POST / HTTP/1.1" 302 0
+"GET /annexures HTTP/1.1" 301 0
+"GET /annexures/ HTTP/1.1" 200 3689
+"GET /uploadDocs/ HTTP/1.1" 200 9355
+"GET / HTTP/1.1" 200 25043
+"POST / HTTP/1.1" 200 25343
+"POST / HTTP/1.1" 302 0
+"GET /annexures HTTP/1.1" 301 0
+"GET /annexures/ HTTP/1.1" 200 3689
+"GET /annexure_parttime/ HTTP/1.1" 200 6595
+"POST /annexure_parttime/ HTTP/1.1" 302 0
+"GET /annexures HTTP/1.1" 301 0
+"GET /annexures/ HTTP/1.1" 200 3689
+"GET /uploadDocs/ HTTP/1.1" 200 9355
+"GET /register/signout HTTP/1.1" 301 0
+"GET /register/signout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"POST /register/signin/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /submit HTTP/1.1" 301 0
+"GET /submit/ HTTP/1.1" 200 2375
+"GET /print_main_application HTTP/1.1" 200 8721
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/profilepic/DSC_2654.JPG HTTP/1.1" 304 0
+"GET /submit/ HTTP/1.1" 200 2375
+"GET /print_annexures HTTP/1.1" 200 3084
+"GET /printAck HTTP/1.1" 301 0
+"GET /printAck/ HTTP/1.1" 200 2663
+"GET /static/img/logo_wsdc.png HTTP/1.1" 200 3014
+"POST /submit/ HTTP/1.1" 200 123
+"GET /submit/ HTTP/1.1" 200 2375
+"GET /print_annexures HTTP/1.1" 200 3084
+"GET /register/signout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"POST /register/signin/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /submit HTTP/1.1" 301 0
+"GET /submit/ HTTP/1.1" 200 2375
+"GET /register/signout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"GET /secureadmin/ HTTP/1.1" 302 0
+"GET /secureadmin/login/?next=/secureadmin/ HTTP/1.1" 200 1678
+"POST /secureadmin/login/?next=/secureadmin/ HTTP/1.1" 302 0
+"GET /secureadmin/ HTTP/1.1" 200 12301
+"GET /secureadmin/recruit/appdata/ HTTP/1.1" 200 61644
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"GET /secureadmin/recruit/appdata/?q=PH18007153 HTTP/1.1" 200 9090
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"GET /secureadmin/recruit/appdata/PH18007153/change/?_changelist_filters=q%3DPH18007153 HTTP/1.1" 200 66658
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"POST /secureadmin/recruit/appdata/PH18007153/change/?_changelist_filters=q%3DPH18007153 HTTP/1.1" 200 66793
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"POST /secureadmin/recruit/appdata/PH18007153/change/?_changelist_filters=q%3DPH18007153 HTTP/1.1" 200 66803
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"POST /secureadmin/recruit/appdata/PH18007153/change/?_changelist_filters=q%3DPH18007153 HTTP/1.1" 302 0
+"GET /secureadmin/recruit/appdata/?q=PH18007153 HTTP/1.1" 200 9312
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"GET /secureadmin/recruit/appdata/PH18007153/change/?_changelist_filters=q%3DPH18007153 HTTP/1.1" 200 66674
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"POST /secureadmin/recruit/appdata/PH18007153/change/?_changelist_filters=q%3DPH18007153 HTTP/1.1" 302 0
+"GET /secureadmin/recruit/appdata/?q=PH18007153 HTTP/1.1" 200 9312
+"GET /secureadmin/jsi18n/ HTTP/1.1" 200 3217
+"GET / HTTP/1.1" 302 0
+"GET /register/?next=/ HTTP/1.1" 200 7053
+"POST /register/signin/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 25043
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/profilepic/DSC_2654.JPG HTTP/1.1" 304 0
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/papers/e.mail_registration_form_1.pdf HTTP/1.1" 200 14498
+"GET /register/signout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+Not Found: /register/createApp/
+code 400, message Bad request syntax ('\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03%&\xe1\x8b\xa9V\xd2\xce\xceF9\x0cL\'\x9b\xedxkpa\xeb\x11|]*R\xce1:1\xf0\xad `\xea\x1c&\xd7`\xceYQ\xa5\xc8\xcf\x9d\xa6\x10Ko\xebL\r\xb2\xe5\xa6aB\x8f\xf7+\xfa\x80\xf5!\x00"jj\x13\x03\x13\x01\x13\x02\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request version ('\xcc\xa5\x9f\xa0\xc2\xdaY\x8d\x95\xf1\x97\x9c\x95\x91\xa9\xe6\xc6\x1d\x91\xcf)\xd5C\xb9\x11\x14\xe7\xedv_\x7f.\x00"\x8a\x8a\x13\x03\x13\x01\x13\x02\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request syntax ("\x16\x03\x01\x00\xcc\x01\x00\x00\xc8\x03\x03j\xa6\xe0o\x88:\xfc\xea\xa4Nc\xc0\x95\xb8\xe9F\xfa\xf3\x8bqR\x9f\x9c'\xe1\xa1rUmv\xf2\xa0\x00\x00\x1c\x9a\x9a\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00")
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request version ('v\xfc\xf6\xf6\xe7\xe2\xc4iL\xd1:*F\xbeB\xaf\xad\'$\x9eF\xc5\x94\xcc,\xb0\xbc\x00"')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03Y\x92\x8f@?\x7f\xaa\xb0\x8b\xfb\xe0r\xd7\xf6\xce\xc6q\x02TA^4\xd4\xe1]-\xec\x8e\xf6\x8c!^')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request syntax ('\x16\x03\x01\x00\xcc\x01\x00\x00\xc8\x03\x03\xc7\x83\xdc8\x89g\x10l\xa6.~Z\xa2\xb9\xed\x0e\xffE\x00\x85uwW\xd4\xcc\xddUYr\x04\xa7\x01\x00\x00\x1c\xda\xda\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request syntax ('\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03\x88\xee;O\x0c?\x06\xed\x8d\x84L\xe4i\xd16\x010f\xed+[\xb5\x90BkO}\x1b\xf6d\xfe\xbd \x97\x08\x1c\xa5\x87Ji\xaf\x12\xfe,g3\xe9\xa9\r\x10\xf1\xc7!\xd6\xd4\x98h\x9eM')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request syntax ('\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03\xd3\x81C=\x1fRq\xca\x15\xc2CkM')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request syntax ("\x16\x03\x01\x00\xcc\x01\x00\x00\xc8\x03\x03Z\x9eA\xe0\x8c9\xfd1\xc780\x92\xd68\x94\xff`\xdf%\xdc\xc8'\x1c\xa2\xd1v~\x8d\xf5Wr\xe9\x00\x00\x1c\xea\xea\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00")
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03\xec\x91UK\xfd\xb6\x80\x9b&\xfb}\xb4xU\xc5S\x94\xca\xb3\x19\xbbs\xc0F\xb6\x8b\xd8\xcdH\x80\x7f\x1b')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03\xed\x98\xd2\x14\x98\xcb\xa83\xdc\x11\xc7U\xfcg\x05\x1f\x819b\x81%\xe9\x1c\x92|\xc1\xa3S\xc0\x99\x8b\x9e')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request version ('~\x12w\xab\x8b\x85\xd8\x00\x00\x1c')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request version ('\x9f\x82P\xf2x\xc9\xa0}\x84,\x9cD\x85\xc1')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03kj\x9a4\xb1b\xfa\x0eE\x81K!|.\x03]D&\x1d\xedk\x8e\xa7\xf4\xbc\xcd\x18\xb4\x9ckS\x81')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request syntax ('\x16\x03\x01\x00\xcc\x01\x00\x00\xc8\x03\x03\x86\xb5\x07|U4\xebp#\xe2^\xe5\x0f\xb6\xcdoeA\x88\xf8Y\xe3/g\xbc\x9bb\x85\x13$;s\x00\x00\x1c\xca\xca\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request version ('\xd4!\xd4Q\x06\\\xb7\xdb')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request syntax ('\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03E\xeb1\xcbXc\xa2\xbb\x15\xd6A\x86\x87\xd2\x1b\x8aN%)')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request syntax ("\x16\x03\x01\x00\xcc\x01\x00\x00\xc8\x03\x03\xd6D\xce\x06\x16AH\xf5e\x1c{{\xab\xd7\xe9\x946\xe0\xaa)2\xc9'\xa6m^\x9dB\x08f\xa7/\x00\x00\x1c**\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00")
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request version ('\xed\xce\xb5\xfa\xae\x95\x1a\x9fR\x17@\x10-P\x1f\xf1\x98\xef\xe1\xe6\xb8v\xd4X\x85C\xb3\xe2\x0e\xa2bH\x00"\xda\xda\x13\x03\x13\x01\x13\x02\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00')
+code 400, message Bad request syntax ('\x16\x03\x01\x02\x00\x01\x00\x01\xfc\x03\x03t\x9c\xdb*\xf0\x1a\xd3Y\r\xe1\xac\x0e\xe7z\xc8?\xf7\xec\xdbE\xe88\xbc\xb5\x18h}\xc4qZA\xe6 \x1d)}\x9a\xd6\xd6\xa1Q+\x95f\x0e\xa7\xc3\xaf\x80\xa3IwQ\xec \x94\xfbA&5\xc6\xbe\xf5\x8c\x11\x00"zz\x13\x03\x13\x01\x13\x02\xcc\xa9\xcc\xa8\xc0+\xc0/\xc0,\xc00\xc0\x13\xc0\x14\x00\x9c\x00\x9d\x00/\x005\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request syntax ('\x16\x03\x01\x00\xcc\x01\x00\x00\xc8\x03\x03\xbd-V|4\xe1!\xcf4\x19c;\x14\xdf\xc7a\xaf)\x15c\xcc\xeb')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+"GET / HTTP/1.1" 302 0
+"GET /register?next=/ HTTP/1.1" 301 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"GET /static/img/HINDI2.png HTTP/1.1" 200 395392
+"GET /favicon.ico HTTP/1.1" 301 0
+"GET /static/img/favicon.png HTTP/1.1" 200 66384
+"POST /register/signin/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 25043
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/profilepic/DSC_2654.JPG HTTP/1.1" 200 13906079
+"POST / HTTP/1.1" 302 0
+"GET /annexures HTTP/1.1" 301 0
+"GET /annexures/ HTTP/1.1" 200 3689
+"GET /annexure_parttime HTTP/1.1" 301 0
+"GET /annexure_parttime/ HTTP/1.1" 200 6590
+Not Found: /register/paymentDetails
+"POST /annexure_parttime/ HTTP/1.1" 200 6906
+"POST /annexure_parttime/ HTTP/1.1" 302 0
+"GET /annexures HTTP/1.1" 301 0
+"GET /annexures/ HTTP/1.1" 200 3689
+"GET /uploadDocs HTTP/1.1" 301 0
+"GET /uploadDocs/ HTTP/1.1" 200 9355
+"POST /uploadDocs/ HTTP/1.1" 200 9668
+"POST /submit/ HTTP/1.1" 200 2375
+"POST /submit/ HTTP/1.1" 200 2375
+"GET /uploadDocs/ HTTP/1.1" 302 0
+"GET /submit HTTP/1.1" 301 0
+"GET /submit/ HTTP/1.1" 200 2375
+"GET /annexure_parttime/ HTTP/1.1" 302 0
+"POST /submit/ HTTP/1.1" 200 123
+Not Found: /libs/js/iframe.js
+"POST /annexure_parttime/ HTTP/1.1" 302 0
+"GET /submit HTTP/1.1" 301 0
+"GET /submit/ HTTP/1.1" 200 2375
+"POST /annexure_parttime/ HTTP/1.1" 302 0
+"GET /submit HTTP/1.1" 301 0
+"GET /submit/ HTTP/1.1" 200 2375
+"POST /annexure_parttime/ HTTP/1.1" 302 0
+"GET /submit HTTP/1.1" 301 0
+"GET /submit/ HTTP/1.1" 200 2375
+"POST /annexure_parttime/ HTTP/1.1" 302 0
+"GET /submit HTTP/1.1" 301 0
+"GET /submit/ HTTP/1.1" 200 2375
+"GET /print_main_application HTTP/1.1" 200 8721
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/profilepic/DSC_2654.JPG HTTP/1.1" 304 0
+Not Found: /register/signup/
+"GET /print_main_application HTTP/1.1" 200 8721
+"GET /media/users/PH18007153_syheSvGoSQxGqaD5brX3/profilepic/DSC_2654.JPG HTTP/1.1" 304 0
+"GET /print_main_application HTTP/1.1" 200 8721
+"GET /register/signout HTTP/1.1" 301 0
+"GET /register/signout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /register/?next=/ HTTP/1.1" 200 6913
+"GET /register/signup HTTP/1.1" 301 0
+"GET /register/signup/ HTTP/1.1" 200 8404
+"GET /register/forgotPassword HTTP/1.1" 301 0
+"GET /register/forgotPassword/ HTTP/1.1" 200 2415
+Not Found: /data/admin/ver.txt
+Not Found: /securedb
+Not Found: /securedb
+Not Found: /securedb
+Not Found: /securedb
+Not Found: /otsmobile/app/mgs/mgw.htm
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/wsdcadmin/phdform/registration/views.py", line 56, in index
+    if 'Chrome' not in request.META['HTTP_USER_AGENT']:
+KeyError: u'HTTP_USER_AGENT'
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/wsdcadmin/phdform/registration/views.py", line 56, in index
+    if 'Chrome' not in request.META['HTTP_USER_AGENT']:
+KeyError: u'HTTP_USER_AGENT'
+Not Found: /webapps/struts2-showcase/
+Not Found: /annexures
+Not Found: /modules/mod_dvfoldercontent/download.php
+Not Found: /index.php
+Not Found: /plugins/content/jw_allvideos/includes/download.php
+Not Found: /components/com_contushdvideoshare/hdflvplayer/download.php
+Not Found: /index.php
+Not Found: /administrator/components/com_aceftp/quixplorer/index.php
+Not Found: /plugins/content/s5_media_player/helper.php
+Not Found: /index.php
+Not Found: /plugins/content/wd/wddownload.php
+Not Found: /configuration.php-bk
+Not Found: /HNAP1/
+Not Found: /submit
+Not Found: /libs/js/iframe.js
+Not Found: /libs/js/iframe.js
+Not Found: /libs/js/iframe.js
+Not Found: /libs/js/iframe.js
+Not Found: /libs/js/iframe.js
+Not Found: /libs/js/iframe.js
+Not Found: /libs/js/iframe.js
+Not Found: /submit
+Not Found: /register/createApp/
+Not Found: /submit
+Not Found: /submit
+Not Found: /main/
+Not Found: /submit
+Not Found: /submit
+Forbidden (CSRF token missing or incorrect.): /register/signin/
+Not Found: /submit
+Not Found: /register/forgotpassword
+Not Found: /sitemap.xml
+Not Found: /.well-known/security.txt
+Not Found: /submit
+Not Found: /admin
+The number of GET/POST parameters exceeded settings.DATA_UPLOAD_MAX_NUMBER_FIELDS.
+The number of GET/POST parameters exceeded settings.DATA_UPLOAD_MAX_NUMBER_FIELDS.
+Forbidden (CSRF token missing or incorrect.): /register/signin/
+Internal Server Error: /register/signin/
+Traceback (most recent call last):
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/wsdcadmin/phdform/registration/views.py", line 94, in signin
+    profile = Appdata.objects.get(user=request.user)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/wsdcadmin/phdformenv/local/lib/python2.7/site-packages/django/db/models/query.py", line 380, in get
+    self.model._meta.object_name
+DoesNotExist: Appdata matching query does not exist.
