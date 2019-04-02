@@ -2,3 +2,5 @@
 db.sqlite3
 media/*
 facultyForm/confidential.py
+facultyForm/settings.py
+requirements.txt
