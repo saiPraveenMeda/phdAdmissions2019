@@ -65,7 +65,7 @@
 				<div class="row" style="margin-top:3%;">
 				<div class="col-sm-12">
 					<div class="alert alert-info">
-					<!-- <center><b>If you haven't created an account already,<br> please do it <a href="/register/createApp"><u>here</u></a></b></center> -->
+					<center><b>If you haven't created an account already,<br> please do it <a href="/register/createApp"><u>here</u></a></b></center>
 					</div>
 				</div>
 			    </div>
