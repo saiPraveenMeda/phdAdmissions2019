@@ -166,6 +166,7 @@ class Document(models.Model):
 	QualifyingExamScoreCard = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	PWDCertificate = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	GuideBio = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	NOC = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s Documents'
@@ -187,6 +188,7 @@ class Flag(models.Model):
 	papers = models.BooleanField(default=False)
 	guidebio = models.BooleanField(default=False)
 	application = models.BooleanField(default=False)
+	noc = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s flags'

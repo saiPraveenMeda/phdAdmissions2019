@@ -47,7 +47,7 @@
 
 	<div class="row" style="margin-top: 1%;">
 		<div class="col-sm-8 col-sm-offset-2">
-			   <form method="POST" enctype="multipart/form-data" action="" onsubmit="return validate()">
+			   <form method="POST" enctype="multipart/form-data" action="" onsubmit="">
 			    {% csrf_token %}
 			    <table class="table table-bordered">
 				<thead>
@@ -258,6 +258,25 @@
 			    		</td>
 			    	</tr>
 			    	{% endif %}
+			    	<tr>
+			    		<td>11.</td>
+			    		<td> No Objection Certificate <br> (If Applicable)</td>
+			    		<td>
+			    		    {% if noc %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			{% if noc %} <a href="{{nocURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    			{% if noc %} <button class="btn btn-info" id="noc" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" accept="application/pdf" name="NOC">
+			    		    {% endif %}
+			    		</td>
+			    	</tr>
 			    </tbody>
 			    </table>
 
