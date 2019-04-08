@@ -167,6 +167,7 @@ class Document(models.Model):
 	PWDCertificate = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	GuideBio = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 	NOC = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
+	other = models.FileField(upload_to=get_docpath, validators=[FileExtensionValidator(["pdf"])], null=True, blank=True)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s Documents'
@@ -189,6 +190,7 @@ class Flag(models.Model):
 	guidebio = models.BooleanField(default=False)
 	application = models.BooleanField(default=False)
 	noc = models.BooleanField(default=False)
+	other = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.app_id.app_id + '\'s flags'

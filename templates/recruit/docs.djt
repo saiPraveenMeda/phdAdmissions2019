@@ -277,6 +277,25 @@
 			    		    {% endif %}
 			    		</td>
 			    	</tr>
+			    	<tr>
+			    		<td>12.</td>
+			    		<td> Other Documents <br> (Optional)</td>
+			    		<td>
+			    		    {% if other %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
+			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>
+			    		    {% endif %}
+			    		</td>
+			    		<td>
+			    			{% if other %} <a href="{{otherURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    		<td>
+			    			{% if other %} <button class="btn btn-info" id="other" type="button" onclick="edit(this.id)"> Change </button>
+			    		    {% else %} <input type="file" accept="application/pdf" name="other">
+			    		    {% endif %}
+			    		</td>
+			    	</tr>
 			    </tbody>
 			    </table>
 

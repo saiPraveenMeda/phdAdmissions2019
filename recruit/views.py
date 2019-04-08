@@ -335,12 +335,15 @@ def uploadDocs(request):
             docs.PWDCertificate = request.FILES['PWDCertificate']
         if 'NOC' in request.FILES:
             docs.NOC = request.FILES['NOC']
+        if 'other' in request.FILES:
+            docs.other = request.FILES['other']
 
         if not (((not docs.UDegree) or validateFormat(docs.UDegree)) and
             ((not docs.UMemo) or validateFormat(docs.UMemo)) and
             ((not docs.MDegree) or validateFormat(docs.MDegree)) and
             ((not docs.MMemo) or validateFormat(docs.MMemo)) and
             ((not docs.NOC) or validateFormat(docs.NOC)) and
+            ((not docs.other) or validateFormat(docs.other)) and
             (int(qe.exam.id) in [12, 13, 14] or (not docs.QualifyingExamScoreCard) or validateFormat(docs.QualifyingExamScoreCard)) and
             (gd.category=='UR' or (not docs.CasteCertificate) or validateFormat(docs.CasteCertificate)) and
             (gd.pwd=='no' or (not docs.PWDCertificate) or validateFormat(docs.PWDCertificate)) and
@@ -358,6 +361,8 @@ def uploadDocs(request):
         flags.masters_memo = is_file_exists(docs.MMemo)
         if 'NOC' in request.FILES:
             flags.noc = is_file_exists(docs.NOC)
+        if 'other' in request.FILES:
+            flags.other = is_file_exists(docs.other)
         if int(qe.exam.id) not in [12, 13, 14]:
             flags.qualifying_scorecard = is_file_exists(docs.QualifyingExamScoreCard)
         if gd.category != 'UR':
@@ -395,6 +400,9 @@ def uploadDocs(request):
     response['noc'] = flags.noc
     if flags.noc:
         response['nocURL'] = docs.NOC.url
+    response['other'] = flags.other
+    if flags.other:
+        response['otherURL'] = docs.other.url
     if int(qe.exam.id) not in [12, 13, 14]:
         response['isQual'] = True
         response['QualifyingExamScoreCard'] = flags.qualifying_scorecard
