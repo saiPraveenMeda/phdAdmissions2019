@@ -503,6 +503,28 @@
 			    		</td>
 			    	</tr>
 			    	{% endif %}
+			    	{% if noc %}
+			    	<tr>
+			    		<td>11.</td>
+			    		<td> No Objection Certificate</td>
+			    		<td>
+			    			{% if noc %} <a href="{{nocURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	{% endif %}
+			        {% if other %}
+			    	<tr>
+			    		<td>12.</td>
+			    		<td> Other Documents </td>
+			    		<td>
+			    			{% if other %} <a href="{{otherURL}}" target="_blank"> View </a>
+			    			{% else %} <span>--</span>
+			    			{% endif %}
+			    		</td>
+			    	</tr>
+			    	{% endif %}
 			    </tbody>
 			    </table>
 			</div>

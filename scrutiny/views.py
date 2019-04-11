@@ -131,6 +131,16 @@ def viewApplication(request, applnid):
 		response['MMemo'] = flags.masters_memo
 		if flags.masters_memo:
 			response['MMemoURL'] = docs.MMemo.url
+		if flags.noc:
+			response['noc'] = True
+			response['nocURL'] = docs.NOC.url
+		else:
+			response['noc'] = False
+		if flags.other:
+			response['other'] = True
+			response['otherURL'] = docs.other.url
+		else:
+			response['other'] = False
 		if int(qe.exam.id) not in [12, 13, 14]:
 			response['isQual'] = True
 			response['QualifyingExamScoreCard'] = flags.qualifying_scorecard
