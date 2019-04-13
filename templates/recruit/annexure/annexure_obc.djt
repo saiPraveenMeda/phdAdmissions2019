@@ -112,7 +112,7 @@
 						<li>Revenue Officer not below the rank of Tasildar’ and</li>
 						<li>Sub- Divisional Officer of the area where the candidate and / or his family resides.</li>
 						</ol>
-						<li>The annual income /status of the parents of the applicant should be based on financial year ending March 31, 2018.</li>
+						<li>The annual income /status of the parents of the applicant should be based on financial year ending March 31, 2019.</li>
 						</ol><br>
 						<center> <b>Declaration /undertaking - for OBC Candidates only</b></center>
 						<br>
@@ -122,7 +122,7 @@
 							<option {%if gender == 'Daughter'%} selected {%endif%} value="Daughter">Daughter</option>
 							<option {%if gender == 'Son'%} selected {%endif%} value="Son">Son</option>
 						</select>
-						of Shri/Smt <input id = "parent_name1" type = "text" value = "{{parent_name}}" align = "center" disabled> of Village/Town/City <input id = "village1" type = "text" value = "{{village}}" disabled align = "center" > district/division <input id = "district2" type = "text" value = "{{district}}" align = "center" disabled> in the <input id = "state2" type = "text" value = "{{state}}" disabled> State hereby declare that I belong to the<input id = "community1" type = "text" value = "{{community}}" disabled> Community which is recognized as a backward class by the Government of India for the purpose of reservation in services admission in Central Government Institutions as per orders contained in Department of Personnel and Training Office Memorandum No. 36012/22/93 – Estt. (SCT), dated 8/9/1993. It is also declared that I do not belong to persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the above referred Office Memorandum, dated 8/9/1993, which is modified vide Department of Personnel and Training Office Memorandum No. 36033/3/2004 Estt. (Res.) dated 9/3/2004 or the latest notification of the Government of India. I also declare that the condition of status/annual income for creamy layer of my parents/guardian is within prescribed limits as on financial year ending on March 31, 2018.
+						of Shri/Smt <input id = "parent_name1" type = "text" value = "{{parent_name}}" align = "center" disabled> of Village/Town/City <input id = "village1" type = "text" value = "{{village}}" disabled align = "center" > district/division <input id = "district2" type = "text" value = "{{district}}" align = "center" disabled> in the <input id = "state2" type = "text" value = "{{state}}" disabled> State hereby declare that I belong to the<input id = "community1" type = "text" value = "{{community}}" disabled> Community which is recognized as a backward class by the Government of India for the purpose of reservation in services admission in Central Government Institutions as per orders contained in Department of Personnel and Training Office Memorandum No. 36012/22/93 – Estt. (SCT), dated 8/9/1993. It is also declared that I do not belong to persons/sections (Creamy Layer) mentioned in Column 3 of the Schedule to the above referred Office Memorandum, dated 8/9/1993, which is modified vide Department of Personnel and Training Office Memorandum No. 36033/3/2004 Estt. (Res.) dated 9/3/2004 or the latest notification of the Government of India. I also declare that the condition of status/annual income for creamy layer of my parents/guardian is within prescribed limits as on financial year ending on March 31, 2019.
 						<br><br><br>
 						<div class="row">
 							<div class="col-sm-6"><p><b>Place:</b></p></div>

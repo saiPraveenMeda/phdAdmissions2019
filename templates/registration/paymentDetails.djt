@@ -98,8 +98,8 @@
 	$('select').change(function(){
 		$('#amount').show();
 		var x;
-		if($(this).val()=='SC/ST/PWD') { x='Rs.500'; $('#amountval').val(x); }
-		else if($(this).val()=='GEN/OBC') { x='Rs.1000'; $('#amountval').val(x); }
+		if($(this).val()=='SC/ST/PWD') { x='Rs.800'; $('#amountval').val(x); }
+		else if($(this).val()=='GEN/OBC') { x='Rs.1600'; $('#amountval').val(x); }
 		else { $('#amount').hide(); }
 	});
 

@@ -198,7 +198,7 @@
 			    	{% if isReserved %}
 			    	<tr>
 			    		<td>8.</td>
-			    		<td> Caste Certificate</td>
+			    		<td> Caste/EWS Certificate</td>
 			    		<td>
 			    		    {% if CasteCertificate %} <span class="glyphicon glyphicon-ok"> UPLOADED </span>
 			    		    {% else %} <span class="glyphicon glyphicon-remove"> NOT UPLOADED </span>

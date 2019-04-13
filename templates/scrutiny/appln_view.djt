@@ -473,7 +473,7 @@
 			    	{% if isReserved %}
 			    	<tr>
 			    		<td>8.</td>
-			    		<td> Caste Certificate</td>
+			    		<td> Caste/EWS Certificate</td>
 			    		<td>
 			    			{% if CasteCertificate %} <a href="{{CasteCertificateURL}}" target="_blank"> View </a>
 			    			{% else %} <span>--</span>

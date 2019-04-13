@@ -254,9 +254,10 @@
 				<label class="radio-inline"><input type="radio" value="SC" name="category" {% ifequal generalData.category 'SC' %} checked {% endifequal %} id="SC" required>SC</label>
 				<label class="radio-inline"><input type="radio" value="ST" name="category" {% ifequal generalData.category 'ST' %} checked {% endifequal %} id="ST">ST</label>
 				<label class="radio-inline"><input type="radio" value="OBC" name="category" {% ifequal generalData.category 'OBC' %} checked {% endifequal %} id="OBC">OBC</label>
-				<label class="radio-inline"><input type="radio" value="UR" name="category" {% ifequal generalData.category 'UR' %} checked {% endifequal %} id="UR">UR</label>
+				<label class="radio-inline"><input type="radio" value="UR" name="category" {% ifequal generalData.category 'UR' %} checked {% endifequal %} id="UR">OP</label>
+				<label class="radio-inline"><input type="radio" value="OP-EWS" name="category" {% ifequal generalData.category 'OP-EWS' %} checked {% endifequal %} id="UR">OP-EWS</label>
 				<br>
-				<span class="badge" {%if generalData == None or generalData.category == 'UR' %} style="visibility: hidden;" {%endif%} id="isCASTE">You need to upload caste certificate (in next page)</span>
+				<span class="badge" {%if generalData == None or generalData.category == 'UR' %} style="visibility: hidden;" {%endif%} id="isCASTE">You need to upload caste/EWS certificate (in next page)</span>
 				<span class="badge" {%if generalData == None or generalData.category != 'OBC'%} style="visibility: hidden;" {%endif%} id="isOBC">You need to fill 'Annexure - II' (in next page)</span>
 				</div>
 				</div>
